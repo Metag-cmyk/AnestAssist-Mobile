@@ -319,5 +319,29 @@ export const STATIC_GUIDELINES: StaticGuideline[] = [
     year: 2018,
     category: 'Intra-op',
     summary: 'Crucial timelines for neuraxial catheter placement and removal. Discontinue Clopidogrel 5-7 days prior, Ticagrelor 3-5 days prior. DOACs like Rivaroxaban/Apixaban require 72h hold. Prophylactic LMWH requires 12h hold, therapeutic LMWH requires 24h hold before neuraxial block.'
+  },
+  {
+    id: 'asa-difficult-airway-2022',
+    title: 'Difficult Airway Algorithm (2022 Update)',
+    source: 'ASA',
+    year: 2022,
+    category: 'Airway',
+    summary: 'Updated cognitive aid for managing both anticipated and unanticipated difficult airways. Key updates: (1) Videolaryngoscopy (VL) is recommended as a primary or first-attempt tool in patients with anticipated difficult airways. (2) Emphasis on pre-oxygenation / apneic oxygenation (HFNO) throughout. (3) Clear 4-plan framework (A: Oral intubation, B: Supraglottic airway, C: Bag-mask, D: Emergency Front of Neck Access/eFONA). (4) Scalpel-bougie-tube eFONA technique is the recommended rescue method. (5) A strict limit of 3 intubation attempts before escalating to the next plan is reinforced. Decision to wake the patient versus proceed via SAD is explicitly included in the algorithm.'
+  },
+  {
+    id: 'kdigo-aki-periop',
+    title: 'KDIGO AKI - Perioperative Renal Protection',
+    source: 'ESICM',
+    year: 2023,
+    category: 'Renal',
+    summary: 'KDIGO-aligned perioperative renal protection strategies: (1) Haemodynamic optimization: maintain MAP > 65-70 mmHg to protect renal autoregulation, particularly in patients with pre-existing CKD. (2) Fluid strategy: use balanced crystalloids (Plasmalyte or Hartmann\'s) over 0.9% NaCl to prevent hyperchloremic acidosis and renal vasoconstriction. (3) Avoid nephrotoxins: stop NSAIDs, ACEi/ARBs (24-48h pre-op), and aminoglycosides. Limit contrast volume; consider N-acetylcysteine and sodium bicarbonate pre-hydration for high-risk contrast procedures. (4) Monitor urinary output (target > 0.5 mL/kg/hr), creatinine, and electrolytes at 6-24h intervals post-op. (5) CRRT should be initiated if AEIOU criteria are met (Acidosis pH < 7.2, Electrolyte disturbance K+ > 6.5, Ingestion, Overload refractory, Uremia with encephalopathy).'
+  },
+  {
+    id: 'aha-acc-dapt-2021',
+    title: 'AHA/ACC 2021 Coronary Revascularization & DAPT Management',
+    source: 'AHA',
+    year: 2021,
+    category: 'Cardiovascular',
+    summary: 'Dual Antiplatelet Therapy (DAPT) perioperative management for patients with recent PCI or ACS: (1) Timing of surgery: Elective surgery should be deferred for a minimum of 1 month after bare-metal stenting and 6 months after drug-eluting stenting. If surgery is urgent, continue Aspirin throughout and resume P2Y12 inhibitors as soon as safely possible post-op. (2) Continue Aspirin perioperatively unless risk of surgical bleeding is prohibitive (e.g., neurosurgery, spine surgery). (3) Stopping P2Y12 inhibitors: Clopidogrel 5 days, Ticagrelor 3-5 days, Prasugrel 7 days before surgery to allow platelet recovery. (4) Bridging: IV Cangrelor or GP IIb/IIIa inhibitors are occasionally used as a bridge during the perioperative cessation window in very high-risk patients, in close consultation with cardiology. (5) Post-op: Resume P2Y12 inhibitors as soon as possible (ideally within 24-48h) to prevent stent thrombosis.'
   }
 ];

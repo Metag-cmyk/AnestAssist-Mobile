@@ -2920,4 +2920,124 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Creatinine': '60 - 110 umol/L'
     }
   },
+  {
+    id: 'osa',
+    name: 'Obstructive Sleep Apnea (OSA)',
+    category: 'Respiratory > Perioperative',
+    severity: 'standard',
+    diagnosis: [
+      'STOP-BANG Score ≥ 3 = High Risk (Snoring, Tired, Observed apneas, Pressure, BMI >35, Age >50, Neck >40cm, Male)',
+      'PSG (Polysomnography): AHI > 5 events/hour confirms diagnosis',
+      'SpO2 dips on overnight oximetry'
+    ],
+    immediateActions: [
+      'Identify STOP-BANG score perioperatively',
+      'Continue prescribed CPAP/BiPAP in the perioperative period',
+      'Minimize opioids (multimodal analgesia strategy)',
+      'Postural measures: nurse in semi-recumbent or lateral position'
+    ],
+    secondaryManagement: [
+      'Regional anesthesia where possible to reduce opioid need',
+      'Extended PACU observation (minimum 3 hours)',
+      'Continuous SpO2 monitoring on the ward',
+      'Sleep laboratory referral if untreated OSA confirmed'
+    ],
+    ivFluidManagement: {
+      choices: ['Balanced Crystalloids (standard perioperative)'],
+      targets: ['Euvolemia', 'Avoid fluid overload exacerbating upper airway edema'],
+      monitoring: ['SpO2 continuous', 'Respiratory rate', 'Level of consciousness']
+    },
+    diagram: [
+      { title: 'STOP-BANG Score', description: 'Screen all patients. Score ≥3: High risk. Proceed with caution for airway and post-op monitoring.', type: 'decision' },
+      { title: 'Continue CPAP', description: 'Patients should bring their own CPAP device to hospital and use it pre- and post-op. Ensure settings are documented.', type: 'action' },
+      { title: 'Anesthetic Choice', description: 'Favour regional over general. If GA needed, use short-acting agents (Propofol, Desflurane/Sevoflurane, Remifentanil). Confirm full neuromuscular reversal before extubation.', type: 'action' },
+      { title: 'Extubation', description: 'Extubate wide awake, in the lateral/head-elevated position. Avoid re-sedation. Do not use reversal with Neostigmine without a confirmed TOF ratio > 0.9.', type: 'warning' },
+      { title: 'Post-op Monitoring', description: 'Minimum 3h in PACU. Continuous SpO2 on ward. Avoid unsupervised opioid PCA on surgical wards. Consider HDU.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'SpO2 (awake)': '94 - 98%',
+      'AHI': '< 5 events/hour (normal)',
+      'STOP-BANG Score': '0 - 2 (Low Risk)'
+    }
+  },
+  {
+    id: 'esrd',
+    name: 'End-Stage Renal Disease (ESRD)',
+    category: 'Renal > Perioperative',
+    severity: 'urgent',
+    diagnosis: [
+      'eGFR < 15 mL/min/1.73m² (Stage 5 CKD)',
+      'Dependence on renal replacement therapy (hemodialysis, peritoneal dialysis)',
+      'Uremic symptoms: fatigue, nausea, encephalopathy'
+    ],
+    immediateActions: [
+      'Confirm most recent dialysis session and electrolytes (K+, Bicarb)',
+      'Identify and protect existing AV fistula/graft (no BP cuffs, IVs)',
+      'Check coagulation (uremic platelet dysfunction is common)',
+      'Avoid succinylcholine if K+ > 5.5 mmol/L'
+    ],
+    secondaryManagement: [
+      'Adjust all drug doses for dialysis dependence (avoid renally-cleared drugs)',
+      'Coordinate with renal team for perioperative dialysis schedule',
+      'Monitor for fluid overload (no renal autoregulation)',
+      'Avoid nephrotoxic drugs (contrast, NSAIDs, aminoglycosides)'
+    ],
+    ivFluidManagement: {
+      choices: ['Plasmalyte or Hartmann\'s (avoid K+-rich fluids if hyperkalemic)', 'Strict volume restriction'],
+      targets: ['Avoid volume overload (no renal excretion)', 'Maintain BP for hemodynamic stability'],
+      monitoring: ['Strict fluid balance (no urine output!)', 'Daily weight', 'Pre/post dialysis electrolytes']
+    },
+    diagram: [
+      { title: 'Pre-op Assessment', description: 'Check recent electrolytes, Hb (often anemic), coag, and dialysis schedule. Arrange same-day or day-before dialysis if elective.', type: 'action' },
+      { title: 'Protect Fistula', description: 'Mark the fistula/graft limb clearly. NO BP cuffs, IV lines, blood draws, or tourniquet on that arm. Confirm patency (bruit/thrill).', type: 'warning' },
+      { title: 'Hyperkalemia Risk', description: 'K+ should be < 5.5 mmol/L before elective GA. Avoid succinylcholine (K+ surge). Use Rocuronium + Sugammadex instead.', type: 'warning' },
+      { title: 'Drug Dosing', description: 'Renally-cleared drugs accumulate: Morphine (active M6G metabolite), Metformin (lactic acidosis risk), Antibiotics (Gentamicin, Vancomycin need TDM).', type: 'info' },
+      { title: 'Post-op', description: 'Resume dialysis as soon as haemostasis allows. Monitor for hyperkalemia, pulmonary edema (fluid overload), and bleeding (uremic platelet dysfunction).', type: 'action' }
+    ],
+    normalLabRanges: {
+      'Potassium': '3.5 - 5.5 mmol/L (pre-op target)',
+      'Bicarbonate': '> 18 mmol/L',
+      'Hemoglobin': '> 100 g/L (pre-op target)',
+      'eGFR': '> 15 mL/min (Stage 1-4 CKD)'
+    }
+  },
+  {
+    id: 'pah',
+    name: 'Pulmonary Arterial Hypertension (PAH)',
+    category: 'Cardiovascular > Critical Care',
+    severity: 'critical',
+    diagnosis: [
+      'Mean Pulmonary Artery Pressure (mPAP) > 20 mmHg at rest on right heart catheterization',
+      'Pulmonary Vascular Resistance (PVR) > 2 Wood Units',
+      'Exertional dyspnea, syncope, right heart failure features'
+    ],
+    immediateActions: [
+      'Continue PAH-specific therapies throughout perioperative period (Sildenafil, Bosentan, Epoprostenol)',
+      'Avoid triggers: Hypoxia, Hypercarbia, Acidosis, Hypothermia, Pain/Anxiety, Atelectasis',
+      'Avoid drugs causing SVR drop without PVR drop (vasodilatory agents)'
+    ],
+    secondaryManagement: [
+      'Multi-disciplinary discussion with Pulmonary Hypertension specialist before elective surgery',
+      'Consider regional anesthesia to minimize cardiopulmonary stress',
+      'Have iNO (inhaled Nitric Oxide) and Milrinone available for RV failure'
+    ],
+    ivFluidManagement: {
+      choices: ['Cautious Crystalloid (250mL increments)', 'Avoid large boluses (precipitate RV failure)'],
+      targets: ['Maintain RV preload without distension', 'Target MAP > 65 to maintain RV coronary perfusion'],
+      monitoring: ['Invasive PA pressure (PA catheter or ECHO)', 'RV function (TEE)', 'CVP']
+    },
+    diagram: [
+      { title: 'Avoid Triggers', description: 'The four horsemen of PAH crisis: Hypoxia, Hypercarbia, Acidosis, Hypothermia. Each independently raises PVR and can cause acute RV failure.', type: 'warning' },
+      { title: 'Maintain PVR Targets', description: 'Keep SpO2 > 94%, ETCO2 35-40 mmHg, pH > 7.35, Temp > 36°C. These are non-negotiable primary targets throughout anesthesia.', type: 'action' },
+      { title: 'RV Failure?', description: 'Signs: Rising CVP, falling MAP, worsening SpO2, RV dilation on echo. Act immediately.', type: 'decision' },
+      { title: 'Treat RV Failure', description: 'Inhaled Nitric Oxide (iNO) 10-40ppm + IV Milrinone 0.375-0.75mcg/kg/min. Norepinephrine to maintain systemic pressure. Avoid tachycardia (RV needs diastole).', type: 'action' },
+      { title: 'ECMO Bridge', description: 'VA-ECMO may be required as a bridge in catastrophic RV failure. Early discussion with cardiac surgery is mandatory.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'mPAP': '< 20 mmHg',
+      'PVR': '< 2 Wood Units',
+      'RAP (CVP)': '2 - 6 mmHg',
+      'SpO2': '> 94%'
+    }
+  }
 ];

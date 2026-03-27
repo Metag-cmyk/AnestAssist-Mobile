@@ -456,6 +456,85 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           ],
           postOp: ['Continuous epidural or IV PCA', 'Monitor colostomy perfusion']
         }
+      },
+      {
+        id: 'whipple',
+        name: 'Whipple Procedure (Pancreaticoduodenectomy)',
+        guide: [
+          { title: 'Resection Phase', description: 'En-bloc removal of the pancreatic head, duodenum, proximal jejunum, gallbladder, and common bile duct. Major vessels (SMA, PV) are exposed and carefully preserved.' },
+          { title: 'Reconstruction Phase', description: 'Three anastomoses: Pancreaticojejunostomy (pancreatic duct to jejunum), hepaticojejunostomy (bile duct to jejunum), and gastrojejunostomy (stomach to jejunum).' }
+        ],
+        anestheticConsiderations: [
+          'One of the most physiologically demanding GI operations. Duration 4-8 hours.',
+          'Thoracic epidural is strongly recommended for post-op pain control and enhanced recovery.',
+          'Major blood loss risk during hepatic and portal vein dissection. Have cell saver running.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Piperacillin-Tazobactam 4.5g',
+          dosage: 'Single dose',
+          timing: 'Within 60 min of incision. Re-dose every 4h.',
+          alternatives: 'Cefazolin + Metronidazole'
+        },
+        complications: {
+          surgical: ['Pancreatic fistula (most common)', 'Delayed gastric emptying', 'Bile leak', 'Post-pancreatectomy hemorrhage'],
+          anesthetic: ['Massive hemorrhage', 'Hypothermia', 'Coagulopathy', 'Post-op liver dysfunction']
+        },
+        management: {
+          preOp: ['Nutritional optimization', 'Biliary drainage if jaundiced', 'ERAS protocol initiation', 'Crossmatch 4 units PRBCs'],
+          intraOp: ['Arterial line + Central line', 'Epidural catheter', 'Active warming', 'Goal-directed fluid therapy', 'Consider TEG if prolonged bleeding'],
+          postOp: ['HDU or ICU Day 1', 'Epidural for 3-5 days', 'Monitor drains for amylase-rich fluid (pancreatic leak)', 'Early enteral feeding']
+        }
+      },
+      {
+        id: 'liver-resection',
+        name: 'Liver Resection (Hepatectomy)',
+        guide: [
+          { title: 'Mobilization', description: 'Divide hepatic ligaments to free the liver. Intraoperative ultrasound to define tumor margins and identify key vessels.' },
+          { title: 'Pringle Manoeuvre', description: 'Temporary occlusion of the hepatoduodenal ligament (hepatic artery + portal vein) to reduce bleeding during parenchymal transection. Tolerated up to ~60 min intermittent.' },
+          { title: 'Parenchymal Transection', description: 'Using CUSA (Cavitron Ultrasonic Surgical Aspirator), harmonic scalpel, or stapler. Bile ducts and vessels are ligated as encountered.' }
+        ],
+        anestheticConsiderations: [
+          'Low CVP anaesthesia (CVP < 5 mmHg) during transection reduces hepatic venous bleeding significantly. Use position (head-up), volatile agents, and judicious fluid restriction.',
+          'Risk of massive hemorrhage, particularly from hepatic veins or vena cava. Have massive transfusion protocol on standby.',
+          'Post-operative liver function depends on the functional liver remnant (FLR). Risk of post-hepatectomy liver failure if FLR < 20-25%.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin 2g',
+          dosage: 'Weight-based',
+          timing: 'Within 60 min of incision',
+          alternatives: 'Clindamycin + Gentamicin'
+        },
+        complications: {
+          surgical: ['Bile leak', 'Post-hepatectomy liver failure', 'Hemorrhage', 'Subphrenic abscess'],
+          anesthetic: ['Coagulopathy (reduced hepatic synthetic function)', 'Hypoglycemia', 'Air embolism (hepatic vein injury)']
+        },
+        management: {
+          preOp: ['LFTs, Coagulation screen, CT volumetry of remnant liver', 'Portal vein embolization if FLR insufficient'],
+          intraOp: ['A-line essential', 'Target CVP 0-5 during transection', 'Switch to high-volume resuscitation after hemostasis', 'Glucose monitoring'],
+          postOp: ['Daily LFTs, INR, Bilirubin', 'Monitor for coagulopathy', 'Nutritional support early']
+        }
+      },
+      {
+        id: 'exploratory-laparotomy',
+        name: 'Exploratory Laparotomy',
+        guide: [
+          { title: 'Entry', description: 'Midline laparotomy. Rapid systematic survey of all abdominal quadrants: inspect bowel from Ligament of Treitz to recto-sigmoid, assess solid organs, mesentery, and peritoneum.' },
+          { title: 'Damage Control', description: 'In unstable patients: pack bleeding quadrants, staple bowel ends, close temporarily (Bogota bag or vacuum dressing). Return in 24-48h for definitive repair when physiology corrected.' }
+        ],
+        anestheticConsiderations: [
+          'Often an emergency or semi-emergency. RSI mandatory - assume full stomach.',
+          'Presentation ranges from stable (diagnostic) to actively dying (ruptured viscus, bowel ischemia). Prepare for both extremes.',
+          'Avoid N2O (bowel distension), aggressive PEEP if hemodynamically compromised.'
+        ],
+        complications: {
+          surgical: ['Bowel injury if adhesiolysis', 'Missed injury', 'Post-op ileus'],
+          anesthetic: ['Aspiration', 'Hemodynamic collapse at induction (sepsis/hemorrhage)', 'Hypothermia']
+        },
+        management: {
+          preOp: ['IV access x2 large bore', 'Fluid resuscitation', 'Bloods + Group & Save', 'NG tube'],
+          intraOp: ['RSI with Ketamine/Rocuronium', 'A-line early', 'Warm fluids', 'Consider vasopressors if septic'],
+          postOp: ['ICU if unstable or damage control', 'NGT decompression', 'Epidural or IV PCA']
+        }
       }
     ]
   },
@@ -737,6 +816,64 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Anticipate significant occult blood loss in the thigh; maintain proactive fluid resuscitation.'
           ],
           postOp: ['Monitor for compartment syndrome', 'VTE prophylaxis (LMWH)']
+        }
+      },
+      {
+        id: 'total-shoulder-arthroplasty',
+        name: 'Total Shoulder Arthroplasty (TSA)',
+        guide: [
+          { title: 'Positioning', description: 'Beach-chair or lateral decubitus. Beach-chair requires strict head positioning to prevent cerebral hypoperfusion (keep MAP ≥ 65 at ear level, not at heart).' },
+          { title: 'Approach', description: 'Deltopectoral approach. Subscapularis tendon takedown for exposure of glenohumeral joint.' },
+          { title: 'Implantation', description: 'Humeral head resection, glenoid preparation and component implantation, humeral stem insertion and reduction.' }
+        ],
+        anestheticConsiderations: [
+          'Beach-chair position: high risk of cerebral hypoperfusion from orthostatic gradient. MAP at the Brain = measured MAP minus the vertical distance (in cmH2O converted to mmHg) between the transducer and the head.',
+          'Interscalene brachial plexus block is the gold-standard regional technique; provides excellent intraoperative conditions and long-acting post-op analgesia (up to 18h).',
+          'Interscalene block always causes ipsilateral phrenic nerve palsy (~100%). Avoid in patients with contralateral lung disease or single functioning lung.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin 2g',
+          dosage: 'Weight based (3g if >120kg)',
+          timing: 'Within 60 min of incision',
+          alternatives: 'Vancomycin if MRSA history'
+        },
+        complications: {
+          surgical: ['Axillary nerve injury', 'Glenoid component loosening', 'Rotator cuff tear', 'Infection'],
+          anesthetic: ['Cerebral hypoperfusion (beach-chair)', 'Pneumothorax (interscalene block)', 'Local anesthetic toxicity', 'Air embolism']
+        },
+        management: {
+          preOp: ['Interscalene block placement', 'Assess respiratory reserve', 'Establish MAP target for position'],
+          intraOp: ['Transduce A-line at head level or correct for height difference', 'Phenylephrine infusion to maintain MAP', 'SSEP/MEP monitoring if concern'],
+          postOp: ['Sling immobilization', 'Interscalene catheter for prolonged analgesia', 'Monitor neurovascular status of hand']
+        }
+      },
+      {
+        id: 'multilevel-spinal-fusion',
+        name: 'Multi-level Spinal Fusion (≥3 levels)',
+        guide: [
+          { title: 'Positioning', description: 'Prone on a Wilson frame or Jackson table. Meticulous padding of all pressure points. Eyes taped and checked every 30 min for pressure.' },
+          { title: 'Instrumentation', description: 'Pedicle screw placement under fluoroscopic or navigation guidance. Multiple levels require extended retractor placement causing significant blood loss.' },
+          { title: 'Decompression & Fusion', description: 'Laminectomy/discectomy at affected levels. Bone graft (autograft from iliac crest, or allograft) packed into disc spaces and posterolateral gutters.' }
+        ],
+        anestheticConsiderations: [
+          'Significant blood loss expected (500-2000mL+). Use Cell Saver, Tranexamic Acid (TXA) infusion, and consider deliberate hypotension (MAP 65-75) to reduce field bleeding.',
+          'Intraoperative neuromonitoring (IONM): SSEP and MEP are mandatory. Avoid neuromuscular blocking agents once monitoring is established. Limit volatile agents (prefer TIVA with Propofol/Remifentanil).',
+          'Post-operative vision loss (POVL) is a rare but catastrophic complication; maintain adequate MAP and Hgb, use Logan position (slight reverse Trendelenburg prone), and limit case duration.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin 2g',
+          dosage: 'Weight based. Re-dose every 4h.',
+          timing: 'Within 60 min of incision',
+          alternatives: 'Vancomycin powder locally + Systemic Clindamycin'
+        },
+        complications: {
+          surgical: ['Hardware failure', 'Adjacent segment disease', 'Dural tear/CSF leak', 'Infection (deep wound)'],
+          anesthetic: ['Post-operative vision loss (POVL)', 'Massive hemorrhage', 'Prone position injuries (eyes, brachial plexus)', 'Airway edema']
+        },
+        management: {
+          preOp: ['Autologous blood donation consideration', 'IONM team briefed', 'Discuss TIVA plan'],
+          intraOp: ['TIVA (Propofol+Remifentanil)', 'TXA 1g loading + 1g infusion', 'Cell saver', 'Target MAP 65-75', 'Regular eye checks'],
+          postOp: ['PACU visual check (ask patient to open eyes)', 'ICU if >6 levels or high blood loss', 'IV PCA or epidural']
         }
       }
     ]
@@ -3281,6 +3418,207 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Manage one-lung ventilation (OLV) if VATS is used, and monitor for hypoxia and hemodynamic stability during lung manipulation.'
           ],
           postOp: ['Chest drain management', 'Regular analgesia']
+        }
+      }
+    ]
+  },
+  {
+    id: 'vascular',
+    name: 'Vascular Surgery',
+    generalConsiderations: {
+      preOp: [
+        'Comprehensive cardiac and respiratory assessment is mandatory; these patients have a high prevalence of severe systemic atherosclerosis, CAD, and COPD.',
+        'Optimize antiplatelets and statins per guidelines. Many will remain on Aspirin.',
+        'Assess the patient’s renal function carefully (risk of contrast-induced nephropathy and aortic cross-clamping ischemia).',
+        'Ensure robust peripheral IV access and type & crossmatch blood products early.'
+      ],
+      intraOp: [
+        'Invasive hemodynamic monitoring (Arterial line, CVP, large bore access) is essential for major procedures.',
+        'Prepare for rapid fluid or blood shifts and ischemia-reperfusion injuries upon clamping/unclamping.',
+        'Heparinization is universally required (ACT > 200-250s) before clamping. Have Protamine available (1mg per 100 U Heparin reversed).',
+        'Renal protection strategies (e.g., maintaining adequate perfusion pressure, avoiding nephrotoxins) should be employed.'
+      ],
+      postOp: [
+        'Close ICU/HDU monitoring is often required due to cardiovascular instability and high risk of bleeding or graft thrombosis.',
+        'Vigilant monitoring for signs of distal embolization ("trash foot"), spinal cord ischemia, or compartment syndrome.',
+        'Aggressive continuous pain management to prevent sympathetic surges (epidural or PCA).'
+      ]
+    },
+    procedures: [
+      {
+        id: 'aaa-repair-open',
+        name: 'Open Abdominal Aortic Aneurysm (AAA) Repair',
+        guide: [
+          { title: 'Pre-incision', description: 'Place arterial line and large bore IVs (Level 1 infuser). Consider thoracic epidural for post-op pain.' },
+          { title: 'Heparinization', description: 'Administer systemic heparin (50-100 U/kg) ~3-5 mins before aortic cross-clamping. Check ACT.' },
+          { title: 'Cross-clamping', description: 'Prepare for sudden increase in SVR and afterload. Use vasodilators (SNP, NTG) or deep anesthesia if hemodynamically compromised.' },
+          { title: 'Unclamping', description: 'Prepare for "declamping shock" (sudden hypotension, acidosis, hyperkalemia). Fluid load, lessen anesthesia, have vasopressors ready (Phenylephrine, Norepinephrine).' },
+          { title: 'Closure', description: 'Reverse heparin with protamine if requested, slowly to avoid pulmonary hypertension, anaphylaxis, or hypotension.' }
+        ],
+        anestheticConsiderations: [
+          'Declamping shock: Washout of anaerobic metabolites (lactic acid) and vasodilators from the ischemic lower body.',
+          'Renal protection: Mainstay is maintaining euvolemia and renal perfusion pressure, especially if suprarenal clamping occurs.',
+          'Spinal cord ischemia: Risk increases if clamp time is prolonged or lumbar arteries are sacrificed.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin 2-3g',
+          dosage: 'Weight-based',
+          timing: 'Within 60 min of incision. Re-dose after 4h or >1500ml blood loss.',
+          alternatives: 'Vancomycin + Clindamycin/Gentamicin'
+        },
+        complications: {
+          surgical: ['Hemorrhage', 'Graft thrombosis/infection', 'Bowel ischemia', 'Limb ischemia', 'Ureteral injury'],
+          anesthetic: ['Myocardial infarction', 'Renal failure', 'Paraplegia (spinal cord ischemia)', 'Declamping shock']
+        },
+        management: {
+          preOp: ['ECHO, stress test', 'Baseline Cr', 'Crossmatch 4-6 units PRBCs'],
+          intraOp: ['A-line, CVP, TEE', 'Vasoactive drips ready', 'Active warming', 'Cell saver'],
+          postOp: ['ICU admission', 'Epidural PCA', 'Keep MAP narrow to protect graft and organs']
+        }
+      },
+      {
+        id: 'evar',
+        name: 'Endovascular Aneurysm Repair (EVAR)',
+        guide: [
+          { title: 'Access', description: 'Percutaneous or minor cutdown of femoral arteries. Can be done under local/regional or general anesthesia.' },
+          { title: 'Deployment', description: 'Stent-graft is advanced via fluoroscopy. Brief breath hold or transient induced hypotension may be required for precise deployment.' },
+          { title: 'Completion', description: 'Confirm graft position and absence of endoleaks with contrast angiography.' }
+        ],
+        anestheticConsiderations: [
+          'Significantly less physiologic stress than open repair, but can quickly convert to an open rupture if the aneurysm bursts during wire manipulation.',
+          'Contrast load can be immense. Hydrate adequately, monitor urine output.',
+          'Type of anesthesia depends on patient ability to lie flat and cooperate; General is common for patient immobility.'
+        ],
+        complications: {
+          surgical: ['Endoleaks', 'Access site hematoma/pseudoaneurysm', 'Device migration', 'Iliac rupture'],
+          anesthetic: ['Contrast-induced nephropathy', 'Allergic reaction to contrast', 'Sudden hemorrhage (conversion to Open)']
+        },
+        management: {
+          preOp: ['Evaluate contrast allergy', 'Renal function check', 'Type & Screen'],
+          intraOp: ['Standard monitoring; A-line if cardiac comorbidities exist', 'Maintain immobility'],
+          postOp: ['Usually goes to PACU and floor, avoiding ICU', 'Monitor access site bleeding']
+        }
+      },
+      {
+        id: 'carotid-endarterectomy',
+        name: 'Carotid Endarterectomy (CEA)',
+        guide: [
+          { title: 'Incision & Dissection', description: 'Surgeon exposes the carotid bifurcation. Bradycardia can occur from carotid sinus manipulation (have Glycopyrrolate/Atropine ready or ask surgeon to inject local anesthetic locally).' },
+          { title: 'Heparinization', description: 'Give Heparin (usually 5000 units or weight-based), verify ACT before clamping.' },
+          { title: 'Cross-clamping', description: 'Maintain high-normal BP (typically 20% above baseline) to push collateral blood flow through the Circle of Willis.' },
+          { title: 'Plaque Removal', description: 'Surgeon cleans the artery. Neuromonitoring (EEG, SSEP) if under GA, or clinical wakefulness if under Regional anesthesia.' },
+          { title: 'Closure', description: 'Unclamp. Strict blood pressure control required (<160 SBP) to prevent reperfusion injury/hematoma.' }
+        ],
+        anestheticConsiderations: [
+          'Blood pressure management is the cornerstone: High during clamping for cerebral perfusion, low/normal after unclamping to prevent neck hematoma and airway compromise.',
+          'Choice of anesthesia (Regional/Cervical Plexus Block vs GA): Regional allows direct neurologic monitoring, GA allows strictly controlled PaCO2 and airway protection.',
+          'Post-operative neck hematoma is a lethal airway emergency.'
+        ],
+        complications: {
+          surgical: ['Neck hematoma', 'Cranial nerve injuries (X, XII, VII)', 'Stroke (embolic)', 'Carotid rupture'],
+          anesthetic: ['Hemodynamic lability (baroreceptor disruption)', 'Airway compromise (hematoma)', 'Cerebral hyperperfusion syndrome']
+        },
+        management: {
+          preOp: ['Determine baseline BP and neuro exam', 'Continue Aspirin'],
+          intraOp: ['A-line placement (often awake)', 'Careful positioning (neck extension)', 'Vasopressor/Vasodilator tight control'],
+          postOp: ['PACU or ICU for strict BP monitoring', 'Observe for stridor or swelling']
+        }
+      },
+      {
+        id: 'fem-pop-bypass',
+        name: 'Femoropopliteal Bypass (Fem-Pop)',
+        guide: [
+          { title: 'Incision', description: 'Groin and lower leg incisions. High risk of blood loss if redo procedure or complex dissection.' },
+          { title: 'Grafting', description: 'Saphenous vein harvest or synthetic graft. Heparinize prior to clamping.' },
+          { title: 'Tunneling & Anastomosis', description: 'Tunneling is stimulating. Clamping in the leg causes less systemic change than aorta, but still risks reperfusion toxins upon unclamping.' }
+        ],
+        anestheticConsiderations: [
+          'Regional anesthesia (Spinal/Epidural) is excellent; it causes sympathectomy-induced vasodilation improving graft flow and decreases hypercoagulability post-op.',
+          'Positioning can be painful pre-induction if severe ischemic rest pain exists.'
+        ],
+        complications: {
+          surgical: ['Graft thrombosis', 'Surgical site infection', 'Compartment syndrome'],
+          anesthetic: ['Post-op cognitive dysfunction in elderly', 'Cardiopulmonary stress', 'Epidural hematoma (careful timing of heparin)']
+        },
+        management: {
+          preOp: ['Cardiac optimization', 'Evaluate for regional vs general anesthesia'],
+          intraOp: ['Heparin management', 'Keep patient warm', 'Aggressive hydration to keep graft open'],
+          postOp: ['Maintain BP to support graft flow', 'Monitor pedal pulses']
+        }
+      },
+      {
+        id: 'tevar',
+        name: 'Thoracic Endovascular Aortic Repair (TEVAR)',
+        guide: [
+          { title: 'Access & Wires', description: 'Femoral access, possible brachial access. Guide wires placed.' },
+          { title: 'Spinal Drain placement', description: 'A lumbar CSF drain is often placed pre-op to prevent spinal cord ischemia (keep CSF pressure < 10-15 mmHg).' },
+          { title: 'Deployment', description: 'Rapid Ventricular Pacing (RVP) or Adenosine may be used to temporarily stop cardiac output (induce transient asystole) for precise graft deployment in the moving aortic arch.' },
+          { title: 'Completion', description: 'Reverse pacing, resuscitate if needed, confirm seal.' }
+        ],
+        anestheticConsiderations: [
+          'High risk procedure often done for descending aortic aneurysms or dissections.',
+          'Spinal cord perfusion pressure = MAP - CSF Pressure. Thus, we want high MAP and low CSF pressure.',
+          'RVP requires placement of a temporary transvenous pacing wire or pacing via CVC.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin 2g',
+          dosage: 'Standard',
+          timing: 'Pre-incision',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Endoleak', 'Aortic rupture (catastrophic)', 'Stroke', 'Spinal cord ischemia / Paraplegia'],
+          anesthetic: ['Failure to recover from induced cardiac arrest/RVP', 'Massive hemorrhage']
+        },
+        management: {
+          preOp: ['Lumbar drain placement', 'A-line (right radial often preferred)', 'Large bore IVs'],
+          intraOp: ['Manage RVP or Adenosine sequence', 'Maintain MAP > 80-90'],
+          postOp: ['ICU', 'Neurologic checks for lower extremities', 'Maintain spinal drain']
+        }
+      },
+      {
+        id: 'av-fistula',
+        name: 'AV Fistula Creation',
+        guide: [
+          { title: 'Vessel Mapping', description: 'Ultrasound mapping of arm veins and arteries.' },
+          { title: 'Anastomosis', description: 'Connecting the artery and vein. Usually done in the forearm or upper arm.' }
+        ],
+        anestheticConsiderations: [
+          'Patients have End Stage Renal Disease (ESRD) - high potassium, uremia, poor platelet function, no IV access in the targeted arm.',
+          'Brachial plexus block (axillary or supraclavicular) is the gold standard. It provides anesthesia, excellent post-op analgesia, and profound sympathectomy which dilates the veins, significantly increasing surgical success rates.'
+        ],
+        complications: {
+          surgical: ['Failure to mature', 'Steal syndrome (hand ischemia)', 'Bleeding'],
+          anesthetic: ['Local Anesthetic Systemic Toxicity (LAST) during block', 'Hyperkalemic arrays during GA (avoid succinylcholine)']
+        },
+        management: {
+          preOp: ['Check Potassium (K+)', 'NO blood pressures or IVs in the operative arm'],
+          intraOp: ['Regional Anesthesia preferred', 'Sedation as tolerated'],
+          postOp: ['Protect the arm', 'Avoid tight dressings']
+        }
+      },
+      {
+        id: 'ruptured-aaa',
+        name: 'Ruptured AAA Repair',
+        guide: [
+          { title: 'Arrival', description: 'Patient presents in hemorrhagic shock. Do NOT induce anesthesia until the surgeon is scrubbed and holding a knife; loss of sympathetic tone upon induction will cause cardiovascular collapse.' },
+          { title: 'Aortic Control', description: 'Immediate laparotomy and supra-celiac aortic cross-clamping to stop the bleeding, or REBOA (Resuscitative Endovascular Balloon Occlusion of the Aorta) deployment.' },
+          { title: 'Resuscitation', description: 'Massive transfusion protocol (MTP). Treat coagulopathy, hypothermia, and acidosis (Lethal Triad).' },
+          { title: 'Repair', description: 'Graft placement once bleeding is controlled.' }
+        ],
+        anestheticConsiderations: [
+          'True anesthetic emergency. High mortality.',
+          'Permissive hypotension (SBP ~80) prior to clamping avoids "popping the clot" and worsening the blowout.',
+          'Induction is often Ketamine or Etomidate with drastically reduced doses, or simply no anesthetic at all until aortic control is achieved.'
+        ],
+        complications: {
+          surgical: ['Exsanguination', 'Abdominal compartment syndrome', 'Multi-organ failure'],
+          anesthetic: ['Cardiac arrest upon induction', 'Severe coagulopathy', 'Hypothermia']
+        },
+        management: {
+          preOp: ['Activate MTP', 'Prep Rapid Infuser', 'Place Cordis (large central access) if time permits, otherwise large peripheral'],
+          intraOp: ['Awake a-line if possible', 'Surgeon ready before pushing induction drugs', 'Calcemias, Acidosis management'],
+          postOp: ['ICU, Open abdomen often', 'Continued resuscitation']
         }
       }
     ]
