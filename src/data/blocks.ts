@@ -397,7 +397,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Use ultrasound to identify the "equal sign" of the dura in difficult backs.'],
     complications: ['Post-dural puncture headache (PDPH)', 'Hypotension', 'Bradycardia', 'Nerve injury'],
     suggestedVolume: '2 - 3.5 mL',
-    maxDoseNote: 'Dosage depends on desired height (T10, T4).'
+    maxDoseNote: 'Dosage depends on desired height (T10, T4).',
+    probePlacementImage: '/spinal_surface_anatomy.png',
+    ultrasoundGuideImage: '/spinal_technique_guide.png'
   },
   {
     id: 'epidural-anesthesia',
@@ -417,7 +419,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Measure the depth from skin to ligamentum flavum to avoid "over-shooting".'],
     complications: ['Dural puncture ("Wet tap")', 'Epidural hematoma/abscess', 'Inadequate block'],
     suggestedVolume: '10 - 20 mL (bolus)',
-    maxDoseNote: 'Continuous infusion typically used.'
+    maxDoseNote: 'Continuous infusion typically used.',
+    probePlacementImage: '/epidural_surface_anatomy.png',
+    ultrasoundGuideImage: '/epidural_technique_guide.png'
   },
   {
     id: 'stellate-ganglion-block',
