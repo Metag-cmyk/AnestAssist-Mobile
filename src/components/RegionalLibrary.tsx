@@ -44,26 +44,37 @@ export default function RegionalLibrary() {
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           </div>
 
-          <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-            {filteredBlocks.map((block) => (
-              <button
-                key={block.id}
-                onClick={() => setSelectedId(block.id)}
-                className={`w-full text-left p-4 rounded-xl text-sm transition-all flex items-center justify-between group border ${
-                  selectedId === block.id 
-                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' 
-                    : 'bg-white border-slate-100 hover:border-indigo-200 text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                <div className="flex flex-col gap-1">
-                  <p className="font-bold">{block.name}</p>
-                  <p className={`text-[10px] uppercase tracking-wider font-semibold ${selectedId === block.id ? 'text-indigo-100' : 'text-slate-400'}`}>
-                    {block.category}
-                  </p>
+          <div className="space-y-6 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+            {['Head & Neck', 'Upper Limb', 'Trunk', 'Lower Limb', 'Neuraxial'].map((cat) => {
+              const blocksInCat = filteredBlocks.filter(b => b.category === cat);
+              if (blocksInCat.length === 0) return null;
+
+              return (
+                <div key={cat} className="space-y-2">
+                  <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1 mb-2">
+                    {cat}
+                  </h3>
+                  <div className="space-y-2">
+                    {blocksInCat.map((block) => (
+                      <button
+                        key={block.id}
+                        onClick={() => setSelectedId(block.id)}
+                        className={`w-full text-left p-4 rounded-xl text-sm transition-all flex items-center justify-between group border ${
+                          selectedId === block.id 
+                            ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' 
+                            : 'bg-white border-slate-100 hover:border-indigo-200 text-slate-700 hover:bg-slate-50'
+                        }`}
+                      >
+                        <div className="flex flex-col gap-1">
+                          <p className="font-bold">{block.name}</p>
+                        </div>
+                        <ChevronRight className={`w-4 h-4 transition-transform ${selectedId === block.id ? 'translate-x-1 opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <ChevronRight className={`w-4 h-4 transition-transform ${selectedId === block.id ? 'translate-x-1 opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
-              </button>
-            ))}
+              );
+            })}
           </div>
         </div>
 

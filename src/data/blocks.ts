@@ -381,47 +381,145 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
   },
   {
     id: 'spinal-anesthesia',
-    name: 'Spinal Anesthesia',
+    name: 'Spinal Anesthesia (Subarachnoid Block)',
     category: 'Neuraxial',
-    indications: ['Lower limb surgery, C-section, Urology, Hernia repair'],
-    contraindications: {
-      absolute: ['Patient refusal', 'Infection at site', 'Raised ICP', 'Severe hypovolemia'],
-      relative: ['Anticoagulation, Stenosis']
-    },
-    anatomy: ['Subarachnoid space (CSF)', 'Level: Below L2 (conus medullaris)'],
-    technique: [
-      { title: 'Position', description: 'Sitting or lateral decubitus.' },
-      { title: 'Approach', description: 'Midline or paramedian; pierce ligamentum flavum and dura.' },
-      { title: 'Injection', description: 'Confirm CSF flow; inject hyperbaric or isobaric Bupivacaine.' }
+    indications: [
+      'Lower abdominal surgery',
+      'Lower limb orthopedic surgery (Hip/Knee/Ankle)',
+      'Obstetric surgery (C-section)',
+      'Urological/Gynecological procedures',
+      'Hernia repairs'
     ],
-    sonoAnatomyTips: ['Use ultrasound to identify the "equal sign" of the dura in difficult backs.'],
-    complications: ['Post-dural puncture headache (PDPH)', 'Hypotension', 'Bradycardia', 'Nerve injury'],
-    suggestedVolume: '2 - 3.5 mL',
-    maxDoseNote: 'Dosage depends on desired height (T10, T4).',
+    contraindications: {
+      absolute: [
+        'Patient refusal',
+        'Infection at the needle entry site',
+        'Severe coagulopathy / active anticoagulation',
+        'Increased Intracranial Pressure (ICP)',
+        'Severe fixed-output cardiac states (e.g., Critical Aortic Stenosis)'
+      ],
+      relative: [
+        'Pre-existing neurological disease',
+        'Severe spinal deformity / hardware',
+        'Sepsis (distant from site)',
+        'Chronic back pain'
+      ]
+    },
+    anatomy: [
+      'L3-L4 or L4-L5 interspaces are preferred (terminal spinal cord L1-L2).',
+      'Ligaments pierced (midline): Skin, Subcutaneous, Supraspinous, Interspinous, Ligamentum flavum.',
+      'Dura-arachnoid membrane: Piercing gives the "pop" and allows CSF flow.'
+    ],
+    technique: [
+      { title: 'Preparation', description: 'Standard aseptic prep. Infiltration of skin with 1-2% Lidocaine.' },
+      { title: 'Approaches', description: 'Midline (easiest) or Paramedian (for elderly/calcified ligaments).' },
+      { title: 'Injection', description: 'Aspirate to confirm CSF. Inject slowly without further barbotage.' }
+    ],
+    sonoAnatomyTips: [
+      'Use a curvilinear probe (2-5 MHz) in the transverse and sagittal planes.',
+      'Identify the "Bat Sign" (transverse process/lamina) and the "Equal Sign" (Dura/Ligamentum Flavum).'
+    ],
+    complications: [
+      'High/Total Spinal (respiratory arrest)',
+      'Post-Dural Puncture Headache (PDPH)',
+      'Hypotension and Bradycardia (Bezold-Jarisch reflex)',
+      'Spinal Hematoma/Abscess',
+      'Transient Neurological Symptoms (TNS)'
+    ],
+    suggestedVolume: '2.0 - 4.0 mL (0.5% Bupivacaine Heavy or Isobaric)',
+    maxDoseNote: 'Standard Dose: 10-15mg (2-3mL) 0.5% Bupivacaine. Add Fentanyl (10-25mcg) or Morphine (100mcg) for enhanced analgesia.',
     probePlacementImage: '/spinal_surface_anatomy.png',
     ultrasoundGuideImage: '/spinal_technique_guide.png'
   },
   {
     id: 'epidural-anesthesia',
-    name: 'Epidural Anesthesia/Analgesia',
+    name: 'Epidural Anesthesia / Analgesia',
     category: 'Neuraxial',
-    indications: ['Labor analgesia, Major thoracic/abdominal surgery'],
-    contraindications: {
-      absolute: ['Patient refusal', 'Severe coagulopathy', 'Sepsis'],
-      relative: ['Spinal hardware']
-    },
-    anatomy: ['Epidural space: Outside the dura mater'],
-    technique: [
-      { title: 'Identification', description: 'Loss of Resistance (LOR) to saline or air.' },
-      { title: 'Catheter', description: 'Thread 3-5cm into the epidural space.' },
-      { title: 'Test Dose', description: '3mL Lidocaine 1.5% with Epi 1:200k to rule out intravascular/spinal.' }
+    indications: [
+      'Postoperative analgesia for major thoracic or abdominal surgery',
+      'Labor analgesia (Continuous infusion)',
+      'Chronic pain management',
+      'Surgical anesthesia (often with light GA)'
     ],
-    sonoAnatomyTips: ['Measure the depth from skin to ligamentum flavum to avoid "over-shooting".'],
-    complications: ['Dural puncture ("Wet tap")', 'Epidural hematoma/abscess', 'Inadequate block'],
-    suggestedVolume: '10 - 20 mL (bolus)',
-    maxDoseNote: 'Continuous infusion typically used.',
+    contraindications: {
+      absolute: [
+        'Patient refusal',
+        'Uncorrected hypovolemia',
+        'Coagulopathy',
+        'Infection at site'
+      ],
+      relative: [
+        'Spinal hardware or previous fusion',
+        'Neurological deficits',
+        'Stenosis'
+      ]
+    },
+    anatomy: [
+      'Epidural space lies between the ligamentum flavum and the dura mater.',
+      'Contains fat, lymphatics, and internal vertebral venous plexus (Batson\'s plexus).',
+      'Space is most generous in the midline (3-6 mm).'
+    ],
+    technique: [
+      { title: 'LOR', description: 'Loss of Resistance (LOR) to Saline (preferred for reliability) or Air.' },
+      { title: 'Catheter', description: 'Thread 4-5cm into the space. Avoid multi-perforated catheters being backed out into skin.' },
+      { title: 'Test Dose', description: '3mL Lidocaine 1.5% with 1:200k Epi. Monitor for HR increase (+20 bpm) or spinal signals.' }
+    ],
+    sonoAnatomyTips: [
+      'Measure skin-to-ligamentum flavum (S-L) distance on US to set expectations on the Tuohy needle.',
+      'Identify the "Pirogoff\'s angle" for needle trajectory.'
+    ],
+    complications: [
+      'Accidental Dural Puncture (Wet tap)',
+      'Post-Dural Puncture Headache (PDPH)',
+      'Intravascular injection (LAST)',
+      'Epidural Hematoma / Abscess',
+      'Inadequate or patchy block'
+    ],
+    suggestedVolume: '8 - 15 mL bolus (0.25% - 0.5% Bupivacaine)',
+    maxDoseNote: 'Concentration: 0.1% - 0.125% Bupivacaine/Ropivacaine for analgesia; 0.5% for surgical block. Volume: 1-1.5mL per segment to be blocked.',
     probePlacementImage: '/epidural_surface_anatomy.png',
     ultrasoundGuideImage: '/epidural_technique_guide.png'
+  },
+  {
+    id: 'cse-anesthesia',
+    name: 'Combined Spinal-Epidural (CSE)',
+    category: 'Neuraxial',
+    indications: [
+      'Labor analgesia (Rapid onset + flexibility)',
+      'Long orthopedic / pelvic surgeries',
+      'Extended high-quality postoperative analgesia'
+    ],
+    contraindications: {
+      absolute: ['Same as Spinal and Epidural'],
+      relative: ['Technical difficulty (Double-space vs Needle-through-needle)']
+    },
+    anatomy: ['Uses the Epidural space as a conduit for the spinal needle.'],
+    technique: [
+      { title: 'Needle-through-Needle', description: 'Place Tuohy needle in epidural space (LOR). Pass long spinal needle until dural puncture. Inject Spinal LA. Withdraw spinal needle; thread epidural catheter.' }
+    ],
+    sonoAnatomyTips: ['Crucial for identifying the optimal level in maternity patients.'],
+    complications: ['Similar to both techniques. Increased risk of spinal-to-epidural spread of LA.'],
+    suggestedVolume: 'Spinal (1.5-2.0mL) + Epidural (Top-ups as needed)',
+    maxDoseNote: 'Allows low-dose spinal for faster recovery while maintaining depth via the catheter.'
+  },
+  {
+    id: 'caudal-anesthesia',
+    name: 'Caudal Epidural Anesthesia',
+    category: 'Neuraxial',
+    indications: ['Pediatric surgery (inguinal hernia, circumcision)', 'Chronic low back pain / Sacral nerve root pain'],
+    contraindications: {
+      absolute: ['Refusal', 'Sepsis', 'Coagulopathy'],
+      relative: ['Pilonidal cyst']
+    },
+    anatomy: ['Entry through the sacral hiatus, covered by the sacrococcygeal ligament.'],
+    technique: [
+      { title: 'Position', description: 'Prone (adults) or lateral (pediatrics).' },
+      { title: 'Needle', description: 'Identify sacral cornua. Insert needle at 45-60 degrees. Drop angle once ligament is pierced.' }
+    ],
+    sonoAnatomyTips: ['Acoustic shadowing from sacral cornua helps identify the hiatus.'],
+    complications: ['Intra-osseous injection', 'Vascular injection', 'Dural puncture (rare)'],
+    suggestedVolume: '0.5 - 1.0 mL/kg (Pediatric)',
+    maxDoseNote: 'Pediatrics: 0.125% - 0.25% Bupivacaine. Adults: 20mL of 0.25% for chronic pain.'
   },
   {
     id: 'stellate-ganglion-block',

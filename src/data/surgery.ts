@@ -462,6 +462,66 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           intraOp: ['RSI with Ketamine/Rocuronium', 'A-line early', 'Warm fluids', 'Consider vasopressors if septic'],
           postOp: ['ICU if unstable or damage control', 'NGT decompression', 'Epidural or IV PCA']
         }
+      },
+      {
+        id: 'paraumbilical-hernia',
+        name: 'Paraumbilical Hernia Repair',
+        guide: [
+          { title: 'Access', description: 'Perform a small curvilinear or omega incision around the umbilicus. Reduce hernia contents (fat or bowel).' },
+          { title: 'Repair', description: 'Anatomical closure of the defect (Mayo repair) or, more commonly, placement of a sublay or onlay mesh for larger defects.' },
+          { title: 'Closure', description: 'Invert the umbilicus and secure it to the fascia to restore cosmetic appearance.' }
+        ],
+        anestheticConsiderations: [
+          'Often simple, but can be an emergency if incarcerated (assume full stomach).',
+          'Chronic pain risk if mesh used.',
+          'Local infiltration is highly effective for analgesia.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Seroma', 'Wound infection', 'Recurrence', 'Bowel injury (if incarcerated)'],
+          anesthetic: ['PONV', 'Urinary retention']
+        },
+        management: {
+          preOp: ['Confirm reducible vs non-reducible', 'Review BMI'],
+          intraOp: ['Maintain depth during peritoneal handling', 'Local infiltration at closure'],
+          postOp: ['Early mobilization', 'Avoid heavy lifting for 4-6 weeks']
+        }
+      },
+      {
+        id: 'lap-rectal-resection',
+        name: 'Laparoscopic Anterior Resection (Dixon\'s)',
+        guide: [
+          { title: 'Access', description: 'Multi-port laparoscopy. Medial-to-lateral mobilization of the sigmoid and rectum.' },
+          { title: 'Ligation', description: 'Ligate the Inferior Mesenteric Artery (IMA) at its origin (high tie) and the vein at the pancreatic border.' },
+          { title: 'Resection', description: 'Divide the rectum below the tumor (Total Mesorectal Excision - TME for low tumors) using a linear stapler.' },
+          { title: 'Anastomosis', description: 'Restore continuity using a circular stapler (EEA). Perform a leak test (air under water).' }
+        ],
+        anestheticConsiderations: [
+          'Major abdominal surgery, steep Trendelenburg, long duration.',
+          'Goal-directed fluid therapy to protect the anastomosis.',
+          'Restrictive fluid strategy to prevent bowel edema.',
+          'Multimodal analgesia (TAP block or Epidural).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Metronidazole',
+          dosage: '1.5g + 500mg IV',
+          timing: 'At induction. Redose q4h.',
+          alternatives: 'Gentamicin + Clindamycin'
+        },
+        complications: {
+          surgical: ['Anastomotic leak (high risk)', 'Ureteral injury', 'Presacral bleeding', 'Sexual dysfunction'],
+          anesthetic: ['Compartment syndrome (lithotomy)', 'Airway edema (Trendelenburg)', 'PONV']
+        },
+        management: {
+          preOp: ['Bowel prep if indicated', 'Review for anemia'],
+          intraOp: ['A-line placement', 'Goal-directed fluids', 'Active warming'],
+          postOp: ['ERAS protocol', 'Daily drain check', 'Early mobilization']
+        }
       }
     ]
   },
@@ -802,6 +862,65 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           intraOp: ['TIVA (Propofol+Remifentanil)', 'TXA 1g loading + 1g infusion', 'Cell saver', 'Target MAP 65-75', 'Regular eye checks'],
           postOp: ['PACU visual check (ask patient to open eyes)', 'ICU if >6 levels or high blood loss', 'IV PCA or epidural']
         }
+      },
+      {
+        id: 'total-elbow-replacement',
+        name: 'Total Elbow Arthroplasty',
+        guide: [
+          { title: 'Access', description: 'Posterior midline incision. Identify and protect the ulnar nerve (often transposed).' },
+          { title: 'Preparation', description: 'Prepare the humeral and ulnar canals using sequential reamers.' },
+          { title: 'Implantation', description: 'Cemented insertion of the humeral and ulnar components. Link the components (for semiconstrained prostheses).' }
+        ],
+        anestheticConsiderations: [
+          'GA or Regional (Supraclavicular/Infraclavicular block).',
+          'Positioning (lateral or supine over the chest) - protect the face and neck.',
+          'High risk of postoperative pain; regional blocks are essential.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Flucloxacillin or Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Ulnar nerve palsy', 'Infection', 'Instability', 'Triceps weakness'],
+          anesthetic: ['Nerve injury from block', 'Pressure sores']
+        },
+        management: {
+          preOp: ['Document baseline nerve function (Ulnar/Radial)', 'Review for rheumatoid arthritis'],
+          intraOp: ['Careful limb positioning', 'Ensure the ulnar nerve is protected', 'Active warming'],
+          postOp: ['Splint management', 'Early, controlled mobilization']
+        }
+      },
+      {
+        id: 'hip-hemiarthroplasty',
+        name: 'Hip Hemiarthroplasty',
+        guide: [
+          { title: 'Incision', description: 'Lateral or posterior approach. Resect the fractured femoral head.' },
+          { title: 'Preparation', description: 'Ream the femoral canal manually or with progressive broaches.' },
+          { title: 'Insertion', description: 'Insert the femoral prosthesis (Austin-Moore or Thompson, often cemented in the elderly) and reduce into the native acetabulum.' }
+        ],
+        anestheticConsiderations: [
+          'Typically elderly, frail patients with multiple comorbidities.',
+          'High risk of BCIS during medullary reaming and cementing.',
+          'Regional anesthesia (Spinal) associated with lower mortality and VTE risk.',
+          'Optimize fluid status but avoid overload (risk of CCF).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Dislocation', 'Periprosthetic fracture', 'Infection', 'Leg length discrepancy'],
+          anesthetic: ['BCIS', 'VTE', 'Delirium', 'Pneumonia']
+        },
+        management: {
+          preOp: ['Optimize heart failure/COPD', 'Check electrolytes (K+)', 'Fast-track surgery (<36h)'],
+          intraOp: ['Maintain stable BP (avoid >20% drop from baseline)', 'Monitor for BCIS', 'Administer TXA'],
+          postOp: ['Early mobilization', 'Delirium screening', 'Monitor hemoglobin']
+        }
       }
     ]
   },
@@ -868,40 +987,63 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         }
       },
       {
-        id: 'nephrectomy',
-        name: 'Radical Nephrectomy (Laparoscopic/Open)',
+        id: 'radical-nephrectomy',
+        name: 'Radical Nephrectomy (Open/Laparoscopic)',
         guide: [
-          { title: 'Access', description: 'Establish laparoscopic access (3-4 ports) or perform a flank/midline incision (e.g., subcostal or paramedian) depending on the tumor size and surgeon preference.' },
-          { title: 'Mobilization', description: 'Mobilize the colon (e.g., reflecting the colon medially) and identify the ureter. Dissect the retroperitoneum to expose the kidney and its vascular pedicle.' },
-          { title: 'Vascular Control', description: 'Carefully identify and ligate the renal artery first, followed by the renal vein, to minimize renal congestion and blood loss.' },
-          { title: 'Removal', description: 'Dissect the kidney and adrenal gland (if indicated) from the surrounding Gerota\'s fascia. Place the specimen in a retrieval bag and remove it through a small incision.' },
-          { title: 'Closure', description: 'Irrigate the retroperitoneal space and check for hemostasis. Perform a layered closure of the abdominal wall and skin. Apply a sterile dressing.' }
+          { title: 'Access', description: 'Flank (retroperitoneal), subcostal, or midline incision (Open); or a multi-port laparoscopic approach (Transperitoneal).' },
+          { title: 'Vascular Control', description: 'Identify and ligate the renal artery and then the renal vein early to minimize hematogenous tumor spread.' },
+          { title: 'Resection', description: 'Remove the kidney within Gerota\'s fascia, including the adrenal gland (if indicated) and regional lymph nodes.' },
+          { title: 'Extension Check', description: 'If there is a tumor thrombus in the IVC, coordinate with vascular/cardiac surgery for IVC control and thrombectomy.' }
         ],
         anestheticConsiderations: [
-          'General anesthesia with ETT',
-          'Positioning (Lateral decubitus) - monitor for V/Q mismatch',
-          'Manage blood loss (renal vessels are high flow)',
-          'Maintain adequate renal perfusion to the remaining kidney'
+          'Expect significant blood loss, especially for large tumors or those with IVC thrombus.',
+          'Positioning (lateral/flank) - risk of nerve and pressure injuries.',
+          'Manage the physiological effects of pneumoperitoneum (if laparoscopic) or major abdominal exposure (if open).'
         ],
         antibioticProphylaxis: {
-          drug: 'Cefuroxime',
-          dosage: '1.5g IV',
+          drug: 'Cefazolin',
+          dosage: '2g IV',
           timing: 'At induction',
           alternatives: 'Gentamicin'
         },
         complications: {
-          surgical: ['Hemorrhage', 'Injury to adjacent organs (spleen, liver, bowel)', 'Pneumothorax'],
-          anesthetic: ['Renal failure', 'Hypovolemia', 'Positioning-related nerve injury']
+          surgical: ['Hemorrhage (Renal vessels/IVC)', 'Pneumothorax', 'Bowel/Diaphragm injury', 'Adrenal insufficiency'],
+          anesthetic: ['Fluid imbalance', 'Atelectasis (lateral position)', 'Hypothermia']
         },
         management: {
-          preOp: ['Review CT imaging', 'Check baseline creatinine'],
-          intraOp: [
-            'Monitor for significant blood loss, as the renal vessels are high-flow; ensure large-bore IV access and have blood products available if necessary.',
-            'Maintain adequate renal perfusion to the remaining kidney by keeping MAP > 65 mmHg and avoiding nephrotoxic drugs (e.g., NSAIDs).',
-            'Ensure the patient is positioned carefully in the lateral decubitus position (with a kidney bridge if needed) to prevent pressure injuries and V/Q mismatch.',
-            'Monitor for potential injuries to adjacent organs (e.g., spleen, liver, bowel) and the pleura (pneumothorax) during dissection.'
-          ],
-          postOp: ['Monitor urine output closely', 'Regular analgesia (avoid NSAIDs)']
+          preOp: ['Check baseline Creatinine/GFR', 'Review for IVC thrombus on imaging', 'Type & Screen'],
+          intraOp: ['A-line placement', 'Manage fluid carefully to preserve remnant kidney function', 'Monitor for pneumothorax'],
+          postOp: ['Monitor urine output and renal function', 'Maintain adequate MAP', 'Analgesia (TAP or Epidural)']
+        }
+      },
+      {
+        id: 'kidney-transplant',
+        name: 'Kidney Transplantation',
+        guide: [
+          { title: 'Vascular Anastomosis', description: 'Perform end-to-side anastomoses of the donor renal vein to the external iliac vein and the donor renal artery to the external iliac artery.' },
+          { title: 'Ureteral Anastomosis', description: 'Perform a ureteroneocystostomy (suturing the donor ureter to the recipient bladder) over a stent to prevent stenosis.' },
+          { title: 'Reperfusion', description: 'Release clamps and monitor for "reperfusion syndrome" (hypotension, hyperkalemia, or bradycardia).' }
+        ],
+        anestheticConsiderations: [
+          'Patient typically has ESRD: manage high potassium, uremia, and volume status.',
+          'Maintain a high MAP (> 80-90) during and after reperfusion to optimize early graft function.',
+          'Avoid nephrotoxic agents (e.g., NSAIDs, Sevo and Desflurane if possible, though common). Isoflurane or Sevoflurane are generally acceptable.',
+          'Meticulous fluid management: use CVP or other goal-directed monitors.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Piperacillin-Tazobactam or Cefuroxime',
+          dosage: '4.5g or 1.5g IV',
+          timing: 'At induction',
+          alternatives: 'Meropenem if high risk'
+        },
+        complications: {
+          surgical: ['Hemorrhage', 'Ureteral leak/obstruction', 'Vascular thrombosis', 'Acute rejection'],
+          anesthetic: ['Hyperkalemia', 'Fluid overload', 'Reperfusion injury', 'Infection']
+        },
+        management: {
+          preOp: ['Review latest K+ and dialysis timing', 'Strict NPO', 'Confirm crossmatch negative'],
+          intraOp: ['Aggressive MAP control', 'Check K+ and glucose regularly', 'Immunosuppression loading (e.g., Methylprednisolone)'],
+          postOp: ['Strict fluid monitoring', 'Hourly urine output', 'Daily renal function check']
         }
       },
       {
@@ -1363,12 +1505,132 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         management: {
           preOp: ['Extensive patient counseling on what to expect', 'Establish rapport'],
           intraOp: [
-            'Avoid GABA-ergic drugs (Propofol) just prior to brain mapping as they suppress ECoG and clinical testing. Dexmedetomidine and Remifentanil are the gold standards.',
-            'Have iced/cold saline immediately available on the sterile field: if the surgeon triggers a focal seizure, flooding the cortex with cold saline is the first-line treatment.',
-            'Maintain continuous verbal contact during the awake phase to monitor speech and cognition.',
             'Be prepared with an LMA/Fiberoptic bronchoscope for emergency airway rescue if the patient becomes obtunded or seizes uncontrollably.'
           ],
           postOp: ['ICU management', 'Neurological checks']
+        }
+      },
+      {
+        id: 'spinal-cord-tumor',
+        name: 'Spinal Cord Tumor Resection',
+        guide: [
+          { title: 'Access', description: 'Perform a multi-level laminectomy or laminoplasty to expose the dura over the tumor site.' },
+          { title: 'Durectomy', description: 'Incise the dura mater and use microscopic dissection to identify the tumor-spinal cord interface.' },
+          { title: 'Resection', description: 'Use ultrasonic aspiration (CUSA) or microsurgical tools to debulk and remove the tumor while preserving cord tracts.' },
+          { title: 'Closure', description: 'Perform a water-tight dural closure (often with a patch) and layered muscle/skin closure.' }
+        ],
+        anestheticConsiderations: [
+          'Prone position - meticulous padding and eye protection.',
+          'Intraoperative neuromonitoring (SSEP/MEP) is mandatory; avoid neuromuscular blockers.',
+          'Maintain stable MAP to ensure spinal cord perfusion (avoid hypotension).',
+          'TIVA (Propofol/Remifentanil) is preferred for better monitoring conditions.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['New neurological deficit', 'CSF leak', 'Spinal cord edema', 'Hemorrhage'],
+          anesthetic: ['Positioning-related injuries', 'Total spinal (if dural breach and local used)', 'Autonomic dysreflexia (if high level)']
+        },
+        management: {
+          preOp: ['Baseline neurological exam', 'Review imaging for cord compression level'],
+          intraOp: ['TIVA management', 'Strict MAP targets (e.g., MAP > 80)', 'Frequent communication with monitoring team'],
+          postOp: ['Flat for 24-48h if CSF leak risk', 'Neurological checks every 1-2h', 'Pain management (IV PCA)']
+        }
+      },
+      {
+        id: 'dbs-insertion',
+        name: 'Deep Brain Stimulator (DBS) Insertion',
+        guide: [
+          { title: 'Frame Placement', description: 'Secure a stereotactic frame to the patient\'s skull under local anesthesia.' },
+          { title: 'Targeting', description: 'Perform a CT/MRI to calculate the precise coordinates of the target (e.g., STN or GPi).' },
+          { title: 'Lead Placement', description: 'Perform a burr hole and insert the microelectrode. Conduct microelectrode recording (MER) and clinical testing while the patient is awake.' },
+          { title: 'IPG Placement', description: 'Under GA, tunnel the wires to a pulse generator (IPG) placed in the subclavicular region.' }
+        ],
+        anestheticConsiderations: [
+          'Awake phase: requires patient cooperation for clinical testing (tremor suppression/side effects).',
+          'Avoid GABA-ergic drugs (Propofol/Benzos) during mapping as they interfere with MER.',
+          'Strict BP control to prevent intracranial hemorrhage (keep SBP < 140).',
+          'Manage patient comfort and anxiety during long hours in the frame.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Intracranial hemorrhage (most serious)', 'Infection', 'Lead malposition', 'Seizure'],
+          anesthetic: ['Airway obstruction (in frame)', 'Hyperpnea/Hypoventilation', 'Restlessness']
+        },
+        management: {
+          preOp: ['Hold anti-Parkinsonian meds (OFF state)', 'Explain the procedure phases'],
+          intraOp: ['Dexmedetomidine for sedation (doesn\'t interfere with MER)', 'SBP control', 'Warm blankets'],
+          postOp: ['Monitor for neurology/vision changes', 'CT brain to rule out hemorrhage']
+        }
+      },
+      {
+        id: 'pituitary-resection',
+        name: 'Transsphenoidal Pituitary Resection',
+        guide: [
+          { title: 'Access', description: 'Use an endonasal endoscopic approach to reach the sphenoid sinus and then the sella turcica.' },
+          { title: 'The Sella', description: 'Remove the floor of the sella and incise the dura to expose the pituitary gland.' },
+          { title: 'Resection', description: 'Identify and remove the adenoma, often using curettes and suction. Preserve the normal pituitary gland if possible.' },
+          { title: 'Packing', description: 'Check for CSF leak (Valsalva). Pack the sella/sphenoid sinus with fat/fascia or a mucosal flap if leak present.' }
+        ],
+        anestheticConsiderations: [
+          'Shared airway (nose/mouth). Ensure ETT is secure and out of the surgical field.',
+          'Avoid Nitrous Oxide (may cause tension pneumocephalus).',
+          'Smooth emergence to avoid coughing/straining (prevents CSF leak).',
+          'Monitor for Diabetes Insipidus (DI) intra- and post-operatively.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime',
+          dosage: '1.5g IV',
+          timing: 'At induction',
+          alternatives: 'Gentamicin + Clindamycin'
+        },
+        complications: {
+          surgical: ['CSF leak', 'Carotid artery injury', 'Meningitis', 'Visual loss'],
+          anesthetic: ['Diabetes Insipidus (DI)', 'Hypopituitarism', 'Airway obstruction']
+        },
+        management: {
+          preOp: ['Baseline visual field testing', 'Review endocrine status (Cortisol/Thyroid)'],
+          intraOp: ['Strict fluid balance', 'Monitor electrolytes/osmolarity', 'Neurosurgical throat pack'],
+          postOp: ['Monitor urine output hourly (for DI)', 'Check serum Sodium daily', 'Strict "No Blowing Nose"']
+        }
+      },
+      {
+        id: 'posterior-fossa-resection',
+        name: 'Posterior Fossa Tumor Resection',
+        guide: [
+          { title: 'Positioning', description: 'Prone, Lateral, or Sitting position. Sitting position gives best access but highest risk of VAE.' },
+          { title: 'Access', description: 'Perform a suboccipital craniectomy. C1 laminectomy may be needed for lower tumors.' },
+          { title: 'Resection', description: 'Microsurgical debulking. Close monitoring of CN nuclei (V, VII, X, XII).' }
+        ],
+        anestheticConsiderations: [
+          'Highest risk of Venous Air Embolism (VAE); monitor with Precordial Doppler and TEE.',
+          'Brainstem handling can cause sudden bradycardia/arrhythmias - inform surgeon immediately.',
+          'Shared airway risk; specialized ETT (Armored) common.',
+          'Tight BP control and neuroprotection (TIVA preferred).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Cranial nerve palsies', 'Hydrocephalus', 'Brainstem injury', 'Hemorrhage'],
+          anesthetic: ['VAE', 'Pneumocephalus (especially if sitting)', 'Macroglossia (positioning)']
+        },
+        management: {
+          preOp: ['Review MRI for brainstem involvement', 'Assess for baseline CN deficits'],
+          intraOp: ['CVP line for VAE aspiration', 'Precordial doppler', 'Maintenance of normocapnia'],
+          postOp: ['Delayed extubation if brainstem edema suspected', 'ICU level care']
         }
       }
     ]
@@ -1541,6 +1803,188 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review CT for anatomy', 'Optimize cardiac and renal function'],
           intraOp: ['Monitor CSF pressure', 'Aggressive blood conservation (Cell saver)'],
           postOp: ['ICU management', 'Monitor for neurological deficits']
+        }
+      },
+      {
+        id: 'ascending-aortic-replacement',
+        name: 'Ascending Aortic Replacement / Hemiarch',
+        guide: [
+          { title: 'Access', description: 'Median sternotomy. Cannulation for CPB (often axillary or femoral for arch work).' },
+          { title: 'Circulatory Arrest', description: 'Cool the patient to Deep Hypothermic Circulatory Arrest (DHCA) temperatures (18-24°C) if the arch is involved.' },
+          { title: 'Resection', description: 'Excise the aneurysmal or dissected aorta. Perform a distal anastomosis to the arch under circulatory arrest (with antegrade cerebral perfusion).' },
+          { title: 'Grafting', description: 'Perform the proximal anastomosis to the sinotubular junction or aortic root. Rewarm the patient slowly.' }
+        ],
+        anestheticConsiderations: [
+          'Manage DHCA: neuroprotection (head ice, steroids, thiopental), monitoring (EEG, SSEP, NIRS).',
+          'Complex anticoagulation management (prolonged bypass and cooling).',
+          'High risk for coagulopathy upon rewarming.',
+          'Manage multiple pressure monitoring sites (e.g., Bilateral A-lines if axillary cannulation).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Vancomycin',
+          dosage: '1.5g + 1g IV',
+          timing: 'At induction',
+          alternatives: 'Teicoplanin'
+        },
+        complications: {
+          surgical: ['Stroke/Neurological injury', 'Bleeding/Coagulopathy', 'Renal failure', 'Phrenic nerve injury'],
+          anesthetic: ['LCOS', 'Vasoplegia', 'Systemic inflammatory response']
+        },
+        management: {
+          preOp: ['Detailed neuro/vascular exam', 'Check carotid dopplers', 'Verify blood availability'],
+          intraOp: ['NIRS (Near-Infrared Spectroscopy) for brain', 'Bilateral A-lines', 'pH-stat vs alpha-stat management during cooling'],
+          postOp: ['Slow rewarming', 'Aggressive clotting factor replacement', 'ICU management']
+        }
+      },
+      {
+        id: 'pericardiectomy',
+        name: 'Pericardiectomy (Radical)',
+        guide: [
+          { title: 'Access', description: 'Median sternotomy or bilateral thoracotomy (clamshell).' },
+          { title: 'The Shell', description: 'Carefully dissect the thickened, calcified pericardium away from the heart ("eggshell" removal).' },
+          { title: 'Extent', description: 'Free the ventricles first, then the atria and great vessels, to avoid sudden congestion.' }
+        ],
+        anestheticConsiderations: [
+          'High risk of sudden cardiac rupture or major vessel injury during dissection.',
+          'Hemodynamics can change rapidly as the "constriction" is released.',
+          'Difficult monitoring (CVP/PA catheters may not accurately reflect transmural pressures).',
+          'Be prepared for sudden, massive hemorrhage (blood in the room).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Myocardial injury/perforation', 'Phrenic nerve injury', 'Hemorrhage'],
+          anesthetic: ['Low cardiac output post-bypass', 'Dysrhythmias', 'Right heart failure']
+        },
+        management: {
+          preOp: ['Review Echo/CT for calcification', 'Optimize fluid status'],
+          intraOp: ['TEE is essential', 'Maintain high index of suspicion for perforation', 'Inotropic support ready'],
+          postOp: ['Monitor for "rebound" heart failure', 'ICU level care']
+        }
+      },
+      {
+        id: 'bentall-procedure',
+        name: 'Bentall Procedure (Aortic Root Replacement)',
+        guide: [
+          { title: 'Access', description: 'Median sternotomy. Establish CPB and cardiac arrest with cardioplegia.' },
+          { title: 'Resection', description: 'Excise the aortic root, the aortic valve, and a portion of the ascending aorta.' },
+          { title: 'Implantation', description: 'Suture a valved conduit (composite graft) into the aortic annulus. Re-implant the coronary ostia into the conduit.' }
+        ],
+        anestheticConsiderations: [
+          'Technically demanding with long bypass/cross-clamp times.',
+          'Critical myocardial protection (selective coronary cardioplegia).',
+          'Monitor for myocardial ischemia after re-implantation (ECG, TEE).',
+          'High risk of bleeding from multiple suture lines.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Vancomycin',
+          dosage: '1.5g + 1g IV',
+          timing: 'At induction',
+          alternatives: 'Teicoplanin'
+        },
+        complications: {
+          surgical: ['Coronary ostial stenosis/occlusion', 'Bleeding', 'Heart block', 'Stroke'],
+          anesthetic: ['Difficult weaning from bypass', 'Vasoplegia', 'Ischemia']
+        },
+        management: {
+          preOp: ['Review coronary anatomy', 'Confirm valve type choice'],
+          intraOp: ['TEE to assess valve and regional wall motion', 'Aggressive hemostasis', 'Manage bypass physiology'],
+          postOp: ['Vigilant ECG monitoring', 'Tight BP control to protect suture lines']
+        }
+      },
+      {
+        id: 'heart-transplant',
+        name: 'Orthotopic Heart Transplantation',
+        guide: [
+          { title: 'Excision', description: 'Remove the recipient\'s heart while maintaining CPB, leaving the posterior atria (Biatrial) or just the cavae/pulmonary veins (Bicaval).' },
+          { title: 'Anastomoses', description: 'Suture the donor heart: Left atrium first, then RA/IVC/SVC, followed by Pulmonary Artery and Aorta.' },
+          { title: 'Reperfusion', description: 'De-air carefully and remove the aortic cross-clamp. Monitor the "new" heart for function and rejection.' }
+        ],
+        anestheticConsiderations: [
+          'Denervated donor heart: will not respond to Atropine or EPH; requires direct-acting agents (Isoproterenol, Adrenaline).',
+          'High risk of Right Ventricular (RV) failure post-bypass due to recipient pulmonary hypertension.',
+          'Strict aseptic technique (immunocompromised state).',
+          'Manage the transition from failing heart to transplanted heart.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Piperacillin-Tazobactam or Vancomycin',
+          dosage: '4.5g IV',
+          timing: 'At induction',
+          alternatives: 'Caspofungin (if high risk)'
+        },
+        complications: {
+          surgical: ['Acute rejection', 'Primary graft failure', 'RV failure', 'Bleeding'],
+          anesthetic: ['Bradycardia (requires pacing)', 'Pulmonary HTN', 'Cerebral emboli']
+        },
+        management: {
+          preOp: ['Rapid review of donor/recipient match', 'Hold anticoagulants', 'Strict sterile setup'],
+          intraOp: ['Isoproterenol infusion ready', 'Nitric Oxide/Epoprostenol for RV support', 'Pacing wires ready'],
+          postOp: ['Steroid boluses', 'Strict isolation', 'Continuous RV function monitoring']
+        }
+      },
+      {
+        id: 'pulmonary-embolectomy',
+        name: 'Pulmonary Embolectomy (Acute)',
+        guide: [
+          { title: 'Access', description: 'Median sternotomy. Rapid initiation of CPB (often femoral cannulation first if patient unstable).' },
+          { title: 'Embolectomy', description: 'Incision into the main pulmonary artery. Use forceps and suction to remove "saddle" or branch emboli.' },
+          { title: 'Closure', description: 'Close the arteriotomy. Wean from bypass. Place an IVC filter if indicated.' }
+        ],
+        anestheticConsiderations: [
+          'CRITICAL risk of circulatory collapse at induction. Maintain preload and avoid vasodilation.',
+          'Right heart failure management: keep RV afterload low (avoid hypoxia/hypercarbia).',
+          'Be prepared for massive hemoptysis post-reperfusion.',
+          'High risk of lung injury (reperfusion edema).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime',
+          dosage: '1.5g IV',
+          timing: 'At induction',
+          alternatives: 'Gentamicin'
+        },
+        complications: {
+          surgical: ['Residual emboli', 'Pulmonary artery rupture', 'Bleeding'],
+          anesthetic: ['RV failure', 'Reperfusion lung injury', 'Cardiac arrest at induction']
+        },
+        management: {
+          preOp: ['Inotropes/Vasopressors before induction', 'Review Echo for RV strain'],
+          intraOp: ['Maintain high MAP', 'Nitric Oxide available', 'TEE to monitor RV function'],
+          postOp: ['Slow weaning from ventilation', 'Monitor for pulmonary hemorrhage']
+        }
+      },
+      {
+        id: 'lvad-insertion',
+        name: 'Left Ventricular Assist Device (LVAD) Insertion',
+        guide: [
+          { title: 'Access', description: 'Median sternotomy. Establish CPB.' },
+          { title: 'The Pump', description: 'Core the apex of the left ventricle and insert the inflow cannula. Secure the pump.' },
+          { title: 'Outflow', description: 'Anastomose the outflow graft to the ascending aorta.' },
+          { title: 'Tunneling', description: 'Pass the driveline through a subcutaneous tunnel in the abdomen.' }
+        ],
+        anestheticConsiderations: [
+          'Crucial to optimize RV function; the LVAD will only work if the RV can provide enough blood.',
+          'TEE is mandatory to rule out ASD/PFO (causes R->L shunt after LVAD start) and aortic regurgitation.',
+          'Manage the shift from pulsatile to continuous flow physiology.',
+          'High risk of bleeding (anticoagulation/coagulopathy).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Vancomycin + Cefazolin',
+          dosage: '1g + 2g IV',
+          timing: 'At induction',
+          alternatives: 'Linezolid'
+        },
+        complications: {
+          surgical: ['RV failure (most common)', 'Driveline infection', 'Stroke', 'Tamponade'],
+          anesthetic: ['Suction events (low preload)', 'Arrhythmias', 'Vasoplegia']
+        },
+        management: {
+          preOp: ['Strict fluid management', 'Review donor/recipient status (if bridge to transplant)'],
+          intraOp: ['Nitric Oxide for RV', 'Inotropic support', 'TEE monitoring of septum position'],
+          postOp: ['Maintain MAP 70-80 (non-pulsatile)', 'Monitor for RV failure symptoms']
         }
       }
     ]
@@ -1787,6 +2231,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           intraOp: ['Maintain stable anesthesia', 'Coordinate with surgeon for laser safety'],
           postOp: ['Monitor for airway obstruction', 'Voice rest']
         }
+      },
+      {
+        id: 'commando-procedure',
+        name: 'Commando Procedure (Glossectomy + Neck Dissection + Mandibulectomy)',
+        guide: [
+          { title: 'Access', description: 'Lip-splitting incision and mandibulotomy for exposure of the oral cavity and oropharynx.' },
+          { title: 'Excision', description: 'En-bloc resection of the primary tumor (tongue/floor of mouth), segments of the mandible, and bilateral/unilateral neck nodes.' },
+          { title: 'Reconstruction', description: 'Repair the defect using a free flap (e.g., Fibula or RFFF) or pedicled flap (Pectoralis major).' }
+        ],
+        anestheticConsiderations: [
+          'Extremely difficult airway (often requires fiberoptic intubation or elective tracheostomy).',
+          'Major blood loss and fluid shifts; large-bore access and A-line essential.',
+          'Shared airway and complex surgical positioning.',
+          'Manage free-flap physiology (avoid vasoconstrictors, maintain hydration).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Metronidazole',
+          dosage: '1.5g + 500mg IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Flap failure', 'Chyle leak', 'Nerve injury (CN XI, XII)', 'Oro-cutaneous fistula'],
+          anesthetic: ['Airway obstruction', 'Aspiration', 'VAE (if large neck veins open)']
+        },
+        management: {
+          preOp: ['Detailed airway assessment', 'Confirm tracheostomy tray presence'],
+          intraOp: ['Strict fluid monitoring', 'Active warming', 'Avoid long-acting muscle relaxants'],
+          postOp: ['ICU/HDU level care', 'Tracheostomy care', 'Nutrition support early']
+        }
       }
     ]
   },
@@ -1887,6 +2361,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Provide effective PONV prophylaxis and manage post-operative shoulder-tip pain by ensuring complete CO2 evacuation at the end of the procedure.'
           ],
           postOp: ['Monitor for vaginal bleeding', 'Analgesia']
+        }
+      },
+      {
+        id: 'radical-vulvectomy',
+        name: 'Radical Vulvectomy and Bilateral Inguinal Lymphnode Dissection',
+        guide: [
+          { title: 'Access', description: 'Perform a wide, radical excision of the vulva, including the primary tumor and a margin of normal tissue.' },
+          { title: 'Lymphectomies', description: 'Perform bilateral inguinal and femoral lymph node dissections through separate or confluent incisions.' },
+          { title: 'Closure', description: 'Achieve a tension-free closure using rotational or transpositional flaps (e.g., V-Y plasty) if necessary. Meticulous hemostasis and drainage.' }
+        ],
+        anestheticConsiderations: [
+          'Major procedure with significant blood loss and fluid shifts.',
+          'Positioning (lithotomy) with extended duration.',
+          'Manage post-operative pain (Epidural or regional blocks).',
+          'VTE prophylaxis is critical.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Metronidazole',
+          dosage: '1.5g + 500mg IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Wound dehiscence (high risk)', 'Lymphedema', 'Sepsis', 'Hemorrhage'],
+          anesthetic: ['VTE', 'Nerve injury', 'PONV']
+        },
+        management: {
+          preOp: ['Review staging', 'Check baseline hemoglobin', 'Plan for flaps'],
+          intraOp: ['Maintain stable hemodynamics', 'Active warming', 'Manage fluid for flap survival'],
+          postOp: ['VAC dressing often used', 'Strict VTE prophylaxis', 'Early mobilization']
         }
       },
       {
@@ -2000,7 +2504,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           postOp: ['VTE prophylaxis', 'Early mobilization']
         }
       },
-    ]
+      {
+        id: 'ruptured-ectopic-laparotomy',
+        name: 'Ruptured Ectopic Pregnancy (Laparotomy)',
+        guide: [
+          { title: 'Access', description: 'Emergency midline or Pfannenstiel laparotomy. Rapid evacuation of hemoperitoneum.' },
+          { title: 'Control', description: 'Identify the bleeding tube and clamp the mesosalpinx.' },
+          { title: 'Resection', description: 'Perform a salpingectomy or salpingotomy. Thorough peritoneal lavage.' }
+        ],
+        anestheticConsiderations: [
+          'LIFE-THREATENING emergency: assumption of hypovolemic shock.',
+          'RSI is mandatory: full stomach and rapidly deteriorating clinical state.',
+          'Large-bore IV access (x2 14/16G) and immediate availability of blood.',
+          'Maintain MAP until surgical control is achieved.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'Rapidly at induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Hemorrhagic shock', 'Bowel/Bladder injury', 'Re-operation for bleeding'],
+          anesthetic: ['Cardiac arrest at induction', 'DIC', 'Aspiration']
+        },
+        management: {
+          preOp: ['Activate Major Hemorrhage Protocol', 'Type & Crossmatch 4-6 units', 'Large bore access'],
+          intraOp: ['Ketamine-based induction (if shocked)', 'Rapid fluid resuscitation (Level 1)', 'Monitor for coagulopathy'],
+          postOp: ['ICU/HDU for stabilization', 'Monitor Hb levels', 'Early ambulation once stable']
+        }
+      }    ]
   },
   {
     id: 'ophthalmic',
@@ -2840,7 +3373,157 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           ],
           postOp: ['NICU admission', 'Avoid neck extension']
         }
-      }
+      },
+      {
+        id: 'cdh-repair',
+        name: 'Congenital Diaphragmatic Hernia (CDH) Repair',
+        guide: [
+          { title: 'Access', description: 'Subcostal incision. Reduce abdominal contents (bowel, spleen, stomach) from the thorax.' },
+          { title: 'Repair', description: 'Closure of the diaphragmatic defect (Bochdalek) using primary suture or a mesh patch.' },
+          { title: 'Observation', description: 'Ensure the lung on the affected side has space to expand (though it is often hypoplastic).' }
+        ],
+        anestheticConsiderations: [
+          'Neonate with severe pulmonary hypoplasia and persistent pulmonary hypertension (PPHN).',
+          'Avoid high airway pressures (Barotrauma to the "good" lung). Target low MAP/high rate ventilation.',
+          'Allow "Permissive Hypercapnia" to minimize lung injury.',
+          'Pre-ductal and Post-ductal saturation monitoring is mandatory.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefotaxime + Gentamicin',
+          dosage: 'Age/Weight based',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Recurrence', 'Splenic injury', 'Bowel obstruction'],
+          anesthetic: ['Pneumothorax of the contralateral lung (Fatal)', 'Worsening PPHN', 'Lability']
+        },
+        management: {
+          preOp: ['Ensure stabilization in NICU first (Gentle ventilation)', 'ECHO to assess PPHN severity'],
+          intraOp: ['Hand ventilation or pressure-controlled ventilation only', 'Inotropic support ready', 'Keep neonate warm'],
+          postOp: ['Return to NICU; continue sedation and gentle ventilation', 'iNO often required']
+        }
+      },
+      {
+        id: 'gastroschisis-repair',
+        name: 'Gastroschisis / Omphalocele Repair',
+        guide: [
+          { title: 'Protection', description: 'Ensure the exposed bowel is covered with sterile, warm saline dressings or a silo immediately after birth.' },
+          { title: 'Reduction', description: 'Gradually reduce the bowel into the abdominal cavity. This may be done in stages (Silo) or as a primary closure.' },
+          { title: 'Closure', description: 'Perform an anatomical closure of the abdominal wall defect once the intra-abdominal pressure is safe.' }
+        ],
+        anestheticConsiderations: [
+          'Neonate with significant fluid and heat loss from exposed bowel.',
+          'High risk of Abdominal Compartment Syndrome (ACS) during reduction; monitor airway pressures and hemodynamic stability.',
+          'RSI is mandatory due to ileus.',
+          'Maintain high-normal MAP to ensure bowel perfusion.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefotaxime + Gentamicin + Metronidazole',
+          dosage: 'Weight based',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Bowel ischemia', 'ACS', 'Wound dehiscence', 'Sepsis'],
+          anesthetic: ['Renal failure (from ACS)', 'Ventilatory failure', 'Hypothermia']
+        },
+        management: {
+          preOp: ['Aggressive fluid resuscitation', 'Maintain normothermia', 'Gastric decompression'],
+          intraOp: ['Monitor airway pressures meticulously', 'Avoid nitrous oxide', 'Muscle relaxation essential'],
+          postOp: ['NICU; monitor for ACS signs (urine output, ventilation)']
+        }
+      },
+      {
+        id: 'nec-laparotomy',
+        name: 'Necrotizing Enterocolitis (NEC) Laparotomy',
+        guide: [
+          { title: 'Access', description: 'Transverse supra-umbilical incision. Identify segments of necrotic or perforated bowel.' },
+          { title: 'Resection', description: 'Resect all non-viable bowel while preserving as much length as possible (to avoid Short Bowel Syndrome).' },
+          { title: 'Stoma', description: 'Usually requires the creation of one or more enterostomies.' }
+        ],
+        anestheticConsiderations: [
+          'Extremely sick, septic neonate (often premature).',
+          'Massive third-space fluid losses and hemodynamic instability.',
+          'Coagulopathy and thrombocytopenia are common.',
+          'High risk of Metabolic Acidosis and Hyperkalemia.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Piperacillin-Tazobactam + Metronidazole',
+          dosage: 'Weight based',
+          timing: 'At induction',
+          alternatives: 'Meropenem'
+        },
+        complications: {
+          surgical: ['Short bowel syndrome', 'Recurrent perforation', 'Stricture formation'],
+          anesthetic: ['Multi-organ failure', 'DIC', 'Cardiac arrest']
+        },
+        management: {
+          preOp: ['Correct electrolytes and coagulopathy', 'Crossmatch 2-4 units PRBCs', 'Aggressive fluid loading'],
+          intraOp: ['Invasive BP monitoring', 'Check blood gas and glucose regularly', 'Maintain normothermia'],
+          postOp: ['NICU; intensive metabolic and hemodynamic support']
+        }
+      },
+      {
+        id: 'cleft-lip-palate',
+        name: 'Cleft Lip and Palate Repair',
+        guide: [
+          { title: 'Access', description: 'Expose the oral cavity using a specialized mouth gag (e.g., Dingman).' },
+          { title: 'Dissection', description: 'Mobilize the soft tissues and muscles (levator palati) of the lip or palate.' },
+          { title: 'Repair', description: 'Perform a meticulous, layered anatomical reconstruction to restore function and appearance.' }
+        ],
+        anestheticConsiderations: [
+          'Shared airway challenges; specialized tubes (RAE or armored) essentially.',
+          'Risk of post-operative airway obstruction from edema or tongue swelling.',
+          'Maintain deep anesthesia during surgical manipulation to avoid coughing.',
+          'Caudal or local blocks provide excellent analgesia.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '30mg/kg IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Fistula formation', 'Wound dehiscence', 'Symmetry issues'],
+          anesthetic: ['Airway obstruction', 'Laryngospasm', 'Aspiration']
+        },
+        management: {
+          preOp: ['Review for associated syndromes', 'Check baseline hemoglobin'],
+          intraOp: ['Ensure throat pack is placed and removed', 'Manage shared airway communication', 'Monitor blood loss'],
+          postOp: ['Avoid oral suctioning', 'Elbow splints', 'High-humidity oxygen']
+        }
+      },
+      {
+        id: 'choledochal-cyst',
+        name: 'Choledochal Cyst Excision',
+        guide: [
+          { title: 'Access', description: 'Perform a right subcostal or midline laparotomy.' },
+          { title: 'Excision', description: 'Systematically dissect and remove the dilated extrahepatic bile duct (choledochal cyst).' },
+          { title: 'Reconstruction', description: 'Perform a Roux-en-Y hepaticojejunostomy to restore biliary drainage.' }
+        ],
+        anestheticConsiderations: [
+          'Major pediatric abdominal procedure with significant duration.',
+          'Maintain stable internal environment (normothermia, glucose).',
+          'Manage potential for significant blood loss and fluid shifts.',
+          'Effective post-operative analgesia (Epidural or TAP blocks).'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime',
+          dosage: '30mg/kg IV',
+          timing: 'At induction',
+          alternatives: 'Gentamicin'
+        },
+        complications: {
+          surgical: ['Biliary leak', 'Ascending cholangitis', 'Bowel obstruction'],
+          anesthetic: ['Hypothermia', 'Pain', 'PONV']
+        },
+        management: {
+          preOp: ['Review LFTs and Vitamin K status', 'Optimize nutrition'],
+          intraOp: ['A-line placement for major cases', 'Aggressive warming', 'Restrictive fluid strategy'],
+          postOp: ['NPO until bowel function returns', 'Monitor LFTs and bilirubin']
+        }
+      },
     ]
   },
   {
@@ -2977,7 +3660,67 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           ],
           postOp: ['Aggressive VTE prophylaxis', 'Early mobilization (if stable)']
         }
-      }
+      },
+      {
+        id: 'damage-control-lap',
+        name: 'Damage Control Laparotomy (Trauma)',
+        guide: [
+          { title: 'Abbreviated Laparotomy', description: 'Perform a rapid midline incision. Stop massive hemorrhage (packing/clamping) and control contamination (ligation).' },
+          { title: 'Temporary Closure', description: 'Perform "Bogota bag" or vacuum-assisted closure. Do NOT attempt definitive repair.' },
+          { title: 'Resuscitation', description: 'Transfer patient to ICU for correction of the "Lethal Triad" (Acidosis, Coagulopathy, Hypothermia).' }
+        ],
+        anestheticConsiderations: [
+          'Ultrafast induction (often simple Ketamine/Succinylcholine) once surgeon is ready.',
+          'Immediate Massive Transfusion Protocol (MTP). Avoid Crystalloids.',
+          'Permissive hypotension (MAP 50-60) until surgical control of bleeding.',
+          'Assume full stomach and severe physiological exhaustion.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin + Metronidazole',
+          dosage: '2g + 500mg IV',
+          timing: 'ASAP',
+          alternatives: 'Gentamicin + Clindamycin'
+        },
+        complications: {
+          surgical: ['Ongoing hemorrhage', 'Abdominal compartment syndrome', 'Bowel ischemia'],
+          anesthetic: ['Cardiac arrest', 'DIC', 'TRALI/TACO']
+        },
+        management: {
+          preOp: ['Activate MTP', 'Prep Rapid Infuser', 'Zero-delay to OR'],
+          intraOp: ['Aggressive warming', 'TEG/ROTEM guided resuscitation', 'Check Ca2+ regularly'],
+          postOp: ['ICU; return to OR for definitive repair in 24-48h once stable']
+        }
+      },
+      {
+        id: 'er-thoracotomy',
+        name: 'Emergency Department / ER Thoracotomy',
+        guide: [
+          { title: 'Incison', description: 'Left anterolateral thoracotomy in the 4th/5th intercostal space.' },
+          { title: 'Access', description: 'Identify the heart. Pericardiotomy if tamponade suspected.' },
+          { title: 'Intervention', description: 'Internal cardiac massage, cross-clamping of the descending aorta, or Repair of cardiac injury.' }
+        ],
+        anestheticConsiderations: [
+          'Performed on patients in profound shock or traumatic arrest.',
+          'Anesthesia is often NOT required initially; patient is unconscious.',
+          'Intubate immediately with 100% O2; no induction drugs usually.',
+          'Prioritize large-bore access (Cordis) and MTP.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime',
+          dosage: '1.5g IV',
+          timing: 'ASAP',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Internal mammary artery bleeding', 'Clamping of the esophagus', 'Phrenic nerve injury'],
+          anesthetic: ['Death (high mortality)', 'Extreme metabolic acidosis', 'Air embolism']
+        },
+        management: {
+          preOp: ['Zero time; Scoop and run from ED to OR'],
+          intraOp: ['Internal defibrillation if needed', 'Aggressive warming', 'High-dose adrenaline'],
+          postOp: ['ICU if survived; usually high-acuity multisystem support']
+        }
+      },
     ]
   },
   {
@@ -3140,7 +3883,68 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           ],
           postOp: ['Monitor for contractions', 'Avoid heavy lifting']
         }
-      }
+      },
+      {
+        id: 'peripartum-hysterectomy',
+        name: 'Emergency Peripartum Hysterectomy',
+        guide: [
+          { title: 'Decision', description: 'Typically performed for intractable hemorrhage (e.g., Atony, Placenta Accreta Spectrum, Uterine Rupture).' },
+          { title: 'Access', description: 'Extension of existing C-section incision or midline laparotomy.' },
+          { title: 'Ligation', description: 'Rapid clamping and ligation of the broad ligament, uterine, and ovarian vessels.' },
+          { title: 'Removal', description: 'Total or subtotal hysterectomy while managing massive blood loss.' }
+        ],
+        anestheticConsiderations: [
+          'High maternal mortality. Massive Transfusion Protocol is the priority.',
+          'Consider conversion from Neuraxial to General Anesthesia early if instability occurs.',
+          'Manage DIC and coagulopathy of pregnancy.',
+          'Uterine blood flow is ~700-800ml/min; bleeding can be catastrophic.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Metronidazole',
+          dosage: '1.5g + 500mg IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin + Gentamicin'
+        },
+        complications: {
+          surgical: ['Ureteric injury', 'Bladder injury', 'Consumptive coagulopathy'],
+          anesthetic: ['Multi-organ failure', 'Transfusion-related injury (TRALI/TACO)']
+        },
+        management: {
+          preOp: ['Identify high-risk cases (Accreta) pre-operatively', 'Blood in room'],
+          intraOp: ['Cell saver if available and appropriate', 'Thromboelastography (TEG/ROTEM) guided transfusion', 'Uterine artery embolization if stable'],
+          postOp: ['ICU management', 'Monitor for secondary hemorrhage']
+        }
+      },
+      {
+        id: 'placenta-previa-csection',
+        name: 'Total Placenta Previa C-Section',
+        guide: [
+          { title: 'Incision', description: 'Usually a Pfannenstiel or midline if high bleeding risk. Surgeon avoids the placenta during uterine incision.' },
+          { title: 'Delivery', description: 'Rapid delivery of the neonate while managing placental hemorrhage.' },
+          { title: 'Hemostasis', description: 'Meticulous control of the placental bed. High risk of placenta accreta spectrum.' }
+        ],
+        anestheticConsiderations: [
+          'High risk of massive hemorrhage. General anesthesia is often preferred if active bleeding or hemodynamic instability.',
+          'MTP should be active. Have blood in the room.',
+          'Large bore IV access mandatory.',
+          'Consider arterial line and cell saver pre-emptively.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Massive Hemorrhage', 'Emergency Hysterectomy', 'DIC'],
+          anesthetic: ['Cardiac arrest', 'Aspiration', 'Uterine atony']
+        },
+        management: {
+          preOp: ['Type & Crossmatch 4-6 units PRBCs', 'Detailed anesthetic discussion with patient', 'Confirm Placenta location'],
+          intraOp: ['Aggressive fluid/blood resuscitation', 'Inotropes ready', 'Manage coagulopathy'],
+          postOp: ['Monitor for secondary hemorrhage', 'HDU monitoring']
+        }
+      },
     ]
   },
   {
@@ -3277,7 +4081,37 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           ],
           postOp: ['Chest drain management', 'Regular analgesia']
         }
-      }
+      },
+      {
+        id: 'tracheal-resection',
+        name: 'Tracheal Resection and Reconstruction',
+        guide: [
+          { title: 'Exposure', description: 'Cervical incision +/- sternotomy to expose the stenotic or tumor-involved trachea.' },
+          { title: 'Division', description: 'Divide the trachea below the lesion. Distal trachea is intubated "on the field" by the surgeon.' },
+          { title: 'Anastomosis', description: 'The two ends of the trachea are sutured together. Chin-to-chest stitch (Grillo stitch) used to limit extension.' }
+        ],
+        anestheticConsiderations: [
+          'THE ultimate airway challenge. Cooperation between anesthetist and surgeon is vital.',
+          'Requires "cross-field ventilation": switching between the ETT and surgical field tubing.',
+          'Spontaneous ventilation/TIVA often used during induction to maintain airway patency if the lesion is critical.',
+          'Extubation must be smooth to avoid tension on the suture line.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Anastomotic dehiscence (lethal)', 'Recurrent laryngeal nerve palsy', 'Tracheo-innominate fistula'],
+          anesthetic: ['Total loss of airway', 'Hypoxia during cross-field ventilation', 'Hypercapnia']
+        },
+        management: {
+          preOp: ['Review CT/Bronchoscopy', 'Ensure multiple sizes of ETT and flexometallic tubes available'],
+          intraOp: ['TIVA with short-acting agents', 'Continuous ETCO2 from whichever site is ventilating', 'Limit neck extension'],
+          postOp: ['Maintain neck flexion (Grillo stitch)', 'Often extubated awake on the table']
+        }
+      },
     ]
   },
   {
@@ -3477,6 +4311,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Activate MTP', 'Prep Rapid Infuser', 'Place Cordis (large central access) if time permits, otherwise large peripheral'],
           intraOp: ['Awake a-line if possible', 'Surgeon ready before pushing induction drugs', 'Calcemias, Acidosis management'],
           postOp: ['ICU, Open abdomen often', 'Continued resuscitation']
+        }
+      },
+      {
+        id: 'fem-distal-bypass',
+        name: 'Femoral-Distal Bypass (Fem-TIB/Fem-Pedal)',
+        guide: [
+          { title: 'Incision', description: 'Groin and distal leg incisions (often small for vein harvest).' },
+          { title: 'Grafting', description: 'Creation of a bypass graft using the saphenous vein (in-situ or reversed) or a synthetic graft.' },
+          { title: 'Anastomosis', description: 'Microvascular or fine suturing of the graft to a distal crural artery.' }
+        ],
+        anestheticConsiderations: [
+          'Typically elderly with severe vascular disease and CAD.',
+          'Regional anesthesia (Spinal or Combined Spinal-Epidural) is ideal for graft perfusion and pain.',
+          'Maintain high-normal MAP to ensure distal graft flow.',
+          'Manage heparinization and potential for redo-vascular instability.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Graft thrombosis', 'Hematoma', 'Compartment syndrome'],
+          anesthetic: ['Myocardial ischemia', 'Delirium', 'Epidural hematoma (careful timing)']
+        },
+        management: {
+          preOp: ['Review for antiplatelet status', 'Assess cardiac reserve'],
+          intraOp: ['Maintain stable hemodynamics', 'Tight MAP control', 'Check distal pulses'],
+          postOp: ['Hourly pedal pulse checks', 'Pain management', 'Early mobilization']
         }
       }
     ]
