@@ -1,0 +1,5 @@
+{
+  "name": "Anesthesia & ICU Companion",
+  "description": "A comprehensive clinical assistant for anesthesia and intensive care trainees, featuring up-to-date guidelines from ASA, ESAIC, and ESICM, a conditions database, and infusion pump calculators.",
+  "requestFramePermissions": []
+}

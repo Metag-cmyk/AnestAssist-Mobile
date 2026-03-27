@@ -1,0 +1,193 @@
+import React, { createContext, useContext, ReactNode } from 'react';
+
+export type Language = 'en';
+
+interface LanguageContextType {
+  language: Language;
+  t: (key: string) => string;
+}
+
+const translations: Record<Language, Record<string, string>> = {
+  en: {
+    'app.title': 'Anesthesia & ICU',
+    'app.subtitle': 'Trainee Companion',
+    'nav.guidelines': 'Guidelines',
+    'nav.patient': 'Patient Profile',
+    'nav.conditions': 'Conditions',
+    'nav.scores': 'Clinical Scores',
+    'nav.surgery': 'Surgery',
+    'nav.converter': 'Converter',
+    'header.evidence': 'Evidence-Based Practice',
+    'guidelines.desc': 'Access visual algorithms from ASA, ESAIC, and ESICM.',
+    'patient.desc': 'Calculate IBW, percentiles, and emergency drug doses for all ages.',
+    'conditions.desc': 'Quick-reference treatment protocols for common clinical scenarios.',
+    'surgery.desc': 'Specialized anesthetic considerations for various surgical subspecialties.',
+    'converter.desc': 'Accurate unit conversion for drug infusion pumps.',
+    'converter.title': 'Infusion Pump Calculator',
+    'converter.weight': 'Patient Weight (kg)',
+    'converter.concentration': 'Drug Concentration (mg/mL)',
+    'converter.dose': 'Desired Dose',
+    'converter.rate': 'Calculated Infusion Rate',
+    'converter.safety': 'Safety Note: Always double-check calculations manually. Ensure units (mg vs mcg) and timeframes (min vs hour) match the pump settings and drug labeling.',
+    'footer.copy': '© 2026 Anesthesia & ICU Trainee Companion. For educational purposes only.',
+    'footer.disclaimer': 'Clinical information is sourced from major societies (ASA, ESAIC, ESICM) and processed by AI. Always verify with local hospital protocols and senior consultants before clinical application.',
+    'common.search': 'Search...',
+    'common.select': 'Select...',
+    'common.all': 'All',
+    'common.back': 'Back',
+    'common.category': 'Category',
+    'common.actions': 'Immediate Actions',
+    'common.diagnosis': 'Diagnostic Criteria',
+    'common.secondary': 'Secondary Management',
+    'common.notes': 'Clinical Notes',
+    'common.algorithm': 'Treatment Algorithm',
+    'common.labRanges': 'Normal Lab Ranges',
+    'common.fluidManagement': 'IV Fluid Management',
+    'common.choices': 'Typical Choices',
+    'common.targets': 'Targets',
+    'common.monitoring': 'Monitoring',
+    'common.visualAlgorithm': 'Visual Algorithm',
+    'common.viewFull': 'View Full Guideline',
+    'common.selectProtocol': 'Select a Protocol',
+    'common.selectProtocolDesc': 'Choose a cardiovascular or endocrine pathology from the list to view evidence-based treatment algorithms.',
+    'common.selectScore': 'Select a Score',
+    'common.selectScoreDesc': 'Choose a clinical scoring system from the list to calculate risk levels and mortality predictions.',
+    'common.selectGuideline': 'Select a Guideline',
+    'common.selectGuidelineDesc': 'Choose a clinical algorithm from the list to view the step-by-step visual protocol.',
+    'patient.age': 'Age',
+    'patient.weight': 'Weight (kg)',
+    'patient.height': 'Height (cm)',
+    'patient.gender': 'Gender',
+    'patient.male': 'Male',
+    'patient.female': 'Female',
+    'patient.calculate': 'Calculate',
+    'patient.results': 'Calculated Parameters',
+    'patient.emergencyDoses': 'Emergency Drug Doses',
+    'converter.from': 'From',
+    'converter.to': 'To',
+    'converter.value': 'Value',
+    'converter.convert': 'Convert',
+    'converter.result': 'Result',
+    'patient.title': 'Patient Profile & Emergency Dosing',
+    'patient.reset': 'Reset Profile',
+    'patient.type': 'Patient Type',
+    'patient.ibw': 'Ideal Body Weight',
+    'patient.bmi': 'BMI / Category',
+    'patient.targetWeight': 'Target Weight for Drugs',
+    'patient.actual': 'Actual',
+    'patient.ideal': 'Ideal',
+    'patient.drugsTitle': 'Emergency & Induction Drugs',
+    'patient.copyDoses': 'Copy Doses',
+    'patient.tableName': 'Drug Name',
+    'patient.tableDose': 'Standard Dose',
+    'patient.tableCalc': 'Calculated Dose',
+    'patient.tableNotes': 'Indication / Notes',
+    'patient.disclaimerTitle': 'Clinical Disclaimer',
+    'patient.disclaimerText': 'These calculations are based on standard formulas (Devine for IBW) and common clinical guidelines. Always use clinical judgment, especially in extremes of weight, renal failure, or specific patient comorbidities. Pediatric and neonatal dosing must be cross-verified with institutional weight-based charts.',
+    'patient.toastReset': 'Profile reset',
+    'patient.toastCopy': 'Drug doses copied to clipboard',
+    'patient.days': 'Days',
+    'patient.months': 'Months',
+    'patient.years': 'Years',
+    'patient.apls': 'APLS Weight Estimate',
+    'patient.bmiPercentile': 'BMI / Percentile Estimate',
+    'patient.equipmentTitle': 'Pediatric Equipment Estimates',
+    'patient.ettSize': 'ETT Size (Uncuffed)',
+    'patient.ettDepth': 'ETT Depth (Oral)',
+    'patient.lmaSize': 'LMA Size',
+    'patient.blade': 'Laryngoscope Blade',
+    'patient.millerNote': 'Miller (Straight) for infants',
+    'patient.cuffedNote': 'Cuffed: -0.5 size',
+    'patient.mcgKgMin': 'mcg/kg/min',
+    'patient.mcgKgHr': 'mcg/kg/h',
+    'patient.mgHr': 'mg/h',
+    'severity.critical': 'Critical',
+    'severity.urgent': 'Urgent',
+    'severity.standard': 'Standard',
+    'category.Endocrine': 'Endocrine',
+    'category.Metabolic': 'Metabolic',
+    'category.Cardiovascular': 'Cardiovascular',
+    'category.Critical Care': 'Critical Care',
+    'category.General': 'General',
+    'category.Emergency': 'Emergency',
+    'category.Resuscitation': 'Resuscitation',
+    'category.Intensive Care': 'Intensive Care',
+    'category.Anesthesia': 'Anesthesia',
+    'category.Respiratory': 'Respiratory',
+    'category.Gastrointestinal': 'Gastrointestinal',
+    'category.Obstetrics': 'Obstetrics',
+    'category.Neurological': 'Neurological',
+    'category.Airway': 'Airway',
+    'category.Pre-op': 'Pre-op',
+    'category.ICU': 'ICU',
+    'category.Post-op': 'Post-op',
+    'category.Intra-op': 'Intra-op',
+    'category.Renal': 'Renal',
+    'category.Cardiology': 'Cardiology',
+    'category.Pediatrics': 'Pediatrics',
+    'category.Infectious': 'Infectious',
+    'category.Toxicology': 'Toxicology',
+    'category.Hematology': 'Hematology',
+    'surgery.specialty': 'Specialty',
+    'surgery.procedures': 'Procedures',
+    'surgery.selectProcedure': 'Select Procedure',
+    'surgery.guide': 'Surgical Guide',
+    'surgery.anestheticConsiderations': 'Anesthetic Considerations',
+    'surgery.surgicalComplications': 'Surgical Complications',
+    'surgery.anestheticComplications': 'Anesthetic Complications',
+    'surgery.managementProtocols': 'Management Protocols',
+    'surgery.preOp': 'Pre-Op',
+    'surgery.intraOp': 'Intra-Op',
+    'surgery.postOp': 'Post-Op',
+    'surgery.generalConsiderations': 'General Considerations',
+    'surgery.preOperative': 'Pre-operative',
+    'surgery.intraOperative': 'Intra-operative',
+    'surgery.postOperative': 'Post-operative',
+    'surgery.selectProcedureDesc': 'Select a procedure from the sidebar to see detailed protocols.',
+    'surgery.Abdominal Surgery': 'Abdominal Surgery',
+    'surgery.Gynaecology': 'Gynaecology',
+    'surgery.Urology': 'Urology',
+    'surgery.Neurosurgery': 'Neurosurgery',
+    'surgery.Cardiovascular Surgery': 'Cardiovascular Surgery',
+    'surgery.Ophthalmic Surgery': 'Ophthalmic Surgery',
+    'surgery.ENT Surgery': 'ENT Surgery',
+    'surgery.Plastics & Reconstructive Surgery': 'Plastics & Reconstructive Surgery',
+    'surgery.Endocrine Surgery': 'Endocrine Surgery',
+    'surgery.Burns Surgery': 'Burns Surgery',
+    'surgery.Orthopedic Surgery': 'Orthopedic Surgery',
+    'surgery.Thoracic Surgery': 'Thoracic Surgery',
+    'surgery.Obstetrics': 'Obstetrics',
+    'surgery.Trauma Surgery': 'Trauma Surgery',
+    'surgery.Pediatric Surgery': 'Pediatric Surgery',
+    'surgery.General Surgery': 'General Surgery',
+    'surgery.antibioticProphylaxis': 'Antibiotic Prophylaxis',
+    'surgery.drug': 'Drug',
+    'surgery.dosage': 'Dosage',
+    'surgery.timing': 'Timing',
+    'surgery.alternatives': 'Alternatives',
+  }
+};
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const language: Language = 'en';
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
