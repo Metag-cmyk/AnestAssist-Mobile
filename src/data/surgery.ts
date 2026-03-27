@@ -1548,43 +1548,6 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         }
       },
       {
-        id: 'carotid-endarterectomy',
-        name: 'Carotid Endarterectomy',
-        guide: [
-          { title: 'Incision', description: 'Perform an incision along the anterior border of the sternocleidomastoid muscle, centered over the carotid bifurcation.' },
-          { title: 'Exposure', description: 'Dissect through the platysma and deep fascia to identify the common, internal, and external carotid arteries. Identify and protect the hypoglossal and vagus nerves.' },
-          { title: 'Clamping', description: 'Administer systemic heparin. Clamp the common, internal, and external carotid arteries. Consider the use of an intraluminal shunt if cerebral monitoring indicates ischemia.' },
-          { title: 'Endarterectomy', description: 'Perform a longitudinal arteriotomy and carefully remove the atherosclerotic plaque from the arterial wall, ensuring a smooth transition at the distal and proximal ends.' },
-          { title: 'Closure', description: 'Irrigate the artery and check for any loose debris. Close the arteriotomy primarily or with a patch (e.g., Dacron or vein) to prevent narrowing. De-air the artery and restore flow.' }
-        ],
-        anestheticConsiderations: [
-          'GA or Regional (Cervical plexus block)',
-          'Maintain BP at or slightly above baseline during clamping',
-          'Neurological monitoring (awake patient, EEG, or stump pressure)',
-          'Smooth emergence to avoid hypertension/hematoma'
-        ],
-        antibioticProphylaxis: {
-          drug: 'Cefazolin',
-          dosage: '2g IV',
-          timing: 'At induction',
-          alternatives: 'Clindamycin'
-        },
-        complications: {
-          surgical: ['Stroke (TIA/CVA)', 'Nerve injury (Hypoglossal/Vagus)', 'Hematoma', 'Hyperperfusion syndrome'],
-          anesthetic: ['Hypertension/Hypotension', 'Myocardial ischemia']
-        },
-        management: {
-          preOp: ['Review carotid duplex/CT angiogram', 'Optimize BP meds'],
-          intraOp: [
-            'Maintain blood pressure at or slightly above the patient\'s baseline during carotid clamping to optimize collateral cerebral perfusion.',
-            'Utilize neurological monitoring (e.g., awake patient, EEG, SSEP, or stump pressure) to identify and manage cerebral ischemia during clamping.',
-            'Ensure a smooth emergence from anesthesia to avoid sudden hypertension, which can lead to neck hematoma formation and airway compromise.',
-            'Monitor for potential complications like stroke, cranial nerve injury (e.g., hypoglossal or vagus), or hyperperfusion syndrome in the post-operative period.'
-          ],
-          postOp: ['Strict BP targets', 'Monitor for neck hematoma (airway risk)']
-        }
-      },
-      {
         id: 'mitral-valve',
         name: 'Mitral Valve Repair/Replacement',
         guide: [
@@ -1619,38 +1582,6 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics and optimize preload and afterload during the weaning process, being mindful of the risk of left ventricular outflow tract (LVOT) obstruction after repair.'
           ],
           postOp: ['ICU management', 'Monitor for AF']
-        }
-      },
-      {
-        id: 'evar',
-        name: 'Endovascular Aneurysm Repair (EVAR)',
-        guide: [
-          { title: 'Access', description: 'Percutaneous or open cut-down of the femoral arteries.' },
-          { title: 'Navigation', description: 'Guidewire and catheter navigation into the aorta.' },
-          { title: 'Deployment', description: 'Deployment of the stent-graft across the aneurysm.' },
-          { title: 'Completion', description: 'Angiography to confirm graft position and absence of endoleaks.' },
-          { title: 'Closure', description: 'Closure of the femoral access sites.' }
-        ],
-        anestheticConsiderations: [
-          'GA, Spinal, or Local with sedation',
-          'Monitor for "Post-implantation syndrome" (fever, leukocytosis)',
-          'Manage contrast-induced nephropathy risk',
-          'Be prepared for emergency conversion to open repair'
-        ],
-        antibioticProphylaxis: {
-          drug: 'Cefazolin',
-          dosage: '2g IV',
-          timing: 'At induction',
-          alternatives: 'Clindamycin'
-        },
-        complications: {
-          surgical: ['Endoleak', 'Graft migration', 'Limb ischemia', 'Aortic rupture'],
-          anesthetic: ['Renal failure', 'Contrast reaction', 'Myocardial ischemia']
-        },
-        management: {
-          preOp: ['Review CT for anatomy', 'Check renal function'],
-          intraOp: ['Maintain stable BP', 'Ensure adequate hydration'],
-          postOp: ['Monitor for endoleaks', 'Check distal pulses']
         }
       },
       {
