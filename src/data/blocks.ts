@@ -73,7 +73,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
       'LAST (high volume of LA used)'
     ],
     suggestedVolume: '30 - 40 mL (large volume block)',
-    maxDoseNote: 'Given the large volume, use low concentration (e.g., 0.1% - 0.2% Ropivacaine or 0.125% - 0.25% Levobupivacaine) to stay within safety limits.'
+    maxDoseNote: 'Given the large volume, use low concentration (e.g., 0.1% - 0.2% Ropivacaine or 0.125% - 0.25% Levobupivacaine) to stay within safety limits.',
+    probePlacementImage: '/fib_probe_placement.png',
+    ultrasoundGuideImage: '/fib_ultrasound_guide.png'
   },
   {
     id: 'tap-block',
@@ -109,7 +111,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
       'LAST (multiple injections of high-volume LA)'
     ],
     suggestedVolume: '20 mL per side (Bilateral)',
-    maxDoseNote: 'Ensure total dose (Left + Right side) does not exceed patient weight-based limits.'
+    maxDoseNote: 'Ensure total dose (Left + Right side) does not exceed patient weight-based limits.',
+    probePlacementImage: '/tap_probe_placement.png',
+    ultrasoundGuideImage: '/tap_ultrasound_guide.png'
   },
   {
     id: 'supraclavicular-brachial-plexus',
