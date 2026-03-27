@@ -14,6 +14,8 @@ export default function RenalModule() {
   const [crrtQb, setCrrtQb] = useState('150');
   const [crrtPreFilter, setCrrtPreFilter] = useState('50');
   const [crrtTarget, setCrrtTarget] = useState('25');
+  const [crrtNetUfr, setCrrtNetUfr] = useState('100');
+  const [crrtPbp, setCrrtPbp] = useState('0');
 
   // TPE State
   const [tpeWeight, setTpeWeight] = useState('85');
@@ -32,7 +34,9 @@ export default function RenalModule() {
     hctPercent: parseFloat(crrtHct) || 0,
     bloodFlowMlMin: parseFloat(crrtQb) || 0,
     preFilterPercent: parseFloat(crrtPreFilter) || 0,
-    targetDoseMlKgHr: parseFloat(crrtTarget) || 0
+    targetDoseMlKgHr: parseFloat(crrtTarget) || 0,
+    netUfrMlHr: parseFloat(crrtNetUfr) || 0,
+    pbpMlHr: parseFloat(crrtPbp) || 0
   });
 
   const tpeResults = calculatePlasmaExchange(parseFloat(tpeWeight) || 0, parseFloat(tpeHct) || 0);
@@ -110,6 +114,14 @@ export default function RenalModule() {
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Target Dose (mL/kg/hr)</label>
                       <input type="number" value={crrtTarget} onChange={e => setCrrtTarget(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Net UFR (Patient mL/hr)</label>
+                      <input type="number" value={crrtNetUfr} onChange={e => setCrrtNetUfr(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-cyan-500" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-Blood Pump (PBP mL/hr)</label>
+                      <input type="number" value={crrtPbp} onChange={e => setCrrtPbp(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-pink-500" />
+                    </div>
                     <div className="col-span-2">
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-Filter Ratio (%) - Replace</label>
                       <input type="range" min="0" max="100" value={crrtPreFilter} onChange={e => setCrrtPreFilter(e.target.value)} className="w-full accent-red-600" />
@@ -126,23 +138,40 @@ export default function RenalModule() {
                   <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-2">Ideal Prescription (KDIGO)</h3>
                   
                   <div className="flex justify-between items-center py-1">
-                    <span className="text-slate-400 text-sm">Total Dose Rate</span>
-                    <span className="font-mono text-lg font-bold text-white">{crrtResults.totalDoseHr.toFixed(0)} ml/hr</span>
+                    <span className="text-slate-400 text-sm">Target Effluent Rate</span>
+                    <span className="font-mono text-lg font-bold text-white">{crrtResults.totalEffluentHr.toFixed(0)} mL/hr</span>
                   </div>
                   
                   <div className="flex justify-between items-center py-1 border-t border-slate-800">
+                    <span className="text-slate-400 text-sm">Predicted CrCl</span>
+                    <span className="font-mono font-bold text-purple-400">{crrtResults.predictedCrCl.toFixed(1)} mL/min</span>
+                  </div>
+
+                  <div className="flex justify-between items-center py-1 border-t border-slate-800">
+                    <span className="text-slate-400 text-sm">Delivered UFR Dose</span>
+                    <span className="font-mono font-medium text-amber-300">{crrtResults.deliveredUfrDose.toFixed(1)} mL/kg/hr</span>
+                  </div>
+
+                  {crrtResults.pbpRateHr > 0 && (
+                    <div className="flex justify-between items-center py-1 border-t border-slate-800">
+                      <span className="text-slate-400 text-sm">Pre-Blood Pump (PBP)</span>
+                      <span className="font-mono font-medium text-pink-300">{crrtResults.pbpRateHr.toFixed(0)} mL/hr</span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between items-center py-1 border-t border-slate-800">
                     <span className="text-slate-400 text-sm">Dialysate Rate</span>
-                    <span className="font-mono font-medium text-blue-300">{crrtResults.dialysateRateHr.toFixed(0)} ml/hr</span>
+                    <span className="font-mono font-medium text-blue-300">{crrtResults.dialysateRateHr.toFixed(0)} mL/hr</span>
                   </div>
 
                   <div className="flex justify-between items-center py-1 border-t border-slate-800">
                     <span className="text-slate-400 text-sm">Pre-Filter Replacement</span>
-                    <span className="font-mono font-medium text-emerald-300">{crrtResults.preFilterRateHr.toFixed(0)} ml/hr</span>
+                    <span className="font-mono font-medium text-emerald-300">{crrtResults.preFilterRateHr.toFixed(0)} mL/hr</span>
                   </div>
 
                   <div className="flex justify-between items-center py-1 border-t border-slate-800">
                     <span className="text-slate-400 text-sm">Post-Filter Replacement</span>
-                    <span className="font-mono font-medium text-orange-300">{crrtResults.postFilterRateHr.toFixed(0)} ml/hr</span>
+                    <span className="font-mono font-medium text-orange-300">{crrtResults.postFilterRateHr.toFixed(0)} mL/hr</span>
                   </div>
 
                   <div className={`mt-4 p-3 rounded-lg flex justify-between items-center border ${crrtResults.isHighClottingRisk ? 'bg-red-950/50 border-red-500' : 'bg-slate-800 border-slate-700'}`}>
