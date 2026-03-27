@@ -97,4 +97,27 @@ export interface SurgerySpecialty {
   procedures: SurgeryProcedure[];
 }
 
-export type TabType = 'guidelines' | 'conditions' | 'converter' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator';
+export interface BlockTechnique {
+  title: string;
+  description: string;
+}
+
+export interface RegionalBlock {
+  id: string;
+  name: string;
+  category: 'Upper Limb' | 'Lower Limb' | 'Trunk' | 'Neuraxial' | 'Head & Neck';
+  indications: string[];
+  contraindications: {
+    absolute: string[];
+    relative: string[];
+  };
+  anatomy: string[];
+  technique: BlockTechnique[];
+  sonoAnatomyTips: string[];
+  complications: string[];
+  suggestedVolume: string;
+  maxDoseNote: string;
+  imagePrompt?: string; // For generating the medical illustration
+}
+
+export type TabType = 'guidelines' | 'conditions' | 'converter' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator' | 'regional';

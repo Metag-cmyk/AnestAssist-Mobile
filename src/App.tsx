@@ -10,7 +10,8 @@ import {
   ClipboardList,
   Scissors,
   Activity,
-  Wind
+  Wind,
+  Syringe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TabType } from './types';
@@ -22,6 +23,7 @@ import ClinicalScores from './components/ClinicalScores';
 import Surgery from './components/Surgery';
 import VentilatorModule from './components/VentilatorModule';
 import RenalModule from './components/RenalModule';
+import RegionalLibrary from './components/RegionalLibrary';
 import { useLanguage } from './contexts/LanguageContext';
 
 export default function App() {
@@ -37,6 +39,7 @@ export default function App() {
     { id: 'conditions', label: t('nav.conditions'), icon: Stethoscope },
     { id: 'ventilator', label: 'Ventilator', icon: Wind },
     { id: 'renal', label: 'Renal Replace', icon: Activity },
+    { id: 'regional', label: 'Regional', icon: Syringe },
     { id: 'converter', label: t('nav.converter'), icon: Calculator },
   ];
 
@@ -139,6 +142,7 @@ export default function App() {
             {activeTab === 'scores' && t('common.selectScoreDesc')}
             {activeTab === 'ventilator' && 'Condition-based mechanical ventilation strategies & targets.'}
             {activeTab === 'renal' && 'CRRT, IHD targets, and Plasma Exchange calculators.'}
+            {activeTab === 'regional' && 'Ultrasound-guided regional anesthesia library & safety calculator.'}
             {activeTab === 'converter' && t('converter.desc')}
           </p>
         </div>
@@ -158,6 +162,7 @@ export default function App() {
             {activeTab === 'surgery' && <Surgery />}
             {activeTab === 'ventilator' && <VentilatorModule />}
             {activeTab === 'renal' && <RenalModule />}
+            {activeTab === 'regional' && <RegionalLibrary />}
             {activeTab === 'converter' && <Converter />}
           </motion.div>
         </AnimatePresence>
