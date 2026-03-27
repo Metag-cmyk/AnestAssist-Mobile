@@ -133,7 +133,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Identify the first rib and pleura clearly before needle insertion.'],
     complications: ['Pneumothorax', 'Phrenic nerve palsy (50%)', 'Subclavian artery puncture'],
     suggestedVolume: '20 - 25 mL',
-    maxDoseNote: 'Standard weight-based limits.'
+    maxDoseNote: 'Standard weight-based limits.',
+    probePlacementImage: '/supraclav_probe_placement.png',
+    ultrasoundGuideImage: '/supraclav_ultrasound_guide.png'
   },
   {
     id: 'axillary-brachial-plexus',
@@ -153,7 +155,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['The musculocutaneous nerve often "dives" deep early; check coracobrachialis muscle.'],
     complications: ['Intravascular injection', 'Hematoma'],
     suggestedVolume: '20 - 30 mL (total)',
-    maxDoseNote: 'Multiple injections require careful dose tracking.'
+    maxDoseNote: 'Multiple injections require careful dose tracking.',
+    probePlacementImage: '/axillary_probe_placement.png',
+    ultrasoundGuideImage: '/axillary_ultrasound_guide.png'
   },
   {
     id: 'infraclavicular-brachial-plexus',
