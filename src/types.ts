@@ -117,7 +117,8 @@ export interface RegionalBlock {
   complications: string[];
   suggestedVolume: string;
   maxDoseNote: string;
-  imagePrompt?: string; // For generating the medical illustration
+  probePlacementImage?: string; // Image of the probe on the patient's body
+  ultrasoundGuideImage?: string; // The US image with needle and injection points
 }
 
 export type TabType = 'guidelines' | 'conditions' | 'converter' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator' | 'regional';

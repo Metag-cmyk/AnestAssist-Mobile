@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { REGIONAL_BLOCKS } from '../data/blocks';
 import { LA_AGENTS, calculateMaxLADose, doseToVolume } from '../lib/BlockCalculators';
-import { Search, ChevronRight, Ruler, AlertCircle, Droplets, Info, ShieldAlert, Thermometer, User, Syringe, Layers } from 'lucide-react';
+import { Search, ChevronRight, Ruler, AlertCircle, Droplets, Info, ShieldAlert, Thermometer, User, Syringe, Layers, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function RegionalLibrary() {
@@ -112,15 +112,53 @@ export default function RegionalLibrary() {
               exit={{ opacity: 0, y: -10 }}
               className="space-y-6"
             >
-              {/* Image / Placeholder */}
-              <div className="aspect-[21/9] bg-gradient-to-br from-slate-800 to-indigo-950 rounded-2xl flex flex-col items-center justify-center text-white/40 border border-slate-700 shadow-inner p-8">
-                <p className="text-xs font-mono uppercase tracking-[0.2em] mb-4">Sono-Anatomy Visualizer</p>
-                <div className="w-24 h-24 border-2 border-dashed border-white/10 rounded-full flex items-center justify-center animate-pulse mb-4">
-                  <Droplets className="w-10 h-10 opacity-20" />
+              {/* Dual Visuals */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Probe Placement */}
+                <div className="group relative aspect-video bg-slate-900 rounded-2xl overflow-hidden border border-slate-700 shadow-lg">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60 z-10" />
+                  {selectedBlock.probePlacementImage ? (
+                    <img 
+                      src={selectedBlock.probePlacementImage} 
+                      alt="Probe Placement" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center text-white/20 p-6 text-center">
+                      <User className="w-8 h-8 mb-2 opacity-20" />
+                      <p className="text-[10px] uppercase tracking-widest font-bold">Probe Placement</p>
+                    </div>
+                  )}
+                  <div className="absolute bottom-3 left-4 z-20 flex items-center gap-2">
+                    <div className="w-6 h-6 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
+                      <Layers className="w-3 h-3 text-white" />
+                    </div>
+                    <p className="text-[10px] font-bold text-white uppercase tracking-wider">Surface Anatomy</p>
+                  </div>
                 </div>
-                <p className="text-[10px] text-center max-w-md opacity-60 leading-relaxed italic">
-                  {selectedBlock.imagePrompt}
-                </p>
+
+                {/* Ultrasound Guide */}
+                <div className="group relative aspect-video bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 shadow-lg">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10" />
+                  {selectedBlock.ultrasoundGuideImage ? (
+                    <img 
+                      src={selectedBlock.ultrasoundGuideImage} 
+                      alt="Ultrasound Guide" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center text-white/20 p-6 text-center">
+                      <Activity className="w-8 h-8 mb-2 opacity-20" />
+                      <p className="text-[10px] uppercase tracking-widest font-bold">US-Guided Technique</p>
+                    </div>
+                  )}
+                  <div className="absolute bottom-3 left-4 z-20 flex items-center gap-2">
+                    <div className="w-6 h-6 bg-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
+                      <Syringe className="w-3 h-3 text-white" />
+                    </div>
+                    <p className="text-[10px] font-bold text-white uppercase tracking-wider">Sono-Anatomy Guide</p>
+                  </div>
+                </div>
               </div>
 
               {/* Grid Info */}

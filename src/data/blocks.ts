@@ -36,7 +36,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     ],
     suggestedVolume: '10 - 15 mL',
     maxDoseNote: 'Calculate max dose using weight-based limits (e.g., Ropivacaine 3mg/kg).',
-    imagePrompt: 'Professional medical ultrasound illustration of the interscalene brachial plexus, showing the C5, C6, and C7 nerve roots between the anterior and middle scalene muscles, with a needle entering from lateral to medial.'
+    probePlacementImage: '/interscalene_probe_placement.png',
+    ultrasoundGuideImage: '/interscalene_ultrasound_guide.png'
   },
   {
     id: 'fascia-iliaca-block',
@@ -72,8 +73,7 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
       'LAST (high volume of LA used)'
     ],
     suggestedVolume: '30 - 40 mL (large volume block)',
-    maxDoseNote: 'Given the large volume, use low concentration (e.g., 0.1% - 0.2% Ropivacaine or 0.125% - 0.25% Levobupivacaine) to stay within safety limits.',
-    imagePrompt: 'Medical anatomical illustration of a fascia iliaca block, showing the needle tip beneath the fascia iliaca layer lateral to the femoral artery, with local anesthetic spreading in the plane above the iliacus muscle.'
+    maxDoseNote: 'Given the large volume, use low concentration (e.g., 0.1% - 0.2% Ropivacaine or 0.125% - 0.25% Levobupivacaine) to stay within safety limits.'
   },
   {
     id: 'tap-block',
@@ -109,8 +109,7 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
       'LAST (multiple injections of high-volume LA)'
     ],
     suggestedVolume: '20 mL per side (Bilateral)',
-    maxDoseNote: 'Ensure total dose (Left + Right side) does not exceed patient weight-based limits.',
-    imagePrompt: 'Medical illustration showing the three muscle layers of the abdominal wall: External Oblique, Internal Oblique, and Transversus Abdominis. A needle is shown correctly positioned in the plane between the Internal Oblique and Transversus Abdominis muscle, with fluid spreading.'
+    maxDoseNote: 'Ensure total dose (Left + Right side) does not exceed patient weight-based limits.'
   },
   {
     id: 'supraclavicular-brachial-plexus',
