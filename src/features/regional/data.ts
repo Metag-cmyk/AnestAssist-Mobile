@@ -36,8 +36,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     ],
     suggestedVolume: '10 - 15 mL',
     maxDoseNote: 'Calculate max dose using weight-based limits (e.g., Ropivacaine 3mg/kg).',
-    probePlacementImage: '/interscalene_probe_placement.png',
-    ultrasoundGuideImage: '/interscalene_ultrasound_guide.png'
+    probePlacementImage: '/interscalene_probe_placement.webp',
+    ultrasoundGuideImage: '/interscalene_ultrasound_guide.webp'
   },
   {
     id: 'fascia-iliaca-block',
@@ -74,8 +74,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     ],
     suggestedVolume: '30 - 40 mL (large volume block)',
     maxDoseNote: 'Given the large volume, use low concentration (e.g., 0.1% - 0.2% Ropivacaine or 0.125% - 0.25% Levobupivacaine) to stay within safety limits.',
-    probePlacementImage: '/fib_probe_placement.png',
-    ultrasoundGuideImage: '/fib_ultrasound_guide.png'
+    probePlacementImage: '/fib_probe_placement.webp',
+    ultrasoundGuideImage: '/fib_ultrasound_guide.webp'
   },
   {
     id: 'tap-block',
@@ -112,8 +112,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     ],
     suggestedVolume: '20 mL per side (Bilateral)',
     maxDoseNote: 'Ensure total dose (Left + Right side) does not exceed patient weight-based limits.',
-    probePlacementImage: '/tap_probe_placement.png',
-    ultrasoundGuideImage: '/tap_ultrasound_guide.png'
+    probePlacementImage: '/tap_probe_placement.webp',
+    ultrasoundGuideImage: '/tap_ultrasound_guide.webp'
   },
   {
     id: 'supraclavicular-brachial-plexus',
@@ -134,8 +134,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Pneumothorax', 'Phrenic nerve palsy (50%)', 'Subclavian artery puncture'],
     suggestedVolume: '20 - 25 mL',
     maxDoseNote: 'Standard weight-based limits.',
-    probePlacementImage: '/supraclav_probe_placement.png',
-    ultrasoundGuideImage: '/supraclav_ultrasound_guide.png'
+    probePlacementImage: '/supraclav_probe_placement.webp',
+    ultrasoundGuideImage: '/supraclav_ultrasound_guide.webp'
   },
   {
     id: 'axillary-brachial-plexus',
@@ -156,8 +156,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Intravascular injection', 'Hematoma'],
     suggestedVolume: '20 - 30 mL (total)',
     maxDoseNote: 'Multiple injections require careful dose tracking.',
-    probePlacementImage: '/axillary_probe_placement.png',
-    ultrasoundGuideImage: '/axillary_ultrasound_guide.png'
+    probePlacementImage: '/axillary_probe_placement.webp',
+    ultrasoundGuideImage: '/axillary_ultrasound_guide.webp'
   },
   {
     id: 'infraclavicular-brachial-plexus',
@@ -178,7 +178,7 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Vascular puncture', 'Pneumothorax (rare)'],
     suggestedVolume: '20 - 30 mL',
     maxDoseNote: 'Excellent for catheters due to muscle stabilization.',
-    probePlacementImage: '/infraclavicular_probe_placement.png',
+    probePlacementImage: '/infraclavicular_probe_placement.webp',
     ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/UE_Infraclavicular_Featured-image-750x720-1-1.jpg'
   },
   {
@@ -200,8 +200,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Failed block', 'Muscle injury'],
     suggestedVolume: '20 - 30 mL',
     maxDoseNote: 'High volume required for longitudinal spread.',
-    probePlacementImage: '/esp_probe_placement.png',
-    ultrasoundGuideImage: '/esp_ultrasound_guide.png'
+    probePlacementImage: '/esp_probe_placement.webp',
+    ultrasoundGuideImage: '/esp_ultrasound_guide.webp'
   },
   {
     id: 'pecs-i-ii-block',
@@ -222,8 +222,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Pneumothorax', 'Vascular injury'],
     suggestedVolume: '25 - 30 mL',
     maxDoseNote: 'Systemic absorption from breast tissue is high.',
-    probePlacementImage: '/pecs_probe_placement.png',
-    ultrasoundGuideImage: '/pecs_ultrasound_guide.png'
+    probePlacementImage: '/pecs_probe_placement.webp',
+    ultrasoundGuideImage: '/pecs_ultrasound_guide.webp'
   },
   {
     id: 'adductor-canal-block',
@@ -244,8 +244,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Inadequate analgesia', 'Quadriceps weakness if volume > 20mL'],
     suggestedVolume: '15 - 20 mL',
     maxDoseNote: 'Motor-sparing at low volumes.',
-    probePlacementImage: '/acb_probe_placement.png',
-    ultrasoundGuideImage: '/acb_ultrasound_guide.png'
+    probePlacementImage: '/acb_probe_placement.webp',
+    ultrasoundGuideImage: '/acb_ultrasound_guide.webp'
   },
   {
     id: 'peng-block',
@@ -266,8 +266,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Muscle weakness (femoral nerve spread)'],
     suggestedVolume: '20 mL',
     maxDoseNote: 'Ideal for motor-sparing hip analgesia.',
-    probePlacementImage: '/peng_probe_placement.png',
-    ultrasoundGuideImage: '/peng_ultrasound_guide.png'
+    probePlacementImage: '/peng_probe_placement.webp',
+    ultrasoundGuideImage: '/peng_ultrasound_guide.webp'
   },
   {
     id: 'popliteal-sciatic-block',
@@ -288,8 +288,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Nerve injury', 'Vascular puncture'],
     suggestedVolume: '20 - 25 mL',
     maxDoseNote: 'Commonly combined with a saphenous block for total foot coverage.',
-    probePlacementImage: '/pop_sciatic_probe_placement.png',
-    ultrasoundGuideImage: '/pop_sciatic_ultrasound_guide.png'
+    probePlacementImage: '/pop_sciatic_probe_placement.webp',
+    ultrasoundGuideImage: '/pop_sciatic_ultrasound_guide.webp'
   },
   {
     id: 'ipack-block',
@@ -332,8 +332,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Pneumothorax'],
     suggestedVolume: '20 - 30 mL',
     maxDoseNote: 'Large spread required for multiple rib coverage.',
-    probePlacementImage: '/sap_probe_placement.png',
-    ultrasoundGuideImage: '/sap_ultrasound_guide.png'
+    probePlacementImage: '/sap_probe_placement.webp',
+    ultrasoundGuideImage: '/sap_ultrasound_guide.webp'
   },
   {
     id: 'femoral-nerve-block',
@@ -376,8 +376,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Peritoneal puncture', 'Bowel injury'],
     suggestedVolume: '15 - 20 mL (bilateral)',
     maxDoseNote: 'Often done bilaterally; double the dose calculation.',
-    probePlacementImage: '/rectus_sheath_probe_placement.png',
-    ultrasoundGuideImage: '/rectus_sheath_ultrasound_guide.png'
+    probePlacementImage: '/rectus_sheath_probe_placement.webp',
+    ultrasoundGuideImage: '/rectus_sheath_ultrasound_guide.webp'
   },
   {
     id: 'paravertebral-block',
@@ -450,8 +450,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     ],
     suggestedVolume: '2.0 - 4.0 mL (0.5% Bupivacaine Heavy or Isobaric)',
     maxDoseNote: 'Standard Dose: 10-15mg (2-3mL) 0.5% Bupivacaine. Add Fentanyl (10-25mcg) or Morphine (100mcg) for enhanced analgesia.',
-    probePlacementImage: '/spinal_surface_anatomy.png',
-    ultrasoundGuideImage: '/spinal_technique_guide.png'
+    probePlacementImage: '/spinal_surface_anatomy.webp',
+    ultrasoundGuideImage: '/spinal_technique_guide.webp'
   },
   {
     id: 'epidural-anesthesia',
@@ -499,8 +499,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     ],
     suggestedVolume: '8 - 15 mL bolus (0.25% - 0.5% Bupivacaine)',
     maxDoseNote: 'Concentration: 0.1% - 0.125% Bupivacaine/Ropivacaine for analgesia; 0.5% for surgical block. Volume: 1-1.5mL per segment to be blocked.',
-    probePlacementImage: '/epidural_surface_anatomy.png',
-    ultrasoundGuideImage: '/epidural_technique_guide.png'
+    probePlacementImage: '/epidural_surface_anatomy.webp',
+    ultrasoundGuideImage: '/epidural_technique_guide.webp'
   },
   {
     id: 'cse-anesthesia',
@@ -674,8 +674,8 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     complications: ['Muscle weakness (lumbar plexus spread)', 'Hematoma (deep, non-compressible space)'],
     suggestedVolume: '20 - 30 mL (Bilateral)',
     maxDoseNote: 'High volume required for visceral coverage.',
-    probePlacementImage: '/ql_probe_placement.png',
-    ultrasoundGuideImage: '/ql_ultrasound_guide.png'
+    probePlacementImage: '/ql_probe_placement.webp',
+    ultrasoundGuideImage: '/ql_ultrasound_guide.webp'
   },
   {
     id: 'deep-cervical-plexus-block',

@@ -218,19 +218,57 @@ export default function Conditions() {
                     </ul>
                   </section>
 
+                  {selectedCondition.diagnosticCriteria && selectedCondition.diagnosticCriteria.length > 0 && (
+                    <section className="p-5 bg-rose-50/30 rounded-2xl border border-rose-100">
+                      <h3 className="flex items-center gap-2 text-sm font-bold text-rose-800 mb-3">
+                        <ClipboardList className="w-4 h-4 text-rose-600" />
+                        {t('common.diagnosticCriteria')}
+                      </h3>
+                      <ul className="space-y-2">
+                        {selectedCondition.diagnosticCriteria.map((item, i) => (
+                          <li key={i} className="text-xs text-rose-700 leading-relaxed italic flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-rose-300 mt-1.5 shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+
                   {selectedCondition.normalLabRanges && (
                     <section className="p-5 bg-amber-50/50 rounded-2xl border border-amber-100">
-                      <h3 className="flex items-center gap-2 text-sm font-bold text-amber-800 mb-4">
-                        <Activity className="w-4 h-4 text-amber-600" />
-                        {t('common.labRanges')}
-                      </h3>
-                      <div className="grid grid-cols-1 gap-3">
-                        {Object.entries(selectedCondition.normalLabRanges).map(([lab, range], i) => (
-                          <div key={i} className="flex items-center justify-between text-[11px] border-b border-amber-100/50 pb-2 last:border-0 last:pb-0">
-                            <span className="font-medium text-amber-900">{lab}</span>
-                            <span className="font-bold text-amber-700">{range}</span>
+                      <div className="space-y-6">
+                        <div>
+                          <h3 className="flex items-center gap-2 text-sm font-bold text-amber-800 mb-4">
+                            <Activity className="w-4 h-4 text-amber-600" />
+                            {t('common.labRanges')}
+                          </h3>
+                          <div className="grid grid-cols-1 gap-3">
+                            {Object.entries(selectedCondition.normalLabRanges).map(([lab, range], i) => (
+                              <div key={i} className="flex items-center justify-between text-[11px] border-b border-amber-100/50 pb-2 last:border-0 last:pb-0">
+                                <span className="font-medium text-amber-900">{lab}</span>
+                                <span className="font-bold text-amber-700">{range}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
+
+                        {selectedCondition.expectedLabDeviations && Object.keys(selectedCondition.expectedLabDeviations).length > 0 && (
+                          <div className="pt-4 border-t border-amber-100/50">
+                            <h3 className="flex items-center gap-2 text-sm font-bold text-rose-800 mb-4">
+                              <AlertCircle className="w-4 h-4 text-rose-600" />
+                              {t('common.expectedLabDeviations')}
+                            </h3>
+                            <div className="grid grid-cols-1 gap-3">
+                              {Object.entries(selectedCondition.expectedLabDeviations).map(([lab, deviation], i) => (
+                                <div key={i} className="flex flex-col text-[11px] border-b border-rose-100/20 pb-2 last:border-0 last:pb-0">
+                                  <span className="font-bold text-rose-900">{lab}</span>
+                                  <span className="text-rose-700 mt-0.5">{deviation}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </section>
                   )}
@@ -254,6 +292,22 @@ export default function Conditions() {
                 <div className="space-y-8">
                   {selectedCondition.diagram && (
                     <TreatmentDiagram steps={selectedCondition.diagram} />
+                  )}
+
+                  {selectedCondition.differentialDiagnosis && selectedCondition.differentialDiagnosis.length > 0 && (
+                    <section className="p-5 bg-slate-50/50 rounded-2xl border border-slate-200">
+                      <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
+                        <Search className="w-4 h-4 text-slate-600" />
+                        {t('common.differentialDiagnosis')}
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedCondition.differentialDiagnosis.map((item, i) => (
+                          <span key={i} className="px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] text-slate-600 font-bold uppercase tracking-wider">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </section>
                   )}
 
                   <section>
@@ -321,7 +375,7 @@ export default function Conditions() {
               {selectedCondition.notes && (
                 <div className="mt-12 p-6 bg-slate-50 rounded-2xl border border-medical-border">
                   <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{t('common.notes')}</h4>
-                  <p className="text-sm text-slate-600 italic">{selectedCondition.notes}</p>
+                  <p className="text-sm text-slate-600 italic leading-relaxed">{selectedCondition.notes}</p>
                 </div>
               )}
             </motion.div>

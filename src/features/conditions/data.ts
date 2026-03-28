@@ -44,7 +44,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Ketones': '< 0.6 mmol/L',
       'Potassium': '3.5 - 5.0 mmol/L',
       'Anion Gap': '8 - 12 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Blood Glucose > 11.0 mmol/L',
+      'Venous pH < 7.3 or Bicarbonate < 15.0 mmol/L',
+      'Ketonemia > 3.0 mmol/L or Ketonuria'
+    ],
+    expectedLabDeviations: {
+      'pH': '< 7.30 (Metabolic Acidosis)',
+      'Lactate': '> 2.0 mmol/L (if hypoperfused)',
+      'Anion Gap': '> 12.0 mmol/L',
+      'Potassium': 'Variable (often elevated, but low total body K+)'
+    },
+    differentialDiagnosis: ['Hyperosmolar Hyperglycemic State (HHS)', 'Alcoholic Ketoacidosis', 'Starvation Ketoacidosis', 'Salicylate Poisoning']
   },
   {
     id: 'thyroid-storm',
@@ -81,9 +93,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     ],
     normalLabRanges: {
       'TSH': '0.4 - 4.0 mIU/L',
-      'Free T4': '12 - 22 pmol/L',
       'Temperature': '< 37.5 C'
-    }
+    },
+    diagnosticCriteria: [
+      'Burch-Wartofsky Point Scale (BWPS) > 45',
+      'Symptoms: Temp > 38.8C, HR > 140, Agitation, Heart Failure, GI dysfunction'
+    ],
+    expectedLabDeviations: {
+      'TSH': '< 0.01 mIU/L (Suppressed)',
+      'Free T4': 'Markedly Elevated',
+      'Total T3': 'Markedly Elevated',
+      'Alkaline Phosphatase': 'Elevated (in 2/3 cases)'
+    },
+    differentialDiagnosis: ['Sepsis / Septic Shock', 'Anesthetic-induced Malignant Hyperthermia', 'Pheochromocytoma Crisis', 'Heat Stroke']
   },
   {
     id: 'cardiac-tamponade',
@@ -122,7 +144,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'CVP': '2 - 6 mmHg',
       'SBP': '> 90 mmHg',
       'RV Diastolic Pressure': '2 - 8 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Beck\'s Triad: Hypotension + JVP distension + Muffled heart sounds',
+      'Echo: Diastolic collapse of RA/RV + Vena cava plethora (no respiratory collapse)'
+    ],
+    expectedLabDeviations: {
+      'CVP': 'Markedly Elevated (> 12-15 mmHg)',
+      'Lactate': 'Elevated (indicates cardiogenic shock)',
+      'Troponin': 'May be elevated if myocardial injury present'
+    },
+    differentialDiagnosis: ['Tension Pneumothorax', 'Massive Pulmonary Embolism', 'Myocardial Infarction', 'Right Ventricular Failure']
   },
   {
     id: 'anaphylaxis',
@@ -162,7 +194,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Serum Tryptase': '2 - 14 mcg/L',
       'Mast Cell Tryptase (Peak)': '> (1.2 x baseline) + 2 mcg/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Brighton Criteria: Involvement of Airway, Breathing, and/or Circulation',
+      'Perioperative: Sudden hypotension or bronchospasm following IV drug administration'
+    ],
+    expectedLabDeviations: {
+      'Serum Tryptase': 'Elevated (> (1.2 x baseline) + 2 mcg/L)',
+      'pH': '< 7.35 (due to respiratory/metabolic acidosis)',
+      'Lactate': 'Elevated in distributive shock'
+    },
+    differentialDiagnosis: ['Vasovagal Response', 'Asthma Exacerbation', 'Tension Pneumothorax', 'Malignant Hyperthermia (initially)']
   },
   {
     id: 'pheochromocytoma',
@@ -202,7 +244,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Plasma Normetanephrines': '< 0.9 nmol/L',
       '24h Urine Metanephrines': '< 1.5 umol/24h',
       '24h Urine VMA': '< 35 umol/24h'
-    }
+    },
+    diagnosticCriteria: [
+      'Classic Triad: Episodic headache, profuse sweating, and tachycardia',
+      'Elevated plasma or urinary fractionated metanephrines'
+    ],
+    expectedLabDeviations: {
+      'Plasma Metanephrines': '> 2x upper limit of normal',
+      'Blood Glucose': 'Hyperglycemia common',
+      'Hemoglobin/Hematocrit': 'Often high due to chronic volume contraction'
+    },
+    differentialDiagnosis: ['Essential Hypertension', 'Panic Attack / Anxiety', 'Thyroid Storm', 'Carcinoid Syndrome']
   },
   {
     id: 'acute-hf',
@@ -241,9 +293,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'BNP': '< 100 pg/mL',
       'NT-proBNP': '< 300 pg/mL',
-      'Troponin T': '< 14 ng/L',
+      'PaO2': '11 - 13 kPa',
       'SpO2': '94 - 98%'
-    }
+    },
+    diagnosticCriteria: [
+      'Framingham Criteria: Paroxysmal nocturnal dyspnea, S3 gallop, Cardiomegaly, Pulmonary edema',
+      'Clinical: Bilateral crackles, elevated JVP, orthopnea'
+    ],
+    expectedLabDeviations: {
+      'BNP': 'Elevated (> 100 pg/mL)',
+      'NT-proBNP': 'Elevated (> 300 pg/mL)',
+      'Troponin T/I': 'Commonly elevated due to wall stress/ischemia'
+    },
+    differentialDiagnosis: ['ARDS', 'Pneumonia / Sepsis', 'Massive Pulmonary Embolism', 'Acute COPD Exacerbation']
   },
   {
     id: 'malignant-hyperthermia',
@@ -285,7 +347,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Creatine Kinase (CK)': '< 200 U/L',
       'Venous pH': '7.35 - 7.45',
       'Potassium': '3.5 - 5.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Unexplained rise in ETCO2, Muscle rigidity (Masseter/General), Tachycardia',
+      'Genetic: Ryanodine Receptor (RYR1) mutation (confirmatory, not for acute dx)'
+    ],
+    expectedLabDeviations: {
+      'ETCO2': 'Rapid/Unexplained Rise (> 6.0 kPa)',
+      'Creatine Kinase (CK)': 'Markedly Elevated (> 10,000 U/L)',
+      'Potassium': 'Hyperkalemia (> 5.5 mmol/L)',
+      'pH': '< 7.20 (Mixed Acidosis)'
+    },
+    differentialDiagnosis: ['Sepsis', 'Thyroid Storm', 'Pheochromocytoma Crisis', 'Serotonin Syndrome', 'Iatrogenic Overheating']
   },
   {
     id: 'last',
@@ -316,9 +389,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Seizure Control', description: 'Benzodiazepines preferred (Midazolam 2-5mg). Avoid large doses of Propofol if hemodynamically unstable.', type: 'action' }
     ],
     normalLabRanges: {
-      'SpO2': '94 - 100%',
       'ETCO2': '4.5 - 6.0 kPa'
-    }
+    },
+    diagnosticCriteria: [
+      'Classic CNS symptoms: Metallic taste, perioral numbness, seizures, altered consciousness',
+      'CVS: Widened QRS, bradycardia, ventricular arrhythmias, cardiac arrest'
+    ],
+    expectedLabDeviations: {
+      'pH': '< 7.35 (Acidosis increases LA potency/toxicity)',
+      'PaO2/SpO2': 'Hypoxia (worsens neurotoxicity)',
+      'K+': 'Hyperkalemia (worsens cardiac toxicity)'
+    },
+    differentialDiagnosis: ['Anaphylaxis', 'Total Spinal / High Spinal Anesthesia', 'Vasovagal Response', 'Air Embolism']
   },
   {
     id: 'difficult-airway',
@@ -353,9 +435,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Plan D: eFONA', description: 'Scalpel-bougie-tube technique in the cricothyroid membrane if CICO declared. "Stab, Twist, Bougie, Tube".', type: 'warning' }
     ],
     normalLabRanges: {
-      'SpO2': '> 94%',
       'ETCO2': '4.5 - 6.0 kPa'
-    }
+    },
+    diagnosticCriteria: [
+      'Inability to maintain oxygenation or achieve intubation after 3 attempts',
+      'CICO: Can\'t Intubate, Can\'t Oxygenate (Plan D)'
+    ],
+    expectedLabDeviations: {
+      'SpO2': 'Rapidly Declining (< 90%)',
+      'ETCO2': 'Absent or intermittent capnogram'
+    },
+    differentialDiagnosis: ['Laryngospasm', 'Bronchospasm', 'Airway Trauma', 'Foreign Body Obstruction']
   },
   {
     id: 'sepsis-shock',
@@ -395,9 +485,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': '< 2.0 mmol/L',
       'WBC': '4.0 - 11.0 x10^9/L',
       'CRP': '< 5 mg/L',
-      'Procalcitonin': '< 0.5 ng/mL',
       'MAP': '70 - 100 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'qSOFA Score > 2: RR > 22, Altered GCS, SBP < 100 mmHg',
+      'Sepsis-3: Infection + Increase in SOFA score > 2'
+    ],
+    expectedLabDeviations: {
+      'Lactate': '> 2.0 mmol/L (indicates hypoperfusion)',
+      'WBC': 'Elevated (> 12) or Leukopenia (< 4)',
+      'Procalcitonin': 'Elevated (> 0.5 ng/mL)',
+      'pH': '< 7.35 (Metabolic Acidosis)'
+    },
+    differentialDiagnosis: ['Hypovolemic Shock', 'Cardiogenic Shock', 'Acute Pulmonary Embolism', 'Adrenal Insufficiency']
   },
   {
     id: 'ards',
@@ -439,7 +539,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Plateau Pressure': '< 30 cmH2O',
       'Driving Pressure': '< 15 cmH2O',
       'pH': '7.35 - 7.45'
-    }
+    },
+    diagnosticCriteria: [
+      'Berlin Criteria: Acute onset, Bilateral opacities, No LA failure, P/F < 300 mmHg',
+      'Severity: Mild (200-300), Moderate (100-200), Severe (<100)'
+    ],
+    expectedLabDeviations: {
+      'PaO2/FiO2 Ratio': 'Reduced (< 300 mmHg)',
+      'Plateau Pressure': 'Often elevated (> 30 cmH2O if not protective)',
+      'Compliance': 'Markedly decreased (Stiff lung)'
+    },
+    differentialDiagnosis: ['Cardiogenic Pulmonary Edema', 'TRALI (Transfusion Related Acute Lung Injury)', 'Pneumonia (Multilobar)', 'Pulmonary Hemorrhage']
   },
   {
     id: 'status-epilepticus',
@@ -478,7 +588,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Glucose': '4.0 - 7.0 mmol/L',
       'Sodium': '135 - 145 mmol/L',
       'Phenytoin Level': '10 - 20 mg/L'
-    }
+    },
+    diagnosticCriteria: [
+      'T1 (5 min): Continuous seizure or 2+ without recovery',
+      'T2 (30 min): Time at which permanent neuronal injury likely begins'
+    ],
+    expectedLabDeviations: {
+      'pH': '< 7.20 (Severe Lactic Acidosis)',
+      'Serum Creatine Kinase': 'Elevated (Rhabdomyolysis risk)',
+      'Blood Glucose': 'Hyperglycemia initially, then Hypoglycemia'
+    },
+    differentialDiagnosis: ['Vasovagal Syncope', 'Psychogenic Non-Epileptic Seizures (PNES)', 'Cardiac Arrhythmia', 'Stroke / ICH']
   },
   {
     id: 'tension-pneumothorax',
@@ -513,9 +633,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Confirm', description: 'Post-procedure CXR to confirm re-expansion and drain position. Monitor for re-expansion pulmonary edema.', type: 'info' }
     ],
     normalLabRanges: {
-      'SpO2': '> 94%',
       'SBP': '> 90 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Respiratory distress + Tracheal deviation + Absent breath sounds',
+      'Hemodynamic: Hypotension / Obstructive shock',
+      'Ultrasound: Absence of lung sliding (Lung Point sign is specific)'
+    ],
+    expectedLabDeviations: {
+      'SpO2': 'Markedly Reduced',
+      'ETCO2': 'Decreased (due to low cardiac output/perfusion)',
+      'pH': 'Respiratory Acidosis'
+    },
+    differentialDiagnosis: ['Cardiac Tamponade', 'Massive Pulmonary Embolism', 'Simple Pneumothorax', 'Hemothorax']
   },
   {
     id: 'aki',
@@ -551,11 +681,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Renal Imaging', description: 'Urgent Renal Ultrasound within 24h to rule out obstruction (post-renal causes).', type: 'action' }
     ],
     normalLabRanges: {
-      'Serum Creatinine': '60 - 110 umol/L',
-      'Urea': '2.5 - 7.8 mmol/L',
-      'Potassium': '3.5 - 5.0 mmol/L',
       'Urine Output': '> 0.5 mL/kg/hr'
-    }
+    },
+    diagnosticCriteria: [
+      'KDIGO Criteria: Cr rise > 26.5 umol/L in 48h or > 1.5x baseline in 7d',
+      'Urine Output < 0.5 mL/kg/hr for 6-12 hours'
+    ],
+    expectedLabDeviations: {
+      'Creatinine': 'Elevated (> 1.5x baseline)',
+      'Potassium': 'Hyperkalemia (> 5.5 mmol/L)',
+      'pH': '< 7.35 (Metabolic Acidosis)',
+      'Urea': 'Elevated (> 10-15 mmol/L)'
+    },
+    differentialDiagnosis: ['Pre-renal Azotemia', 'Acute Tubular Necrosis (ATN)', 'Post-renal Obstruction', 'Interstitial Nephritis']
   },
   {
     id: 'pulmonary-embolism',
@@ -596,7 +734,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Troponin T': '< 14 ng/L',
       'BNP': '< 100 pg/mL',
       'PaO2': '11 - 13 kPa'
-    }
+    },
+    diagnosticCriteria: [
+      'Wells Score (> 4) or Modified Geneva Score',
+      'CTPA: Visual confirmation of thrombus in pulmonary arteries'
+    ],
+    expectedLabDeviations: {
+      'D-dimer': 'Elevated (> 500 ng/mL)',
+      'Troponin T/I': 'Elevated (indicates RV strain)',
+      'BNP/NT-proBNP': 'Elevated (indicates RV strain)',
+      'PaO2': 'Reduced (< 10 kPa)'
+    },
+    differentialDiagnosis: ['Acute Myocardial Infarction', 'Pneumonia / Pleural Effusion', 'Tension Pneumothorax', 'Pericardial Tamponade']
   },
   {
     id: 'hyperkalemia',
@@ -632,9 +781,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Remove K+', description: 'Loop diuretics (Furosemide), K+ binders (Lokelma 10g TDS), or Hemodialysis for definitive removal.', type: 'info' }
     ],
     normalLabRanges: {
-      'Potassium': '3.5 - 5.0 mmol/L',
       'ECG': 'Normal sinus rhythm'
-    }
+    },
+    diagnosticCriteria: [
+      'Serum Potassium > 5.5 mmol/L',
+      'ECG Signs: Peaked T-waves, PR prolongation, Wide QRS, Sine wave'
+    ],
+    expectedLabDeviations: {
+      'Potassium': '> 6.0 mmol/L (Moderate), > 6.5 mmol/L (Severe/Emergency)',
+      'Sodium Bicarbonate': 'Often low (Acidosis worsens hyperkalemia shift)',
+      'Calcium (Ionized)': 'Low calcium worsens cardiac instability'
+    },
+    differentialDiagnosis: ['Spurious / Hemolysis (Pseudohyperkalemia)', 'Renal Failure (AKI/CKD)', 'Metabolic Acidosis', 'Rhabdomyolysis']
   },
   {
     id: 'massive-hemorrhage',
@@ -670,13 +828,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Monitor Coag', description: 'Check FBC, PT/APTT, Fibrinogen every 30-60 mins. Use TEG/ROTEM for targeted therapy (Cryo/Prothrombinex).', type: 'info' }
     ],
     normalLabRanges: {
-      'Hemoglobin': '130 - 170 g/L (M), 120 - 150 g/L (F)',
-      'PT': '11 - 14 seconds',
-      'aPTT': '25 - 35 seconds',
-      'Fibrinogen': '2.0 - 4.0 g/L',
-      'Platelets': '150 - 400 x10^9/L',
       'Ionized Calcium': '1.1 - 1.3 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Blood loss > 150 mL/min or 50% loss in 3 hours',
+      'Hemodynamic instability despite initial crystalloid resuscitation'
+    ],
+    expectedLabDeviations: {
+      'Hemoglobin': 'May be normal initially, then drops (< 7-9 g/dL)',
+      'Fibrinogen': 'Reduced (< 1.5-2.0 g/L)',
+      'Lactate': 'Markedly Elevated (> 4.0 mmol/L)',
+      'Ionized Calcium': 'Reduced (< 1.1 mmol/L due to citrate binding)'
+    },
+    differentialDiagnosis: ['Coagulopathy (Inherent)', 'Septic Shock (Initial presentations)', 'Cardiac Failure', 'Anaphylactic Shock']
   },
   {
     id: 'stroke',
@@ -712,9 +876,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Post-Lysis', description: 'Monitor neuro status and BP every 15 mins for 2h. Maintain BP < 180/105. Delay antiplatelets for 24h.', type: 'warning' }
     ],
     normalLabRanges: {
-      'Blood Glucose': '4.0 - 7.0 mmol/L',
       'Blood Pressure': '< 140/90 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Sudden focal neurological deficit (FAST positive)',
+      'NIHSS Score: Tool to quantify stroke severity and guide therapy',
+      'CT/MRI: Ruling out hemorrhage (CT is gold standard for emergency)'
+    ],
+    expectedLabDeviations: {
+      'CT Head': 'Normal (initially) or subtle ischemic changes',
+      'Blood Glucose': 'Must be checked to rule out hypoglycemia mimic',
+      'INR/APTT': 'Assessment of bleeding risk for lysis'
+    },
+    differentialDiagnosis: ['Hypoglycemia', 'Todd\'s Palsy (Post-ictal state)', 'Complex Migraine', 'Conversion Disorder']
   },
   {
     id: 'myasthenia-crisis',
@@ -751,10 +925,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Treat Trigger', description: 'Identify and treat infection (avoid aminoglycosides, fluoroquinolones). Review all medications for NMJ interference.', type: 'info' }
     ],
     normalLabRanges: {
-      'Vital Capacity (VC)': '> 60 mL/kg',
-      'Negative Inspiratory Force (NIF)': '< -60 cmH2O',
       'Max Expiratory Pressure (MEP)': '> 60 cmH2O'
-    }
+    },
+    diagnosticCriteria: [
+      '20/30/40 Rule: VC < 20mL/kg, NIF < -30 cmH2O, MEP < 40 cmH2O',
+      'Worsening muscle weakness + difficulty swallowing / respiratory failure'
+    ],
+    expectedLabDeviations: {
+      'Vital Capacity': 'Reduced (< 15-20 mL/kg)',
+      'Negative Inspiratory Force (NIF)': 'Reduced (< -20 to -30 cmH2O)',
+      'PaCO2': 'Elevated (late sign of respiratory failure)'
+    },
+    differentialDiagnosis: ['Guillain-Barré Syndrome', 'Cholinergic Crisis (Over-medication)', 'Botulism', 'Lambert-Eaton Syndrome']
   },
   {
     id: 'ponv',
@@ -789,7 +971,14 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     ],
     normalLabRanges: {
       'Hydration Status': 'Euvolemic'
-    }
+    },
+    diagnosticCriteria: [
+      'Apfel Risk Score (1-4 points): Female, Non-smoker, Hx of PONV/Motion sickness, Post-op opioids'
+    ],
+    expectedLabDeviations: {
+      'Serum Electrolytes': 'May show Hypokalemia/Hypochloremic Alkalosis if prolonged vomiting'
+    },
+    differentialDiagnosis: ['Opioid Side Effects', 'Gastric Outlet Obstruction', 'Increased ICP', 'Hypotension (orthostatic)']
   },
   {
     id: 'hypoglycemia',
@@ -825,7 +1014,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     ],
     normalLabRanges: {
       'Blood Glucose': '4.0 - 7.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Whipple\'s Triad: Symptoms of hypoglycemia, Low plasma glucose, Relief of symptoms when glucose raised'
+    ],
+    expectedLabDeviations: {
+      'Blood Glucose': '< 3.9 mmol/L (70 mg/dL)',
+      'Potassium': 'May be low (if insulin-induced shift)',
+      'Ketones': 'Low in hyperinsulinemia, High in starvation/DKA'
+    },
+    differentialDiagnosis: ['Vasovagal Syncope', 'TIA / Stroke', 'Seizure (Post-ictal)', 'Adrenal Insufficiency']
   },
   {
     id: 'raised-icp',
@@ -861,11 +1059,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'CT / Surgery', description: 'Urgent CT Brain. Neurosurgical intervention (EVD, Decompressive Craniectomy, or evacuation of mass) if indicated.', type: 'decision' }
     ],
     normalLabRanges: {
-      'ICP': '< 15 mmHg',
-      'CPP': '60 - 80 mmHg',
-      'Sodium': '135 - 145 mmol/L',
       'Serum Osmolality': '275 - 295 mOsm/kg'
-    }
+    },
+    diagnosticCriteria: [
+      'Cushing\'s Triad: Hypertension, Bradycardia, Irregular breathing (late sign of herniation)',
+      'Imaging: Loss of sulci, midline shift, effacement of ventricles/cisterns'
+    ],
+    expectedLabDeviations: {
+      'ICP': '> 20-22 mmHg (sustained)',
+      'CPP': 'Decreased (< 60 mmHg)',
+      'Serum Osmolality': 'Increased with therapy (> 300-320 mOsm/kg)'
+    },
+    differentialDiagnosis: ['Hypertensive Encephalopathy', 'Meningitis / Encephalitis', 'Venous Sinus Thrombosis', 'Intracranial Mass / Tumor']
   },
   {
     id: 'transfusion-reactions',
@@ -901,10 +1106,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Hemolytic?', description: 'Check for ABO mismatch. Give aggressive fluids, maintain urine output, and monitor for DIC/Renal failure.', type: 'warning' }
     ],
     normalLabRanges: {
-      'JVP': '6 - 8 cmH2O',
-      'Temperature': '36.5 - 37.5 °C',
       'Urine Output': '> 0.5 mL/kg/hr'
-    }
+    },
+    diagnosticCriteria: [
+      'TRALI: Acute Lung Injury < 6h, no alternative risk factor, no LA failure',
+      'TACO: Signs of volume overload (raised JVP, S3, responsive to diuretics)'
+    ],
+    expectedLabDeviations: {
+      'BNP': 'High in TACO, Normal in TRALI',
+      'Protein (Edema fluid)': 'High in TRALI (exudate), Low in TACO (transudate)',
+      'Chest X-ray': 'Bilateral infiltrates in both stages'
+    },
+    differentialDiagnosis: ['Septic Shock', 'Anaphylactic Reaction', 'Hemolytic Transfusion Reaction', 'Cardiogenic Edema']
   },
   {
     id: 'anaphylaxis-periop',
@@ -936,9 +1149,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Tryptase', description: 'Take samples at 1h, 4h, and 24h. First sample is for confirmation, second for peak, third for baseline.', type: 'info' }
     ],
     normalLabRanges: {
-      'Serum Tryptase': '2 - 14 mcg/L',
       'ETCO2': '4.5 - 6.0 kPa'
-    }
+    },
+    diagnosticCriteria: [
+      'Sudden profound hypotension or cardiovascular collapse within minutes of drug injection',
+      'Bronchospasm / High peak pressures + Decreased ETCO2'
+    ],
+    expectedLabDeviations: {
+      'Serum Tryptase': 'Peak elevation at 1-2 hours',
+      'Lactate': 'Increased due to low cardiac output/tissue hypoxia',
+      'ABG': 'Mixed respiratory/metabolic acidosis'
+    },
+    differentialDiagnosis: ['Vaso-vagal reaction', 'Bronchospasm (Asthmatic)', 'Tension Pneumothorax', 'Local Anesthetic Toxicity (LAST)']
   },
   {
     id: 'hypernatremia',
@@ -974,10 +1196,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Monitor', description: 'Frequent Na+ checks (every 4-6h) to avoid overshoot. Monitor for neurological changes during correction.', type: 'info' }
     ],
     normalLabRanges: {
-      'Sodium': '135 - 145 mmol/L',
-      'Serum Osmolality': '275 - 295 mOsm/kg',
       'Urine Osmolality': '300 - 900 mOsm/kg'
-    }
+    },
+    diagnosticCriteria: [
+      'Serum Sodium > 145 mmol/L',
+      'Assessment of Volume Status (Hypo/Eu/Hypervolemic)'
+    ],
+    expectedLabDeviations: {
+      'Serum Sodium': '> 145 mmol/L (Severe > 160)',
+      'Serum Osmolality': 'Increased (> 295 mOsm/kg)',
+      'Urine Osmolality': 'High in dehydration (> 600), Low in Diabetes Insipidus (< 300)'
+    },
+    differentialDiagnosis: ['Diabetes Insipidus (Central/Nephrogenic)', 'Osmotic Diuresis (Glycosuria)', 'Inadequate Water Intake', 'Iatrogenic (Sodium Bicarbonate/Saline)']
   },
   {
     id: 'acs',
@@ -1013,10 +1243,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Secondary Prev', description: 'Start Beta-blocker, ACEi, High-intensity Statin, and Dual Antiplatelet Therapy (DAPT) for 12 months.', type: 'action' }
     ],
     normalLabRanges: {
-      'Troponin T': '< 14 ng/L',
-      'CK-MB': '< 5 ng/mL',
       'Blood Glucose': '4.0 - 7.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Ischemic chest pain + ECG changes (ST elevation/depression, T-wave inversion)',
+      'Rise and/or fall of cardiac biomarkers (Troponin)'
+    ],
+    expectedLabDeviations: {
+      'Troponin T/I': 'Significantly Elevated',
+      'Creatine Kinase (CK-MB)': 'Elevated',
+      'ECG': 'ST Elevation (STEMI) or Depression/T inversion (NSTEMI)'
+    },
+    differentialDiagnosis: ['Aortic Dissection', 'Pulmonary Embolism', 'Pericarditis / Myocarditis', 'Esophageal Spasm']
   },
   {
     id: 'cap',
@@ -1058,11 +1296,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Cultures', description: 'Blood and sputum cultures before antibiotics. Urinary antigens for Legionella and Pneumococcus in moderate/severe cases.', type: 'info' }
     ],
     normalLabRanges: {
-      'WBC': '4.0 - 11.0 x10^9/L',
-      'CRP': '< 5 mg/L',
-      'Urea': '2.5 - 7.8 mmol/L',
       'PaO2/FiO2 Ratio': '> 400 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Cough, fever, pleuritic pain, new focal consolidation on CXR',
+      'CURB-65 Score: Confusion, Urea > 7, RR > 30, SBP < 90 / DBP < 60, Age > 65'
+    ],
+    expectedLabDeviations: {
+      'WBC': 'Elevated (> 12) or Leukopenia (< 4)',
+      'CRP': 'Elevated (> 50-100 mg/L)',
+      'Procalcitonin': 'Elevated (> 0.5 ng/mL)',
+      'PaO2': 'Reduced (< 11 kPa)'
+    },
+    differentialDiagnosis: ['Pulmonary Edema', 'Pulmonary Embolism', 'Lung Malignancy / Obstruction', 'Pleural Effusion (non-infected)']
   },
   {
     id: 'hap-vap',
@@ -1097,11 +1343,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'VAP Bundle', description: 'HOB 30-45°, oral chlorhexidine, subglottic suction, daily sedation vacation, and DVT/stress ulcer prophylaxis.', type: 'info' }
     ],
     normalLabRanges: {
-      'WBC': '4.0 - 11.0 x10^9/L',
-      'CRP': '< 5 mg/L',
-      'Procalcitonin': '< 0.5 ng/mL',
       'PaO2/FiO2 Ratio': '> 400 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'New infiltrate on CXR after 48h of hospitalization (HAP) or 48h after intubation (VAP)'
+    ],
+    expectedLabDeviations: {
+      'WBC': 'Elevated / Left shift',
+      'PaO2/FiO2 Ratio': 'Declining (< 300 mmHg)',
+      'Sputum/BAL Culture': 'Positive for pathogenic organisms'
+    },
+    differentialDiagnosis: ['ARDS', 'TACO / TRALI', 'Pulmonary Contusion / Hemorrhage', 'Atelectasis']
   },
   {
     id: 'aspiration-pneumonia',
@@ -1136,10 +1388,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Prevention', description: 'HOB 30°, feeding assessment (SALT), prokinetics, avoid over-sedation, and optimize oral hygiene.', type: 'info' }
     ],
     normalLabRanges: {
-      'WBC': '4.0 - 11.0 x10^9/L',
-      'CRP': '< 5 mg/L',
       'PaO2/FiO2 Ratio': '> 400 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Witnessed aspiration OR risk factors (GCS < 8, vomiting) + Acute infiltrate in dependent lung zones'
+    ],
+    expectedLabDeviations: {
+      'pH': 'Initial chemical pneumonitis may cause acidosis',
+      'PaO2': 'Reduced (V/Q mismatch)',
+      'WBC': 'Delayed elevation (if infection develops)'
+    },
+    differentialDiagnosis: ['Mendelson\'s Syndrome (Chemical Pneumonitis)', 'Foreign Body Aspiration', 'Atelectasis', 'Pulmonary Edema']
   },
   {
     id: 'c-diff',
@@ -1170,10 +1429,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Monitor', description: 'Watch for toxic megacolon (distension, pain, WBC >15, Cr >133). Urgent surgical review if peritonitis or megacolon.', type: 'warning' }
     ],
     normalLabRanges: {
-      'WBC': '4.0 - 11.0 x10^9/L',
-      'Serum Creatinine': '60 - 110 umol/L',
       'Albumin': '35 - 50 g/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Profuse watery diarrhea + C. diff Toxin or GDH positive in stool',
+      'Pseudomembranous colitis on sigmoidoscopy/colonoscopy'
+    ],
+    expectedLabDeviations: {
+      'WBC': 'Markedly elevated in severe cases (> 15)',
+      'Serum Creatinine': 'Elevated (indicates severity)',
+      'Albumin': 'Low (< 30 g/L indicates severe disease)'
+    },
+    differentialDiagnosis: ['Antibiotic-associated diarrhea (non-C.diff)', 'Ischemic Colitis', 'Inflammatory Bowel Disease (IBD) flare', 'Sepsis (non-GI)']
   },
   {
     id: 'paracetamol-od',
@@ -1205,11 +1472,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'King\'s Criteria', description: 'pH <7.3 OR (INR >6.5 + Cr >300 + Encephalopathy). If met, urgent referral for liver transplant.', type: 'warning' }
     ],
     normalLabRanges: {
-      'Paracetamol Level': '0 (Undetectable)',
-      'ALT': '10 - 40 U/L',
-      'INR': '0.8 - 1.2',
       'Serum Creatinine': '60 - 110 umol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'History of ingestion + Plasma Paracetamol Level above treatment line on nomogram',
+      'King\'s College Criteria for liver transplant risk assessment'
+    ],
+    expectedLabDeviations: {
+      'Paracetamol Level': 'Check at 4 hours post-ingestion',
+      'ALT/AST': 'Markedly Elevated (> 1000 U/L in later stages)',
+      'INR': 'Prolonged (indicates liver failure)',
+      'Lactate': 'Elevated (indicates severe toxicity/prognosis)'
+    },
+    differentialDiagnosis: ['Viral Hepatitis', 'Ischemic Hepatitis (Shock Liver)', 'Amanita Phalloides (Mushroom) Poisoning', 'Other Hepatotoxic drug OD']
   },
   {
     id: 'opioid-od',
@@ -1240,10 +1515,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Observation', description: 'Watch for rebound sedation (Naloxone half-life 30-60 mins). Monitor for non-cardiogenic pulmonary edema.', type: 'warning' }
     ],
     normalLabRanges: {
-      'Respiratory Rate': '12 - 20 breaths/min',
-      'SpO2': '> 94%',
       'Blood Glucose': '4.0 - 7.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Classic Triad: Pinpoint pupils (miosis), Respiratory depression (RR < 12), and Coma/Decreased GCS'
+    ],
+    expectedLabDeviations: {
+      'PaCO2': 'Elevated (Respiratory Acidosis)',
+      'SpO2': 'Reduced (< 92%)',
+      'Blood Glucose': 'Re-check to rule out hypoglycemia mimic'
+    },
+    differentialDiagnosis: ['Benzodiazepine Overdose', 'Brainstem Stroke / Hemorrhage', 'Hypoglycemic Coma', 'Organophosphate Poisoning']
   },
   {
     id: 'bb-ccb-toxicity',
@@ -1314,7 +1596,6 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Assess Stability', description: 'Check BP, HR, and GCS. If unstable, move to resuscitation area and call for help.', type: 'decision' },
       { title: 'Resuscitate', description: 'Large-bore IV access, crystalloid bolus, and early blood transfusion. Activate MHP if needed.', type: 'action' },
       { title: 'Risk Score', description: 'Calculate Glasgow-Blatchford Score. GBS 0-1 may be suitable for outpatient management.', type: 'info' },
-      { title: 'Endoscopy', description: 'Urgent OGD within 24h. If variceal suspected, give Terlipressin + Ceftriaxone before OGD.', type: 'action' },
       { title: 'Definitive Care', description: 'Hemostasis via clips, thermal, or injection. Monitor for re-bleeding and start high-dose PPI.', type: 'action' }
     ],
     normalLabRanges: {
@@ -1323,6 +1604,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'INR': '0.8 - 1.2',
       'Platelets': '150 - 400 x10^9/L'
     },
+    diagnosticCriteria: [
+      'Clinical: Hematemesis, Melena, or Hematochezia + Signs of hypovolemia',
+      'Glasgow-Blatchford Score (GBS): Tool for risk stratification and need for urgent endoscopy'
+    ],
+    expectedLabDeviations: {
+      'Hemoglobin': 'May be normal initially, then drops',
+      'Urea': 'Elevated (due to blood protein breakdown in gut)',
+      'Lactate': 'Elevated if significantly hypoperfused',
+      'Urea/Creatinine Ratio': 'Increased'
+    },
+    differentialDiagnosis: ['Variceal Bleeding', 'Peptic Ulcer Disease', 'Mallory-Weiss Tear', 'Lower GI Bleeding (if massive)'],
     notes: 'Restrictive transfusion strategy (target Hb 7-9 g/dL) is associated with better outcomes than liberal strategy in non-massive UGIB.'
   },
   {
@@ -1365,6 +1657,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'C-Reactive Protein (CRP)': '< 5 mg/L',
       'Lymphocyte Count': '1.0 - 4.0 x10^9/L'
     },
+    diagnosticCriteria: [
+      'Clinical: Dry cough, fever, myalgia, fatigue + Bilateral ground-glass opacities on CXR/CT',
+      'PCR Confirmation: Positive for SARS-CoV-2 (COVID) or Influenza A/B'
+    ],
+    expectedLabDeviations: {
+      'PaO2/FiO2 Ratio': 'Reduced (< 300 mmHg)',
+      'CRP / LDH': 'Markedly Elevated',
+      'Lymphocyte Count': 'Lymphopenia (< 1.0 x10^9/L)',
+      'D-dimer': 'Elevated (especially in COVID-19)'
+    },
+    differentialDiagnosis: ['Bacterial Pneumonia', 'Pneumocystis Jirovecii Pneumonia (PJP)', 'Heart Failure (Pulmonary Edema)', 'Vaping-associated Lung Injury (EVALI)'],
     notes: 'Fluid restriction is crucial in viral pneumonia to prevent worsening of lung injury and progression to ARDS.'
   },
   {
@@ -1408,6 +1711,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'pH': '7.35 - 7.45',
       'Amylase': '28 - 100 U/L'
     },
+    diagnosticCriteria: [
+      'Clinical: Severe abdominal pain "out of proportion" to physical findings',
+      'CTA (Gold Standard): Occlusion of mesenteric artery/vein or bowel wall thickening/pneumatosis'
+    ],
+    expectedLabDeviations: {
+      'Lactate': 'Markedly Elevated (Late/Poor Prognostic sign)',
+      'WBC': 'Markedly Elevated (Leukocytosis)',
+      'pH': '< 7.35 (Metabolic Acidosis indicates bowel ischemia)'
+    },
+    differentialDiagnosis: ['Perforated Viscus / Peptic Ulcer', 'Acute Pancreatitis', 'Ruptured Aortic Aneurysm', 'Intestinal Obstruction / Volvulus'],
     notes: 'Time is bowel. Early diagnosis via CTA and rapid intervention are critical to prevent massive bowel necrosis and death.'
   },
   {
@@ -1445,12 +1758,21 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Replacement', description: 'If bleeding: Give Platelets (target >50), FFP (target PT <1.5x), and Cryo (target Fib >1.5).', type: 'info' }
     ],
     normalLabRanges: {
-      'Platelets': '150 - 400 x10^9/L',
-      'Fibrinogen': '2.0 - 4.0 g/L',
-      'PT': '11 - 14 seconds',
-      'aPTT': '25 - 35 seconds',
+      'Platelet Count': '150 - 400 x10^9/L',
+      'Fibrinogen': '2.0 - 4.5 g/L',
+      'PT': '11 - 13.5 s',
       'D-dimer': '< 500 ng/mL'
     },
+    diagnosticCriteria: [
+      'ISTH DIC Score: Presence of underlying trigger + Platelets, D-dimer, PT, and Fibrinogen scores summing to >= 5'
+    ],
+    expectedLabDeviations: {
+      'Platelets': 'Decreased (< 100 x10^9/L)',
+      'Fibrinogen': 'Decreased (< 1.5 g/L)',
+      'PT': 'Prolonged (> 14s)',
+      'D-dimer': 'Elevated (> 5x normal)'
+    },
+    differentialDiagnosis: ['Liver Disease (Coagulopathy of)', 'Thrombotic Thrombocytopenic Purpura (TTP)', 'Heparin-Induced Thrombocytopenia (HIT)', 'Immune Thrombocytopenia (ITP)'],
     notes: 'DIC is a consumptive coagulopathy. Management focuses on treating the underlying cause and replacing consumed factors only if bleeding or pre-procedure.'
   },
   {
@@ -1487,11 +1809,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Identify Trigger', description: 'Search for infection, MI, or other stressors. Resume maintenance steroids once crisis resolves.', type: 'info' }
     ],
     normalLabRanges: {
-      'Sodium': '135 - 145 mmol/L',
-      'Potassium': '3.5 - 5.0 mmol/L',
-      'Blood Glucose': '4.0 - 7.0 mmol/L',
       'Cortisol (Random)': '> 500 nmol/L (rules out crisis)'
-    }
+    },
+    diagnosticCriteria: [
+      'Refractory Shock (not responsive to fluids/vasopressors) in patient with primary or secondary adrenal insufficiency'
+    ],
+    expectedLabDeviations: {
+      'Sodium': 'Low (< 135 mmol/L)',
+      'Potassium': 'High (> 5.5 mmol/L - especially in Primary)',
+      'Blood Glucose': 'Low (< 4.0 mmol/L)',
+      'Cortisol': 'Low (< 100 nmol/L in acute stress)'
+    },
+    differentialDiagnosis: ['Sepsis / Septic Shock', 'Acute Myocardial Infarction', 'Acute Pancreatitis', 'Massive Pulmonary Embolism'],
+    notes: 'In refractory shock, empirical hydrocortisone should be given even if suspicion of adrenal crisis is low, as the risk of omission outweighs the risk of a single dose.'
   },
   {
     id: 'acute-asthma',
@@ -1528,11 +1858,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'Escalation', description: 'Call ICU if life-threatening features develop. Intubation is high risk (dynamic hyperinflation).', type: 'warning' }
     ],
     normalLabRanges: {
-      'PEFR': '> 80% predicted',
-      'PaO2': '> 11 kPa',
-      'PaCO2': '4.5 - 6.0 kPa (Rising CO2 is a danger sign)',
       'pH': '7.35 - 7.45'
-    }
+    },
+    diagnosticCriteria: [
+      'GINA Criteria for Severe: HR > 120, RR > 30, Use of accessory muscles, SpO2 < 90%, PEFR < 50% predicted',
+      'Life-threatening features: Silent chest, cyanosis, poor respiratory effort, bradycardia, confusion'
+    ],
+    expectedLabDeviations: {
+      'PaCO2': 'Normal or Rising (Danger sign - indicates exhaustion)',
+      'PEFR': '< 33-50% best/predicted',
+      'pH': '< 7.35 (Respiratory Acidosis)'
+    },
+    differentialDiagnosis: ['Acute Pulmonary Edema', 'Upper Airway Obstruction / Epiglottitis', 'Acute COPD Exacerbation', 'Anaphylaxis'],
+    notes: 'A "normal" PaCO2 in a severely breathless asthmatic is a life-threatening sign of impending respiratory failure and exhaustion.'
   },
   {
     id: 'copd-exacerbation',
@@ -1568,10 +1906,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       { title: 'NIV', description: 'Indicated for persistent respiratory acidosis (pH 7.25-7.35). If pH < 7.25, consider ICU/Intubation.', type: 'warning' }
     ],
     normalLabRanges: {
-      'PaO2': '8 - 10 kPa (on air)',
-      'PaCO2': '4.5 - 6.0 kPa',
       'pH': '7.35 - 7.45'
-    }
+    },
+    diagnosticCriteria: [
+      'GOLD Criteria: Acute change in baseline dyspnea, cough, or sputum production requiring change in therapy',
+      'Failure of initial medical therapy (pH < 7.35 or pCO2 > 6.0 despite best medical treatment)'
+    ],
+    expectedLabDeviations: {
+      'PaCO2': 'Increased (> 6.0 kPa)',
+      'pH': '< 7.35 (Respiratory Acidosis)',
+      'PaO2': 'Reduced (< 8.0 kPa on air)'
+    },
+    differentialDiagnosis: ['Pneumonia', 'Heart Failure (Congestive)', 'Pneumothorax', 'Acute Pulmonary Embolism'],
+    notes: 'The goal of oxygen therapy in COPD is to maintain SpO2 88-92% to avoid abolishing the hypoxic respiratory drive and causing life-threatening hypercapnia.'
   },
   {
     id: 'acute-pancreatitis',
@@ -1611,7 +1958,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lipase': '< 60 U/L',
       'Calcium': '2.1 - 2.6 mmol/L',
       'CRP': '< 150 mg/L (at 48h suggests severe)'
-    }
+    },
+    diagnosticCriteria: [
+      '2 of 3 required: (1) Characteristic epigastric pain, (2) Serum Amylase/Lipase > 3x ULN, (3) Characteristic findings on CT/MRI/US',
+      'Severity (Glasgow-Imrie): Age > 55, WBC > 15, Glucose > 10, Urea > 16, PaO2 < 8, Calcium < 2, Albumin < 32, LDH > 600'
+    ],
+    expectedLabDeviations: {
+      'Amylase/Lipase': 'Markedly Elevated (> 3x ULN)',
+      'WBC': 'Leukocytosis (> 15 x10^9/L)',
+      'Calcium': 'Hypocalcemia (< 2.0 mmol/L - indicator of severity)',
+      'CRP': '> 150 mg/L (at 48h)'
+    },
+    differentialDiagnosis: ['Perforated Peptic Ulcer', 'Acute Mesenteric Ischemia', 'Biliary Colic / Cholecystitis', 'Myocardial Infarction'],
+    notes: 'Aggressive fluid resuscitation in the first 24 hours is the mainstay of treatment. Ringer\'s Lactate is the preferred fluid.'
   },
   {
     id: 'preeclampsia-eclampsia',
@@ -1650,7 +2009,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'ALT/AST': '< 40 U/L',
       'Creatinine': '< 90 umol/L',
       'Uric Acid': '< 350 umol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Hypertension (>= 140/90) plus 1 or more of: Proteinuria, Renal insufficiency, Hepatic involvement, Neurological complications, or Hematological/Fetal growth restriction'
+    ],
+    expectedLabDeviations: {
+      'Urine Protein': 'Elevated (>= 300mg/24h or Protein:Creatinine ratio >= 0.3)',
+      'Platelets': 'Decreased (< 100 x10^9/L in HELLP)',
+      'ALT / AST': 'Elevated (> 2x ULN)',
+      'Creatinine': 'Elevated (> 90 umol/L)'
+    },
+    differentialDiagnosis: ['Chronic Hypertension', 'Gestational Hypertension', 'Thrombotic Thrombocytopenic Purpura (TTP)', 'Acute Fatty Liver of Pregnancy (AFLP)'],
+    notes: 'Magnesium sulfate is the drug of choice for seizure prophylaxis and treatment. Monitor for loss of tendon reflexes as an early sign of toxicity.'
   },
   {
     id: 'postpartum-hemorrhage',
@@ -1688,7 +2058,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Hemoglobin': '110 - 150 g/L',
       'Fibrinogen': '2.0 - 4.0 g/L',
       'Platelets': '150 - 450 x10^9/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Minor PPH: 500 - 1000 mL blood loss',
+      'Major PPH: > 1000 mL blood loss or signs of clinical compromise'
+    ],
+    expectedLabDeviations: {
+      'Hemoglobin': 'Decreased (may drop late)',
+      'Fibrinogen': 'Decreased (critical indicator of severity / DIC risk)',
+      'Lactate': 'Elevated (indicator of tissue hypoperfusion)'
+    },
+    differentialDiagnosis: ['Uterine Atony (Tone - 70%)', 'Trauma (Tears/Inversion - 20%)', 'Tissue (Retained products - 10%)', 'Thrombin (Coagulopathy - 1%)'],
+    notes: 'The "4 Ts" (Tone, Trauma, Tissue, Thrombin) mnemonic should guide systematic assessment of PPH etiology.'
   },
   {
     id: 'amniotic-fluid-embolism',
@@ -1727,7 +2108,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Fibrinogen': '2.0 - 4.0 g/L',
       'Platelets': '150 - 450 x10^9/L',
       'PT / APTT': 'Normal range'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical Diagnosis (Rule out other causes): Sudden onset peripartum collapse + Hypoxia + Hypotension + Coagulopathy'
+    ],
+    expectedLabDeviations: {
+      'Fibrinogen': 'Critically Low (< 1.0 g/L)',
+      'Platelets': 'Markedly decreased (DIC profile)',
+      'PT / APTT': 'Markedly prolonged'
+    },
+    differentialDiagnosis: ['Pulmonary Embolism', 'Myocardial Infarction', 'Anaphylaxis', 'Local Anesthetic Systemic Toxicity (LAST)'],
+    notes: 'AFE is an unpredictable and unpreventable catastrophe. Early and aggressive treatment of the associated "explosive" DIC is vital for survival.'
   },
   {
     id: 'pediatric-cardiac-arrest',
@@ -1766,7 +2157,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'ETCO2': '35 - 45 mmHg',
       'Blood Glucose': '4.0 - 8.0 mmol/L',
       'Potassium': '3.5 - 5.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Apnea or only gasping respiration + Absence of a palpable pulse for <= 10 seconds'
+    ],
+    expectedLabDeviations: {
+      'pH': 'Markedly Decreased (Metabolic/Respiratory Acidosis)',
+      'Lactate': 'Markedly Elevated (> 5 mmol/L)',
+      'Potassium': 'May be elevated (indicator of reversible cause)'
+    },
+    differentialDiagnosis: ['Hypoxia / Respiratory Failure', 'Hypovolemia / Shock', 'Tension Pneumothorax', 'Toxins / Poisoning'],
+    notes: 'Prioritize high-quality chest compressions and early oxygenation. In children, the majority of arrests are respiratory in origin.'
   },
   {
     id: 'croup-severe',
@@ -1803,7 +2204,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Respiratory Rate': 'Age-dependent',
       'Heart Rate': 'Age-dependent'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical Diagnosis: Barking cough, inspiratory stridor, and hoarseness',
+      'Severe features: Stridor at rest, significant chest wall indrawing, agitation, or lethargy'
+    ],
+    expectedLabDeviations: {
+      'SpO2': 'May be decreased (< 92% is a late sign of exhaustion)',
+      'X-ray (Neck)': 'Steeple sign (subglottic narrowing - rarely needed for diagnosis)'
+    },
+    differentialDiagnosis: ['Acute Epiglottitis', 'Bacterial Tracheitis', 'Foreign Body Aspiration', 'Retropharyngeal Abscess'],
+    notes: 'Keep the child as calm as possible; agitation can worsen the airway obstruction. Avoid examining the throat if epiglottitis is suspected.'
   },
   {
     id: 'pediatric-sepsis',
@@ -1843,7 +2254,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': '< 2.0 mmol/L',
       'Blood Glucose': '4.0 - 8.0 mmol/L',
       'Ionized Calcium': '1.1 - 1.3 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Suspected or proven infection + Acute organ dysfunction (e.g., cardiovascular, respiratory, renal, hepatic, or neurological)'
+    ],
+    expectedLabDeviations: {
+      'Lactate': 'Elevated (> 2.0 mmol/L)',
+      'WBC': 'Abnormal (High or low for age)',
+      'CRP': 'Markedly Elevated',
+      'Creatinine': 'Elevated for age'
+    },
+    differentialDiagnosis: ['Non-infectious Shock (Cardiogenic/Hypovolemic)', 'Inborn Errors of Metabolism (IEM)', 'Adrenal Insufficiency', 'Severe Dehydration'],
+    notes: 'Early antibiotic administration (within 60 mins) and rapid fluid resuscitation are the cornerstones of pediatric sepsis management.'
   },
   {
     id: 'pediatric-anaphylaxis',
@@ -1879,47 +2301,15 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     ],
     normalLabRanges: {
       'Tryptase': 'Take at 1h, 2h, and 24h'
-    }
-  },
-  {
-    id: 'upper-gi-bleed',
-    name: 'Acute Upper GI Bleeding',
-    category: 'Gastrointestinal > Emergency',
-    severity: 'critical',
-    diagnosis: [
-      'Hematemesis (bright red or coffee-ground)',
-      'Melena',
-      'Hemodynamic instability (Tachycardia, Hypotension)',
-      'Glasgow-Blatchford Score for risk stratification'
-    ],
-    immediateActions: [
-      'ABC: Airway protection if massive hematemesis',
-      'Fluid Resuscitation: 2x large-bore IV access',
-      'Transfusion: Target Hb > 7 g/dL (8 g/dL in CVD)',
-      'Proton Pump Inhibitor: Omeprazole 80mg bolus + 8mg/hr infusion'
-    ],
-    secondaryManagement: [
-      'Urgent Endoscopy (within 24h)',
-      'Terlipressin/Octreotide + Antibiotics if variceal bleed suspected',
-      'Identify and treat cause (Ulcer, Varices, Mallory-Weiss)'
-    ],
-    ivFluidManagement: {
-      choices: ['Balanced Crystalloids', 'Blood Products'],
-      targets: ['SBP > 90 mmHg', 'MAP > 65 mmHg', 'Hb 7-9 g/dL'],
-      monitoring: ['Frequent BP/HR monitoring', 'Urine output', 'Serial Hemoglobin']
     },
-    diagram: [
-      { title: 'Risk Stratify', description: 'Use Glasgow-Blatchford Score (GBS). GBS 0-1 may be suitable for outpatient management.', type: 'decision' },
-      { title: 'Resuscitate', description: '2x 14-16G IVs. Crystalloids to maintain MAP. Transfuse if Hb < 70 g/L (restrictive strategy). Correct coagulopathy.', type: 'action' },
-      { title: 'PPI / Vasoactive', description: 'Start high-dose PPI. If variceal suspected: Terlipressin 2mg IV q4h + prophylactic antibiotics (Ceftriaxone).', type: 'action' },
-      { title: 'Endoscopy', description: 'Perform within 24h. If hemodynamically unstable, perform as soon as possible after resuscitation.', type: 'action' },
-      { title: 'Source Control', description: 'Endoscopic clipping, banding, or thermal therapy. If fails, consider IR (embolization) or surgery.', type: 'warning' }
+    diagnosticCriteria: [
+      'Acute onset (minutes to hours) of skin/mucosal changes PLUS one of: Respiratory compromise, Hypotension, or End-organ dysfunction'
     ],
-    normalLabRanges: {
-      'Hemoglobin': '130 - 170 g/L',
-      'Urea': '2.5 - 7.8 mmol/L',
-      'INR': '0.8 - 1.2'
-    }
+    expectedLabDeviations: {
+      'Serum Tryptase': 'Elevated (compared to baseline; peak at 1-2 hours)'
+    },
+    differentialDiagnosis: ['Severe Asthma', 'Laryngospasm / Croup', 'Vasovagal Syncope', 'Foreign Body Obstruction'],
+    notes: 'IM Adrenaline is the first-line treatment. If no response after 2-3 doses, start an IV Adrenaline infusion.'
   },
   {
     id: 'aortic-dissection',
@@ -1959,7 +2349,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Heart Rate': '60 - 100 bpm',
       'Systolic BP': '100 - 120 mmHg (Target)',
       'D-dimer': 'High sensitivity but low specificity'
-    }
+    },
+    diagnosticCriteria: [
+      'Characteristic CTA or TEE findings: Intimal flap, false-lumen, or intramural hematoma'
+    ],
+    expectedLabDeviations: {
+      'D-dimer': 'Markedly Elevated (useful for ruling out in low-risk pts)',
+      'Troponin': 'May be elevated if ostial involvement'
+    },
+    differentialDiagnosis: ['Myocardial Infarction', 'Pulmonary Embolism', 'Acute Pericarditis / Tamponade', 'Esophageal Rupture'],
+    notes: 'Control heart rate (Esmolol) BEFORE blood pressure to prevent reflex tachycardia and increased shear stress (dP/dt).'
   },
   {
     id: 'air-embolism',
@@ -1999,7 +2398,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'ETCO2': '35 - 45 mmHg',
       'PaO2': '> 80 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Sudden drop in ETCO2 / BP PLUS characteristic "Mill-wheel" murmur (if present) OR visualization of air in right heart on echo'
+    ],
+    expectedLabDeviations: {
+      'ETCO2': 'Abrupt decrease',
+      'PaO2': 'Decreased',
+      'pH': 'Respiratory/Metabolic Acidosis'
+    },
+    differentialDiagnosis: ['Pulmonary Embolism (Thromboembolic)', 'Myocardial Infarction', 'Anaphylaxis', 'Tension Pneumothorax'],
+    notes: 'The Durant position (left lateral decubitus + Trendelenburg) helps trap the air in the right ventricle and prevents outflow obstruction.'
   },
   {
     id: 'fat-embolism',
@@ -2037,7 +2446,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Platelets': '150 - 450 x10^9/L',
       'PaO2': '> 80 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Gurd\'s Diagnostic Criteria: (1) Petechial rash, (2) Respiratory distress, (3) Cerebral symptoms'
+    ],
+    expectedLabDeviations: {
+      'PaO2': 'Markedly Decreased (< 60 mmHg)',
+      'Platelets': 'Decreased (< 150 x10^9/L)',
+      'Hemoglobin / Hematocrit': 'Decreased (due to intra-alveolar hemorrhage)'
+    },
+    differentialDiagnosis: ['Pulmonary Embolism', 'ARDS (Sepsis/Trauma)', 'Pneumonia', 'Cerebral Contusion'],
+    notes: 'Fat Embolism Syndrome typically presents 24-72 hours after major long-bone or pelvic fractures.'
   },
   {
     id: 'high-spinal',
@@ -2077,7 +2496,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Heart Rate': '60 - 100 bpm',
       'MAP': '> 65 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Rapid ascent of sensory/motor block above expected level + Hypotension + Bradycardia + Respiratory distress'
+    ],
+    expectedLabDeviations: {
+      'pH': 'Respiratory Acidosis (if hypoventilating)',
+      'PaCO2': 'Elevated'
+    },
+    differentialDiagnosis: ['Local Anesthetic Systemic Toxicity (LAST)', 'Vasovagal Reaction', 'Anaphylaxis', 'Amniotic Fluid Embolism (AFE)'],
+    notes: 'Management is purely supportive until the local anesthetic is metabolized and the block recedes. Early airway protection is critical.'
   },
   {
     id: 'myxedema-coma',
@@ -2116,7 +2544,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'TSH': '0.4 - 4.0 mIU/L',
       'Free T4': '12 - 22 pmol/L',
       'Sodium': '135 - 145 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Altered mental status + Hypothermia + Precipitating event + Bio-chemical evidence of severe hypothyroidism (High TSH, Low T4)'
+    ],
+    expectedLabDeviations: {
+      'TSH': 'Markedly Elevated (except in central hypothyroidism)',
+      'Free T4': 'Critically Low',
+      'Sodium': 'Hyponatremia (< 135 mmol/L)',
+      'Blood Glucose': 'Hypoglycemia'
+    },
+    differentialDiagnosis: ['Sepsis / Septic Shock', 'Adrenal Crisis', 'Hypothermia (Accidental)', 'Severe Depression / Catatonia'],
+    notes: 'Thyroid hormone replacement should only be started after glucocorticoids have been administered to avoid precipitating an adrenal crisis.'
   },
   {
     id: 'pheochromocytoma-crisis',
@@ -2155,7 +2594,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Plasma Metanephrines': '< 0.5 nmol/L',
       'Plasma Normetanephrines': '< 0.9 nmol/L',
       'Systolic BP': '< 140 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Severe or paroxysmal hypertension + Triad: Headache, Palpitations, and Sweating + Biochemical evidence of catecholamine excess'
+    ],
+    expectedLabDeviations: {
+      'Metanephrines': 'Markedly Elevated (> 3x ULN in plasma or urine)',
+      'WBC': 'Leukocytosis',
+      'Blood Glucose': 'Hyperglycemia'
+    },
+    differentialDiagnosis: ['Essential Hypertension (Crisis)', 'Thyroid Storm', 'Panic Attack / Anxiety', 'Carcinoid Syndrome'],
+    notes: 'Alpha-blockade MUST always precede beta-blockade to prevent hypertensive crisis from unopposed alpha-adrenergic stimulation.'
   },
   {
     id: 'acute-liver-failure',
@@ -2196,7 +2645,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Bilirubin': '< 21 umol/L',
       'ALT / AST': '< 40 U/L',
       'Ammonia': '< 50 umol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Severe acute liver injury (ALT/AST > 10x ULN) + Encephalopathy + Coagulopathy (INR > 1.5) in a patient without cirrhosis'
+    ],
+    expectedLabDeviations: {
+      'INR': 'Prolonged (> 1.5)',
+      'ALT / AST': 'Markedly Elevated (> 10x ULN; may fall as liver fails)',
+      'Ammonia': 'Elevated (> 100 umol/L - risk for cerebral edema)',
+      'Glucose': 'Hypoglycemia'
+    },
+    differentialDiagnosis: ['Decompensated Chronic Liver Disease', 'Drug-induced Liver Injury (DILI)', 'Autoimmune Hepatitis', 'Budd-Chiari Syndrome'],
+    notes: 'Cerebral edema is a leading cause of death in ALF. Management focuses on neuro-protection and early referral for liver transplantation.'
   },
   {
     id: 'aspiration-pneumonitis',
@@ -2234,7 +2694,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'SpO2': '> 94%',
       'PaO2': '> 80 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Witnessed aspiration or high risk + Acute respiratory distress or new CXR infiltrates within 24-48 hours'
+    ],
+    expectedLabDeviations: {
+      'PaO2': 'Decreased (Hypoxia)',
+      'WBC': 'May be elevated (indicator of inflammatory response or early infection)'
+    },
+    differentialDiagnosis: ['Aspiration Pneumonia (Infectious)', 'Bacterial Pneumonia', 'Pulmonary Embolism', 'Myocardial Infarction'],
+    notes: 'Aspiration pneumonitis is a chemical injury. Prophylactic antibiotics are not indicated unless there is no resolution after 48 hours.'
   },
   {
     id: 'bronchospasm',
@@ -2272,7 +2741,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Peak Pressure': '< 30 cmH2O',
       'ETCO2': '35 - 45 mmHg'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Sudden increase in airway pressures + Expired wheeze + "Shark-fin" ETCO2 waveform'
+    ],
+    expectedLabDeviations: {
+      'Peak Airway Pressure': 'Markedly Increased (> 40 cmH2O)',
+      'ETCO2 Waveform': 'Sloping or "shark-fin" appearance (obstructive pattern)'
+    },
+    differentialDiagnosis: ['Anaphylaxis', 'Endobronchial Intubation', 'ETT Kinking', 'Tension Pneumothorax'],
+    notes: 'Volatile anesthetics are potent bronchodilators and are the first-line defense in intraoperative bronchospasm after 100% O2.'
   },
   {
     id: 'laryngospasm',
@@ -2310,7 +2788,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'SpO2': '> 94%',
       'Heart Rate': '60 - 100 bpm'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Sudden silent chest or high-pitched stridor + Paradoxical chest movement + Inability to ventilate'
+    ],
+    expectedLabDeviations: {
+      'SpO2': 'Critically Low',
+      'Heart Rate': 'Bradycardia (indicator of severe hypoxia / impending arrest)'
+    },
+    differentialDiagnosis: ['Airway Obstruction (Soft tissue / Secretions)', 'Local Anesthetic Systemic Toxicity (LAST)', 'High Spinal', 'Amniotic Fluid Embolism (AFE)'],
+    notes: 'The Larson maneuver (laryngospasm notch pressure) combined with 100% O2 and CPAP can break over 90% of laryngospasms.'
   },
   {
     id: 'hyponatremia',
@@ -2347,7 +2834,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Sodium (Na+)': '135 - 145 mmol/L',
       'Serum Osmolality': '275 - 295 mOsm/kg'
-    }
+    },
+    diagnosticCriteria: [
+      'Serum Na+ < 135 mmol/L',
+      'Severe Symphony: Seizures, coma, Or severe confusion'
+    ],
+    expectedLabDeviations: {
+      'Serum Na+': 'Decreased (< 125 mmol/L usually symptomatic)',
+      'Serum Osmolality': 'Decreased (unless pseudohyponatremia)'
+    },
+    differentialDiagnosis: ['SIADH', 'Adrenal Insufficiency', 'Heart Failure', 'Hypothyroidism'],
+    notes: 'Rate of correction must be limited (max 10 mmol/L in 24h) to avoid Osmotic Demyelination Syndrome.'
   },
   {
     id: 'diabetes-insipidus',
@@ -2385,7 +2882,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Urine Osmolality': '300 - 900 mOsm/kg',
       'Serum Sodium': '135 - 145 mmol/L',
       'Urine Output': '< 2 mL/kg/hr'
-    }
+    },
+    diagnosticCriteria: [
+      'Polyuria (> 3L/day) + Dilute urine (U-Osm < 300) + Hypernatremia (> 145) + High S-Osm (> 295)'
+    ],
+    expectedLabDeviations: {
+      'Urine Osmolality': 'Markedly Low (< 300 mOsm/kg)',
+      'Serum Sodium': 'Elevated (> 145 mmol/L)',
+      'Serum Osmolality': 'Elevated (> 295 mOsm/kg)'
+    },
+    differentialDiagnosis: ['Primary Polydipsia', 'Osmotic Diuresis (Glycosuria)', 'SIADH (opposite profile)'],
+    notes: 'Desmopressin (DDAVP) is the treatment of choice for Central DI. Nephrogenic DI requires low-salt diet and thiazides.'
   },
   {
     id: 'siadh',
@@ -2424,7 +2931,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Sodium': '135 - 145 mmol/L',
       'Serum Osmolality': '275 - 295 mOsm/kg',
       'Urine Sodium': '> 30 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Hyponatremia + Euvolemia + Low S-Osm (< 275) + High U-Osm (> 100) + U-Na > 30'
+    ],
+    expectedLabDeviations: {
+      'Serum Sodium': 'Low (< 135 mmol/L)',
+      'Urine Osmolality': 'Elevated (> 100 mOsm/kg)',
+      'Urine Sodium': 'Elevated (> 30 mmol/L)'
+    },
+    differentialDiagnosis: ['Adrenal Insufficiency', 'Hypothyroidism', 'Diuretic Use', 'Heart Failure'],
+    notes: 'Fluid restriction (500-1000 mL/day) is the cornerstone of SIADH treatment.'
   },
   {
     id: 'bacterial-meningitis',
@@ -2463,7 +2980,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'CSF WBC': '< 5 cells/uL',
       'CSF Glucose': '> 60% of blood glucose',
       'CSF Protein': '0.15 - 0.45 g/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Fever + Meningism (Neck stiffness/Photophobia) + Abnormal CSF (Neutrophilia, High Protein, Low Glucose)'
+    ],
+    expectedLabDeviations: {
+      'CSF WBC': 'Markedly Elevated (Neutrophil predominance)',
+      'CSF Glucose': 'Reduced (< 40-50% of blood glucose)',
+      'CSF Protein': 'Elevated (> 0.45 g/L)',
+      'Lactate (CSF)': 'Elevated'
+    },
+    differentialDiagnosis: ['Viral Meningitis', 'Encephalitis', 'Subarachnoid Hemorrhage', 'Brain Abscess'],
+    notes: 'Early antibiotics and steroids are life-saving. Do not delay treatment if LP is contraindicated/delayed.'
   },
   {
     id: 'guillain-barre',
@@ -2501,7 +3029,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Vital Capacity': '> 60 mL/kg (normal)',
       'CSF Protein': '0.15 - 0.45 g/L (normal)'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Progressive, symmetrical, ascending weakness + Areflexia + CSF Albuminocytologic dissociation (High protein, normal WBC)'
+    ],
+    expectedLabDeviations: {
+      'CSF Protein': 'Elevated (> 0.45 g/L)',
+      'CSF WBC': 'Normal (< 5 cells/uL)',
+      'Vital Capacity': 'Decreased (< 20 mL/kg indicates need for ICU/ventilation)'
+    },
+    differentialDiagnosis: ['Myasthenia Gravis', 'Chronic Inflammatory Demyelinating Polyneuropathy (CIDP)', 'Transverse Myelitis', 'Periodic Paralysis'],
+    notes: 'Monitor Vital Capacity (VC) and Peak Flow frequently (q4-6h). The "20/30/40" rule: Intubate if VC < 20mL/kg, PImax < 30cmH2O, or PEmax < 40cmH2O.'
   },
   {
     id: 'neurogenic-shock',
@@ -2539,7 +3077,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'MAP': '70 - 100 mmHg (normal)',
       'Heart Rate': '60 - 100 bpm'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Hypotension + Bradycardia + Warm, dry skin below the level of a known or suspected spinal cord injury (usually above T6)'
+    ],
+    expectedLabDeviations: {
+      'MAP': 'Decreased',
+      'Heart Rate': 'Decreased (Bradycardia - hallmark of neurogenic shock)'
+    },
+    differentialDiagnosis: ['Hypovolemic Shock (Commonly co-exists in trauma)', 'Obstructive Shock (Tamponade/Tension Pneumo)', 'Septic Shock'],
+    notes: 'The goal is to maintain MAP 85-90 mmHg for 7 days post-injury to optimize spinal cord perfusion and prevent secondary damage.'
   },
   {
     id: 'rhabdomyolysis',
@@ -2578,7 +3125,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Creatine Kinase (CK)': '< 200 U/L',
       'Potassium': '3.5 - 5.0 mmol/L',
       'Creatinine': '60 - 110 umol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Muscle pain/weakness/dark urine + Biochem: Serum CK > 5x ULN (usually > 5000 U/L)'
+    ],
+    expectedLabDeviations: {
+      'Creatine Kinase (CK)': 'Markedly Elevated (> 5000 U/L)',
+      'Potassium': 'Elevated (Hyperkalemia)',
+      'Creatinine': 'Elevated (indicator of AKI)',
+      'Myoglobin (Urine)': 'Positive'
+    },
+    differentialDiagnosis: ['Myositis (Inflammatory)', 'Myocardial Infarction (Elevated CK-MB)', 'Sickle Cell Crisis', 'Primary Renal Disease (Hematuria)'],
+    notes: 'Aggressive fluid resuscitation with a target urine output of 200-300 mL/hr is essential to prevent myoglobin-induced AKI.'
   },
   {
     id: 'tumor-lysis-syndrome',
@@ -2618,7 +3176,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Potassium': '3.5 - 5.0 mmol/L',
       'Phosphate': '0.8 - 1.5 mmol/L',
       'Calcium': '2.1 - 2.6 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Cairo-Bishop Criteria (Biochemical): 2 or more of: Uric acid > 476, K+ > 6.0, Phos > 1.45, or Ca2+ < 1.75'
+    ],
+    expectedLabDeviations: {
+      'Uric Acid': 'Elevated',
+      'Potassium': 'Elevated',
+      'Phosphate': 'Elevated',
+      'Calcium': 'Decreased'
+    },
+    differentialDiagnosis: ['Acute Kidney Injury (other causes)', 'Chronic Renal Failure', 'Pseudohyperkalemia (hemolysis)'],
+    notes: 'Rasburicase is highly effective for lowering uric acid but is contraindicated in G6PD deficiency.'
   },
   {
     id: 'neutropenic-sepsis',
@@ -2655,7 +3224,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Neutrophils': '1.5 - 7.5 x10^9/L',
       'Lactate': '< 2.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Fever (> 38.0°C) or signs of sepsis PLUS absolute neutrophil count (ANC) < 0.5 x 10^9/L'
+    ],
+    expectedLabDeviations: {
+      'Neutrophils (ANC)': 'Critically Low (< 0.5 x 10^9/L)',
+      'Lactate': 'Elevated (indicator of sepsis severity)'
+    },
+    differentialDiagnosis: ['Non-neutropenic Sepsis', 'Drug Reaction with Eosinophilia and Systemic Symptoms (DRESS)', 'Adrenal Insufficiency', 'Malignant Fever'],
+    notes: 'Treatment with broad-spectrum antibiotics (e.g., Tazocin) must be initiated within 60 minutes of presentation.'
   },
   {
     id: 'svco',
@@ -2692,7 +3270,15 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     ],
     normalLabRanges: {
       'Respiratory Rate': '12 - 20 bpm'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Facial/neck swelling + venous distension + pemberton\'s sign + CT evidence of SVC compression'
+    ],
+    expectedLabDeviations: {
+      'PaO2': 'May be decreased if severe airway compression'
+    },
+    differentialDiagnosis: ['Angioedema', 'Heart Failure (SVC distension)', 'Pericardial Tamponade', 'Mediastinitis'],
+    notes: 'Emergency stenting provides rapid symptomatic relief. High-dose dexamethasone reduces peri-tumoral edema.'
   },
   {
     id: 'mscc',
@@ -2729,44 +3315,15 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     ],
     normalLabRanges: {
       'Neurological Power': '5/5 (normal)'
-    }
-  },
-  {
-    id: 'opioid-overdose',
-    name: 'Opioid Overdose',
-    category: 'Toxicology > Emergency',
-    severity: 'critical',
-    diagnosis: [
-      'Triad: Pinpoint pupils (miosis), Respiratory depression, Coma',
-      'Cyanosis, Bradycardia, Hypotension',
-      'Track marks or history of drug use'
-    ],
-    immediateActions: [
-      'Airway protection / Bag-valve-mask ventilation',
-      'Naloxone 400mcg IV/IM (titrate to respiratory rate)',
-      'Oxygen 100%',
-      'Monitor for rebound sedation'
-    ],
-    secondaryManagement: [
-      'Naloxone infusion if long-acting opioid (e.g., Methadone)',
-      'Identify co-ingestants',
-      'Observe for at least 2-4 hours after last Naloxone dose'
-    ],
-    ivFluidManagement: {
-      choices: ['Balanced Crystalloids'],
-      targets: ['MAP > 65 mmHg', 'Maintain organ perfusion'],
-      monitoring: ['Respiratory rate (target > 12)', 'SpO2', 'GCS']
     },
-    diagram: [
-      { title: 'Recognition', description: 'Unresponsive + Pinpoint pupils + Slow/absent breathing. Assume opioid overdose until proven otherwise.', type: 'decision' },
-      { title: 'Ventilation', description: 'Support breathing with BVM and 100% O2. Do not wait for Naloxone if patient is apneic.', type: 'action' },
-      { title: 'Naloxone', description: 'Give 400mcg IV/IM. Repeat every 2-3 mins until RR > 12. Aim for adequate ventilation, not full consciousness.', type: 'action' },
-      { title: 'Rebound Sedation', description: 'Naloxone has a shorter half-life (30-60 mins) than most opioids. Monitor closely for recurrence of symptoms.', type: 'warning' }
+    diagnosticCriteria: [
+      'Clinical: New/worsened back pain + neurological deficits PLUS MRI evidence of thecal sac compression by a malignant mass'
     ],
-    normalLabRanges: {
-      'Respiratory Rate': '12 - 20 bpm',
-      'SpO2': '> 94%'
-    }
+    expectedLabDeviations: {
+      'MRI': 'Shows vertebral collapse / epidural mass'
+    },
+    differentialDiagnosis: ['Transverse Myelitis', 'Spinal Epidural Abscess', 'Disc Herniation / Cauda Equina Syndrome', 'Benign Tumor'],
+    notes: 'MRI of the WHOLE spine must be performed within 24 hours. Start high-dose dexamethasone (16mg) immediately on suspicion.'
   },
   {
     id: 'serotonin-syndrome',
@@ -2803,7 +3360,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Temperature': '36.5 - 37.5 °C',
       'Creatine Kinase (CK)': '< 200 U/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Hunter Criteria: (1) Spontaneous clonus, (2) Inducible clonus + agitation/diaphoresis, (3) Ocular clonus + agitation/diaphoresis, (4) Tremor + hyperreflexia, OR (5) Hypertonia + Temp > 38°C + Ocular/inducible clonus'
+    ],
+    expectedLabDeviations: {
+      'Creatine Kinase (CK)': 'Elevated (due to muscle activity)',
+      'WBC': 'Leukocytosis',
+      'pH': 'Metabolic Acidosis (if severe)'
+    },
+    differentialDiagnosis: ['Malignant Hyperthermia (MH)', 'Neuroleptic Malignant Syndrome (NMS)', 'Anti-cholinergic Toxicity', 'Heat Stroke'],
+    notes: 'Serotonin syndrome is characterized by neuromuscular HYPER-activity (clonus/reflexes), whereas NMS is characterized by "lead-pipe" rigidity.'
   },
   {
     id: 'alcohol-withdrawal',
@@ -2841,7 +3408,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'Magnesium': '0.7 - 1.0 mmol/L',
       'Potassium': '3.5 - 5.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: History of heavy alcohol use + Tremor/Autonomic hyperactivity + CIWA-Ar score >= 10'
+    ],
+    expectedLabDeviations: {
+      'Magnesium': 'Decreased (Hypomagnesemia)',
+      'Potassium': 'Decreased (Hypokalemia)',
+      'Phosphate': 'Decreased (Hypophosphatemia)',
+      'MCV': 'Elevated (Macrocytosis - indicator of chronic use)'
+    },
+    differentialDiagnosis: ['Sepsis / Meningitis', 'Hepatic Encephalopathy', 'Thyrotoxicosis', 'Sedative-Hypnotic Withdrawal'],
+    notes: 'Delirium Tremens (DTs) is a medical emergency with up to 5% mortality. High-dose benzodiazepines and aggressive electrolyte replacement are required.'
   },
   {
     id: 'carbon-monoxide',
@@ -2879,7 +3457,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     normalLabRanges: {
       'COHb': '< 3% (Non-smoker)',
       'Lactate': '< 2.0 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'Clinical: Exposure history + CNS symptoms + COHb > 3% (non-smoker) or > 10% (smoker)'
+    ],
+    expectedLabDeviations: {
+      'COHb': 'Elevated',
+      'Lactate': 'Elevated (indicator of tissue hypoxia)',
+      'Troponin': 'May be elevated (myocardial ischemia risk)'
+    },
+    differentialDiagnosis: ['Cyanide Poisoning (often co-exists in fires)', 'Methemoglobinemia', 'Hypoglycemia', 'Migraine'],
+    notes: 'Standard pulse oximetry (SpO2) CANNOT distinguish between carboxyhemoglobin and oxyhemoglobin and will be falsely normal.'
   },
   {
     id: 'hypertensive-emergency',
@@ -2918,7 +3506,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Systolic BP': '< 140 mmHg',
       'Diastolic BP': '< 90 mmHg',
       'Creatinine': '60 - 110 umol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'BP > 180/120 mmHg PLUS signs of acute end-organ damage (e.g., Papilledema, Acute Pulmonary Edema, Encephalopathy, MI, or AKI)'
+    ],
+    expectedLabDeviations: {
+      'Creatinine': 'Elevated (Acute Kidney Injury)',
+      'Troponin': 'Elevated (Myocardial Ischemia)',
+      'Urine': 'Proteinuria / Hematuria'
+    },
+    differentialDiagnosis: ['Hypertensive Urgency (No end-organ damage)', 'Ischemic Stroke', 'Anxiety / Panic Attack', 'Cocaine / Sympathomimetic Toxicity'],
+    notes: 'Avoid rapid BP reduction in ischemic stroke (unless lysing) or if brain autoregulation is likely shifted, as this can cause cerebral hypoperfusion.'
   },
   {
     id: 'osa',
@@ -2958,7 +3556,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'SpO2 (awake)': '94 - 98%',
       'AHI': '< 5 events/hour (normal)',
       'STOP-BANG Score': '0 - 2 (Low Risk)'
-    }
+    },
+    diagnosticCriteria: [
+      'STOP-BANG score >= 3 (High Risk) OR Formal PSG AHI > 5 events/hr'
+    ],
+    expectedLabDeviations: {
+      'Bicarbonate': 'May be elevated (compensation for nocturnal hypercapnia)',
+      'Hemoglobin / Hematocrit': 'May be elevated (Polycythemia due to chronic hypoxia)'
+    },
+    differentialDiagnosis: ['Central Sleep Apnea', 'Obesity Hypoventilation Syndrome (OHS)', 'COPD', 'Congestive Heart Failure'],
+    notes: 'OSA patients are at high risk for "cannot ventilate, cannot intubate" (CVCI) scenarios and post-operative respiratory depression.'
   },
   {
     id: 'esrd',
@@ -2999,7 +3606,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Bicarbonate': '> 18 mmol/L',
       'Hemoglobin': '> 100 g/L (pre-op target)',
       'eGFR': '> 15 mL/min (Stage 1-4 CKD)'
-    }
+    },
+    diagnosticCriteria: [
+      'eGFR < 15 mL/min/1.73m² (Stage 5) OR Requirement for long-term Dialysis'
+    ],
+    expectedLabDeviations: {
+      'Urea / Creatinine': 'Markedly Elevated',
+      'Potassium': 'Elevated (Hyperkalemia - risk of arrest)',
+      'Hemoglobin': 'Decreased (Anemia of chronic disease)',
+      'Phosphate': 'Elevated'
+    },
+    differentialDiagnosis: ['Acute Kidney Injury (AKI)', 'Acute-on-Chronic Renal Failure', 'Prerenal Azotemia'],
+    notes: 'A "thrill" or "bruit" must be confirmed in the AV fistula pre-operatively. Avoid BP cuffs or IV access in the fistula arm.'
   },
   {
     id: 'pah',
@@ -3038,6 +3656,16 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PVR': '< 2 Wood Units',
       'RAP (CVP)': '2 - 6 mmHg',
       'SpO2': '> 94%'
-    }
+    },
+    diagnosticCriteria: [
+      'Mean Pulmonary Artery Pressure (mPAP) > 20 mmHg at rest with PVR > 2 Wood Units and PCWP <= 15 mmHg'
+    ],
+    expectedLabDeviations: {
+      'NT-proBNP': 'Elevated (indicator of RV strain)',
+      'SpO2': 'May be decreased',
+      'PaCO2': 'May be low (tachypnea) or high (late sign of failure)'
+    },
+    differentialDiagnosis: ['Chronic Heart Failure (Left-sided)', 'Chronic Thromboembolic Pulmonary Hypertension (CTEPH)', 'COPD / Interstitial Lung Disease'],
+    notes: 'The right ventricle in PAH is highly afterload-sensitive. Induction of anesthesia is the period of highest risk for RV collapse.'
   }
 ];

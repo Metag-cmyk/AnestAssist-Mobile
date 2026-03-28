@@ -22,6 +22,9 @@ export interface ConditionProtocol {
   notes?: string;
   ivFluidManagement?: IVFluidManagement;
   normalLabRanges?: { [key: string]: string };
+  diagnosticCriteria?: string[];
+  expectedLabDeviations?: { [key: string]: string };
+  differentialDiagnosis?: string[];
 }
 
 export interface Guideline {
