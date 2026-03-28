@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Stethoscope, 
@@ -16,9 +16,9 @@ import {
   Zap,
   BookOpen
 } from 'lucide-react';
-import { SURGERY_DATA } from '../data/surgery';
-import { SurgeryProcedure, SurgeryStep } from '../types';
-import { useLanguage } from '../contexts/LanguageContext';
+import { SURGERY_DATA } from './data';
+import { SurgeryProcedure, SurgeryStep } from '../../types';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 function SurgicalGuide({ steps }: { steps: SurgeryStep[] }) {
   const { t } = useLanguage();
@@ -144,11 +144,35 @@ function ThoracicSpirometryAnalyser({ procedureId }: { procedureId: string }) {
   );
 }
 
+import { useData } from '../../hooks/useData';
+import { searchItems } from '../../lib/search';
+
 const Surgery: React.FC = () => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeSpecialty, setActiveSpecialty] = useState<string>('All');
+  const { surgery: SURGERY_DATA } = useData();
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    return localStorage.getItem('anestassist_surgery_selected_id');
+  });
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem('anestassist_surgery_search_term') || '';
+  });
+  const [activeSpecialty, setActiveSpecialty] = useState<string>(() => {
+    return localStorage.getItem('anestassist_surgery_specialty') || 'All';
+  });
+  
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (selectedId) localStorage.setItem('anestassist_surgery_selected_id', selectedId);
+    else localStorage.removeItem('anestassist_surgery_selected_id');
+  }, [selectedId]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_surgery_search_term', searchTerm);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_surgery_specialty', activeSpecialty);
+  }, [activeSpecialty]);
 
   const specialties = ['All', ...SURGERY_DATA.map(s => s.name)];
   
@@ -163,11 +187,11 @@ const Surgery: React.FC = () => {
 
   const selectedProcedure = allProcedures.find(p => p.id === selectedId);
 
-  const filteredProcedures = allProcedures.filter(p => {
-    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSpecialty = activeSpecialty === 'All' || p.specialtyName === activeSpecialty;
-    return matchesSearch && matchesSpecialty;
-  });
+  const filteredProcedures = searchItems(
+    allProcedures.filter(p => activeSpecialty === 'All' || p.specialtyName === activeSpecialty),
+    searchTerm,
+    ['name', 'specialtyName']
+  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

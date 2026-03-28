@@ -1,4 +1,4 @@
-import { ConditionProtocol } from '../types';
+import { ConditionProtocol } from '../../types';
 
 export const CONDITIONS_DATA: ConditionProtocol[] = [
   {

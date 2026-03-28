@@ -1,4 +1,4 @@
-import { RegionalBlock } from '../types';
+import { RegionalBlock } from '../../types';
 
 export const REGIONAL_BLOCKS: RegionalBlock[] = [
   {
@@ -177,7 +177,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Deeper block; use a curvilinear probe in obese patients.'],
     complications: ['Vascular puncture', 'Pneumothorax (rare)'],
     suggestedVolume: '20 - 30 mL',
-    maxDoseNote: 'Excellent for catheters due to muscle stabilization.'
+    maxDoseNote: 'Excellent for catheters due to muscle stabilization.',
+    probePlacementImage: '/infraclavicular_probe_placement.png',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/UE_Infraclavicular_Featured-image-750x720-1-1.jpg'
   },
   {
     id: 'erector-spinae-plane-block',
@@ -197,7 +199,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Look for the "square-off" transverse process rather than the "pointed" rib.'],
     complications: ['Failed block', 'Muscle injury'],
     suggestedVolume: '20 - 30 mL',
-    maxDoseNote: 'High volume required for longitudinal spread.'
+    maxDoseNote: 'High volume required for longitudinal spread.',
+    probePlacementImage: '/esp_probe_placement.png',
+    ultrasoundGuideImage: '/esp_ultrasound_guide.png'
   },
   {
     id: 'pecs-i-ii-block',
@@ -217,7 +221,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Identify the thoracoacromial artery for PECS I landmark.'],
     complications: ['Pneumothorax', 'Vascular injury'],
     suggestedVolume: '25 - 30 mL',
-    maxDoseNote: 'Systemic absorption from breast tissue is high.'
+    maxDoseNote: 'Systemic absorption from breast tissue is high.',
+    probePlacementImage: '/pecs_probe_placement.png',
+    ultrasoundGuideImage: '/pecs_ultrasound_guide.png'
   },
   {
     id: 'adductor-canal-block',
@@ -237,7 +243,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Confirm the "Vasovastus" fascia; the nerve is often small/hyperechoic.'],
     complications: ['Inadequate analgesia', 'Quadriceps weakness if volume > 20mL'],
     suggestedVolume: '15 - 20 mL',
-    maxDoseNote: 'Motor-sparing at low volumes.'
+    maxDoseNote: 'Motor-sparing at low volumes.',
+    probePlacementImage: '/acb_probe_placement.png',
+    ultrasoundGuideImage: '/acb_ultrasound_guide.png'
   },
   {
     id: 'peng-block',
@@ -257,7 +265,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Ensure the needle is deep to the psoas tendon to hit the articular branches.'],
     complications: ['Muscle weakness (femoral nerve spread)'],
     suggestedVolume: '20 mL',
-    maxDoseNote: 'Ideal for motor-sparing hip analgesia.'
+    maxDoseNote: 'Ideal for motor-sparing hip analgesia.',
+    probePlacementImage: '/peng_probe_placement.png',
+    ultrasoundGuideImage: '/peng_ultrasound_guide.png'
   },
   {
     id: 'popliteal-sciatic-block',
@@ -277,7 +287,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Look for the "honeycomb" nerve structure superior to the popliteal artery.'],
     complications: ['Nerve injury', 'Vascular puncture'],
     suggestedVolume: '20 - 25 mL',
-    maxDoseNote: 'Commonly combined with a saphenous block for total foot coverage.'
+    maxDoseNote: 'Commonly combined with a saphenous block for total foot coverage.',
+    probePlacementImage: '/pop_sciatic_probe_placement.png',
+    ultrasoundGuideImage: '/pop_sciatic_ultrasound_guide.png'
   },
   {
     id: 'ipack-block',
@@ -297,7 +309,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Scan proximal to the condyles for optimal space.'],
     complications: ['Tibial or common peroneal nerve palsy'],
     suggestedVolume: '15 - 20 mL',
-    maxDoseNote: 'Usually combined with an Adductor Canal Block.'
+    maxDoseNote: 'Usually combined with an Adductor Canal Block.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2022/04/IPACK-Fig1-1.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2022/04/IPACK-Fig1-1.jpg'
   },
   {
     id: 'serratus-anterior-plane-block',
@@ -317,7 +331,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Watch for the long thoracic nerve; it often sits on the muscle surface.'],
     complications: ['Pneumothorax'],
     suggestedVolume: '20 - 30 mL',
-    maxDoseNote: 'Large spread required for multiple rib coverage.'
+    maxDoseNote: 'Large spread required for multiple rib coverage.',
+    probePlacementImage: '/sap_probe_placement.png',
+    ultrasoundGuideImage: '/sap_ultrasound_guide.png'
   },
   {
     id: 'femoral-nerve-block',
@@ -337,7 +353,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Nerve looks like a "wedge" lateral to the pulsatile artery.'],
     complications: ['Vascular puncture', 'Nerve injury'],
     suggestedVolume: '15 - 20 mL',
-    maxDoseNote: 'High motor block (quadriceps).'
+    maxDoseNote: 'High motor block (quadriceps).',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2021/08/Tips-for-a-Femoral-Nerve-Block-featured-image-new.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1.jpg'
   },
   {
     id: 'rectus-sheath-block',
@@ -357,7 +375,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Ensure the needle does not cross the posterior sheath into the peritoneum.'],
     complications: ['Peritoneal puncture', 'Bowel injury'],
     suggestedVolume: '15 - 20 mL (bilateral)',
-    maxDoseNote: 'Often done bilaterally; double the dose calculation.'
+    maxDoseNote: 'Often done bilaterally; double the dose calculation.',
+    probePlacementImage: '/rectus_sheath_probe_placement.png',
+    ultrasoundGuideImage: '/rectus_sheath_ultrasound_guide.png'
   },
   {
     id: 'paravertebral-block',
@@ -377,7 +397,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Watch for the pleura "diving" away as LA is injected.'],
     complications: ['Pneumothorax', 'Total spinal (rare)', 'Vascular puncture'],
     suggestedVolume: '15 - 20 mL',
-    maxDoseNote: 'Equivalent to unilateral epidural.'
+    maxDoseNote: 'Equivalent to unilateral epidural.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2021/08/Tips-for-a-Paravertebral-Block-featured-image-new.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1-1-750x454.jpg'
   },
   {
     id: 'spinal-anesthesia',
@@ -519,7 +541,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Acoustic shadowing from sacral cornua helps identify the hiatus.'],
     complications: ['Intra-osseous injection', 'Vascular injection', 'Dural puncture (rare)'],
     suggestedVolume: '0.5 - 1.0 mL/kg (Pediatric)',
-    maxDoseNote: 'Pediatrics: 0.125% - 0.25% Bupivacaine. Adults: 20mL of 0.25% for chronic pain.'
+    maxDoseNote: 'Pediatrics: 0.125% - 0.25% Bupivacaine. Adults: 20mL of 0.25% for chronic pain.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_2-750x454.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1-1-750x454.jpg'
   },
   {
     id: 'stellate-ganglion-block',
@@ -539,7 +563,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Identify the carotid artery and internal jugular vein clearly.'],
     complications: ['Horner\'s syndrome (intended)', 'Recurrent laryngeal nerve palsy', 'Vertebral artery injection'],
     suggestedVolume: '5 mL',
-    maxDoseNote: 'Low volume to minimize spread to adjacent nerves.'
+    maxDoseNote: 'Low volume to minimize spread to adjacent nerves.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_3-750x429.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1-750x438.jpg'
   },
   {
     id: 'superficial-cervical-plexus-block',
@@ -559,7 +585,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Look for the "punctum fixum" where the nerves emerge.'],
     complications: ['Phrenic nerve palsy', 'Deep cervical plexus spread'],
     suggestedVolume: '10 - 15 mL',
-    maxDoseNote: 'High systemic absorption risk.'
+    maxDoseNote: 'High systemic absorption risk.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig-3-750x429.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1-750x438.jpg'
   },
   {
     id: 'rectus-femoris-nerve-block',
@@ -579,7 +607,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Provides broader knee coverage than the AC block.'],
     complications: ['Motor block (partial)'],
     suggestedVolume: '15 - 20 mL',
-    maxDoseNote: 'Weight-based safety limits.'
+    maxDoseNote: 'Weight-based safety limits.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2021/08/Femoral-triangle-block-with-or-without-iPACK-for-ACL-reconstruction-featured-image-new.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2021/08/Femoral-triangle-block-with-or-without-iPACK-for-ACL-reconstruction-featured-image-new.jpg'
   },
   {
     id: 'radial-nerve-block',
@@ -599,7 +629,9 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Follow the nerve up from the wrist to identify clearly.'],
     complications: ['Direct nerve trauma'],
     suggestedVolume: '5 - 8 mL',
-    maxDoseNote: 'Usually a component of a multi-nerve block.'
+    maxDoseNote: 'Usually a component of a multi-nerve block.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1-1.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/Fig_1-1.jpg'
   },
   {
     id: 'ankle-block',
@@ -619,6 +651,116 @@ export const REGIONAL_BLOCKS: RegionalBlock[] = [
     sonoAnatomyTips: ['Deep peroneal nerve sits on the anterior surface of the tibia.'],
     complications: ['Failed block (must hit all 5)', 'Ischemia (avoid Epi)'],
     suggestedVolume: '20 - 25 mL (Total)',
-    maxDoseNote: 'Do NOT use Epinephrine (terminal circulation).'
+    maxDoseNote: 'Do NOT use Epinephrine (terminal circulation).',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2020/02/LE_Ankle_Tibial_Probe_US-scaled.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2020/02/LE_Ankle_Tibial_Needle_Reverse-scaled.jpg'
+  },
+  {
+    id: 'quadratus-lumborum-block',
+    name: 'Quadratus Lumborum (QL) Block',
+    category: 'Trunk',
+    indications: ['Laparotomy, Hip surgery, Nephrectomy', 'Visceral abdominal pain'],
+    contraindications: {
+      absolute: ['Patient refusal', 'Infection at site'],
+      relative: ['Coagulopathy (deep location)']
+    },
+    anatomy: ['QL muscle: Lateral to the Psoas Major', 'Shamrock sign: Psoas, QL, and Erector Spinae around the L4 TP'],
+    technique: [
+      { title: 'QL 1 (Lateral)', description: 'Injection lateral to the QL muscle, at its junction with the transversalis fascia.' },
+      { title: 'QL 2 (Posterior)', description: 'Injection on the posterior surface of the QL, between QL and Erector Spinae.' },
+      { title: 'QL 3 (Anterior/Transmuscular)', description: 'Injection between the QL and Psoas Major muscles.' }
+    ],
+    sonoAnatomyTips: ['Use a curvilinear probe for better depth. Identify the L4 transverse process for the Shamrock view.'],
+    complications: ['Muscle weakness (lumbar plexus spread)', 'Hematoma (deep, non-compressible space)'],
+    suggestedVolume: '20 - 30 mL (Bilateral)',
+    maxDoseNote: 'High volume required for visceral coverage.',
+    probePlacementImage: '/ql_probe_placement.png',
+    ultrasoundGuideImage: '/ql_ultrasound_guide.png'
+  },
+  {
+    id: 'deep-cervical-plexus-block',
+    name: 'Deep Cervical Plexus Block',
+    category: 'Head & Neck',
+    indications: ['Carotid endarterectomy (CEA)', 'Deep neck surgeries'],
+    contraindications: {
+      absolute: ['Patient refusal', 'Infection at site', 'Contralateral phrenic nerve palsy'],
+      relative: ['Severe COPD']
+    },
+    anatomy: ['C2-C4 nerve roots emerging from the transverse processes'],
+    technique: [
+      { title: 'Probe Position', description: 'Transverse over the mid-neck to identify the C4 transverse process.' },
+      { title: 'Approach', description: 'In-plane, posterior to anterior.' },
+      { title: 'Injection', description: 'At the depth of the transverse process sulcus, outside the foramen.' }
+    ],
+    sonoAnatomyTips: ['Distinguish the anterior and posterior tubercles of the transverse processes.'],
+    complications: ['Vertebral artery injection', 'Total spinal (dural sleeve spread)', 'Phrenic nerve palsy (100%)'],
+    suggestedVolume: '5 - 10 mL',
+    maxDoseNote: 'Small volume, high-stakes location.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2023/12/Dec.12-NEWS-Tips-for-a-Cervical-Plexus-Block.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2023/12/Dec.12-NEWS-Tips-for-a-Cervical-Plexus-Block.jpg'
+  },
+  {
+    id: 'median-nerve-block',
+    name: 'Median Nerve Block (Wrist/Elbow)',
+    category: 'Upper Limb',
+    indications: ['Carpal tunnel release, Hand surgery (Palmar aspects)'],
+    contraindications: {
+      absolute: ['Patient refusal'],
+      relative: ['Pre-existing carpal tunnel syndrome']
+    },
+    anatomy: ['Wrist: Between FCR and PL tendons', 'Elbow: Medial to the Brachial artery'],
+    technique: [
+      { title: 'Wrist Approach', description: 'Short-axis view between the flexor tendons; in-plane approach.' },
+      { title: 'Elbow Approach', description: 'Identify the nerve medial to the artery in the antecubital fossa.' }
+    ],
+    sonoAnatomyTips: ['The nerve has a "honeycomb" appearance and doesn\'t pulsate.'],
+    complications: ['Direct nerve trauma', 'Hematoma'],
+    suggestedVolume: '3 - 5 mL',
+    maxDoseNote: 'Often used for sensory "rescue" in the hand.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/09/UE_Wrist_MN_Featured-image-750x720-1-1.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/09/UE_Wrist_MN_Featured-image-750x720-1-1.jpg'
+  },
+  {
+    id: 'ulnar-nerve-block',
+    name: 'Ulnar Nerve Block (Wrist/Elbow)',
+    category: 'Upper Limb',
+    indications: ['Hand surgery (5th digit and ulnar aspect)'],
+    contraindications: {
+      absolute: ['Patient refusal'],
+      relative: ['Ulnar nerve transposition history']
+    },
+    anatomy: ['Wrist: Medial to the ulnar artery', 'Elbow: Within the ulnar groove (cubital tunnel)'],
+    technique: [
+      { title: 'Wrist Approach', description: 'In-plane approach from the ulnar side, lateral to the artery.' },
+      { title: 'Elbow Approach', description: 'Identify in the groove between the olecranon and medial epicondyle.' }
+    ],
+    sonoAnatomyTips: ['At the wrist, the nerve is always medial (ulnar) to the artery.'],
+    complications: ['Neuritis (especially at the elbow)'],
+    suggestedVolume: '3 - 5 mL',
+    maxDoseNote: 'Wrist approach is safer for avoiding compression in the tight ulnar groove.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/06/regional-anesthesia-block-of-the-ulnar-nerve-1024x616-1.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2018/06/regional-anesthesia-block-of-the-ulnar-nerve-1024x616-1.jpg'
+  },
+  {
+    id: 'sciatic-subgluteal-block',
+    name: 'Sciatic Nerve Block (Subgluteal)',
+    category: 'Lower Limb',
+    indications: ['Ankle and foot surgery (when popliteal is inaccessible)'],
+    contraindications: {
+      absolute: ['Patient refusal', 'Infection at site'],
+      relative: ['Deep vein thrombosis (proximal)']
+    },
+    anatomy: ['Sciatic nerve between the greater trochanter and ischial tuberosity'],
+    technique: [
+      { title: 'Probe Position', description: 'Transverse over the subgluteal fold.' },
+      { title: 'Approach', description: 'In-plane, lateral to medial.' },
+      { title: 'Injection', description: 'Between the gluteus maximus and the quadratus femoris muscles.' }
+    ],
+    sonoAnatomyTips: ['Look for the large, hyperechoic oval nerve deep to the gluteus maximus muscle.'],
+    complications: ['Nerve injury', 'Hematoma (deep)'],
+    suggestedVolume: '20 - 25 mL',
+    maxDoseNote: 'Large nerve requires significant volume for complete anesthesia.',
+    probePlacementImage: 'https://www.nysora.com/wp-content/uploads/2018/06/regional-anesthesia-block-of-the-sciatic-nerve-proximal-subgluteal.jpg',
+    ultrasoundGuideImage: 'https://www.nysora.com/wp-content/uploads/2021/05/WhatsApp-Image-2021-05-05-at-15.54.50.jpeg'
   }
 ];

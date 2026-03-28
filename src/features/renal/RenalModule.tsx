@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Activity, Droplet, RefreshCcw, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { calculateCRRT, calculateIHD, calculatePlasmaExchange } from '../lib/RenalCalculators';
+import { calculateCRRT, calculateIHD, calculatePlasmaExchange } from '../../lib/RenalCalculators';
+
+// Fixed import error in previous thought: it's lucide-react, not luc David-react
+import { Activity as ActivityIcon, Droplet as DropletIcon, RefreshCcw as RefreshCcwIcon, Waves as WavesIcon } from 'lucide-react';
 
 type SubTab = 'crrt' | 'ihd' | 'tpe';
 
 export default function RenalModule() {
-  const [activeTab, setActiveTab] = useState<SubTab>('crrt');
+  // Persistence Keys
+  const K_TAB = 'anestassist_renal_active_subtab';
+  const K_WEIGHT = 'anestassist_patient_weight';
+  const K_HEIGHT = 'anestassist_patient_height';
+  const K_AGE = 'anestassist_patient_age';
+  const K_GENDER = 'anestassist_patient_gender';
 
-  // CRRT State
-  const [crrtWeight, setCrrtWeight] = useState('85');
+  const [activeTab, setActiveTab] = useState<SubTab>(() => {
+    return (localStorage.getItem(K_TAB) as SubTab) || 'crrt';
+  });
+
+  // Shared Patient State (Persistent)
+  const [weight, setWeight] = useState(() => localStorage.getItem(K_WEIGHT) || '70');
+  const [height, setHeight] = useState(() => localStorage.getItem(K_HEIGHT) || '175');
+  const [age, setAge] = useState(() => localStorage.getItem(K_AGE) || '30');
+  const [isMale, setIsMale] = useState(() => localStorage.getItem(K_GENDER) !== 'female');
+
+  // CRRT Specific State
   const [crrtHct, setCrrtHct] = useState('35');
   const [crrtQb, setCrrtQb] = useState('150');
   const [crrtPreFilter, setCrrtPreFilter] = useState('50');
@@ -17,20 +34,19 @@ export default function RenalModule() {
   const [crrtNetUfr, setCrrtNetUfr] = useState('100');
   const [crrtPbp, setCrrtPbp] = useState('0');
 
-  // TPE State
-  const [tpeWeight, setTpeWeight] = useState('85');
-  const [tpeHct, setTpeHct] = useState('35');
-
-  // IHD State
-  const [ihdWeight, setIhdWeight] = useState('85');
-  const [ihdHeight, setIhdHeight] = useState('175');
-  const [ihdAge, setIhdAge] = useState('55');
-  const [ihdIsMale, setIhdIsMale] = useState(true);
+  // IHD Specific State
   const [ihdPreUrea, setIhdPreUrea] = useState('30');
   const [ihdPostUrea, setIhdPostUrea] = useState('10');
 
+  // Persistence Effects
+  useEffect(() => { localStorage.setItem(K_TAB, activeTab); }, [activeTab]);
+  useEffect(() => { localStorage.setItem(K_WEIGHT, weight); }, [weight]);
+  useEffect(() => { localStorage.setItem(K_HEIGHT, height); }, [height]);
+  useEffect(() => { localStorage.setItem(K_AGE, age); }, [age]);
+  useEffect(() => { localStorage.setItem(K_GENDER, isMale ? 'male' : 'female'); }, [isMale]);
+
   const crrtResults = calculateCRRT({
-    weightKg: parseFloat(crrtWeight) || 0,
+    weightKg: parseFloat(weight) || 0,
     hctPercent: parseFloat(crrtHct) || 0,
     bloodFlowMlMin: parseFloat(crrtQb) || 0,
     preFilterPercent: parseFloat(crrtPreFilter) || 0,
@@ -39,16 +55,16 @@ export default function RenalModule() {
     pbpMlHr: parseFloat(crrtPbp) || 0
   });
 
-  const tpeResults = calculatePlasmaExchange(parseFloat(tpeWeight) || 0, parseFloat(tpeHct) || 0);
+  const tpeResults = calculatePlasmaExchange(parseFloat(weight) || 0, parseFloat(crrtHct) || 35);
 
   const ihdResults = calculateIHD({
     preUrea: parseFloat(ihdPreUrea) || 0,
     postUrea: parseFloat(ihdPostUrea) || 0,
     durationHours: 4,
-    weightKg: parseFloat(ihdWeight) || 0,
-    isMale: ihdIsMale,
-    age: parseFloat(ihdAge) || 0,
-    heightCm: parseFloat(ihdHeight) || 0
+    weightKg: parseFloat(weight) || 0,
+    isMale: isMale,
+    age: parseFloat(age) || 0,
+    heightCm: parseFloat(height) || 0
   });
 
   return (
@@ -58,7 +74,7 @@ export default function RenalModule() {
       <div className="bg-red-900/30 p-6 border-b border-red-900/50">
         <div className="flex items-center gap-3">
           <div className="bg-red-600 p-2 rounded-lg">
-            <Activity className="w-6 h-6 text-white" />
+            <ActivityIcon className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-red-50">Renal Replacement Therapy</h2>
         </div>
@@ -70,19 +86,19 @@ export default function RenalModule() {
           onClick={() => setActiveTab('crrt')}
           className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${activeTab === 'crrt' ? 'bg-red-600/20 text-red-500 border-b-2 border-red-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'}`}
         >
-          <RefreshCcw className="w-4 h-4" /> CRRT
+          <RefreshCcwIcon className="w-4 h-4" /> CRRT
         </button>
         <button
           onClick={() => setActiveTab('ihd')}
           className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${activeTab === 'ihd' ? 'bg-red-600/20 text-red-500 border-b-2 border-red-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'}`}
         >
-          <Waves className="w-4 h-4" /> IHD Target
+          <WavesIcon className="w-4 h-4" /> IHD Target
         </button>
         <button
           onClick={() => setActiveTab('tpe')}
           className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${activeTab === 'tpe' ? 'bg-red-600/20 text-red-500 border-b-2 border-red-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'}`}
         >
-          <Droplet className="w-4 h-4" /> Plasma Exchange
+          <DropletIcon className="w-4 h-4" /> Plasma Exchange
         </button>
       </div>
 
@@ -100,7 +116,7 @@ export default function RenalModule() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Weight (kg)</label>
-                      <input type="number" value={crrtWeight} onChange={e => setCrrtWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Hct (%)</label>
@@ -197,22 +213,22 @@ export default function RenalModule() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Sex</label>
-                      <select value={ihdIsMale ? '1' : '0'} onChange={e => setIhdIsMale(e.target.value === '1')} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500">
+                      <select value={isMale ? '1' : '0'} onChange={e => setIsMale(e.target.value === '1')} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500">
                         <option value="1">Male</option>
                         <option value="0">Female</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Age (yrs)</label>
-                      <input type="number" value={ihdAge} onChange={e => setIhdAge(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      <input type="number" value={age} onChange={e => setAge(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Height (cm)</label>
-                      <input type="number" value={ihdHeight} onChange={e => setIhdHeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      <input type="number" value={height} onChange={e => setHeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Weight (kg)</label>
-                      <input type="number" value={ihdWeight} onChange={e => setIhdWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                     <div className="col-span-2 grid grid-cols-2 gap-4 mt-2 border-t border-slate-700 pt-4">
                       <div>
@@ -258,11 +274,11 @@ export default function RenalModule() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Weight (kg)</label>
-                      <input type="number" value={tpeWeight} onChange={e => setTpeWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Hct (%)</label>
-                      <input type="number" value={tpeHct} onChange={e => setTpeHct(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      <input type="number" value={crrtHct} onChange={e => setCrrtHct(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                   </div>
                   <div className="p-3 mt-4 bg-slate-900 rounded-lg text-xs text-slate-400 border border-slate-700">

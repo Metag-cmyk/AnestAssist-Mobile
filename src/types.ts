@@ -27,7 +27,7 @@ export interface ConditionProtocol {
 export interface Guideline {
   id: string;
   title: string;
-  source: 'ASA' | 'ESAIC' | 'ESICM' | 'OAA' | 'RCOG' | 'SOAP';
+  source: 'ASA' | 'ESAIC' | 'ESICM' | 'OAA' | 'RCOG' | 'SOAP' | 'AHA' | 'ACC' | 'ASRA' | 'ERC';
   year: number;
   summary: string;
 }
@@ -119,6 +119,30 @@ export interface RegionalBlock {
   maxDoseNote: string;
   probePlacementImage?: string; // Image of the probe on the patient's body
   ultrasoundGuideImage?: string; // The US image with needle and injection points
+}
+
+export interface AlgorithmOption {
+  label: string;
+  nextStepId: string;
+}
+
+export interface AlgorithmStep {
+  id: string;
+  title: string;
+  description: string;
+  type: 'action' | 'decision' | 'warning' | 'info';
+  nextStepId?: string; // For linear steps
+  options?: AlgorithmOption[]; // For branching steps
+}
+
+export interface ClinicalAlgorithm {
+  id: string;
+  name: string;
+  category: string;
+  severity: 'critical' | 'urgent';
+  description: string;
+  steps: AlgorithmStep[];
+  startingStepId: string;
 }
 
 export type TabType = 'guidelines' | 'conditions' | 'converter' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator' | 'regional';

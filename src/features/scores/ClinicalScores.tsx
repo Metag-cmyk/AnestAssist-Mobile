@@ -1,17 +1,50 @@
-import { useState, useMemo } from 'react';
-import { Calculator, ChevronRight, Info, AlertCircle, CheckCircle2, RefreshCw } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import { Calculator, ChevronRight, Info, AlertCircle, CheckCircle2, RefreshCw, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CLINICAL_SCORES } from '../data/scores';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { useData } from '../../hooks/useData';
+import { searchItems } from '../../lib/search';
+import { ClinicalScore } from '../../types';
 
 export default function ClinicalScores() {
+  const { scores: CLINICAL_SCORES } = useData();
   const { t } = useLanguage();
-  const [selectedScoreId, setSelectedScoreId] = useState<string | null>(null);
-  const [selections, setSelections] = useState<Record<string, string>>({});
+  
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem('anestassist_scores_search_term') || '';
+  });
+
+  const [selectedScoreId, setSelectedScoreId] = useState<string | null>(() => {
+    return localStorage.getItem('anestassist_scores_selected_id');
+  });
+  
+  const [selections, setSelections] = useState<Record<string, string>>(() => {
+    const saved = localStorage.getItem('anestassist_scores_selections');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_scores_search_term', searchTerm);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (selectedScoreId) localStorage.setItem('anestassist_scores_selected_id', selectedScoreId);
+    else localStorage.removeItem('anestassist_scores_selected_id');
+  }, [selectedScoreId]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_scores_selections', JSON.stringify(selections));
+  }, [selections]);
+
+  const filteredScores: ClinicalScore[] = searchItems<ClinicalScore>(
+    CLINICAL_SCORES,
+    searchTerm,
+    ['name', 'category', 'description']
+  );
 
   const selectedScore = useMemo(() => 
-    CLINICAL_SCORES.find(s => s.id === selectedScoreId),
-    [selectedScoreId]
+    CLINICAL_SCORES.find(s => s.id === selectedScoreId) || null,
+    [selectedScoreId, CLINICAL_SCORES]
   );
 
   const totalScore = useMemo(() => {
@@ -45,18 +78,24 @@ export default function ClinicalScores() {
       {/* Sidebar */}
       <div className="lg:col-span-4 space-y-6">
         <div className="bg-white p-6 rounded-2xl border border-medical-border shadow-sm">
-          <h3 className="text-lg font-bold text-medical-primary mb-4 flex items-center gap-2">
-            <Calculator className="w-5 h-5 text-medical-accent" />
-            {t('nav.scores')}
-          </h3>
+          <div className="relative mb-6">
+            <input
+              type="text"
+              placeholder={t('common.search')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
+            />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          </div>
           
           <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-            {CLINICAL_SCORES.map((score) => (
+            {filteredScores.map((score) => (
               <button
                 key={score.id}
                 onClick={() => {
                   setSelectedScoreId(score.id);
-                  resetScore();
+                  if (selectedScoreId !== score.id) resetScore();
                 }}
                 className={`w-full text-left p-4 rounded-xl text-sm transition-all flex items-center justify-between group border relative overflow-hidden ${
                   selectedScoreId === score.id 

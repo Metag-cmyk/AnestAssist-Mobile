@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Wind, Ruler, ActivitySquare, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 type ClinicalCondition = 'standard' | 'ards' | 'obstructive' | 'neuro' | 'restrictive' | 'cardiogenic' | 'neuromuscular';
 
 export default function VentilatorModule() {
-  const [heightCm, setHeightCm] = useState('170');
-  const [isMale, setIsMale] = useState(true);
-  const [condition, setCondition] = useState<ClinicalCondition>('standard');
+  const K_HEIGHT = 'anestassist_patient_height';
+  const K_GENDER = 'anestassist_patient_gender'; // 'male' | 'female'
+  const K_CONDITION = 'anestassist_ventilator_condition';
+
+  const [heightCm, setHeightCm] = useState(() => {
+    return localStorage.getItem(K_HEIGHT) || '170';
+  });
+  const [isMale, setIsMale] = useState(() => {
+    return localStorage.getItem(K_GENDER) !== 'female'; // Default to male
+  });
+  const [condition, setCondition] = useState<ClinicalCondition>(() => {
+    return (localStorage.getItem(K_CONDITION) as ClinicalCondition) || 'standard';
+  });
+
+  useEffect(() => {
+    localStorage.setItem(K_HEIGHT, heightCm);
+  }, [heightCm]);
+
+  useEffect(() => {
+    localStorage.setItem(K_GENDER, isMale ? 'male' : 'female');
+  }, [isMale]);
+
+  useEffect(() => {
+    localStorage.setItem(K_CONDITION, condition);
+  }, [condition]);
 
   const calculateIBW = (height: number, male: boolean) => {
     if (!height || height < 100) return 0;
@@ -110,45 +132,39 @@ export default function VentilatorModule() {
 
   const strategy = getStrategyDetails(condition);
 
-  // Helper to draw the conceptual Waveform SVG SVGs based on condition
   const getWaveform = (cond: ClinicalCondition) => {
-    // We will draw simple paths for P(t) and F(t)
-    // Scale: 0 to 100 x, 0 to 50 y
-    
-    let pPath="M 10 40 L 20 10 L 40 10 L 50 40 L 90 40"; // Default Volume Control (square flow, ascending pressure)
-    let fPath="M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 80 25 L 90 25"; // Square inspire, decelerate expire
-
-    const baseLineP = 40; // Y
-    const baseLineF = 25; // Y
+    let pPath="M 10 40 L 20 10 L 40 10 L 50 40 L 90 40"; 
+    let fPath="M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 80 25 L 90 25"; 
+    let pvPath="M 20 80 Q 40 20 60 20 Q 50 85 20 80"; // Standard Loop
 
     switch (cond) {
       case 'obstructive':
         pPath = "M 10 40 L 15 15 L 40 15 L 50 40 L 90 40";
-        // Flow expires but doesn't reach 25 (baseline) before next breath starts (Auto-PEEP)
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 85 30 L 90 30"; 
+        pvPath = "M 20 60 Q 50 10 80 15 Q 50 70 20 60"; // Wider (Resistance), Higher Baseline (PEEPi)
         break;
       case 'ards':
       case 'restrictive':
-        // High Peak Pressure, very steep
         pPath = "M 10 40 L 20 5 L 30 15 L 40 15 L 50 40 L 90 40"; 
-        // Flow standard but might be shorter due to stiff lungs
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 40 L 70 25 L 90 25";
+        pvPath = "M 35 80 Q 55 60 85 60 Q 65 85 35 80"; // Flattened (Low Compliance), Shifted Right
         break;
       case 'neuromuscular':
-        // Negative deflection triggering breath
         pPath = "M 5 40 L 10 45 L 15 10 L 40 10 L 50 40 L 90 40"; 
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 80 25 L 90 25";
+        pvPath = "M 20 85 L 15 85 Q 35 25 60 25 Q 50 90 20 85"; // Small trigger dip
         break;
       case 'cardiogenic':
-        // High baseline PEEP (shifted up)
         pPath = "M 10 30 L 20 5 L 40 5 L 50 30 L 90 30"; 
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 80 25 L 90 25";
+        pvPath = "M 40 80 Q 55 30 75 30 Q 60 85 40 80"; // High PEEP Shift
         break;
       case 'standard':
       case 'neuro':
       default:
         pPath = "M 10 40 L 20 15 L 40 15 L 50 40 L 90 40"; 
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 40 L 80 25 L 90 25";
+        pvPath = "M 20 80 Q 40 25 65 25 Q 50 85 20 80"; // Standard
         break;
     }
 
@@ -156,21 +172,16 @@ export default function VentilatorModule() {
       <div className="flex flex-col gap-4 w-full">
         <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1 mb-1">
           <Waves className="w-4 h-4" /> 
-          Diagnostic Scalars (Time)
+          Diagnostic Scalars & Graphics
         </h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Pressure Time */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 relative h-[140px] flex items-center justify-center">
             <span className="absolute top-2 left-3 text-[10px] font-bold text-yellow-500 uppercase">Pressure (cmH2O)</span>
             <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible drop-shadow-md">
-              {/* Grid Lines */}
               <line x1="0" y1="10" x2="100" y2="10" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
               <line x1="0" y1="25" x2="100" y2="25" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
               <line x1="0" y1="40" x2="100" y2="40" stroke="#fbbf24" strokeWidth="0.5" />
-              {/* Data Path */}
               <path d={pPath} fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              
-              {/* Highlight Auto-PEEP or Trigger based on condition */}
               {cond === 'neuromuscular' && (
                 <circle cx="10" cy="45" r="3" fill="none" stroke="#ef4444" strokeWidth="1" className="animate-pulse" />
               )}
@@ -180,21 +191,34 @@ export default function VentilatorModule() {
             </svg>
           </div>
 
-          {/* Flow Time */}
           <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 relative h-[140px] flex items-center justify-center">
             <span className="absolute top-2 left-3 text-[10px] font-bold text-emerald-400 uppercase">Flow (L/min)</span>
             {cond === 'obstructive' && (
               <span className="absolute bottom-2 right-3 text-[10px] font-bold text-red-400 animate-pulse bg-red-900/50 px-2 py-0.5 rounded">AUTO-PEEP WARNING</span>
             )}
             <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible drop-shadow-md">
-              {/* Baseline Flow zero */}
               <line x1="0" y1="25" x2="100" y2="25" stroke="#34d399" strokeWidth="0.5" />
-              {/* Data Path */}
               <path d={fPath} fill="none" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              
-              {/* Flow fails to reach zero (Auto-PEEP) marker */}
               {cond === 'obstructive' && (
                 <circle cx="90" cy="30" r="3" fill="none" stroke="#ef4444" strokeWidth="1.5" className="animate-pulse" />
+              )}
+            </svg>
+          </div>
+
+          <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 relative h-[140px] flex items-center justify-center">
+            <span className="absolute top-2 left-3 text-[10px] font-bold text-indigo-400 uppercase">P/V Loop (Dyn Compliance)</span>
+            <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible drop-shadow-md">
+              <line x1="0" y1="20" x2="100" y2="20" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
+              <line x1="0" y1="50" x2="100" y2="50" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
+              <line x1="0" y1="80" x2="100" y2="80" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
+              <line x1="20" y1="0" x2="20" y2="100" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
+              <line x1="50" y1="0" x2="50" y2="100" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
+              <line x1="80" y1="0" x2="80" y2="100" stroke="#334155" strokeWidth="0.5" strokeDasharray="2" />
+              <line x1="5" y1="95" x2="95" y2="95" stroke="#818cf8" strokeWidth="1" />
+              <line x1="5" y1="5" x2="5" y2="95" stroke="#818cf8" strokeWidth="1" />
+              <path d={pvPath} fill="rgba(129, 140, 248, 0.1)" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              {(cond === 'ards' || cond === 'restrictive') && (
+                <path d="M 35 80 L 85 60" stroke="rgba(239, 68, 68, 0.3)" strokeWidth="1" strokeDasharray="2" />
               )}
             </svg>
           </div>
@@ -205,8 +229,6 @@ export default function VentilatorModule() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      
-      {/* Header */}
       <div className="bg-sky-900 rounded-xl overflow-hidden shadow-sm">
         <div className="p-6 bg-gradient-to-r from-sky-800 to-sky-900 flex items-center gap-4">
           <div className="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
@@ -220,7 +242,6 @@ export default function VentilatorModule() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Col - Inputs */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
             <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
@@ -279,7 +300,6 @@ export default function VentilatorModule() {
           </div>
         </div>
 
-        {/* Right Col - Outputs */}
         <div className="lg:col-span-8">
           <AnimatePresence mode="wait">
             <motion.div 
@@ -295,13 +315,8 @@ export default function VentilatorModule() {
               </div>
 
               <div className="p-6 flex-1 flex flex-col gap-6">
-                
-                {/* Visual Scalars */}
                 {getWaveform(condition)}
-
                 <hr className="border-slate-100" />
-
-                {/* Tidal Volume Targets */}
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Tidal Volume ($V_t$) Target</h4>
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -316,7 +331,6 @@ export default function VentilatorModule() {
                   </div>
                 </div>
 
-                {/* Specific Settings Grid */}
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Core Settings Dashboard</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -344,7 +358,6 @@ export default function VentilatorModule() {
                     <strong>Disclaimer:</strong> Always interpret theoretical IBW-based tidal volumes and shapes within the clinical context of the patient. Monitor driving pressures (ΔP {'<'} 15 cmH2O) strictly.
                   </p>
                 </div>
-
               </div>
             </motion.div>
           </AnimatePresence>

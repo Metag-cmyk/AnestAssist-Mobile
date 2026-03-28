@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Syringe, Calculator, Info } from 'lucide-react';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from '../../components/ConfirmationModal';
 import { motion } from 'motion/react';
 
 interface Drug {

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, ClipboardList, ArrowRight, Droplets, AlertTriangle, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CONDITIONS_DATA } from '../data/conditions';
-import { ConditionProtocol, TreatmentStep } from '../types';
-import { useLanguage } from '../contexts/LanguageContext';
+import { ConditionProtocol, TreatmentStep } from '../../types';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { useData } from '../../hooks/useData';
+import { searchItems } from '../../lib/search';
 
 function TreatmentDiagram({ steps }: { steps: TreatmentStep[] }) {
   const { t } = useLanguage();
@@ -43,25 +44,48 @@ function TreatmentDiagram({ steps }: { steps: TreatmentStep[] }) {
 }
 
 export default function Conditions() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('All');
+  const { conditions: rawConditions } = useData();
+  const CONDITIONS_DATA = rawConditions as ConditionProtocol[];
+  
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    return localStorage.getItem('anestassist_conditions_selected_id');
+  });
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem('anestassist_conditions_search_term') || '';
+  });
+  const [activeCategory, setActiveCategory] = useState<string>(() => {
+    return localStorage.getItem('anestassist_conditions_active_category') || 'All';
+  });
+  
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (selectedId) localStorage.setItem('anestassist_conditions_selected_id', selectedId);
+    else localStorage.removeItem('anestassist_conditions_selected_id');
+  }, [selectedId]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_conditions_search_term', searchTerm);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_conditions_active_category', activeCategory);
+  }, [activeCategory]);
 
   const formatCategory = (cat: string) => {
     if (cat === 'All') return t('common.all');
     return cat.split(' > ').map(part => t(`category.${part}`)).join(' > ');
   };
 
-  const selectedCondition = CONDITIONS_DATA.find(c => c.id === selectedId);
+  const selectedCondition = CONDITIONS_DATA.find(c => c.id === selectedId) || null;
   
   const categories = ['All', ...new Set(CONDITIONS_DATA.map(c => c.category.split(' > ')[0]))];
 
-  const filteredConditions = CONDITIONS_DATA.filter(c => {
-    const matchesSearch = c.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = activeCategory === 'All' || c.category.startsWith(activeCategory);
-    return matchesSearch && matchesCategory;
-  });
+  const filteredConditions: ConditionProtocol[] = searchItems<ConditionProtocol>(
+    CONDITIONS_DATA.filter(c => activeCategory === 'All' || c.category.startsWith(activeCategory)),
+    searchTerm,
+    ['name', 'category']
+  );
 
   const getSeverityStyles = (severity: string, isSelected: boolean) => {
     switch (severity) {

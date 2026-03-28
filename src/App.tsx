@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   BookOpen, 
   Stethoscope, 
@@ -11,23 +11,32 @@ import {
   Scissors,
   Activity,
   Wind,
-  Syringe
+  Syringe,
+  ShieldAlert
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TabType } from './types';
-import GuidelinesDiagrams from './components/GuidelinesDiagrams';
-import Conditions from './components/Conditions';
-import Converter from './components/Converter';
-import PatientCalculator from './components/PatientCalculator';
-import ClinicalScores from './components/ClinicalScores';
-import Surgery from './components/Surgery';
-import VentilatorModule from './components/VentilatorModule';
-import RenalModule from './components/RenalModule';
-import RegionalLibrary from './components/RegionalLibrary';
+import GuidelinesDiagrams from './features/guidelines/GuidelinesDiagrams';
+import Conditions from './features/conditions/Conditions';
+import Converter from './features/converter/Converter';
+import PatientCalculator from './features/patient/PatientCalculator';
+import ClinicalScores from './features/scores/ClinicalScores';
+import Surgery from './features/surgery/Surgery';
+import VentilatorModule from './features/ventilator/VentilatorModule';
+import RenalModule from './features/renal/RenalModule';
+import RegionalLibrary from './features/regional/RegionalLibrary';
 import { useLanguage } from './contexts/LanguageContext';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabType>('guidelines');
+  const [activeTab, setActiveTab] = useState<TabType>(() => {
+    const saved = localStorage.getItem('anestassist_active_tab');
+    return (saved as TabType) || 'guidelines';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_active_tab', activeTab);
+  }, [activeTab]);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, t } = useLanguage();
 

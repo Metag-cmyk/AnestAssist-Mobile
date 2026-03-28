@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { UserPlus, Scale, Activity, AlertTriangle, Info, ChevronDown, ChevronUp, ShieldX, ShieldCheck, Zap, HeartPulse } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 type PatientType = 'adult' | 'pediatric' | 'neonatal';
 
@@ -20,17 +20,47 @@ interface Drug {
 
 export default function PatientCalculator() {
   const { t } = useLanguage();
-  const [type, setType] = useState<PatientType>('adult');
-  const [age, setAge] = useState<number>(30);
-  const [weight, setWeight] = useState<number>(70);
-  const [height, setHeight] = useState<number>(175);
-  const [gender, setGender] = useState<'male' | 'female'>('male');
+  
+  // Persistence Keys
+  const K_TYPE = 'anestassist_patient_type';
+  const K_AGE = 'anestassist_patient_age';
+  const K_WEIGHT = 'anestassist_patient_weight';
+  const K_HEIGHT = 'anestassist_patient_height';
+  const K_GENDER = 'anestassist_patient_gender';
+  const K_IBW = 'anestassist_patient_use_ibw';
+
+  const [type, setType] = useState<PatientType>(() => {
+    return (localStorage.getItem(K_TYPE) as PatientType) || 'adult';
+  });
+  const [age, setAge] = useState<number>(() => {
+    return Number(localStorage.getItem(K_AGE)) || 30;
+  });
+  const [weight, setWeight] = useState<number>(() => {
+    return Number(localStorage.getItem(K_WEIGHT)) || 70;
+  });
+  const [height, setHeight] = useState<number>(() => {
+    return Number(localStorage.getItem(K_HEIGHT)) || 175;
+  });
+  const [gender, setGender] = useState<'male' | 'female'>(() => {
+    return (localStorage.getItem(K_GENDER) as 'male' | 'female') || 'male';
+  });
+  const [useIBW, setUseIBW] = useState(() => {
+    return localStorage.getItem(K_IBW) === 'true';
+  });
+
   const [showDrugs, setShowDrugs] = useState(true);
   const [toast, setToast] = useState<string | null>(null);
-  const [useIBW, setUseIBW] = useState(false);
   const [manualCrcl, setManualCrcl] = useState<string>('');
   const [showAntibiotics, setShowAntibiotics] = useState(true);
   const [showCardio, setShowCardio] = useState(false);
+
+  // Persistence Effects
+  useEffect(() => { localStorage.setItem(K_TYPE, type); }, [type]);
+  useEffect(() => { localStorage.setItem(K_AGE, age.toString()); }, [age]);
+  useEffect(() => { localStorage.setItem(K_WEIGHT, weight.toString()); }, [weight]);
+  useEffect(() => { localStorage.setItem(K_HEIGHT, height.toString()); }, [height]);
+  useEffect(() => { localStorage.setItem(K_GENDER, gender); }, [gender]);
+  useEffect(() => { localStorage.setItem(K_IBW, useIBW.toString()); }, [useIBW]);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -346,84 +376,6 @@ export default function PatientCalculator() {
     ];
     return abs;
   }, [weight, calculations.rawIbw, activeCrcl]);
-
-  const cardioDrugs = useMemo(() => {
-    const w = targetWeight;
-    return [
-      {
-        name: "Amiodarone", route: "IV", class: "Class III Antiarrhythmic",
-        dose: "Load: 150mg over 10 min. Maint: 1 mg/min x 6h, then 0.5 mg/min x 18h",
-        notes: "For VT/VF/AFib. Can cause hypotension and bradycardia.",
-        calculated: `Load: 150mg | Maint: 1 mg/min (60 mg/hr)`
-      },
-      {
-        name: "Amiodarone (PO)", route: "PO", class: "Class III Antiarrhythmic",
-        dose: "Load: 400mg PO TID x 1-2 weeks. Maint: 100-200mg PO daily.",
-        notes: "Long half-life. Monitor QT interval and thyroid/lung function.",
-        calculated: `Standard Dosing`
-      },
-      {
-        name: "Metoprolol Tartrate", route: "IV", class: "Beta-1 Blocker",
-        dose: "2.5-5 mg IV every 5 mins (Max 15mg)",
-        notes: "Rate control for AFib/Flutter or acute ischemia.",
-        calculated: `5mg IV push`
-      },
-      {
-        name: "Metoprolol Succinate", route: "PO", class: "Beta-1 Blocker",
-        dose: "25-100 mg PO daily",
-        notes: "Extended release. Do not crush.",
-        calculated: `Standard Dosing`
-      },
-      {
-        name: "Esmolol", route: "IV", class: "Beta-1 Blocker (Ultrashort)",
-        dose: "Load: 500 mcg/kg over 1 min. Maint: 50-300 mcg/kg/min",
-        notes: "Half-life ~9 mins. Great for rapid, titratable BP/HR control.",
-        calculated: `Load: ${(w * 500 / 1000).toFixed(1)} mg | Maint: ${(w * 50).toFixed(0)}-${(w * 300).toFixed(0)} mcg/min`
-      },
-      {
-        name: "Labetalol", route: "IV", class: "Alpha/Beta Blocker",
-        dose: "10-20 mg IV initial, then 20-80 mg IV every 10 mins (Max 300mg)",
-        notes: "Drops BP without reflex tachycardia. Infusion: 1-2 mg/min.",
-        calculated: `10-20mg IV push`
-      },
-      {
-        name: "Labetalol (PO)", route: "PO", class: "Alpha/Beta Blocker",
-        dose: "100-200 mg PO BID",
-        notes: "Max 2400mg/day. Often used in pregnancy.",
-        calculated: `Standard Dosing`
-      },
-      {
-        name: "Diltiazem", route: "IV", class: "Calcium Channel Blocker",
-        dose: "Load: 0.25 mg/kg. Maint: 5-15 mg/hr",
-        notes: "First-line rate control for AFib. Avoid in HFrEF.",
-        calculated: `Load: ${(w * 0.25).toFixed(1)} mg | Maint: 5-15 mg/hr`
-      },
-      {
-        name: "Nicardipine", route: "IV", class: "Dihydropyridine CCB",
-        dose: "5 mg/hr, increase by 2.5 mg/hr every 5-15 mins (Max 15 mg/hr)",
-        notes: "Potent arterial vasodilator. Reliable BP titration.",
-        calculated: `Start at 5 mg/hr`
-      },
-      {
-        name: "Milrinone", route: "IV", class: "PDE3 Inhibitor (Inodilator)",
-        dose: "Load: 50 mcg/kg (often omitted). Maint: 0.375-0.75 mcg/kg/min",
-        notes: "Increases contractility whilst dropping SVR. Requires renal adjustment.",
-        calculated: `Maint: ${(w * 0.375).toFixed(1)}-${(w * 0.75).toFixed(1)} mcg/min`
-      },
-      {
-        name: "Dobutamine", route: "IV", class: "Beta-1/2 Agonist",
-        dose: "2-20 mcg/kg/min",
-        notes: "Potent pure inotrope. Can cause tachycardia and arrhthymias.",
-        calculated: `${(w * 2).toFixed(0)}-${(w * 20).toFixed(0)} mcg/min`
-      },
-      {
-        name: "Digoxin", route: "IV/PO", class: "Cardiac Glycoside",
-        dose: "Load: 0.25-0.5 mg IV/PO, followed by 0.25 mg q6h x 2. Maint: 0.125-0.25 mg daily",
-        notes: "Reduce maintenance dose strongly in renal failure (CrCl < 50).",
-        calculated: `Standard Dosing`
-      }
-    ];
-  }, [targetWeight]);
 
   const equipmentSizes = useMemo(() => {
     if (type === 'adult') return null;
@@ -798,18 +750,14 @@ export default function PatientCalculator() {
                     <td className="px-6 py-4">
                       <div className="flex flex-wrap gap-1.5">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.gramPos === 2 ? 'bg-blue-100 text-blue-700' : med.spectrum.gramPos === 1 ? 'bg-blue-50 text-blue-400 border border-blue-200' : 'bg-slate-100 text-slate-300'}`}>Gram+</span>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.gramNeg === 2 ? 'bg-rose-100 text-rose-700' : med.spectrum.gramNeg === 1 ? 'bg-rose-50 text-rose-400 border border-rose-200' : 'bg-slate-100 text-slate-300'}`}>Gram-</span>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.anaerobes === 2 ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-300'}`}>Anaerobic</span>
-                        {med.spectrum.mrsa > 0 && (
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700`}>MRSA</span>
-                        )}
-                        {med.spectrum.pseudomonas > 0 && (
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold bg-teal-100 text-teal-700`}>Pseudomonas</span>
-                        )}
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.gramNeg === 2 ? 'bg-emerald-100 text-emerald-700' : med.spectrum.gramNeg === 1 ? 'bg-emerald-50 text-emerald-400 border border-emerald-200' : 'bg-slate-100 text-slate-300'}`}>Gram-</span>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.anaerobes === 2 ? 'bg-purple-100 text-purple-700' : med.spectrum.anaerobes === 1 ? 'bg-purple-50 text-purple-400 border border-purple-200' : 'bg-slate-100 text-slate-300'}`}>Anaerobes</span>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.pseudomonas === 2 ? 'bg-orange-100 text-orange-700' : med.spectrum.pseudomonas === 1 ? 'bg-orange-50 text-orange-400 border border-orange-200' : 'bg-slate-100 text-slate-300'}`}>Pseudo</span>
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.spectrum.mrsa === 2 ? 'bg-rose-100 text-rose-700' : med.spectrum.mrsa === 1 ? 'bg-rose-50 text-rose-400 border border-rose-200' : 'bg-slate-100 text-slate-300'}`}>MRSA</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-xs text-slate-600">
-                      {med.notes}
+                    <td className="px-6 py-4">
+                      <p className="text-xs text-slate-600 leading-relaxed font-medium">{med.notes}</p>
                     </td>
                   </tr>
                 ))}
@@ -817,74 +765,6 @@ export default function PatientCalculator() {
             </table>
           </div>
         )}
-      </div>
-
-      <div className="bg-white rounded-xl border border-medical-border shadow-sm overflow-hidden">
-        <div 
-          onClick={() => setShowCardio(!showCardio)}
-          className="w-full px-6 py-4 flex items-center justify-between bg-rose-50 hover:bg-rose-100 transition-colors cursor-pointer"
-        >
-          <div className="flex items-center gap-2">
-            <HeartPulse className="w-5 h-5 text-rose-600" />
-            <h3 className="font-bold text-rose-900">Cardiovascular & Hemodynamic Medications</h3>
-          </div>
-          {showCardio ? <ChevronUp className="w-5 h-5 text-rose-700" /> : <ChevronDown className="w-5 h-5 text-rose-700" />}
-        </div>
-
-        {showCardio && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 border-b border-medical-border">
-                <tr>
-                  <th className="px-6 py-3 font-semibold text-slate-600">Medication</th>
-                  <th className="px-6 py-3 font-semibold text-slate-600">Standard Dose</th>
-                  <th className="px-6 py-3 font-semibold text-rose-600">Calculated Dose</th>
-                  <th className="px-6 py-3 font-semibold text-slate-600">Clinical Notes</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-medical-border">
-                {cardioDrugs.map((med, i) => (
-                  <tr key={i} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <p className="font-bold text-rose-800">{med.name}</p>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${med.route === 'IV' ? 'bg-indigo-100 text-indigo-700' : 'bg-emerald-100 text-emerald-700'}`}>
-                          {med.route}
-                        </span>
-                      </div>
-                      <p className="text-[10px] text-rose-600/70 font-bold uppercase tracking-wider mt-0.5">{med.class}</p>
-                    </td>
-                    <td className="px-6 py-4 text-slate-600 font-medium">
-                      {med.dose}
-                    </td>
-                    <td className="px-6 py-4">
-                      {med.calculated !== 'Standard Dosing' ? (
-                        <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 rounded-full font-bold w-fit">
-                          {med.calculated}
-                        </span>
-                      ) : (
-                        <span className="inline-block px-3 py-1 bg-slate-100 text-slate-500 rounded-full font-bold w-fit">
-                          {med.calculated}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-xs text-slate-600">
-                      {med.notes}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-
-      <div className="p-4 bg-amber-50 rounded-lg border border-amber-100 flex gap-3 items-start">
-        <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-        <div className="text-sm text-amber-800">
-          <p className="font-bold mb-1">{t('patient.disclaimerTitle')}:</p>
-          <p>{t('patient.disclaimerText')}</p>
-        </div>
       </div>
     </div>
   );

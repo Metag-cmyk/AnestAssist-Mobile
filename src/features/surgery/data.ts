@@ -1,4 +1,4 @@
-import { SurgerySpecialty } from '../types';
+import { SurgerySpecialty } from '../../types';
 
 export const SURGERY_DATA: SurgerySpecialty[] = [
   {

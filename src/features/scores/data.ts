@@ -1,4 +1,4 @@
-import { ClinicalScore } from '../types';
+import { ClinicalScore } from '../../types';
 
 export const CLINICAL_SCORES: ClinicalScore[] = [
   {

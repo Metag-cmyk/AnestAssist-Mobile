@@ -1,28 +1,51 @@
-import React, { useState } from 'react';
-import { REGIONAL_BLOCKS } from '../data/blocks';
-import { LA_AGENTS, calculateMaxLADose, doseToVolume } from '../lib/BlockCalculators';
+import { useData } from '../../hooks/useData';
+import { searchItems } from '../../lib/search';
+import { LA_AGENTS, calculateMaxLADose, doseToVolume } from '../../lib/BlockCalculators';
 import { Search, ChevronRight, Ruler, AlertCircle, Droplets, Info, ShieldAlert, Thermometer, User, Syringe, Layers, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from 'react';
 
 export default function RegionalLibrary() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedId, setSelectedId] = useState<string | null>(REGIONAL_BLOCKS[0].id);
-  const [activeTab, setActiveTab] = useState<'info' | 'calc'>('info');
+  const { regional: REGIONAL_BLOCKS } = useData();
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem('anestassist_regional_search_term') || '';
+  });
+  const [selectedId, setSelectedId] = useState<string | null>(() => {
+    return localStorage.getItem('anestassist_regional_selected_id') || REGIONAL_BLOCKS[0].id;
+  });
+  const [activeTab, setActiveTab] = useState<'info' | 'calc'>(() => {
+    return (localStorage.getItem('anestassist_regional_active_tab') as 'info' | 'calc') || 'info';
+  });
 
   // Calculator State
-  const [weight, setWeight] = useState('70');
+  const [weight, setWeight] = useState(() => {
+    return localStorage.getItem('anestassist_patient_weight') || '70';
+  });
   const [selectedAgent, setSelectedAgent] = useState('ropivacaine');
   const [hasEpi, setHasEpi] = useState(false);
   const [targetConc, setTargetConc] = useState('0.2');
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_regional_search_term', searchTerm);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (selectedId) localStorage.setItem('anestassist_regional_selected_id', selectedId);
+  }, [selectedId]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_regional_active_tab', activeTab);
+  }, [activeTab]);
+
+  useEffect(() => {
+    localStorage.setItem('anestassist_patient_weight', weight);
+  }, [weight]);
 
   const selectedBlock = REGIONAL_BLOCKS.find(b => b.id === selectedId) || REGIONAL_BLOCKS[0];
   const maxMg = calculateMaxLADose(parseFloat(weight) || 0, selectedAgent, hasEpi);
   const maxVol = doseToVolume(maxMg, parseFloat(targetConc) || 0.2);
 
-  const filteredBlocks = REGIONAL_BLOCKS.filter(b => 
-    b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    b.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredBlocks = searchItems(REGIONAL_BLOCKS, searchTerm, ['name', 'category']);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full bg-slate-50/50 p-6 rounded-3xl">
