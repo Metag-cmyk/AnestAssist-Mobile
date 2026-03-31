@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Wind, Ruler, ActivitySquare, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-type ClinicalCondition = 'standard' | 'ards' | 'obstructive' | 'neuro' | 'restrictive' | 'cardiogenic' | 'neuromuscular';
+type ClinicalCondition = 'standard' | 'ards' | 'obstructive' | 'neuro' | 'restrictive' | 'cardiogenic' | 'neuromuscular' | 'pregnancy' | 'laparoscopy' | 'olv' | 'trauma';
 
 export default function VentilatorModule() {
   const K_HEIGHT = 'anestassist_patient_height';
@@ -47,11 +47,15 @@ export default function VentilatorModule() {
     switch (conditionType) {
       case 'ards': 
       case 'restrictive': 
-        return { min: Math.round(ibw * 4), max: Math.round(ibw * 6), label: '4-6 mL/kg IBW' };
+      case 'olv': 
+        return { min: Math.round(ibw * 4), max: Math.round(ibw * 6), label: '4-6 mL/kg IBW (Lung Protective)' };
       case 'cardiogenic':
       case 'standard': 
       case 'obstructive': 
       case 'neuro': 
+      case 'pregnancy':
+      case 'laparoscopy':
+      case 'trauma':
         return { min: Math.round(ibw * 6), max: Math.round(ibw * 8), label: '6-8 mL/kg IBW' };
       case 'neuromuscular': 
         return { min: Math.round(ibw * 8), max: Math.round(ibw * 10), label: '8-10 mL/kg IBW (Avoid Atelectasis)' };
@@ -63,6 +67,42 @@ export default function VentilatorModule() {
 
   const getStrategyDetails = (cond: ClinicalCondition) => {
     switch (cond) {
+      case 'pregnancy':
+        return {
+          title: 'Pregnancy (Third Trimester)',
+          desc: 'Manage increased metabolic rate and decreased FRC.',
+          rr: '16 - 20 bpm (Maintain physiological alkalosis)',
+          peep: '5 - 8 cmH2O',
+          ie: '1:2',
+          targets: 'Target PaCO2 30-32 mmHg. Avoid maternal hypoxemia (SpO2 > 95%). Rapid desaturation expected.'
+        };
+      case 'laparoscopy':
+        return {
+          title: 'Laparoscopy (High IAP)',
+          desc: 'Overcoming the restrictive effect of pneumoperitoneum.',
+          rr: '14 - 18 bpm',
+          peep: '8 - 12 cmH2O (Recruitment needed)',
+          ie: '1:2',
+          targets: 'Monitor P-Plat (< 30). Compensate for CO2 absorption. Aggressive PEEP to maintain FRC.'
+        };
+      case 'olv':
+        return {
+          title: 'One-Lung Ventilation (OLV)',
+          desc: 'Ventilating the dependent lung only.',
+          rr: '16 - 22 bpm (Minimize volutrauma)',
+          peep: '5 - 10 cmH2O',
+          ie: '1:2',
+          targets: 'Target TV 4-5 mL/kg IBW. Monitor driving pressure. Periodic recruitment of non-dependent lung.'
+        };
+      case 'trauma':
+        return {
+          title: 'Major Trauma / Hemorrhage',
+          desc: 'Prioritize hemodynamic stability over aggressive ventilation.',
+          rr: '10 - 14 bpm (Permissive hypercapnia)',
+          peep: '0 - 5 cmH2O (Avoid venous return obstruction)',
+          ie: '1:2',
+          targets: 'Minimize intrathoracic pressure. High PEEP may compromise cardiac output. Target SpO2 90%.'
+        };
       case 'ards':
         return {
           title: 'Acute Respiratory Distress Syndrome (ARDS)',
@@ -138,6 +178,21 @@ export default function VentilatorModule() {
     let pvPath="M 20 80 Q 40 20 60 20 Q 50 85 20 80"; // Standard Loop
 
     switch (cond) {
+      case 'laparoscopy':
+        pPath = "M 10 35 L 20 5 L 40 5 L 50 35 L 90 35"; // Steep pressure rise
+        fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 80 25 L 90 25";
+        pvPath = "M 45 80 Q 60 40 85 40 Q 65 90 45 80"; // Shifted right, flattened
+        break;
+      case 'pregnancy':
+        pPath = "M 10 40 L 20 15 L 40 15 L 50 40 L 90 40";
+        fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 75 25 L 90 25"; // Rapid exp flow
+        pvPath = "M 30 80 Q 50 30 75 30 Q 55 90 30 80"; 
+        break;
+      case 'trauma':
+        pPath = "M 10 45 L 20 25 L 40 25 L 50 45 L 90 45"; // Low PEEP, cautious rise
+        fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 80 25 L 90 25";
+        pvPath = "M 15 90 Q 40 40 65 40 Q 45 95 15 90";
+        break;
       case 'obstructive':
         pPath = "M 10 40 L 15 15 L 40 15 L 50 40 L 90 40";
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 45 L 85 30 L 90 30"; 
@@ -145,6 +200,7 @@ export default function VentilatorModule() {
         break;
       case 'ards':
       case 'restrictive':
+      case 'olv':
         pPath = "M 10 40 L 20 5 L 30 15 L 40 15 L 50 40 L 90 40"; 
         fPath = "M 10 25 L 10 5 L 40 5 L 40 25 L 40 40 L 70 25 L 90 25";
         pvPath = "M 35 80 Q 55 60 85 60 Q 65 85 35 80"; // Flattened (Low Compliance), Shifted Right
@@ -291,6 +347,10 @@ export default function VentilatorModule() {
             <div className="grid grid-cols-1 gap-1.5 mt-1 max-h-[350px] overflow-y-auto pr-1 custom-scrollbar">
               <button onClick={() => setCondition('standard')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'standard' ? 'bg-sky-50 border-sky-300 text-sky-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Standard / Post-Op</button>
               <button onClick={() => setCondition('ards')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'ards' ? 'bg-amber-50 border-amber-300 text-amber-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>ARDS (Acute Resp Distress)</button>
+              <button onClick={() => setCondition('pregnancy')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'pregnancy' ? 'bg-pink-50 border-pink-300 text-pink-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Pregnancy (3rd Trimester)</button>
+              <button onClick={() => setCondition('laparoscopy')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'laparoscopy' ? 'bg-lime-50 border-lime-300 text-lime-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Laparoscopy (High IAP)</button>
+              <button onClick={() => setCondition('olv')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'olv' ? 'bg-orange-50 border-orange-300 text-orange-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>One-Lung (OLV)</button>
+              <button onClick={() => setCondition('trauma')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'trauma' ? 'bg-red-50 border-red-300 text-red-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Trauma / Hemorrhage</button>
               <button onClick={() => setCondition('restrictive')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'restrictive' ? 'bg-rose-50 border-rose-300 text-rose-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Restrictive (Fibrosis)</button>
               <button onClick={() => setCondition('obstructive')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'obstructive' ? 'bg-purple-50 border-purple-300 text-purple-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Obstructive (Asthma/COPD)</button>
               <button onClick={() => setCondition('cardiogenic')} className={`text-left p-3 rounded-lg text-sm transition-colors border ${condition === 'cardiogenic' ? 'bg-blue-50 border-blue-300 text-blue-800 font-bold shadow-sm' : 'border-transparent text-slate-600 hover:bg-slate-50'}`}>Cardiogenic Shock / Edema</button>

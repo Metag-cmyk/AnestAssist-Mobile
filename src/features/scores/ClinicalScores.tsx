@@ -5,6 +5,9 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { useData } from '../../hooks/useData';
 import { searchItems } from '../../lib/search';
 import { ClinicalScore } from '../../types';
+import ThoracicFitCalculator from './ThoracicFitCalculator';
+import SpirometryCalculator from './SpirometryCalculator';
+import AcidBaseInterpreter from './AcidBaseInterpreter';
 
 export default function ClinicalScores() {
   const { scores: CLINICAL_SCORES } = useData();
@@ -159,7 +162,14 @@ export default function ClinicalScores() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 gap-8">
+              {selectedScore.id === 'thoracic-fit' ? (
+                <ThoracicFitCalculator />
+              ) : selectedScore.id === 'spirometry' ? (
+                <SpirometryCalculator />
+              ) : selectedScore.id === 'acid-base' ? (
+                <AcidBaseInterpreter />
+              ) : (
+                <div className="grid grid-cols-1 gap-8">
                 <div className="space-y-8">
                   {selectedScore.criteria.map((criterion) => (
                     <div key={criterion.id} className="space-y-4">
@@ -246,8 +256,9 @@ export default function ClinicalScores() {
                       )}
                     </div>
                   </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.div>
           ) : (
             <div className="bg-white p-12 rounded-2xl border border-medical-border border-dashed flex flex-col items-center justify-center text-center space-y-6 h-full min-h-[600px]">

@@ -845,5 +845,29 @@ export const CLINICAL_SCORES: ClinicalScore[] = [
       { min: 0, max: 2, label: 'negative', description: 'CAM-ICU Negative. Delirium not present.', color: 'bg-green-100 text-green-700' },
       { min: 3, max: 4, label: 'positive', description: 'CAM-ICU Positive. Delirium present (Requires Feature 1 AND 2, AND either 3 OR 4). Note: This score is a simplification; clinical diagnosis requires the specific combination.', color: 'bg-rose-100 text-rose-700' }
     ]
+  },
+  {
+    id: 'thoracic-fit',
+    name: 'Thoracic FIT Assessment',
+    description: 'The "Three-Legged Stool" framework for preoperative risk assessment in lung resection (Mechanics, Gas Exchange, and Cardiorespiratory Reserve).',
+    category: 'Respiratory',
+    criteria: [], // Custom renderer will handle this
+    riskLevels: [] // Custom renderer will handle this
+  },
+  {
+    id: 'spirometry',
+    name: 'Spirometry Calculator',
+    description: 'Interpretation of pulmonary function tests (PFTs) based on NHANES III reference equations and GOLD criteria.',
+    category: 'Respiratory',
+    criteria: [], // Custom renderer will handle this
+    riskLevels: [] // Custom renderer will handle this
+  },
+  {
+    id: 'acid-base',
+    name: 'Acid-Base Interpreter',
+    description: 'Systematic analysis of ABG and electrolytes to identify simple and mixed acid-base disorders.',
+    category: 'General',
+    criteria: [], // Custom renderer will handle this
+    riskLevels: [] // Custom renderer will handle this
   }
 ];
