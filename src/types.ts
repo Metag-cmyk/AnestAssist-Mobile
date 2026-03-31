@@ -22,12 +22,15 @@ export interface ConditionProtocol {
   notes?: string;
   ivFluidManagement?: IVFluidManagement;
   normalLabRanges?: { [key: string]: string };
+  diagnosticCriteria?: string[];
+  expectedLabDeviations?: { [key: string]: string };
+  differentialDiagnosis?: string[];
 }
 
 export interface Guideline {
   id: string;
   title: string;
-  source: 'ASA' | 'ESAIC' | 'ESICM' | 'OAA' | 'RCOG' | 'SOAP';
+  source: 'ASA' | 'ESAIC' | 'ESICM' | 'OAA' | 'RCOG' | 'SOAP' | 'AHA' | 'ACC' | 'ASRA' | 'ERC';
   year: number;
   summary: string;
 }
@@ -97,4 +100,52 @@ export interface SurgerySpecialty {
   procedures: SurgeryProcedure[];
 }
 
-export type TabType = 'guidelines' | 'conditions' | 'converter' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator';
+export interface BlockTechnique {
+  title: string;
+  description: string;
+}
+
+export interface RegionalBlock {
+  id: string;
+  name: string;
+  category: 'Upper Limb' | 'Lower Limb' | 'Trunk' | 'Neuraxial' | 'Head & Neck';
+  indications: string[];
+  contraindications: {
+    absolute: string[];
+    relative: string[];
+  };
+  anatomy: string[];
+  technique: BlockTechnique[];
+  sonoAnatomyTips: string[];
+  complications: string[];
+  suggestedVolume: string;
+  maxDoseNote: string;
+  probePlacementImage?: string; // Image of the probe on the patient's body
+  ultrasoundGuideImage?: string; // The US image with needle and injection points
+}
+
+export interface AlgorithmOption {
+  label: string;
+  nextStepId: string;
+}
+
+export interface AlgorithmStep {
+  id: string;
+  title: string;
+  description: string;
+  type: 'action' | 'decision' | 'warning' | 'info';
+  nextStepId?: string; // For linear steps
+  options?: AlgorithmOption[]; // For branching steps
+}
+
+export interface ClinicalAlgorithm {
+  id: string;
+  name: string;
+  category: string;
+  severity: 'critical' | 'urgent';
+  description: string;
+  steps: AlgorithmStep[];
+  startingStepId: string;
+}
+
+export type TabType = 'guidelines' | 'conditions' | 'converter' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator' | 'regional';
