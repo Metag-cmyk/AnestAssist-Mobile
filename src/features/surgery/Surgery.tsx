@@ -175,7 +175,7 @@ const Surgery: React.FC = () => {
   }, [activeSpecialty]);
 
   const specialties = ['All', ...SURGERY_DATA.map(s => s.name)];
-  
+
   const allProcedures = SURGERY_DATA.flatMap(s => 
     s.procedures.map(p => ({ 
       ...p, 
@@ -185,13 +185,20 @@ const Surgery: React.FC = () => {
     }))
   );
 
-  const selectedProcedure = allProcedures.find(p => p.id === selectedId);
-
   const filteredProcedures = searchItems(
     allProcedures.filter(p => activeSpecialty === 'All' || p.specialtyName === activeSpecialty),
     searchTerm,
     ['name', 'specialtyName']
   );
+
+  // Sync selection with filter to prevent "ghost" selections
+  useEffect(() => {
+    if (selectedId && !filteredProcedures.some(p => p.id === selectedId)) {
+      setSelectedId(null);
+    }
+  }, [selectedId, filteredProcedures, activeSpecialty]); // Also depend on activeSpecialty for safety
+
+  const selectedProcedure = allProcedures.find(p => p.id === selectedId);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

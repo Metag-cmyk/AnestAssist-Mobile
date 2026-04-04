@@ -1228,6 +1228,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           ],
           postOp: ['Chest radiograph if pleural injury suspected', 'Monitor for sepsis']
         }
+      },
+      {
+        id: 'robotic-cystectomy',
+        name: 'Robotic Radical Cystectomy',
+        guide: [
+          { title: 'Access', description: '6-port robotic access. Steep Trendelenburg positioning.' },
+          { title: 'Resection', description: 'Robotic dissection of the bladder and pelvic lymphadenectomy.' },
+          { title: 'Diversion', description: 'Intracorporeal or extracorporeal ileal conduit or neobladder.' }
+        ],
+        anestheticConsiderations: [
+          'STEEP Trendelenburg: monitor for airway/facial edema and cerebral venous congestion.',
+          'Restrictive fluid strategy to optimize surgical view until diversion is complete.',
+          'Large-bore IV access and arterial line mandatory.',
+          'Maintain normocapnia despite high CO2 absorption.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Metronidazole',
+          dosage: '1.5g + 500mg IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin + Gentamicin'
+        },
+        complications: {
+          surgical: ['Ureteric injury', 'Bowel injury', 'Hemorrhage', 'Anastomotic leak'],
+          anesthetic: ['Facial edema', 'Nerve injury', 'CO2 embolism', 'POVL']
+        },
+        management: {
+          preOp: ['Review nutritional status (Albumin)', 'Renal function assessment'],
+          intraOp: ['Restrict fluids (5-10 ml/kg/h)', 'Pressure point protection', 'A-line monitoring'],
+          postOp: ['ERAS bowel protocol', 'Pain management (TAP/Rectus sheath)']
+        }
       }
     ]
   },
@@ -1985,6 +2015,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Strict fluid management', 'Review donor/recipient status (if bridge to transplant)'],
           intraOp: ['Nitric Oxide for RV', 'Inotropic support', 'TEE monitoring of septum position'],
           postOp: ['Maintain MAP 70-80 (non-pulsatile)', 'Monitor for RV failure symptoms']
+        }
+      },
+      {
+        id: 'tavi',
+        name: 'TAVI / TAVR',
+        guide: [
+          { title: 'Access', description: 'Typically transfemoral (90%) but can be transapical or transaortic.' },
+          { title: 'Pacing', description: 'Rapid ventricular pacing (180-220 bpm) to induce transient cardiac standstill for valve deployment.' },
+          { title: 'Deployment', description: 'Expandable valve positioned under fluoroscopy and deployed.' }
+        ],
+        anestheticConsiderations: [
+          'Anesthesia choice: Conscious Sedation vs. GA. GA allows for better TEE and patient immobility during critical deployment.',
+          'Rapid Ventricular Pacing: Crucial period of no cardiac output. Maintain preload and be ready for prolonged arrest.',
+          'Vascular Access: Risk of major iliac/femoral vascular injury or rupture.',
+          'Monitor for heart block: High risk after deployment, require temporary pacing.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin or Vancomycin',
+          dosage: '2g or 1g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Vascular rupture', 'Valve migration', 'Annular rupture', 'Paravalvular leak'],
+          anesthetic: ['Heart block', 'Stroke', 'Cardiac arrest', 'Myocardial infarction']
+        },
+        management: {
+          preOp: ['Review aortic root diameter', 'Verify vascular access site plan'],
+          intraOp: ['Aggressive MAP control', 'Check heart rhythm instantly after pacing stops', 'Prepare for emergency CPB if needed'],
+          postOp: ['Monitor for neurology/vascular changes', 'Daily ECG for conduction changes']
         }
       }
     ]
@@ -4112,6 +4172,36 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           postOp: ['Maintain neck flexion (Grillo stitch)', 'Often extubated awake on the table']
         }
       },
+      {
+        id: 'lung-transplant',
+        name: 'Lung Transplantation (Single/Bilateral)',
+        guide: [
+          { title: 'Access', description: 'Lateral thoracotomy (Single) or Clamshell incision (Bilateral).' },
+          { title: 'Isolation', description: 'Establishment of CPB or ECMO if the patient cannot tolerate one-lung ventilation of the native/failing lung.' },
+          { title: 'Anastomoses', description: 'Bronchial first, then pulmonary artery, then left atrial cuff (pulmonary veins).' }
+        ],
+        anestheticConsiderations: [
+          'Severe pulmonary hypertension: High risk of RV failure during cross-clamping of the pulmonary artery.',
+          'Shared airway: Meticulous placement of Double Lumen Tube (DLT) or Bronchial Blocker.',
+          'Fluids: Strict restriction to minimize reperfusion injury ("Primary Graft Dysfunction").',
+          'CPB/ECMO standby: Critical for bilateral cases or if RV fails upon clamping.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Piperacillin-Tazobactam + Caspofungin',
+          dosage: '4.5g + 70mg IV',
+          timing: 'At induction',
+          alternatives: 'Meropenem'
+        },
+        complications: {
+          surgical: ['Primary Graft Dysfunction (PGD)', 'Bronchial anastomotic leak', 'Hemorrhage', 'RV failure'],
+          anesthetic: ['RV failure post-clamping', 'Hypoxia during OLV', 'Arrythmias']
+        },
+        management: {
+          preOp: ['Review latest ABG/PFTs', 'Confirm HLA crossmatch'],
+          intraOp: ['TEE for RV function', 'NO/Epoprostenol ready', 'Maintenance of high MAP (BP for RV)'],
+          postOp: ['ICU management', 'Protective ventilation (low volumes)', 'Immunosuppression protocol']
+        }
+      }
     ]
   },
   {
@@ -4341,6 +4431,229 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for antiplatelet status', 'Assess cardiac reserve'],
           intraOp: ['Maintain stable hemodynamics', 'Tight MAP control', 'Check distal pulses'],
           postOp: ['Hourly pedal pulse checks', 'Pain management', 'Early mobilization']
+        }
+      }
+    ]
+  },
+  {
+    id: 'dental-maxillofacial',
+    name: 'Dental & Maxillofacial',
+    generalConsiderations: {
+      preOp: [
+        'Assess for difficult airway (Micrognathia, limited opening)',
+        'Check for loose teeth and dental work',
+        'Assess for nasal patency (if nasal intubation planned)',
+        'Review for OSA (Obstructive Sleep Apnea)'
+      ],
+      intraOp: [
+        'Shared airway: Coordinate closely with the surgeon for tube placement and protection.',
+        'Nasal Intubation: Use vasoconstrictors (e.g., Cocaine/Xylometazoline) and dilation to minimize epistaxis.',
+        'Throat Pack: Ensure it is clearly documented upon insertion and removed before extubation.',
+        'Vagal Reflexes: Monitor for bradycardia during surgical manipulation of the jaw or eyes.',
+        'Anticipate significant bleeding during maxillary/mandibular osteotomies.'
+      ],
+      postOp: [
+        'Smooth extubation with intact reflexes to prevent aspiration of blood/secretions.',
+        'Wire Cutters: If the jaw is wired shut (IMMF), wire cutters MUST be at the bedside.',
+        'Elevation: Keep the head of the bed elevated to reduce facial edema.',
+        'Steroids: Administer Dexamethasone intra-operatively to minimize postoperative swelling.'
+      ]
+    },
+    procedures: [
+      {
+        id: 'wisdom-teeth',
+        name: 'Wisdom Teeth Extraction (Surgical)',
+        guide: [
+          { title: 'Access', description: 'Incision and flap elevation to expose the impacted tooth.' },
+          { title: 'Removal', description: 'Bone removal (guttering) and tooth sectioning if necessary.' },
+          { title: 'Closure', description: 'Irrigation and suturing of the socket/flap.' }
+        ],
+        anestheticConsiderations: [
+          'Airway: Nasal ETT or Oral ETT (positioned away from surgical site).',
+          'Bleeding: Risk of occult bleeding and aspiration into the pharynx.',
+          'Post-op Pain: LA infiltration (e.g., Marcaine) significantly reduces emergence agitation.',
+          'Avoid NSAIDs if bleeding is a concern.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Amoxicillin + Clavulanic Acid',
+          dosage: '1.2g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Nerve injury (Inferior Alveolar/Lingual)', 'Bleeding', 'Dry socket', 'Infection'],
+          anesthetic: ['Shared airway issues', 'Laryngospasm', 'PONV']
+        },
+        management: {
+          preOp: ['Confirm NPO', 'Review dental X-rays'],
+          intraOp: ['Document throat pack', 'Gentle suctioning', 'Control BP'],
+          postOp: ['Extubate in lateral position', 'Verify throat pack removal']
+        }
+      },
+      {
+        id: 'jaw-orif',
+        name: 'Mandibular / Maxillary ORIF',
+        guide: [
+          { title: 'Access', description: 'Intraoral or extraoral incision to expose the fracture site.' },
+          { title: 'Reduction', description: 'Manual or instrumental reduction of the fracture into anatomical position.' },
+          { title: 'Fixation', description: 'Application of titanium plates and screws. Possible intermaxillary fixation (IMMF).' }
+        ],
+        anestheticConsiderations: [
+          'Difficult Airway: Potential for limited mouth opening and blood in the airway.',
+          'Nasal Intubation: Typically mandatory to allow for IMMF (wiring the jaw).',
+          'Bleeding: Significant blood loss can occur with complex facial fractures.',
+          'Wire Cutters: Essential at extubation if the patient is in IMMF.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Clindamycin or Cefazolin',
+          dosage: '600mg or 2g IV',
+          timing: 'At induction',
+          alternatives: 'Metronidazole'
+        },
+        complications: {
+          surgical: ['Malocclusion', 'Nerve injury', 'Hardware infection', 'CSF leak (if skull base fracture)'],
+          anesthetic: ['Nasal trauma/bleeding', 'Airway obstruction post-op']
+        },
+        management: {
+          preOp: ['Assess for associated injuries (Head, Spine)', 'Check neck mobility'],
+          intraOp: ['Nasal intubation (Fiberoptic or GlideScope)', 'Maintain high index of suspicion for VAE', 'Regular Hgb checks'],
+          postOp: ['Ensure wire cutters at bedside', 'Steroids for edema', 'Analgesia (IV PCA)']
+        }
+      },
+      {
+        id: 'le-fort',
+        name: 'Le Fort Osteotomy (Facial Advancement)',
+        guide: [
+          { title: 'Osteotomy', description: 'Systematic bone cuts (Le Fort I, II, or III) to separate the maxilla/midface from the skull base.' },
+          { title: 'Mobilization', description: 'Downfracture and advancement of the facial segment into the desired position.' },
+          { title: 'Fixation', description: 'Plating and grafting to secure the midface in its new position.' }
+        ],
+        anestheticConsiderations: [
+          'Major hemorrhage: Significant risk of rapid, massive blood loss (Internal Maxillary Artery).',
+          'Airway: Nasal intubation required. Risk of tube dislodgment during midface manipulation.',
+          'Strict BP Control: Deliberate hypotension (MAP 60-65) to reduce surgical site bleeding.',
+          'Post-op: Meticulous airway management; facial edema can be massive.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime',
+          dosage: '1.5g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Massive hemorrhage', 'Cranial nerve injury', 'Infection', 'Blindness (rare)'],
+          anesthetic: ['Tube displacement', 'Fluid shifts', 'Difficult emergence']
+        },
+        management: {
+          preOp: ['Crossmatch 2-4 units', 'Detailed airway plan'],
+          intraOp: ['A-line mandatory', 'Deliberate hypotension', 'Tranexamic Acid (TXA)'],
+          postOp: ['Keep intubated if edema severe', 'ICU level care', 'Wire cutters at bedside']
+        }
+      }
+    ]
+  },
+  {
+    id: 'nora-interventional',
+    name: 'Interventional & NORA',
+    generalConsiderations: {
+      preOp: [
+        'Assess for shared workspace and remote monitoring',
+        'Review for NPO status (often overlooked in wards)',
+        'Check for contrast allergy and renal function',
+        'Confirm medical stability (patients often high-risk)'
+      ],
+      intraOp: [
+        'Remote Monitoring: Use dedicated extension tubing and non-ferrous equipment (for MRI).',
+        'Radiation Safety: Wear lead aprons and thyroid shields; maintain distance from source.',
+        'Access: Patient access is significantly restricted (e.g., during MRI or IR procedures).',
+        'Sedation vs GA: Tailor according to procedure duration, patient anxiety, and stability.'
+      ],
+      postOp: [
+        'Establish clear recovery criteria (Modified Aldrete score).',
+        'Monitor for contrast-induced nephropathy (CIN) or allergic reactions.',
+        'Manage procedure-specific pain (e.g., after embolization).',
+        'Ensure transport back to primary ward involves appropriate monitoring.'
+      ]
+    },
+    procedures: [
+      {
+        id: 'ercp',
+        name: 'ERCP (Endoscopic Retrograde Cholangiopancreatography)',
+        guide: [
+          { title: 'Access', description: 'Patient typically in prone or semi-prone position. Insertion of side-viewing endoscope.' },
+          { title: 'Cannulation', description: 'Entering the Ampulla of Vater and injecting contrast for fluoroscopy.' },
+          { title: 'Therapy', description: 'Sphincterotomy, stone extraction, or stent placement.' }
+        ],
+        anestheticConsiderations: [
+          'Prone / Semi-prone position: High risk of airway loss and aspiration.',
+          'Shared airway: Surgeon and anesthetist compete for the oral cavity.',
+          'Aspiration: High risk due to procedure nature and potentially full stomach.',
+          'Sedation vs GA: GA with ETT is safer for at-risk patients or long procedures.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Gentamicin or Cefuroxime',
+          dosage: '120mg or 1.5g IV',
+          timing: 'If biliary obstruction present',
+          alternatives: 'Ciprofloxacin'
+        },
+        complications: {
+          surgical: ['Pancreatitis (common)', 'Perforation', 'Hemorrhage', 'Sepsis'],
+          anesthetic: ['Aspiration', 'Hypoxia (positional)', 'PONV']
+        },
+        management: {
+          preOp: ['Check coagulation (INR/Plt)', 'Review for difficult airway'],
+          intraOp: ['Oxygen via nasal prongs (if sedation)', 'Suction ready', 'Monitoring for bradycardia'],
+          postOp: ['Monitor for lipase rise/pancreatitis pain', 'Recovery in lateral position']
+        }
+      },
+      {
+        id: 'mri-sedation',
+        name: 'MRI Sedation / General Anesthesia',
+        guide: [
+          { title: 'Preparation', description: 'Complete MRI safety screening (implants/pacemakers). Use non-ferrous equipment.' },
+          { title: 'Monitoring', description: 'Fibreoptic pulse oximetry and specialized MRI-compatible ECG/BP cables.' },
+          { title: 'Maintenance', description: 'Induction outside the magnet, then transport and maintain during scanning.' }
+        ],
+        anestheticConsiderations: [
+          'Magnet Safety: ALL equipment must be MR-Conditional (Aluminium cylinders, non-ferrous pumps).',
+          'Remote Access: Patient is 50-100 feet away in a tunnel; use long tubing and monitoring extensions.',
+          'Hypothermia: MRI suites are kept cold; monitor and warm patient.',
+          'Acoustic Noise: High decibel levels; provide ear protection for the patient.'
+        ],
+        antibioticProphylaxis: { drug: 'None routinely', dosage: '-', timing: '-', alternatives: '-' },
+        complications: {
+          surgical: ['Image artifact from patient movement'],
+          anesthetic: ['Projectile incidents (from ferrite objects)', 'Burn injuries (from looped cables)', 'Loss of airway in the magnet']
+        },
+        management: {
+          preOp: ['MRI safety questionnaire', 'Confirm non-ferrous monitors'],
+          intraOp: ['TIVA preferred (avoids scavenging issues)', 'Strict cable management', 'Ear plugs'],
+          postOp: ['Standard recovery monitoring', 'Monitor for thermal injury']
+        }
+      },
+      {
+        id: 'cardioversion',
+        name: 'DCCV (Direct Current Cardioversion)',
+        guide: [
+          { title: 'Pads', description: 'Apply defibrillator pads in anterior-posterior or anterior-lateral position.' },
+          { title: 'Shock', description: 'Under deep sedation/short GA, deliver a synchronized DC shock.' },
+          { title: 'Recovery', description: 'Monitor for successful rhythm conversion and hemodynamic stability.' }
+        ],
+        anestheticConsiderations: [
+          'Short GA: Propofol is usually used for a 3-5 minute duration of deep anesthesia.',
+          'Airway: Rapid loss of airway patency; have BVM and simple adjuncts ready.',
+          'Hemodynamics: Risk of sudden bradycardia, asystole, or thromboembolism upon conversion.',
+          'Confirm anticoagulation status (INR target) before proceeding.'
+        ],
+        antibioticProphylaxis: { drug: 'None routinely', dosage: '-', timing: '-', alternatives: '-' },
+        complications: {
+          surgical: ['Failure to convert', 'Skin burns', 'Embolic stroke'],
+          anesthetic: ['Respiratory depression', 'Apnea', 'Transient hypertension/hypotension']
+        },
+        management: {
+          preOp: ['Check K+ and Mg2+', 'Confirm NPO', 'Confirm anticoagulation (INR/NOAC)'],
+          intraOp: ['BVM with 100% O2', 'Propofol titrating to unresponsive state', 'Monitor ECG immediately post-shock'],
+          postOp: ['Observe for 1-2h for rhythm stability', 'Monitor for neurology deficits']
         }
       }
     ]

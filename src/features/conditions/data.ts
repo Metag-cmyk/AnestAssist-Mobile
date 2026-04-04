@@ -2413,50 +2413,55 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
   {
     id: 'fat-embolism',
     name: 'Fat Embolism Syndrome (FES)',
-    category: 'Cardiovascular > Emergency',
-    severity: 'critical',
+    category: 'Trauma > Orthopaedic Emergency',
+    severity: 'urgent',
     diagnosis: [
-      'Gurd\'s Criteria: Petechial rash (axilla/neck), Respiratory distress, CNS symptoms',
-      'Tachycardia',
-      'Fever',
-      'Thrombocytopenia'
+      'Gurd\'s Criteria — Major: Petechial rash (axillae, conjunctivae), Respiratory insufficiency (PaO2 < 8 kPa), Cerebral signs',
+      'Gurd\'s Criteria — Minor: Tachycardia, Pyrexia, Fat macroglobulinaemia, Thrombocytopenia, High ESR, Retinal changes',
+      'Classic Presentation: 24-72h after long bone fracture (femur, pelvis) — Hypoxia + Mental status change + Petechiae',
+      'Perioperative: During intramedullary nail reaming / cemented joint replacement (BCIS overlap)'
     ],
     immediateActions: [
-      '100% Oxygen / Intubation if severe',
-      'Aggressive fluid resuscitation',
-      'Early surgical fixation of fractures',
-      'Supportive care'
+      'High-flow Oxygen (target SpO2 > 94%) — CPAP/NIV if PaO2 < 8 kPa',
+      'Intubation and Lung-Protective Ventilation if severe respiratory failure (PaO2/FiO2 < 200)',
+      'IV access and Haemodynamic Support: cautious fluids + vasopressors if hypotensive',
+      'Immobilize fractures promptly — definitive fixation reduces embolic load'
     ],
     secondaryManagement: [
-      'Methylprednisolone (controversial)',
-      'Monitor for ARDS',
-      'Serial ABGs'
+      'Supportive ICU care: correct hypoxia, maintain cerebral perfusion',
+      'Corticosteroids (Methylprednisolone 6-9mg/kg/day) — controversial, some evidence in high-risk prophylaxis',
+      'Early operative fracture stabilisation (within 24h) is protective',
+      'Avoid hypoalbuminaemia — albumin may bind free fatty acids'
     ],
     ivFluidManagement: {
-      choices: ['Balanced Crystalloids'],
-      targets: ['Euvolemia', 'Maintain organ perfusion'],
-      monitoring: ['Pulse oximetry', 'Fluid balance', 'Neurological status']
+      choices: ['Balanced Crystalloids', 'Albumin 4-5% (theoretical benefit in binding free fatty acids)', 'Avoid aggressive crystalloid (worsens pulmonary oedema)'],
+      targets: ['SpO2 > 94%', 'MAP > 65 mmHg', 'Urine output > 0.5 mL/kg/hr', 'Haematocrit > 30% (prevent anaemia-worsened hypoxia)'],
+      monitoring: ['Serial ABGs (P/F ratio trend)', 'Daily FBC (thrombocytopenia monitoring)', 'Neurological GCS assessment', 'Serum triglycerides']
     },
     diagram: [
-      { title: 'Recognition', description: 'Classic triad: Hypoxia + Neurological changes + Petechial rash. Usually 24-72h after long bone fracture.', type: 'decision' },
-      { title: 'Oxygenation', description: 'Maintain SpO2 > 94%. Early intubation and PEEP if ARDS develops.', type: 'action' },
-      { title: 'Fracture Fixation', description: 'Early operative stabilization of long bone fractures reduces the risk of FES.', type: 'action' },
-      { title: 'Supportive Care', description: 'Maintain euvolemia. Steroids are not routinely recommended but may be considered in severe cases.', type: 'info' }
+      { title: 'Classic Timing', description: 'Peak onset 24-72h after long bone fracture (femur/pelvis/tibia). Intraoperative onset during canal reaming = acute FES. Distinguish from BCIS (cement related).', type: 'info' },
+      { title: 'Respiratory Failure', description: 'PaO2 < 8 kPa = major criterion. Start supplemental O2. If CPAP/NIV fails or PaO2/FiO2 < 150 → Intubate and use lung-protective ventilation (6 mL/kg, PEEP 8-12).', type: 'action' },
+      { title: 'Petechial Rash', description: 'Pathognomonic when present (only ~50% of cases). Look in axillae, anterior chest wall, conjunctivae, palate. Caused by fat emboli in dermal capillaries.', type: 'decision' },
+      { title: 'Neurological Changes', description: 'Agitation → Confusion → Coma. CT brain typically normal or shows diffuse white matter hypodensities. MRI more sensitive (star-field pattern on DWI). Maintain CPP > 60.', type: 'action' },
+      { title: 'Fracture Fixation', description: 'Definitive stabilisation of long bone fractures within 24h significantly reduces FES incidence. Reamed IM nailing increases risk — consider ventilation monitoring during reaming.', type: 'warning' }
     ],
     normalLabRanges: {
-      'Platelets': '150 - 450 x10^9/L',
-      'PaO2': '> 80 mmHg'
+      'PaO2': '11 - 13 kPa',
+      'PaO2/FiO2': '> 400 mmHg',
+      'Platelet Count': '150 - 400 x10^9/L',
+      'Haematocrit': '36 - 50%'
     },
     diagnosticCriteria: [
-      'Gurd\'s Diagnostic Criteria: (1) Petechial rash, (2) Respiratory distress, (3) Cerebral symptoms'
+      'Gurd\'s Criteria: ≥ 1 Major + ≥ 4 Minor = FES diagnosis',
+      'Schonfeld Score ≥ 5: Petechiae (5pts), Diffuse alveolar infiltrates (4pts), Hypoxaemia < 9.3kPa (3pts), Fever > 38.5°C (1pt), Heart rate > 120 (1pt), Resp rate > 30 (1pt)'
     ],
     expectedLabDeviations: {
-      'PaO2': 'Markedly Decreased (< 60 mmHg)',
-      'Platelets': 'Decreased (< 150 x10^9/L)',
-      'Hemoglobin / Hematocrit': 'Decreased (due to intra-alveolar hemorrhage)'
+      'PaO2/FiO2 Ratio': 'Reduced (< 300 mmHg in moderate, < 200 mmHg in severe)',
+      'Platelet Count': 'Low (thrombocytopenia from platelet consumption)',
+      'Haematocrit': 'Sudden drop (anaemia from haemorrhage into lung/marrow)',
+      'Serum Triglycerides': 'Elevated (fat macroglobulinaemia — non-specific)'
     },
-    differentialDiagnosis: ['Pulmonary Embolism', 'ARDS (Sepsis/Trauma)', 'Pneumonia', 'Cerebral Contusion'],
-    notes: 'Fat Embolism Syndrome typically presents 24-72 hours after major long-bone or pelvic fractures.'
+    differentialDiagnosis: ['Pulmonary Embolism (DVT-related)', 'ARDS (from sepsis/trauma)', 'Bone Cement Implantation Syndrome (BCIS)', 'Aspiration Pneumonia', 'Contusion Pneumonia']
   },
   {
     id: 'high-spinal',
@@ -2801,50 +2806,55 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
   },
   {
     id: 'hyponatremia',
-    name: 'Hyponatremia (Acute / Severe)',
+    name: 'Severe Symptomatic Hyponatremia',
     category: 'Endocrine > Metabolic',
     severity: 'urgent',
     diagnosis: [
-      'Serum Na+ < 135 mmol/L',
-      'Severe (<125): Seizures, Coma, Respiratory arrest',
-      'Moderate: Nausea, Confusion, Headache, Lethargy'
+      'Serum Na+ < 130 mmol/L with neurological symptoms (Seizures, GCS < 13, respiratory arrest)',
+      'Symptoms: Headache, Confusion, Nausea → Seizures, Coma as Na+ falls < 120 mmol/L',
+      'Perioperative causes: Excessive hypotonic IV fluids, SIADH (pain, opioids, nausea), TURP syndrome'
     ],
     immediateActions: [
-      'Hypertonic Saline (3%) 100-150 mL IV over 20 mins',
-      'Repeat up to 3 times if symptoms persist',
-      'Target 4-6 mmol/L increase in Na+ within 24 hours',
-      'Stop all non-essential fluids'
+      'If Seizure/Coma: 150mL 3% NaCl IV over 20 minutes (target Na+ rise of 5 mmol/L)',
+      'Repeat up to 3 times until symptoms resolve',
+      'Target: Raise Na+ by 4-6 mmol/L in first hour for severe symptoms',
+      'Stop all hypotonic fluids and free water intake'
     ],
     secondaryManagement: [
-      'Fluid restriction (if euvolemic / hypervolemic)',
-      'Identify and treat cause (SIADH, Diuretics, Heart Failure)',
-      'Frequent Na+ monitoring (every 2-4 hours initially)'
+      'Correct Na+ by maximum 8-10 mmol/L per 24h (avoid Osmotic Demyelination Syndrome - ODS)',
+      'Identify and treat underlying cause (SIADH, hypothyroidism, Addison\'s)',
+      'Fluid restriction (500-1000mL/day) for SIADH',
+      'Fludrocortisone or hypertonic saline for CSW (Cerebral Salt Wasting) — distinguish from SIADH'
     ],
     ivFluidManagement: {
-      choices: ['3% Hypertonic Saline (Emergency)', '0.9% NaCl (if hypovolemic)'],
-      targets: ['Resolution of neurological symptoms', 'Avoid rapid correction (>10 mmol/L in 24h)'],
-      monitoring: ['Serum Na+ every 2-4 hours', 'Neurological status', 'Fluid balance']
+      choices: ['3% NaCl (Hypertonic Saline) - for symptomatic', '0.9% NaCl - after stabilisation', 'Restrict free water / hypotonic fluids'],
+      targets: ['Na+ rise 4-6 mmol/L in 1st hour (symptomatic)', 'Max 8-10 mmol/L rise per 24h (risk of ODS)', 'Resolution of neurological symptoms'],
+      monitoring: ['Serum Na+ every 1-2h initially', 'Urine sodium and osmolality', 'Strict fluid balance and urine output']
     },
     diagram: [
-      { title: 'Recognition', description: 'Na+ < 135. Symptoms usually occur when Na+ falls rapidly or is < 125. Severe symptoms are a medical emergency.', type: 'decision' },
-      { title: 'Hypertonic Saline', description: 'Give 100-150 mL of 3% NaCl over 20 mins. Aim for 5 mmol/L rise to stop seizures/coma. Repeat if needed.', type: 'action' },
-      { title: 'Correction Rate', description: 'Do not exceed 10 mmol/L rise in 24h (or 18 in 48h) to prevent Osmotic Demyelination Syndrome (ODS).', type: 'warning' },
-      { title: 'Maintenance', description: 'Treat underlying cause. Fluid restrict if SIADH. Give 0.9% NaCl only if patient is truly hypovolemic.', type: 'info' }
+      { title: 'Assess Severity', description: 'Mild (Na 130-134): Nausea, headache. Moderate (125-129): Confusion, vomiting. Severe (<125): Seizures, coma, respiratory arrest.', type: 'decision' },
+      { title: 'Severe Symptoms?', description: 'YES → 150mL 3% NaCl over 20 mins. Repeat x2-3 times if no improvement. Call ICU / Nephrology.', type: 'action' },
+      { title: 'Check Osmolality', description: 'Serum Osmolality: Hypo-osmolar (< 275) = true hyponatremia. Iso/Hyper-osmolar = pseudohyponatremia or hyperglycemia.', type: 'decision' },
+      { title: 'Identify Cause', description: 'Urine Na+ > 40 + Urine Osm > Serum Osm → SIADH. Urine Na+ < 20 → Hypovolaemia. Consider: Hypothyroidism, Adrenal insufficiency.', type: 'action' },
+      { title: 'Correct Rate', description: 'Max 8-10 mmol/L in 24h. ODS (Central Pontine Myelinolysis) is irreversible and occurs with overcorrection. Monitor Na+ every 1-2h.', type: 'warning' }
     ],
     normalLabRanges: {
-      'Sodium (Na+)': '135 - 145 mmol/L',
-      'Serum Osmolality': '275 - 295 mOsm/kg'
+      'Serum Sodium': '135 - 145 mmol/L',
+      'Serum Osmolality': '275 - 295 mOsm/kg',
+      'Urine Sodium': '> 20 mmol/L (euvolaemic)',
+      'Urine Osmolality': '50 - 1200 mOsm/kg'
     },
     diagnosticCriteria: [
-      'Serum Na+ < 135 mmol/L',
-      'Severe Symphony: Seizures, coma, Or severe confusion'
+      'Serum Na+ < 135 mmol/L (hyponatremia), Severe < 125 mmol/L',
+      'Symptomatic: Seizures, GCS depression, respiratory compromise regardless of absolute Na+ level'
     ],
     expectedLabDeviations: {
-      'Serum Na+': 'Decreased (< 125 mmol/L usually symptomatic)',
-      'Serum Osmolality': 'Decreased (unless pseudohyponatremia)'
+      'Serum Sodium': '< 130 mmol/L (significant), < 120 mmol/L (dangerous)',
+      'Serum Osmolality': '< 275 mOsm/kg (hypo-osmolar)',
+      'Urine Sodium (SIADH)': '> 40 mmol/L',
+      'Urine Osmolality (SIADH)': '> Serum Osmolality'
     },
-    differentialDiagnosis: ['SIADH', 'Adrenal Insufficiency', 'Heart Failure', 'Hypothyroidism'],
-    notes: 'Rate of correction must be limited (max 10 mmol/L in 24h) to avoid Osmotic Demyelination Syndrome.'
+    differentialDiagnosis: ['TURP Syndrome', 'SIADH', 'Heart Failure (hypervolaemic)', 'Hypothyroidism', 'Adrenal Insufficiency', 'Pseudohyponatremia (hyperglycemia, hyperlipidemia)']
   },
   {
     id: 'diabetes-insipidus',
@@ -3328,49 +3338,53 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
   {
     id: 'serotonin-syndrome',
     name: 'Serotonin Syndrome',
-    category: 'Toxicology > Emergency',
+    category: 'Toxicology > Pharmacological',
     severity: 'critical',
     diagnosis: [
-      'Triad: Neuromuscular (Clonus, Hyperreflexia), Autonomic (Fever, Tachycardia), Mental Status (Agitation)',
-      'Inducible or spontaneous clonus is the most important sign',
-      'History of serotonergic drug use (SSRIs, MAOIs, Tramadol, MDMA)'
+      'Hunter Criteria: Clonus (spontaneous/inducible/ocular) + Agitation or Diaphoresis or Tremor or Hyperreflexia or Temperature > 38°C',
+      'Classic Triad: Altered mental status, Neuromuscular abnormalities (clonus, hyperreflexia), Autonomic instability',
+      'Precipitants: SSRIs + Tramadol/Fentanyl/Linezolid/Triptans; Combination of serotonergic drugs'
     ],
     immediateActions: [
-      'Stop all serotonergic agents',
-      'Sedation with Benzodiazepines (Diazepam 5-10mg IV)',
-      'Aggressive cooling for hyperthermia',
-      'Cyproheptadine (Serotonin antagonist) if severe'
+      'Cease all serotonergic agents (SSRIs, SNRIs, Tramadol, Triptans, Linezolid)',
+      'Benzodiazepines: Diazepam 5-10mg IV for agitation and muscle rigidity',
+      'Cyproheptadine: 12mg PO/NG loading dose (serotonin antagonist)',
+      'Active Cooling if Temp > 41°C; consider intubation and paralysis'
     ],
     secondaryManagement: [
-      'Monitor for Rhabdomyolysis and DIC',
-      'Avoid physical restraints (worsens hyperthermia)',
-      'Intubation and paralysis if temperature > 41°C'
+      'Cyproheptadine 2mg q2h until symptoms controlled (max 32mg/day)',
+      'Avoid Physostigmine and Bromocriptine',
+      'ICU monitoring for 24h; most resolve within 24-72h of cessation',
+      'Dantrolene is NOT effective (unlike MH)'
     ],
     ivFluidManagement: {
-      choices: ['Balanced Crystalloids'],
-      targets: ['Euvolemia', 'Maintain urine output (prevent AKI from rhabdo)'],
-      monitoring: ['Continuous temperature', 'Serum CK', 'Continuous ECG']
+      choices: ['Balanced Crystalloids (Hartmann\'s or Plasmalyte)', '0.9% NaCl if hyponatremic'],
+      targets: ['Euvolemia', 'Urine output > 0.5 mL/kg/hr', 'Core temp < 38.5°C'],
+      monitoring: ['Core temperature (continuous)', 'Serum CK (rhabdomyolysis risk)', 'Urine myoglobin']
     },
     diagram: [
-      { title: 'Recognition', description: 'Hunter Criteria: Spontaneous clonus, or inducible clonus + agitation/diaphoresis. Look for "wet" skin and hyperreflexia.', type: 'decision' },
-      { title: 'Benzodiazepines', description: 'Diazepam 5-10mg IV. Essential for controlling agitation, muscle activity, and autonomic instability.', type: 'action' },
-      { title: 'Hyperthermia', description: 'If Temp > 41°C: Immediate intubation, paralysis, and active cooling. High risk of multi-organ failure.', type: 'warning' },
-      { title: 'Cyproheptadine', description: 'Consider 12mg PO/NG loading dose, then 2mg every 2 hours until stable. Specific serotonin antagonist.', type: 'info' }
+      { title: 'Identify Trigger', description: 'Review ALL medications. Common perioperative culprits: Tramadol, Fentanyl, Methylene Blue, Linezolid combined with SSRIs/SNRIs/MAOIs. Onset typically within 24h of drug change.', type: 'decision' },
+      { title: 'Stop Serotonergic Drugs', description: 'Discontinue all serotonergic agents immediately. Most mild cases resolve within hours.', type: 'action' },
+      { title: 'Benzodiazepines', description: 'First-line for agitation, clonus, and hyperthermia. Diazepam 5-10mg IV or Lorazepam 2-4mg IV. Repeat as needed.', type: 'action' },
+      { title: 'Cyproheptadine', description: 'Serotonin (5-HT1A/2A) antagonist: 12mg loading, then 2mg q2h (NG tube if needed). Only specific antidote available.', type: 'action' },
+      { title: 'Severe / Temp > 41°C', description: 'Intubate + Vecuronium paralysis (avoid Succinylcholine - risk of fatal hyperkalemia from rhabdomyolysis). Active cooling. ICU admission.', type: 'warning' }
     ],
     normalLabRanges: {
-      'Temperature': '36.5 - 37.5 °C',
-      'Creatine Kinase (CK)': '< 200 U/L'
+      'Core Temperature': '36.5 - 37.5 °C',
+      'Serum CK': '< 200 U/L',
+      'Serum Creatinine': '60 - 120 umol/L'
     },
     diagnosticCriteria: [
-      'Hunter Criteria: (1) Spontaneous clonus, (2) Inducible clonus + agitation/diaphoresis, (3) Ocular clonus + agitation/diaphoresis, (4) Tremor + hyperreflexia, OR (5) Hypertonia + Temp > 38°C + Ocular/inducible clonus'
+      'Hunter Criteria (most sensitive/specific): Spontaneous clonus OR (Inducible clonus + agitation/diaphoresis) OR (Ocular clonus + agitation/diaphoresis) OR (Tremor + hyperreflexia) OR (Hypertonia + temp >38°C + clonus)',
+      'Recent serotonergic drug use or dose change'
     ],
     expectedLabDeviations: {
-      'Creatine Kinase (CK)': 'Elevated (due to muscle activity)',
-      'WBC': 'Leukocytosis',
-      'pH': 'Metabolic Acidosis (if severe)'
+      'Creatine Kinase (CK)': 'Elevated (rhabdomyolysis from rigidity)',
+      'Creatinine': 'May rise (renal impairment from rhabdomyolysis)',
+      'Sodium': 'Hyponatremia possible (SIADH from SSRIs)',
+      'Lactate': 'Elevated in severe cases (hyperthermia, hypermetabolism)'
     },
-    differentialDiagnosis: ['Malignant Hyperthermia (MH)', 'Neuroleptic Malignant Syndrome (NMS)', 'Anti-cholinergic Toxicity', 'Heat Stroke'],
-    notes: 'Serotonin syndrome is characterized by neuromuscular HYPER-activity (clonus/reflexes), whereas NMS is characterized by "lead-pipe" rigidity.'
+    differentialDiagnosis: ['Malignant Hyperthermia', 'Neuroleptic Malignant Syndrome (NMS)', 'Anticholinergic Syndrome', 'Thyroid Storm', 'Meningitis / Encephalitis']
   },
   {
     id: 'alcohol-withdrawal',
@@ -3667,5 +3681,110 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     },
     differentialDiagnosis: ['Chronic Heart Failure (Left-sided)', 'Chronic Thromboembolic Pulmonary Hypertension (CTEPH)', 'COPD / Interstitial Lung Disease'],
     notes: 'The right ventricle in PAH is highly afterload-sensitive. Induction of anesthesia is the period of highest risk for RV collapse.'
+  },
+  {
+    id: 'nms',
+    name: 'Neuroleptic Malignant Syndrome (NMS)',
+    category: 'Toxicology > Pharmacological',
+    severity: 'critical',
+    diagnosis: [
+      'Clinical Dx: Recent antipsychotic use (or dopamine withdrawal) + Fever + Muscle Rigidity + Altered Consciousness',
+      '"Lead-pipe" rigidity (unlike clonus of Serotonin Syndrome)',
+      'Markedly elevated CK (> 1000 U/L), Leukocytosis, Autonomic instability',
+      'Slow onset over 24-72h (unlike rapid serotonin syndrome)'
+    ],
+    immediateActions: [
+      'Stop all antipsychotics / dopamine antagonists (Metoclopramide, Haloperidol)',
+      'Supportive Care: IV fluids, cooling, monitor vitals',
+      'Dantrolene: 1-2.5 mg/kg IV (reduces rigidity, hyperthermia)',
+      'Bromocriptine: 2.5-5mg PO/NG TDS (dopamine agonist)'
+    ],
+    secondaryManagement: [
+      'ICU admission, monitor for AKI (from rhabdomyolysis), DIC, respiratory failure',
+      'Benzodiazepines for agitation',
+      'Resolution expected over 1-2 weeks after drug withdrawal',
+      'Avoid all dopamine antagonists for at least 2 weeks — restart with caution'
+    ],
+    ivFluidManagement: {
+      choices: ['Balanced Crystalloids / Normal Saline', 'Dantrolene reconstitution requires Sterile Water'],
+      targets: ['Urine output > 1-2 mL/kg/hr (myoglobinuria prevention)', 'Core temp < 38.5°C', 'Euvolemia'],
+      monitoring: ['CK every 6h', 'Renal function daily', 'Core temperature continuous', 'Strict fluid balance']
+    },
+    diagram: [
+      { title: 'Key Distinction vs MH', description: 'NMS: Onset in 24-72h | Cause: antipsychotics | Rigidity is "lead-pipe" | Responds to Bromocriptine. MH: Onset in minutes | Cause: volatile anesthetics/succinylcholine | Responds to Dantrolene. Both: Hyperthermia, rigidity, elevated CK.', type: 'info' },
+      { title: 'Stop Offending Drug', description: 'Cease ALL dopamine antagonists, including Metoclopramide, Droperidol, Prochlorperazine. If on depot antipsychotic, longer treatment course needed.', type: 'action' },
+      { title: 'Dantrolene', description: '1-2.5 mg/kg IV. Reduces muscle rigidity and hyperthermia. Continue up to 10 mg/kg if needed. Also effective in severe rhabdomyolysis.', type: 'action' },
+      { title: 'Bromocriptine', description: '2.5-5mg PO/NG every 8h. Dopamine agonist — addresses the pathophysiology. Can take 24-72h for effect. Continue for 10 days post-resolution.', type: 'action' },
+      { title: 'Complications', description: 'Monitor for: AKI (myoglobinuria), DIC, Respiratory failure (rigidity + aspiration), Cardiac arrhythmias, DVT.', type: 'warning' }
+    ],
+    normalLabRanges: {
+      'Serum CK': '< 200 U/L',
+      'Core Temperature': '36.5 - 37.5 °C',
+      'WBC': '4.0 - 11.0 x10^9/L',
+      'Creatinine': '60 - 120 umol/L'
+    },
+    diagnosticCriteria: [
+      'DSM-5 Criteria: Antipsychotic exposure + Severe muscle rigidity + High temperature + Two or more of: diaphoresis, dysphagia, tremor, incontinence, altered consciousness, leukocytosis, elevated CK',
+      'CK typically > 1000 U/L; often > 10,000 U/L in severe cases'
+    ],
+    expectedLabDeviations: {
+      'Creatine Kinase (CK)': 'Markedly elevated (> 1000 U/L, often > 10,000 U/L)',
+      'WBC': 'Leukocytosis (15-30 x10^9/L)',
+      'Creatinine': 'Elevated if AKI from rhabdomyolysis',
+      'Iron (Serum)': 'Low serum iron is characteristic finding in NMS'
+    },
+    differentialDiagnosis: ['Malignant Hyperthermia', 'Serotonin Syndrome', 'Sepsis / Meningitis', 'Thyroid Storm', 'Malignant Catatonia']
+  },
+  {
+    id: 'complete-heart-block',
+    name: 'Complete Heart Block (Perioperative High-Degree AVB)',
+    category: 'Cardiovascular > Arrhythmia',
+    severity: 'critical',
+    diagnosis: [
+      'ECG: P-waves and QRS complexes independent (no relationship) — AV dissociation',
+      'Ventricular escape rate < 40-50 bpm (wide QRS = junctional/ventricular; narrow = junctional)',
+      'Symptoms: Syncope, Pre-syncope (Stokes-Adams attacks), Hypotension, Bradycardia unresponsive to Atropine'
+    ],
+    immediateActions: [
+      'Transcutaneous Pacing: Attach pads immediately — start at 70-80 bpm, increase output until capture',
+      'Atropine 600mcg IV (repeat up to 3mg if narrow escape — less effective in complete block)',
+      'Adrenaline 2-10 mcg/min infusion (rate support for wide-complex escape)',
+      'Isoprenaline 2-10 mcg/min (chronotropic bridge while awaiting pacemaker)'
+    ],
+    secondaryManagement: [
+      'Transvenous Temporary Pacemaker insertion (definitive bridge)',
+      'Identify reversible cause: Inferior MI (RCA occlusion), Drug toxicity (Beta-blockers, Digoxin, CCBs), Hyperkalemia, Lyme disease',
+      'Permanent Pacemaker if not reversible',
+      'Stop AV-nodal blocking drugs (Beta-blockers, Digoxin, CCBs, Amiodarone)'
+    ],
+    ivFluidManagement: {
+      choices: ['Cautious crystalloid bolus (250-500mL) if hypotensive', 'Avoid fluid overload if underlying cardiac cause'],
+      targets: ['MAP > 65 mmHg', 'Heart rate > 50 bpm with pacing', 'Resolution of haemodynamic compromise'],
+      monitoring: ['Continuous ECG with pacer capture confirmation', 'Invasive arterial BP ideally', 'Regular U&Es (electrolytes)']
+    },
+    diagram: [
+      { title: 'Confirm CHB on ECG', description: 'AV dissociation — P-waves bear no relationship to QRS complexes. Calculate ventricular escape rate. Assess haemodynamic stability.', type: 'decision' },
+      { title: 'If Unstable', description: 'Immediate Transcutaneous Pacing. Apply pads (anterior-posterior preferred). Start at 70 bpm, output 50-100mA, increase until electrical AND mechanical capture verified.', type: 'action' },
+      { title: 'Drug Therapy', description: 'Atropine 600mcg IV (limited effect in CHB — targets AV node which is bypassed). Adrenaline or Isoprenaline infusion to increase escape rate and BP.', type: 'action' },
+      { title: 'Transvenous Pacing', description: 'Definitive temporary bridge. Insert via internal jugular or subclavian, float catheter to RV apex. Confirm pacing on ECG + arterial waveform.', type: 'action' },
+      { title: 'Reversible Cause?', description: 'YES → Treat (inferior STEMI reperfusion, reverse drug toxicity, correct hyperkalemia). If pacing needed > 7 days or cause irreversible → Permanent PPM.', type: 'decision' }
+    ],
+    normalLabRanges: {
+      'PR Interval': '0.12 - 0.20 seconds',
+      'QRS Duration': '< 0.12 seconds',
+      'Ventricular Rate': '60 - 100 bpm',
+      'Potassium': '3.5 - 5.0 mmol/L'
+    },
+    diagnosticCriteria: [
+      'Complete AV dissociation on 12-lead ECG (P-waves independent of QRS)',
+      'Ventricular escape rate < 40-50 bpm, often with wide QRS'
+    ],
+    expectedLabDeviations: {
+      'Potassium': 'Hyperkalemia may precipitate or worsen block',
+      'Digoxin Level': 'Elevated in digoxin toxicity (> 2 ng/mL)',
+      'Troponin': 'Elevated if inferior STEMI (RCA occlusion causing bundle branch necrosis)',
+      'Thyroid Function': 'Hypothyroidism can cause bradyarrhythmias'
+    },
+    differentialDiagnosis: ['Second Degree AVB (Mobitz II)', 'Third Degree AVB vs AV Dissociation with accelerated junctional rhythm', 'Junctional Rhythm', 'Ventricular Escape Rhythm']
   }
 ];

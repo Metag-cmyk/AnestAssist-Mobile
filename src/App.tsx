@@ -12,19 +12,22 @@ import {
   Activity,
   Wind,
   Syringe,
-  ShieldAlert
+  ShieldAlert,
+  Beaker,
+  Baby
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TabType } from './types';
 import GuidelinesDiagrams from './features/guidelines/GuidelinesDiagrams';
 import Conditions from './features/conditions/Conditions';
-import Converter from './features/converter/Converter';
+import Pharmacology from './features/pharma/Pharmacology';
 import PatientCalculator from './features/patient/PatientCalculator';
 import ClinicalScores from './features/scores/ClinicalScores';
 import Surgery from './features/surgery/Surgery';
 import VentilatorModule from './features/ventilator/VentilatorModule';
 import RenalModule from './features/renal/RenalModule';
 import RegionalLibrary from './features/regional/RegionalLibrary';
+import SpecialtiesModule from './features/specialties/SpecialtiesModule';
 import { useLanguage } from './contexts/LanguageContext';
 
 export default function App() {
@@ -38,7 +41,12 @@ export default function App() {
   }, [activeTab]);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
+
+  const handleSettingsClick = () => {
+    setActiveTab('patient');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const tabs = [
     { id: 'guidelines', label: t('nav.guidelines'), icon: BookOpen },
@@ -49,7 +57,8 @@ export default function App() {
     { id: 'ventilator', label: 'Ventilator', icon: Wind },
     { id: 'renal', label: 'Renal Replace', icon: Activity },
     { id: 'regional', label: 'Regional', icon: Syringe },
-    { id: 'converter', label: t('nav.converter'), icon: Calculator },
+    { id: 'specialties', label: 'Pre-Op & Special', icon: Baby },
+    { id: 'pharmacology', label: 'Pharmacology', icon: Beaker },
   ];
 
   return (
@@ -152,7 +161,8 @@ export default function App() {
             {activeTab === 'ventilator' && 'Condition-based mechanical ventilation strategies & targets.'}
             {activeTab === 'renal' && 'CRRT, IHD targets, and Plasma Exchange calculators.'}
             {activeTab === 'regional' && 'Ultrasound-guided regional anesthesia library & safety calculator.'}
-            {activeTab === 'converter' && t('converter.desc')}
+            {activeTab === 'specialties' && 'Preoperative optimization and specialized modules for Obstetrics and Pediatrics.'}
+            {activeTab === 'pharmacology' && 'TIVA dosing, pressors, and local anesthetic toxicity (LAST).'}
           </p>
         </div>
 
@@ -172,7 +182,8 @@ export default function App() {
             {activeTab === 'ventilator' && <VentilatorModule />}
             {activeTab === 'renal' && <RenalModule />}
             {activeTab === 'regional' && <RegionalLibrary />}
-            {activeTab === 'converter' && <Converter />}
+            {activeTab === 'specialties' && <SpecialtiesModule />}
+            {activeTab === 'pharmacology' && <Pharmacology />}
           </motion.div>
         </AnimatePresence>
       </main>

@@ -11,6 +11,7 @@ import {
   Layers
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { PatientContextBanner } from '../../components/PatientContextBanner';
 
 interface LungSegment {
   id: string;
@@ -53,7 +54,13 @@ const LUNG_LOBES = [
 
 const TOTAL_SEGMENTS = 19;
 
+import { usePatient } from '../../contexts/PatientContext';
+
 export default function ThoracicFitCalculator() {
+  const { patient } = usePatient();
+  
+  const isNotAdult = patient.type !== 'adult';
+
   // Inputs
   const [preopFEV1, setPreopFEV1] = useState<number | ''>(80);
   const [preopDLCO, setPreopDLCO] = useState<number | ''>(80);
@@ -118,7 +125,27 @@ export default function ThoracicFitCalculator() {
 
   return (
     <div className="space-y-8 pb-10">
+      <PatientContextBanner />
+
+      {isNotAdult && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3"
+        >
+          <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0" />
+          <div>
+            <p className="text-xs font-bold text-amber-900 uppercase tracking-tight">Pediatric/Neonatal Warning</p>
+            <p className="text-[11px] text-amber-800 mt-0.5 leading-relaxed">
+              The Thoracic Fit assessment (ppoFEV1/ppoDLCO) is validated for **adult** surgical candidates. Clinical judgment is required for pediatric ressource allocation.
+            </p>
+          </div>
+        </motion.div>
+      )}
+
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
         {/* Input Column */}
         <div className="space-y-6">
           <section className="bg-slate-50 p-6 rounded-2xl border border-slate-100">

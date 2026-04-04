@@ -13,10 +13,14 @@ const updateSW = registerSW({
   onOfflineReady() {},
 })
 
+import { PatientProvider } from './contexts/PatientContext';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <LanguageProvider>
-      <App />
+      <PatientProvider>
+        <App />
+      </PatientProvider>
     </LanguageProvider>
   </StrictMode>,
 );

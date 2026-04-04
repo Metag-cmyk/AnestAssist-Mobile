@@ -12,14 +12,20 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+import { usePatient } from '../../contexts/PatientContext';
+
 export default function AcidBaseInterpreter() {
+  const { patient, setPatient } = usePatient();
+  
   // ABG Inputs
   const [ph, setPh] = useState<number | ''>(7.40);
   const [pco2, setPco2] = useState<number | ''>(40);
   const [hco3, setHco3] = useState<number | ''>(24);
   
   // Demographic & Biochemical Inputs (Optional)
-  const [age, setAge] = useState<number | ''>(45);
+  const age = patient.age;
+  const setAge = (val: number | '') => setPatient({ age: val });
+  
   const [na, setNa] = useState<number | ''>('');
   const [cl, setCl] = useState<number | ''>('');
   const [albumin, setAlbumin] = useState<number | ''>('');
@@ -196,7 +202,30 @@ export default function AcidBaseInterpreter() {
 
   return (
     <div className="space-y-8 pb-10">
+      {/* Patient Context HUD Header */}
+      <div className="bg-medical-primary/5 border border-medical-primary/10 rounded-2xl p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="bg-medical-primary/10 p-2 rounded-lg">
+            <Activity className="w-5 h-5 text-medical-primary" />
+          </div>
+          <div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-medical-primary opacity-60">Global Patient Context</p>
+            <h3 className="text-sm font-bold text-slate-800">
+              {patient.age ? `${patient.age}y` : 'Age N/A'} • {patient.sex.toUpperCase()} • {patient.weightKg ? `${patient.weightKg}kg` : 'Weight N/A'} • {patient.type.toUpperCase()}
+            </h3>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Current Profile</p>
+          <div className="flex items-center gap-1 text-xs font-bold text-medical-accent">
+            <CheckCircle2 className="w-3 h-3" />
+            Verified
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
         {/* Input Column */}
         <div className="space-y-6">
           <section className="bg-slate-50 p-6 rounded-2xl border border-slate-100">

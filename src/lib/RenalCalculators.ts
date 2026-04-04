@@ -164,3 +164,165 @@ export function calculateIHD(inputs: IHDInputs) {
     estimatedKtV: ktv
   };
 }
+
+/**
+ * Sodium & Electrolyte Correction
+ * Formulas:
+ * 1. Change in Serum Sodium (Adrogue-Madias): Delta Na = (Infusate Na - Serum Na) / (TBW + 1)
+ * 2. Free Water Deficit: WD = TBW * ((Current Na / Target Na) - 1)
+ */
+
+export interface SodiumCorrectionInputs {
+  serumNa: number;
+  targetNa: number;
+  infusateNa: number;
+  weightKg: number;
+  gender: 'male' | 'female';
+  ageGroup: 'adult' | 'elderly';
+  isWaterDeficit?: boolean;
+}
+
+export function calculateSodiumCorrection(inputs: SodiumCorrectionInputs) {
+  const { serumNa, targetNa, infusateNa, weightKg, gender, ageGroup, isWaterDeficit } = inputs;
+  
+  if (!weightKg || !serumNa) {
+    return { tbw: 0, deltaNaPerLiter: 0, totalVolumeNeeded: 0, waterDeficit: 0 };
+  }
+
+  // Calculate TBW factor
+  let factor = 0.6;
+  if (gender === 'male') {
+    factor = ageGroup === 'adult' ? 0.6 : 0.5;
+  } else {
+    factor = ageGroup === 'adult' ? 0.5 : 0.45;
+  }
+
+  const tbw = weightKg * factor;
+
+  // 1. Change in Na per 1 liter of infusate
+  const deltaNaPerLiter = (infusateNa - serumNa) / (tbw + 1);
+
+  // 2. Total Volume to reach Target
+  let totalVolumeNeeded = 0;
+  if (Math.abs(deltaNaPerLiter) > 0.01) {
+    totalVolumeNeeded = (targetNa - serumNa) / deltaNaPerLiter;
+  }
+
+  // 3. Free Water Deficit (Specific for hypernatremia treatment)
+  let waterDeficit = 0;
+  if (targetNa > 0) {
+    waterDeficit = tbw * ((serumNa / targetNa) - 1);
+  }
+
+  return {
+    tbw,
+    deltaNaPerLiter,
+    totalVolumeNeeded: Math.abs(totalVolumeNeeded),
+    waterDeficit: Math.max(0, waterDeficit)
+  };
+}
+
+/**
+ * AKI Staging & Risk (KDIGO)
+ * KDIGO Criteria:
+ * Stage 1: Serum Cr >= 1.5x baseline OR increase >= 0.3 mg/dL.
+ * Stage 2: Serum Cr >= 2.0x baseline.
+ * Stage 3: Serum Cr >= 3.0x baseline OR Cr >= 4.0 mg/dL OR RRT started.
+ */
+
+export interface AKIInputs {
+  baselineCr: number;
+  currentCr: number;
+  urineOutTotal: number;
+  hours: number;
+  weightKg: number;
+}
+
+export function calculateAKIStage(inputs: AKIInputs) {
+  const { baselineCr, currentCr, urineOutTotal, hours, weightKg } = inputs;
+  
+  if (!baselineCr || !currentCr) return { stage: 0, reason: 'N/A' };
+
+  let stage = 0;
+  let reason = 'Normal';
+
+  const crRatio = currentCr / baselineCr;
+  const crDelta = currentCr - baselineCr;
+
+  // Creatinine Criteria (SI Units: µmol/L)
+  if (crRatio >= 3.0 || currentCr >= 353.6) { stage = 3; reason = 'Cr 3.0x Baseline/High Abs'; }
+  else if (crRatio >= 2.0) { stage = 2; reason = 'Cr 2.0x Baseline'; }
+  else if (crRatio >= 1.5 || crDelta >= 26.5) { stage = 1; reason = 'Cr 1.5x Baseline/+26.5'; }
+
+  // Urine Output Criteria (if data provided)
+  if (weightKg > 0 && hours > 0) {
+    const uoRate = urineOutTotal / weightKg / hours;
+    
+    if (uoRate < 0.3 && hours >= 24) { stage = 3; reason = 'Oliguria/Anuria >24h'; }
+    else if (uoRate < 0.5 && hours >= 12) { stage = Math.max(stage, 2); reason = 'Oliguria >12h'; }
+    else if (uoRate < 0.5 && hours >= 6) { stage = Math.max(stage, 1); reason = 'Oliguria >6h'; }
+  }
+
+  return { stage, reason };
+}
+
+/**
+ * Furosemide Stress Test (FST)
+ * Positive/Favorable: UO > 200 mL in 2 hours post-bolus.
+ */
+export function interpretFST(uo2h: number) {
+  if (uo2h <= 0) return 'Pending Result';
+  const isPositive = uo2h > 200;
+  return {
+    isPositive,
+    risk: isPositive ? 'Low Risk of RRT' : 'High Risk of RRT / Stage 3 Progression',
+    recommendation: isPositive ? 'Monitor Q6h' : 'Early Nephrology Consult / RRT Ready'
+  };
+}
+
+/**
+ * Fluid Overload (FO%)
+ * FO% = (Intake - Output) / Baseline Weight * 100
+ */
+export function calculateFluidOverload(intakeL: number, outputL: number, weightKg: number) {
+  if (!weightKg) return 0;
+  const netBalanceL = intakeL - outputL;
+  return (netBalanceL / weightKg) * 100;
+}
+
+/**
+ * Regional Citrate Anticoagulation (RCA)
+ * Standard Protcol: 4% Sodium Citrate (136 mmol/L)
+ * Calcium Replacement: 10% Calcium Gluconate (0.22 mmol/mL)
+ */
+export interface RCAInputs {
+  bloodFlowMlMin: number;
+  targetCitrateDose: number; // mmol/L blood (default 3.0)
+  citrateConcentration?: number; // mmol/L (default 136)
+  calciumConcentration?: number; // mmol/mL (default 0.22)
+}
+
+export function calculateRCA(inputs: RCAInputs) {
+  const { 
+    bloodFlowMlMin, 
+    targetCitrateDose = 3.0, 
+    citrateConcentration = 136, 
+    calciumConcentration = 0.22 
+  } = inputs;
+
+  if (!bloodFlowMlMin) return { citrateRate: 0, calciumRate: 0 };
+
+  // Citrate Rate (mL/h) = (Dose * Qb * 60) / Concentration
+  const citrateRate = (targetCitrateDose * bloodFlowMlMin * 60) / citrateConcentration;
+
+  // Calcium Rate (mL/h) - Starting estimate ~0.4x Citrate Rate or 1.7 mmol/10L
+  // Let's use 1.7 mmol / 10L blood as a safe starting guide
+  const targetCaDoseMmolHr = (1.7 * bloodFlowMlMin * 60) / 10000;
+  const calciumRate = targetCaDoseMmolHr / calciumConcentration;
+
+  return {
+    citrateRate,
+    calciumRate,
+    calciumMmolHr: targetCaDoseMmolHr
+  };
+}

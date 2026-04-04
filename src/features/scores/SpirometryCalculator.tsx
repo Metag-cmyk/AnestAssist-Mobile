@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { 
   Wind, 
   Activity, 
@@ -12,88 +12,45 @@ import {
   TrendingDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { PatientContextBanner } from '../../components/PatientContextBanner';
 
-type Ethnicity = 'caucasian' | 'african-american' | 'mexican-american';
-type Sex = 'male' | 'female';
+import { PRECISE_COEFFS, NHANES_III_COEFFS, ETHNICITY_FACTORS, Coefficients } from './spirometryData';
 
-interface Coefficients {
-  b0: number;
-  b1: number;
-  b2: number;
-  b3: number;
-}
-
-const NHANES_III_COEFFS: Record<string, Record<Sex, Coefficients>> = {
-  'fev1': {
-    'male': { b0: 0.5536, b1: -0.01303, b2: -0.000172, b3: 0.00014098 },
-    'female': { b0: 0.4333, b1: -0.00361, b2: -0.000191, b3: 0.00011496 }
-  },
-  'fvc': {
-    'male': { b0: -0.1933, b1: 0.00063, b2: -0.000161, b3: 0.00018642 },
-    'female': { b0: -0.3560, b1: 0.01870, b2: -0.000382, b3: 0.00014846 }
-  }
-};
-
-const ETHNICITY_FACTORS: Record<Ethnicity, number> = {
-  'caucasian': 1.0,
-  'african-american': 0.88, // Simplified adjustment for non-caucasian if needed, but I'll try to use actual coeffs if I have them
-  'mexican-american': 1.0 // Mexican American is often close to Caucasian in NHANES III
-};
-
-// More precise NHANES III coefficients including ethnicity
-const PRECISE_COEFFS: Record<string, Record<Ethnicity, Record<Sex, Coefficients>>> = {
-  fev1: {
-    caucasian: {
-      male: { b0: 0.5536, b1: -0.01303, b2: -0.000172, b3: 0.00014098 },
-      female: { b0: 0.4333, b1: -0.00361, b2: -0.000191, b3: 0.00011496 }
-    },
-    'african-american': {
-      male: { b0: 0.3411, b1: -0.01315, b2: -0.000136, b3: 0.00011502 },
-      female: { b0: 0.3433, b1: -0.01285, b2: -0.000097, b3: 0.00009630 }
-    },
-    'mexican-american': {
-      male: { b0: 0.6344, b1: -0.01397, b2: -0.000128, b3: 0.00013125 },
-      female: { b0: 0.4524, b1: -0.00417, b2: -0.000165, b3: 0.00010915 }
-    }
-  },
-  fvc: {
-    caucasian: {
-      male: { b0: -0.1933, b1: 0.00063, b2: -0.000161, b3: 0.00018642 },
-      female: { b0: -0.3560, b1: 0.01870, b2: -0.000382, b3: 0.00014846 }
-    },
-    'african-american': {
-      male: { b0: -0.1517, b1: 0.00204, b2: -0.000180, b3: 0.00015530 },
-      female: { b0: -0.3039, b1: 0.00536, b2: -0.000265, b3: 0.00012732 }
-    },
-    'mexican-american': {
-      male: { b0: -0.2376, b1: 0.00519, b2: -0.000174, b3: 0.00017415 },
-      female: { b0: -0.3960, b1: 0.01864, b2: -0.000342, b3: 0.00014047 }
-    }
-  }
-};
+import { usePatient, Sex, Ethnicity } from '../../contexts/PatientContext';
 
 export default function SpirometryCalculator() {
-  // Demographic Inputs
-  const [age, setAge] = useState<number | ''>(45);
-  const [height, setHeight] = useState<number | ''>(175);
-  const [sex, setSex] = useState<Sex>('male');
-  const [ethnicity, setEthnicity] = useState<Ethnicity>('caucasian');
+  const { patient, setPatient } = usePatient();
+  
+  const age = patient.age;
+  const height = patient.heightCm;
+  const sex = patient.sex;
+  const ethnicity = patient.ethnicity;
+
+  const setAge = (val: number | '') => setPatient({ age: val });
+  const setHeight = (val: number | '') => setPatient({ heightCm: val });
+  const setSex = (val: 'male' | 'female') => setPatient({ sex: val });
+  const setEthnicity = (val: Ethnicity) => setPatient({ ethnicity: val });
 
   // Measured Inputs
   const [obsFEV1, setObsFEV1] = useState<number | ''>(3.5);
   const [obsFVC, setObsFVC] = useState<number | ''>(4.5);
 
+
   // Calculations
   const predicted = useMemo(() => {
     if (age === '' || height === '') return { fev1: 0, fvc: 0 };
     
+    const calcEthnicity = (ethnicity === 'other' ? 'caucasian' : ethnicity) as 'caucasian' | 'african-american' | 'mexican-american';
+
     const calculate = (params: Coefficients) => {
-      return params.b0 + (params.b1 * age) + (params.b2 * Math.pow(age, 2)) + (params.b3 * Math.pow(height, 2));
+      const a = Number(age);
+      const h = Number(height);
+      return params.b0 + (params.b1 * a) + (params.b2 * Math.pow(a, 2)) + (params.b3 * Math.pow(h, 2));
     };
 
     return {
-      fev1: calculate(PRECISE_COEFFS.fev1[ethnicity][sex]),
-      fvc: calculate(PRECISE_COEFFS.fvc[ethnicity][sex])
+      fev1: calculate(PRECISE_COEFFS.fev1[calcEthnicity][sex]),
+      fvc: calculate(PRECISE_COEFFS.fvc[calcEthnicity][sex])
     };
   }, [age, height, sex, ethnicity]);
 
@@ -153,7 +110,10 @@ export default function SpirometryCalculator() {
 
   return (
     <div className="space-y-8 pb-10">
+      <PatientContextBanner />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
         {/* Input Column */}
         <div className="space-y-6">
           <section className="bg-slate-50 p-6 rounded-2xl border border-slate-100">

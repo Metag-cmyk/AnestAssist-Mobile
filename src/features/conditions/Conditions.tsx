@@ -87,6 +87,16 @@ export default function Conditions() {
     ['name', 'category']
   );
 
+  useEffect(() => {
+    if (selectedId && !filteredConditions.some(c => c.id === selectedId)) {
+      if (filteredConditions.length > 0) {
+        setSelectedId(filteredConditions[0].id);
+      } else {
+        setSelectedId(null);
+      }
+    }
+  }, [filteredConditions, selectedId]);
+
   const getSeverityStyles = (severity: string, isSelected: boolean) => {
     switch (severity) {
       case 'critical':

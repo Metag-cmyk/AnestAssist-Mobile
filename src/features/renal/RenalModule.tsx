@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Activity, Droplet, RefreshCcw, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { calculateCRRT, calculateIHD, calculatePlasmaExchange } from '../../lib/RenalCalculators';
+import { calculateCRRT, calculateIHD, calculatePlasmaExchange, calculateAKIStage, interpretFST, calculateFluidOverload, calculateRCA } from '../../lib/RenalCalculators';
 
 // Fixed import error in previous thought: it's lucide-react, not luc David-react
 import { Activity as ActivityIcon, Droplet as DropletIcon, RefreshCcw as RefreshCcwIcon, Waves as WavesIcon } from 'lucide-react';
 
-type SubTab = 'crrt' | 'ihd' | 'tpe';
+type SubTab = 'crrt' | 'ihd' | 'tpe' | 'aki' | 'rca';
 
 export default function RenalModule() {
   // Persistence Keys
@@ -38,6 +38,20 @@ export default function RenalModule() {
   const [ihdPreUrea, setIhdPreUrea] = useState('30');
   const [ihdPostUrea, setIhdPostUrea] = useState('10');
 
+  // AKI & FO Specific State
+  const [baselineCr, setBaselineCr] = useState('80');
+  const [currentCr, setCurrentCr] = useState('120');
+  const [uoTotal, setUoTotal] = useState('500');
+  const [uoHours, setUoHours] = useState('12');
+  const [fstUo, setFstUo] = useState('150');
+  const [intakeL, setIntakeL] = useState('5');
+  const [outputL, setOutputL] = useState('3');
+
+  // RCA Specific State
+  const [rcaTarget, setRcaTarget] = useState('3.0');
+  const [rcaCitrateConc, setRcaCitrateConc] = useState('136');
+  const [rcaCalciumConc, setRcaCalciumConc] = useState('0.22');
+
   // Persistence Effects
   useEffect(() => { localStorage.setItem(K_TAB, activeTab); }, [activeTab]);
   useEffect(() => { localStorage.setItem(K_WEIGHT, weight); }, [weight]);
@@ -65,6 +79,29 @@ export default function RenalModule() {
     isMale: isMale,
     age: parseFloat(age) || 0,
     heightCm: parseFloat(height) || 0
+  });
+
+  const akiResults = calculateAKIStage({
+    baselineCr: parseFloat(baselineCr) || 0,
+    currentCr: parseFloat(currentCr) || 0,
+    urineOutTotal: parseFloat(uoTotal) || 0,
+    hours: parseFloat(uoHours) || 0,
+    weightKg: parseFloat(weight) || 0
+  });
+
+  const fstResults = interpretFST(parseFloat(fstUo) || 0);
+
+  const foPercent = calculateFluidOverload(
+    parseFloat(intakeL) || 0,
+    parseFloat(outputL) || 0,
+    parseFloat(weight) || 0
+  );
+
+  const rcaResults = calculateRCA({
+    bloodFlowMlMin: parseFloat(crrtQb) || 0,
+    targetCitrateDose: parseFloat(rcaTarget) || 3.0,
+    citrateConcentration: parseFloat(rcaCitrateConc) || 136,
+    calciumConcentration: parseFloat(rcaCalciumConc) || 0.22
   });
 
   return (
@@ -99,6 +136,18 @@ export default function RenalModule() {
           className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${activeTab === 'tpe' ? 'bg-red-600/20 text-red-500 border-b-2 border-red-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'}`}
         >
           <DropletIcon className="w-4 h-4" /> Plasma Exchange
+        </button>
+        <button
+          onClick={() => setActiveTab('aki')}
+          className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${activeTab === 'aki' ? 'bg-red-600/20 text-red-500 border-b-2 border-red-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'}`}
+        >
+          <ActivityIcon className="w-4 h-4" /> Diagnostics & FO%
+        </button>
+        <button
+          onClick={() => setActiveTab('rca')}
+          className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${activeTab === 'rca' ? 'bg-red-600/20 text-red-500 border-b-2 border-red-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'}`}
+        >
+          <WavesIcon className="w-4 h-4" /> Citrate (RCA)
         </button>
       </div>
 
@@ -232,12 +281,12 @@ export default function RenalModule() {
                     </div>
                     <div className="col-span-2 grid grid-cols-2 gap-4 mt-2 border-t border-slate-700 pt-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-BUN/Urea</label>
-                        <input type="number" value={ihdPreUrea} onChange={e => setIhdPreUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-BUN/Urea (mmol/L)</label>
+                        <input type="number" step="0.1" value={ihdPreUrea} onChange={e => setIhdPreUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Post-BUN/Urea</label>
-                        <input type="number" value={ihdPostUrea} onChange={e => setIhdPostUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Post-BUN/Urea (mmol/L)</label>
+                        <input type="number" step="0.1" value={ihdPostUrea} onChange={e => setIhdPostUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                       </div>
                     </div>
                   </div>
@@ -304,6 +353,245 @@ export default function RenalModule() {
                     <span className="font-mono text-2xl font-bold text-orange-400">{tpeResults.onePointFiveExchangeLiters.toFixed(2)} L</span>
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* AKI & Fluid Overload */}
+          {activeTab === 'aki' && (
+            <motion.div key="aki" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                {/* Inputs */}
+                <div className="space-y-6">
+                  <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-4">
+                    <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-2 text-sm uppercase tracking-wider">KDIGO Staging Parameters</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Baseline Cr (µmol/L)</label>
+                        <input type="number" value={baselineCr} onChange={e => setBaselineCr(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Current Cr (µmol/L)</label>
+                        <input type="number" value={currentCr} onChange={e => setCurrentCr(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">UO Total (mL)</label>
+                        <input type="number" value={uoTotal} onChange={e => setUoTotal(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">UO Duration (hrs)</label>
+                        <input type="number" value={uoHours} onChange={e => setUoHours(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-4">
+                    <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-2 text-sm uppercase tracking-wider">Fluid Balance</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Total Intake (L)</label>
+                        <input type="number" step="0.1" value={intakeL} onChange={e => setIntakeL(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Total Output (L)</label>
+                        <input type="number" step="0.1" value={outputL} onChange={e => setOutputL(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-500" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-4">
+                    <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-2 text-sm uppercase tracking-wider">Furosemide Stress Test</h3>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">2-Hour Post-FST Output (mL)</label>
+                      <input type="number" value={fstUo} onChange={e => setFstUo(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-purple-500" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Results Dashboard */}
+                <div className="space-y-6">
+                  {/* KDIGO Badge */}
+                  <div className={`p-6 rounded-2xl border-2 text-center transition-all ${akiResults.stage === 0 ? 'bg-slate-900 border-slate-700' : akiResults.stage === 1 ? 'bg-amber-900/30 border-amber-600' : akiResults.stage === 2 ? 'bg-orange-900/30 border-orange-600' : 'bg-red-900/30 border-red-600'}`}>
+                    <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Current KDIGO AKI Stage</p>
+                    <h4 className={`text-5xl font-black ${akiResults.stage === 0 ? 'text-slate-100' : akiResults.stage === 1 ? 'text-amber-500' : akiResults.stage === 2 ? 'text-orange-500' : 'text-red-500'}`}>
+                      {akiResults.stage === 0 ? 'NONE' : `STAGE ${akiResults.stage}`}
+                    </h4>
+                    <p className="text-[10px] font-bold mt-2 text-slate-500 uppercase tracking-tighter">Criteria: {akiResults.reason}</p>
+                  </div>
+
+                  {/* Fluid Overload Gauge */}
+                  <div className={`p-5 rounded-xl border flex justify-between items-center ${foPercent > 10 ? 'bg-rose-950/50 border-rose-500' : 'bg-slate-900 border-slate-700'}`}>
+                    <div className="space-y-1">
+                      <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest">Fluid Overload % (FO%)</span>
+                      <span className={`block text-[10px] font-black ${foPercent > 10 ? 'text-rose-400' : 'text-slate-500'}`}>
+                        {foPercent > 10 ? 'HIGH MORTALITY RISK (>10%)' : 'NORMAL RANGE'}
+                      </span>
+                    </div>
+                    <span className={`font-mono text-3xl font-black ${foPercent > 10 ? 'text-rose-500' : 'text-blue-400'}`}>
+                      {foPercent.toFixed(1)}%
+                    </span>
+                  </div>
+
+                  {/* FST Card */}
+                  <div className={`p-5 rounded-xl border border-slate-700 bg-slate-900/80 ${typeof fstResults === 'string' ? '' : fstResults.isPositive ? 'border-emerald-500/50' : 'border-red-500'}`}>
+                    <h5 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">FST Response Interpretation</h5>
+                    {typeof fstResults === 'string' ? (
+                      <p className="text-sm font-bold text-slate-400 italic">No FST data provided.</p>
+                    ) : (
+                      <>
+                        <p className={`text-lg font-black ${fstResults.isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
+                          {fstResults.risk}
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1 font-medium italic">
+                          "{fstResults.recommendation}"
+                        </p>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Recommendations */}
+                  <div className="bg-slate-900/30 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <p className="text-[10px] font-black text-slate-500 uppercase flex items-center gap-2">
+                      <ActivityIcon className="w-3 h-3" /> Management Guidance
+                    </p>
+                    <ul className="text-[11px] text-slate-400 space-y-2 list-disc pl-4 font-medium">
+                      {akiResults.stage >= 1 && <li>Stop nephrotoxic agents (NSAIDs, ACEi/ARBs, contrast).</li>}
+                      {akiResults.stage >= 2 && <li>Adjust medication doses and consider early nephrology referral.</li>}
+                      {akiResults.stage === 3 && <li className="text-red-400 font-bold">Evaluate for urgent RRT initiation (AEIOU criteria).</li>}
+                      {foPercent > 10 && <li className="text-rose-400 font-bold">Fluid overload &gt; 10%: Start ultrafiltration/CRRT.</li>}
+                      <li>Monitor electrolytes and acid-base status Q6-12h.</li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
+          )}
+
+
+          {/* RCA Anticoagulation */}
+          {activeTab === 'rca' && (
+            <motion.div key="rca" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                {/* Inputs */}
+                <div className="space-y-6">
+                  <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-4">
+                    <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-2 text-sm uppercase tracking-wider">Citrate Prescription</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Blood Flow (Qb) mL/min</label>
+                        <input type="number" value={crrtQb} onChange={e => setCrrtQb(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                        <span className="text-[10px] text-slate-500 italic mt-1 block">Synced with CRRT tab</span>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Target Citrate Dose</label>
+                        <input type="number" step="0.1" value={rcaTarget} onChange={e => setRcaTarget(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
+                        <span className="text-[10px] text-slate-500 italic mt-1 block">mmol/L blood (Default 3.0)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-4">
+                    <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-2 text-sm uppercase tracking-wider">Fluid Concentrations</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Citrate (mmol/L)</label>
+                        <input type="number" value={rcaCitrateConc} onChange={e => setRcaCitrateConc(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-500" />
+                        <span className="text-[10px] text-slate-500 italic mt-1 block">4% NaCitrate = 136</span>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1">Calcium Gluconate (mmol/mL)</label>
+                        <input type="number" step="0.01" value={rcaCalciumConc} onChange={e => setRcaCalciumConc(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-blue-500" />
+                        <span className="text-[10px] text-slate-500 italic mt-1 block">10% Gluconate = 0.22</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Adjustment Guide Table */}
+                  <div className="bg-slate-900/30 p-4 rounded-xl border border-slate-850">
+                    <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Post-Filter iCa Adjustments</h4>
+                    <div className="space-y-1">
+                      <div className="grid grid-cols-2 text-[10px] font-black text-slate-500 py-1 uppercase border-b border-slate-800">
+                        <span>Post-Filter iCa</span>
+                        <span className="text-right text-medical-primary">Action (Qcit)</span>
+                      </div>
+                      {[
+                        { range: '> 0.50', action: '+ 0.5 mmol/L' },
+                        { range: '0.35 - 0.50', action: '+ 0.2 mmol/L' },
+                        { range: '0.25 - 0.35', action: 'NO CHANGE' },
+                        { range: '< 0.25', action: '- 0.2 mmol/L' },
+                      ].map((row, i) => (
+                        <div key={i} className={`grid grid-cols-2 py-2 text-[11px] font-bold border-b border-slate-900/50 ${row.range === '0.25 - 0.35' ? 'text-emerald-400' : 'text-slate-400'}`}>
+                          <span>{row.range} mmol/L</span>
+                          <span className="text-right">{row.action}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dashboard Results */}
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 gap-4">
+                    {/* Citrate Result */}
+                    <div className="bg-slate-900 p-6 rounded-2xl border-2 border-blue-600/30 shadow-lg">
+                      <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Standard Citrate Rate (Qcit)</p>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-black text-white">{rcaResults.citrateRate.toFixed(0)}</span>
+                        <span className="text-xl font-bold text-slate-500 underline decoration-blue-500/50">mL/h</span>
+                      </div>
+                      <p className="text-[10px] text-slate-400 font-medium mt-3 italic leading-relaxed">
+                        Infuse pre-filter or via dedicated venous accessory line.
+                      </p>
+                    </div>
+
+                    {/* Calcium Result */}
+                    <div className="bg-slate-900 p-6 rounded-2xl border-2 border-emerald-600/30 shadow-lg">
+                      <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Systemic Calcium Rate (QCa)</p>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-black text-white">{rcaResults.calciumRate.toFixed(1)}</span>
+                        <span className="text-xl font-bold text-slate-500 underline decoration-emerald-500/50">mL/h</span>
+                      </div>
+                      <p className="text-[10px] font-bold text-slate-500 mt-2 uppercase tracking-tight">
+                        Starting dose: {rcaResults.calciumMmolHr.toFixed(2)} mmol/h
+                      </p>
+                      <p className="text-[10px] text-slate-400 font-medium mt-3 italic leading-relaxed">
+                        Infuse into blood return line (post-filter) or central access.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Systemic iCa titration */}
+                  <div className="bg-rose-900/10 p-5 rounded-2xl border border-rose-900/30">
+                    <h4 className="text-xs font-black text-rose-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <DropletIcon className="w-3 h-3" /> Systemic Calcium Adjustment
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center text-[11px] font-bold text-slate-300">
+                        <span>iCa &gt; 1.45</span>
+                        <span className="text-rose-400">- 20% Rate</span>
+                      </div>
+                      <div className="flex justify-between items-center text-[11px] font-bold text-slate-300">
+                        <span>iCa 1.10 - 1.30</span>
+                        <span className="text-emerald-400">NO CHANGE (Target)</span>
+                      </div>
+                      <div className="flex justify-between items-center text-[11px] font-bold text-slate-300">
+                        <span>iCa &lt; 0.90</span>
+                        <span className="text-rose-400">Bolus Ca + Increase 20%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-amber-900/20 border border-amber-900/50 rounded-xl flex gap-3 items-start">
+                    <ActivityIcon className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-[10px] text-amber-100 font-medium leading-relaxed italic">
+                      Monitor systemic iCa and post-filter iCa every 1-2 hours initially, then Q6-12h once stable. Watch for "Citrate Gap" (Total Ca / Ionized Ca &gt; 2.5) indicating citrate toxicity.
+                    </p>
+                  </div>
+                </div>
+
               </div>
             </motion.div>
           )}
