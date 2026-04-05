@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, ClipboardList, ArrowRight, Droplets, AlertTriangle, Info } from 'lucide-react';
+import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, ClipboardList, ArrowRight, Droplets, AlertTriangle, Info, ShieldCheck, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ConditionProtocol, TreatmentStep } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -210,6 +210,37 @@ export default function Conditions() {
                   <Stethoscope className="w-6 h-6 text-medical-accent" />
                 </div>
               </div>
+
+              {/* NEW: Anesthesia Command Card */}
+              {selectedCondition.anesthesiaStrategy && (
+                <section className="mb-10 p-6 bg-slate-900 rounded-3xl text-white relative overflow-hidden shadow-xl shadow-slate-900/10">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-medical-accent/10 rounded-full blur-3xl -mr-32 -mt-32" />
+                  <div className="relative z-10">
+                    <h3 className="flex items-center gap-2 text-xs font-black text-medical-accent uppercase tracking-[0.2em] mb-6">
+                      <ShieldAlert className="w-4 h-4" />
+                      Anesthesia Command & Strategy
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <ul className="space-y-3">
+                        {selectedCondition.anesthesiaStrategy.slice(0, Math.ceil(selectedCondition.anesthesiaStrategy.length / 2)).map((item, i) => (
+                          <li key={i} className="flex items-start gap-3 text-[13px] font-bold text-slate-100 leading-relaxed">
+                            <div className="w-1.5 h-1.5 rounded-full bg-medical-accent mt-2 shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <ul className="space-y-3">
+                        {selectedCondition.anesthesiaStrategy.slice(Math.ceil(selectedCondition.anesthesiaStrategy.length / 2)).map((item, i) => (
+                          <li key={i} className="flex items-start gap-3 text-[13px] font-bold text-slate-100 leading-relaxed">
+                            <div className="w-1.5 h-1.5 rounded-full bg-medical-accent mt-2 shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </section>
+              )}
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-8">
@@ -238,6 +269,26 @@ export default function Conditions() {
                         {selectedCondition.diagnosticCriteria.map((item, i) => (
                           <li key={i} className="text-xs text-rose-700 leading-relaxed italic flex items-start gap-2">
                             <div className="w-1 h-1 rounded-full bg-rose-300 mt-1.5 shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+
+                  {/* NEW: Preop Optimization */}
+                  {selectedCondition.preopOptimization && (
+                    <section className="p-6 bg-emerald-50/50 rounded-3xl border border-emerald-100">
+                      <h3 className="flex items-center gap-2 text-xs font-black text-emerald-800 mb-4 uppercase tracking-widest">
+                        <Activity className="w-4 h-4 text-emerald-600" />
+                        Preoperative Optimization
+                      </h3>
+                      <ul className="space-y-3">
+                        {selectedCondition.preopOptimization.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3 text-sm text-emerald-900 font-bold">
+                            <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                              <ChevronRight className="w-2.5 h-2.5 text-emerald-600" />
+                            </div>
                             {item}
                           </li>
                         ))}
@@ -297,6 +348,27 @@ export default function Conditions() {
                       ))}
                     </ul>
                   </section>
+
+                  {/* NEW: Linked Scores */}
+                  {selectedCondition.linkedScoreIds && selectedCondition.linkedScoreIds.length > 0 && (
+                    <section className="p-5 bg-indigo-50/50 rounded-2xl border border-indigo-100">
+                      <h3 className="flex items-center gap-2 text-xs font-black text-indigo-800 mb-4 uppercase tracking-widest">
+                        <Activity className="w-4 h-4 text-indigo-600" />
+                        Integrated Risk Scores
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedCondition.linkedScoreIds.map((scoreId, i) => (
+                          <div
+                            key={i}
+                            className="px-3 py-2 bg-white border border-indigo-200 rounded-xl text-xs font-black text-indigo-600 shadow-sm flex items-center gap-2"
+                          >
+                            <ChevronRight className="w-3 h-3" />
+                            {scoreId.toUpperCase().replace('_', ' ')}
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
                 </div>
 
                 <div className="space-y-8">
@@ -334,6 +406,20 @@ export default function Conditions() {
                       ))}
                     </ul>
                   </section>
+
+                  {/* NEW: Postop Disposition */}
+                  {selectedCondition.postopDisposition && (
+                    <section className="p-6 bg-slate-100/50 rounded-3xl border border-slate-200 shadow-sm">
+                      <h3 className="flex items-center gap-2 text-xs font-black text-slate-800 mb-4 uppercase tracking-widest">
+                        <ArrowRight className="w-4 h-4 text-slate-600" />
+                        Postoperative Recovery
+                      </h3>
+                      <div className="p-4 bg-white rounded-2xl border border-slate-200">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Target Recovery Level</p>
+                        <p className="text-sm font-black text-slate-800 uppercase tracking-tight">{selectedCondition.postopDisposition}</p>
+                      </div>
+                    </section>
+                  )}
 
                   {selectedCondition.ivFluidManagement && (
                     <section className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100">

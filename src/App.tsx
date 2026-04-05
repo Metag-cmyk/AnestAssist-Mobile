@@ -14,26 +14,25 @@ import {
   Syringe,
   ShieldAlert,
   Beaker,
-  Baby
+  Baby,
+  Utensils
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TabType } from './types';
-import GuidelinesDiagrams from './features/guidelines/GuidelinesDiagrams';
-import Conditions from './features/conditions/Conditions';
 import Pharmacology from './features/pharma/Pharmacology';
-import PatientCalculator from './features/patient/PatientCalculator';
-import ClinicalScores from './features/scores/ClinicalScores';
-import Surgery from './features/surgery/Surgery';
 import VentilatorModule from './features/ventilator/VentilatorModule';
 import RenalModule from './features/renal/RenalModule';
-import RegionalLibrary from './features/regional/RegionalLibrary';
 import SpecialtiesModule from './features/specialties/SpecialtiesModule';
+import NutritionModule from './features/nutrition/NutritionModule';
+import AssessmentModule from './features/assessment/AssessmentModule';
+import ClinicModule from './features/clinic/ClinicModule';
 import { useLanguage } from './contexts/LanguageContext';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>(() => {
     const saved = localStorage.getItem('anestassist_active_tab');
-    return (saved as TabType) || 'guidelines';
+    if (saved === 'patient' || saved === 'scores' || saved === 'guidelines') return 'assessment';
+    return (saved as TabType) || 'assessment';
   });
 
   useEffect(() => {
@@ -44,21 +43,17 @@ export default function App() {
   const { t } = useLanguage();
 
   const handleSettingsClick = () => {
-    setActiveTab('patient');
+    setActiveTab('assessment');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const tabs = [
-    { id: 'guidelines', label: t('nav.guidelines'), icon: BookOpen },
-    { id: 'patient', label: t('nav.patient'), icon: UserCircle },
-    { id: 'scores', label: t('nav.scores'), icon: ClipboardList },
-    { id: 'surgery', label: t('nav.surgery'), icon: Scissors },
-    { id: 'conditions', label: t('nav.conditions'), icon: Stethoscope },
-    { id: 'ventilator', label: 'Ventilator', icon: Wind },
-    { id: 'renal', label: 'Renal Replace', icon: Activity },
-    { id: 'regional', label: 'Regional', icon: Syringe },
-    { id: 'specialties', label: 'Pre-Op & Special', icon: Baby },
+    { id: 'assessment', label: 'Assessment', icon: Activity },
+    { id: 'clinic', label: 'Clinic', icon: Stethoscope },
     { id: 'pharmacology', label: 'Pharmacology', icon: Beaker },
+    { id: 'ventilator', label: 'Ventilator', icon: Wind },
+    { id: 'renal', label: 'Renal', icon: Calculator },
+    { id: 'specialties', label: 'Pre-Op & Special', icon: Baby },
   ];
 
   return (
@@ -153,14 +148,10 @@ export default function App() {
             {tabs.find(t => t.id === activeTab)?.label}
           </h2>
           <p className="text-slate-500 mt-1">
-            {activeTab === 'guidelines' && t('guidelines.desc')}
-            {activeTab === 'patient' && t('patient.desc')}
-            {activeTab === 'conditions' && t('conditions.desc')}
-            {activeTab === 'surgery' && t('surgery.desc')}
-            {activeTab === 'scores' && t('common.selectScoreDesc')}
+            {activeTab === 'assessment' && 'Review patient profile, calculate clinical scores, and access ESAIC/ASA guidelines.'}
+            {activeTab === 'clinic' && 'Access emergency protocols, surgical guides, and regional anesthesia modules.'}
             {activeTab === 'ventilator' && 'Condition-based mechanical ventilation strategies & targets.'}
             {activeTab === 'renal' && 'CRRT, IHD targets, and Plasma Exchange calculators.'}
-            {activeTab === 'regional' && 'Ultrasound-guided regional anesthesia library & safety calculator.'}
             {activeTab === 'specialties' && 'Preoperative optimization and specialized modules for Obstetrics and Pediatrics.'}
             {activeTab === 'pharmacology' && 'TIVA dosing, pressors, and local anesthetic toxicity (LAST).'}
           </p>
@@ -174,14 +165,10 @@ export default function App() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            {activeTab === 'guidelines' && <GuidelinesDiagrams />}
-            {activeTab === 'patient' && <PatientCalculator />}
-            {activeTab === 'scores' && <ClinicalScores />}
-            {activeTab === 'conditions' && <Conditions />}
-            {activeTab === 'surgery' && <Surgery />}
+            {activeTab === 'assessment' && <AssessmentModule />}
+            {activeTab === 'clinic' && <ClinicModule />}
             {activeTab === 'ventilator' && <VentilatorModule />}
             {activeTab === 'renal' && <RenalModule />}
-            {activeTab === 'regional' && <RegionalLibrary />}
             {activeTab === 'specialties' && <SpecialtiesModule />}
             {activeTab === 'pharmacology' && <Pharmacology />}
           </motion.div>

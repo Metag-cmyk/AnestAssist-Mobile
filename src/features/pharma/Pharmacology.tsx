@@ -18,7 +18,9 @@ import {
 import { useLanguage } from '../../contexts/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import EmergencyDrugs from './EmergencyDrugs';
+import PharmacologyReference from './PharmacologyReference';
 import { calculateSodiumCorrection } from '../../lib/RenalCalculators';
+import { BookOpen } from 'lucide-react';
 
 interface DrugRange {
   min: number;
@@ -151,7 +153,7 @@ const DRUG_PRESETS: DrugPreset[] = [
 
 export default function Pharmacology() {
   const { t } = useLanguage();
-  const [activeView, setActiveView] = useState<'emergency' | 'infusion' | 'sodium'>('emergency');
+  const [activeView, setActiveView] = useState<'emergency' | 'infusion' | 'sodium' | 'reference'>('emergency');
 
   const K_WEIGHT = 'anestassist_patient_weight';
   const K_SELECTED_DRUG = 'anestassist_converter_drug';
@@ -255,7 +257,16 @@ export default function Pharmacology() {
           }`}
         >
           <FlaskConical className="w-4 h-4" />
-          Sodium & electrolytes
+          Sodium
+        </button>
+        <button
+          onClick={() => setActiveView('reference')}
+          className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all text-center flex items-center justify-center gap-2 ${
+            activeView === 'reference' ? 'bg-sky-600 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'
+          }`}
+        >
+          <BookOpen className="w-4 h-4" />
+          Reference
         </button>
       </div>
 
@@ -739,6 +750,8 @@ export default function Pharmacology() {
               </div>
             </div>
           )}
+
+          {activeView === 'reference' && <PharmacologyReference />}
         </motion.div>
       </AnimatePresence>
     </div>

@@ -25,6 +25,10 @@ export interface ConditionProtocol {
   diagnosticCriteria?: string[];
   expectedLabDeviations?: { [key: string]: string };
   differentialDiagnosis?: string[];
+  anesthesiaStrategy?: string[];
+  preopOptimization?: string[];
+  postopDisposition?: string;
+  linkedScoreIds?: string[];
 }
 
 export interface Guideline {
@@ -59,7 +63,7 @@ export interface ClinicalScore {
   description: string;
   criteria: ScoreCriterion[];
   riskLevels: ScoreRiskLevel[];
-  category: 'Respiratory' | 'Sepsis' | 'General' | 'Cardiac' | 'Neurological' | 'Cardiovascular' | 'Vascular' | 'Gastrointestinal' | 'Anesthesia' | 'ICU';
+  category: 'Respiratory' | 'Sepsis' | 'General' | 'Cardiac' | 'Neurological' | 'Cardiovascular' | 'Vascular' | 'Gastrointestinal' | 'Anesthesia' | 'ICU' | 'Obstetrics';
 }
 
 export interface SurgeryStep {
@@ -148,4 +152,4 @@ export interface ClinicalAlgorithm {
   startingStepId: string;
 }
 
-export type TabType = 'guidelines' | 'conditions' | 'pharmacology' | 'patient' | 'scores' | 'surgery' | 'renal' | 'ventilator' | 'regional' | 'specialties';
+export type TabType = 'assessment' | 'clinic' | 'pharmacology' | 'renal' | 'ventilator' | 'specialties';

@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import ObstetricsView from './ObstetricsView';
 import PediatricsView from './PediatricsView';
 import PreopView from './PreopView';
+import NutritionModule from '../nutrition/NutritionModule';
 import { PatientContextBanner } from '../../components/PatientContextBanner';
 
 export default function SpecialtiesModule() {
-  const [activeView, setActiveView] = useState<'preop' | 'obstetrics' | 'pediatrics'>('preop');
+  const [activeView, setActiveView] = useState<'preop' | 'obstetrics' | 'pediatrics' | 'nutrition'>('preop');
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -46,6 +47,16 @@ export default function SpecialtiesModule() {
         >
           Pediatrics
         </button>
+        <button
+          onClick={() => setActiveView('nutrition')}
+          className={`flex-1 py-3 px-2 sm:px-6 rounded-xl font-bold text-sm transition-all text-center ${
+            activeView === 'nutrition'
+              ? 'bg-orange-500 text-white shadow-md'
+              : 'text-slate-500 hover:bg-slate-50'
+          }`}
+        >
+          Nutrition
+        </button>
       </div>
 
       {/* View Content */}
@@ -60,6 +71,7 @@ export default function SpecialtiesModule() {
           {activeView === 'preop' && <PreopView />}
           {activeView === 'obstetrics' && <ObstetricsView />}
           {activeView === 'pediatrics' && <PediatricsView />}
+          {activeView === 'nutrition' && <NutritionModule />}
         </motion.div>
       </AnimatePresence>
 

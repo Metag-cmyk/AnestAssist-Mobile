@@ -343,6 +343,86 @@ export const STATIC_GUIDELINES: StaticGuideline[] = [
     year: 2021,
     category: 'Cardiovascular',
     summary: 'Dual Antiplatelet Therapy (DAPT) perioperative management for patients with recent PCI or ACS: (1) Timing of surgery: Elective surgery should be deferred for a minimum of 1 month after bare-metal stenting and 6 months after drug-eluting stenting. If surgery is urgent, continue Aspirin throughout and resume P2Y12 inhibitors as soon as safely possible post-op. (2) Continue Aspirin perioperatively unless risk of surgical bleeding is prohibitive (e.g., neurosurgery, spine surgery). (3) Stopping P2Y12 inhibitors: Clopidogrel 5 days, Ticagrelor 3-5 days, Prasugrel 7 days before surgery to allow platelet recovery. (4) Bridging: IV Cangrelor or GP IIb/IIIa inhibitors are occasionally used as a bridge during the perioperative cessation window in very high-risk patients, in close consultation with cardiology. (5) Post-op: Resume P2Y12 inhibitors as soon as possible (ideally within 24-48h) to prevent stent thrombosis.'
+  },
+  {
+    id: 'das-airway-2015',
+    title: 'DAS Unanticipated Difficult Intubation in Adults',
+    source: 'ASA',
+    year: 2015,
+    category: 'Airway',
+    summary: 'The gold standard Plan A-D algorithm: Plan A (Intubation), Plan B (SAD), Plan C (Bag-Mask), Plan D (eFONA). Highlights the 3+1 intubation attempt limit and the "Can\'t Intubate, Can\'t Oxygenate" (CICO) declaration.'
+  },
+  {
+    id: 'asra-last-2020',
+    title: 'ASRA Checklist for LAST Management',
+    source: 'ASRA',
+    year: 2020,
+    category: 'Regional',
+    summary: 'Emergency management of Local Anesthetic Systemic Toxicity. Key steps: Stop injection, call for help, secure airway (avoid propofol), and immediate 20% Lipid Emulsion therapy (1.5 mL/kg bolus, then 0.25 mL/kg/min infusion).'
+  },
+  {
+    id: 'mhaus-mh-2023',
+    title: 'Malignant Hyperthermia (MH) Emergency Protocol',
+    source: 'ESAIC',
+    year: 2023,
+    category: 'Intra-op',
+    summary: 'Immediate management of MH crisis. Key actions: Stop triggers (volatile, sux), hyperventilate 100% O2, Dantrolene/Ryanodex (2.5 mg/kg IV), treat hyperkalemia, and initiate aggressive cooling.'
+  },
+  {
+    id: 'esaic-beta-block-2023',
+    title: 'Perioperative Beta-Blockade Guidelines',
+    source: 'ESAIC',
+    year: 2023,
+    category: 'Pre-op',
+    summary: 'Recommendations for perioperative beta-blocker use. Continue in chronic users; do not initiate on the day of surgery. High-risk patients undergoing high-risk surgery may benefit from initiation weeks before the procedure.'
+  },
+  {
+    id: 'erc-post-rosc-2021',
+    title: 'Post-Resuscitation Care (ROSC Management)',
+    source: 'ERC',
+    year: 2021,
+    category: 'ICU',
+    summary: 'Focuses on the "Chain of Survival" post-ROSC. Key elements: Immediate 12-lead ECG, targeted temperature management (32-36°C), glycemic control, and neuro-prognostication after 72 hours.'
+  },
+  {
+    id: 'esaic-hypothermia-2024',
+    title: 'Prevention of Inadvertent Perioperative Hypothermia',
+    source: 'ESAIC',
+    year: 2024,
+    category: 'Intra-op',
+    summary: 'Mandates active warming for procedures > 30 mins. Recommends forced-air warming, warmed IV fluids, and continuous core temperature monitoring to maintain > 36.0°C.'
+  },
+  {
+    id: 'aha-stroke-2021',
+    title: 'Management of Acute Ischemic Stroke',
+    source: 'AHA',
+    year: 2021,
+    category: 'ICU',
+    summary: 'Time-sensitive management of stroke. IV Alteplase window (4.5h), Endovascular Thrombectomy window (up to 24h for selected patients). Target BP < 185/110 before thrombolysis.'
+  },
+  {
+    id: 'ficm-icu-airway-2018',
+    title: 'Intubation in the Critically Ill (ICU Airway)',
+    source: 'ESICM',
+    year: 2018,
+    category: 'ICU',
+    summary: 'Specific safety steps for ICU intubation. Highlights the high risk of hemodynamic collapse; recommends pre-induction push-dose pressors and mandatory videolaryngoscopy for all attempts.'
+  },
+  {
+    id: 'wao-anaphylaxis-2024',
+    title: 'WAO Anaphylaxis Management Update',
+    source: 'ERC',
+    year: 2024,
+    category: 'Intra-op',
+    summary: 'Emergency adrenaline dosing: 0.5 mg IM as first-line. For perioperative IV dosing, start with 10-20 mcg titrated boluses. Emphasizes supine position to prevent "empty heart" syndrome.'
+  },
+  {
+    id: 'esaic-par-2022',
+    title: 'Post-Anesthesia Recovery (PAR) Standards',
+    source: 'ESAIC',
+    year: 2022,
+    category: 'Post-op',
+    summary: 'Criteria for discharge from PACU. Refined Aldrete score ≥ 9, controlled pain, stable hemodynamics, and no significant nausea/vomiting.'
   }
 ];
 

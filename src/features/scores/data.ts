@@ -869,5 +869,183 @@ export const CLINICAL_SCORES: ClinicalScore[] = [
     category: 'General',
     criteria: [], // Custom renderer will handle this
     riskLevels: [] // Custom renderer will handle this
+  },
+  {
+    id: 'stop-bang',
+    name: 'STOP-BANG',
+    description: 'Obstructive Sleep Apnea (OSA) screening tool for surgical patients.',
+    category: 'Anesthesia',
+    criteria: [
+      { id: 'snoring', label: 'Snoring (Loud enough to be heard through closed doors)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'tired', label: 'Tired (Often feel tired, fatigued, or sleepy during the day)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'observed', label: 'Observed (Has anyone observed you stop breathing during sleep)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'pressure', label: 'Pressure (Do you have or are you being treated for high blood pressure)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'bmi', label: 'BMI > 35 kg/m²?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'age', label: 'Age > 50 years?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'neck', label: 'Neck circumference > 40 cm?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'gender', label: 'Gender (Male)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 2, label: 'low', description: 'Low risk of OSA.', color: 'bg-green-100 text-green-700' },
+      { min: 3, max: 4, label: 'intermediate', description: 'Intermediate risk of OSA.', color: 'bg-amber-100 text-amber-700' },
+      { min: 5, max: 8, label: 'high', description: 'High risk of OSA. Consider preoperative sleep study or CPAP.', color: 'bg-rose-100 text-rose-700' }
+    ]
+  },
+  {
+    id: 'rcri',
+    name: 'Revised Cardiac Risk Index (RCRI)',
+    description: 'Lee\'s Criteria. Used to estimate the risk of cardiac complications after non-cardiac surgery.',
+    category: 'Anesthesia',
+    criteria: [
+      { id: 'high_risk', label: 'High-risk surgery (Intraperitoneal, intrathoracic, or suprainguinal vascular)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'ihd', label: 'Ischemic Heart Disease (History of MI, positive stress test, or use of nitrates)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'chf', label: 'Congestive Heart Failure (History of heart failure, pulmonary edema, or paroxysmal nocturnal dyspnea)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'cvd', label: 'Cerebrovascular Disease (History of TIA or stroke)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'diabetes', label: 'Diabetes Mellitus requiring Insulin?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'creatinine', label: 'Preoperative Creatinine > 2 mg/dL (177 µmol/L)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 0, label: 'Class I', description: '0.4% risk of major cardiac complication.', color: 'bg-green-100 text-green-700' },
+      { min: 1, max: 1, label: 'Class II', description: '0.9% risk of major cardiac complication.', color: 'bg-emerald-100 text-emerald-700' },
+      { min: 2, max: 2, label: 'Class III', description: '6.6% risk of major cardiac complication.', color: 'bg-amber-100 text-amber-700' },
+      { min: 3, max: 6, label: 'Class IV', description: '>11% risk of major cardiac complication.', color: 'bg-rose-100 text-rose-700' }
+    ]
+  },
+  {
+    id: 'has-bled',
+    name: 'HAS-BLED',
+    description: 'Assesses the risk of major bleeding in patients with Atrial Fibrillation.',
+    category: 'Cardiovascular',
+    criteria: [
+      { id: 'h', label: 'Hypertension (SBP > 160 mmHg)', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'a', label: 'Abnormal Renal OR Liver Function (1 point for each)', options: [{ label: 'None', points: 0 }, { label: 'Either Renal or Liver', points: 1 }, { label: 'Both Renal and Liver', points: 2 }] },
+      { id: 's', label: 'Stroke history', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'b', label: 'Prior Bleeding or predisposition', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'l', label: 'Labile INR (time in therapeutic range < 60%)', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'e', label: 'Elderly (Age > 65 years)', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'd', label: 'Drugs or Alcohol (1 point for each)', options: [{ label: 'None', points: 0 }, { label: 'Either Drugs or Alcohol', points: 1 }, { label: 'Both Drugs and Alcohol', points: 2 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 2, label: 'low/moderate', description: 'Low to moderate risk of major bleeding.', color: 'bg-green-100 text-green-700' },
+      { min: 3, max: 9, label: 'high', description: 'High bleeding risk (≥ 3.7% risk per year). Caution and regular review recommended.', color: 'bg-rose-100 text-rose-700' }
+    ]
+  },
+  {
+    id: 'meld',
+    name: 'MELD Score',
+    description: 'Model for End-Stage Liver Disease. Predicts 90-day survival in liver disease.',
+    category: 'ICU',
+    criteria: [
+      { id: 'creatinine', label: 'Creatinine (mg/dL)', options: [{ label: '< 1.0', points: 0 }, { label: '1.0 - 1.9', points: 10 }, { label: '2.0 - 2.9', points: 20 }, { label: '≥ 3.0', points: 30 }] },
+      { id: 'bilirubin', label: 'Bilirubin (mg/dL)', options: [{ label: '< 2.0', points: 0 }, { label: '2.0 - 5.0', points: 5 }, { label: '5.1 - 10.0', points: 10 }, { label: '> 10.0', points: 15 }] },
+      { id: 'inr', label: 'INR', options: [{ label: '< 1.1', points: 0 }, { label: '1.1 - 2.0', points: 10 }, { label: '2.1 - 3.0', points: 20 }, { label: '> 3.0', points: 30 }] },
+      { id: 'sodium', label: 'Sodium (mmol/L)', options: [{ label: '> 135', points: 0 }, { label: '130 - 135', points: 2 }, { label: '< 130', points: 5 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 9, label: 'low', description: 'Low mortality risk (1.9%).', color: 'bg-green-100 text-green-700' },
+      { min: 10, max: 19, label: 'moderate', description: 'Moderate mortality risk (6.0%).', color: 'bg-amber-100 text-amber-700' },
+      { min: 20, max: 29, label: 'high', description: 'Significant mortality risk (19.6%).', color: 'bg-orange-100 text-orange-700' },
+      { min: 30, max: 99, label: 'critical', description: 'Severe mortality risk (> 50%).', color: 'bg-rose-100 text-rose-700' }
+    ]
+  },
+  {
+    id: 'wells-pe',
+    name: 'Wells\' Criteria (PE)',
+    description: 'Clinical probability of pulmonary embolism.',
+    category: 'Respiratory',
+    criteria: [
+      { id: 'pe_signs', label: 'Clinical signs of DVT?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 3 }] },
+      { id: 'alternate', label: 'PE is #1 diagnosis or equally likely?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 3 }] },
+      { id: 'hr', label: 'Heart rate > 100 beats/min?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1.5 }] },
+      { id: 'surgery', label: 'Immobilization (> 3 days) or surgery (4 weeks)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1.5 }] },
+      { id: 'prior_pe', label: 'Prior PE or DVT history?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1.5 }] },
+      { id: 'hemoptysis', label: 'Hemoptysis?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'cancer', label: 'Active cancer (treatment or palliative)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 1.9, label: 'PE unlikely', description: 'Low risk (1.3%). Consider D-dimer.', color: 'bg-green-100 text-green-700' },
+      { min: 2, max: 6, label: 'Moderate', description: 'Moderate risk (16.2%).', color: 'bg-amber-100 text-amber-700' },
+      { min: 6.5, max: 12.5, label: 'PE Likely', description: 'High probability (37.5%). Consider CTPA.', color: 'bg-rose-100 text-rose-700' }
+    ]
+  },
+  {
+    id: 'geneva',
+    name: 'Geneva Score (Simplified)',
+    description: 'Alternative risk assessment for pulmonary embolism.',
+    category: 'Respiratory',
+    criteria: [
+      { id: 'age', label: 'Age > 65 years?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'prior_pe', label: 'Prior PE or DVT history?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'surgery', label: 'Surgery or lower limb fracture (1 month)?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'cancer', label: 'Active malignancy?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'leg_pain', label: 'Unilateral lower limb pain?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'hemoptysis', label: 'Hemoptysis?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] },
+      { id: 'hr', label: 'Heart rate 75-94 (1 pt) or ≥ 95 (2 pts)?', options: [{ label: '< 75', points: 0 }, { label: '75 - 94', points: 1 }, { label: '≥ 95', points: 2 }] },
+      { id: 'calf_pain', label: 'Pain on deep leg vein palpation?', options: [{ label: 'No', points: 0 }, { label: 'Yes', points: 1 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 2, label: 'low', description: 'Low probability. D-dimer recommended.', color: 'bg-green-100 text-green-700' },
+      { min: 3, max: 4, label: 'intermediate', description: 'Intermediate probability.', color: 'bg-amber-100 text-amber-700' },
+      { min: 5, max: 9, label: 'high', description: 'High probability. CTPA recommended.', color: 'bg-rose-100 text-rose-700' }
+    ]
+  },
+  {
+    id: 'bishop',
+    name: 'BISHOP Score',
+    description: 'Cervical assessment to predict the likelihood of successful labor induction.',
+    category: 'Obstetrics',
+    criteria: [
+      { id: 'dilation', label: 'Dilation (cm)', options: [{ label: 'Closed', points: 0 }, { label: '1 - 2', points: 1 }, { label: '3 - 4', points: 2 }, { label: '≥ 5', points: 3 }] },
+      { id: 'effacement', label: 'Effacement (%)', options: [{ label: '0 - 30%', points: 0 }, { label: '40 - 50%', points: 1 }, { label: '60 - 70%', points: 2 }, { label: '≥ 80%', points: 3 }] },
+      { id: 'station', label: 'Station (-3 to +3)', options: [{ label: '-3', points: 0 }, { label: '-2', points: 1 }, { label: '-1, 0', points: 2 }, { label: '+1, +2', points: 3 }] },
+      { id: 'consistency', label: 'Consistency', options: [{ label: 'Firm', points: 0 }, { label: 'Medium', points: 1 }, { label: 'Soft', points: 2 }] },
+      { id: 'position', label: 'Position', options: [{ label: 'Posterior', points: 0 }, { label: 'Mid-position', points: 1 }, { label: 'Anterior', points: 2 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 5, label: 'unripe', description: 'Unfavorable cervix. Induction unlikely to succeed.', color: 'bg-rose-100 text-rose-700' },
+      { min: 6, max: 8, label: 'intermediate', description: 'Predictor of successful induction.', color: 'bg-amber-100 text-amber-700' },
+      { min: 9, max: 13, label: 'favorable', description: 'Favorable cervix. High likelihood of successful induction.', color: 'bg-green-100 text-green-700' }
+    ]
+  },
+  {
+    id: 'ramsay',
+    name: 'Ramsay Sedation Scale',
+    description: 'Used to assess the level of sedation in medical and surgical ICU patients.',
+    category: 'ICU',
+    criteria: [
+      {
+        id: 'level',
+        label: 'Level of Sedation',
+        options: [
+          { label: 'Level 1: Anxious, agitated, or restless', points: 1 },
+          { label: 'Level 2: Cooperative, oriented, and tranquil', points: 2 },
+          { label: 'Level 3: Responds only to commands', points: 3 },
+          { label: 'Level 4: Brisk response to a light glabellar tap', points: 4 },
+          { label: 'Level 5: Sluggish response to a light glabellar tap', points: 5 },
+          { label: 'Level 6: No response', points: 6 }
+        ]
+      }
+    ],
+    riskLevels: [
+      { min: 1, max: 1, label: 'agitated', description: 'Undersedated.', color: 'bg-rose-100 text-rose-700' },
+      { min: 2, max: 3, label: 'ideal', description: 'Adequate sedation.', color: 'bg-green-100 text-green-700' },
+      { min: 4, max: 6, label: 'oversedated', description: 'Deeply sedated. Review requirements.', color: 'bg-amber-100 text-amber-700' }
+    ]
+  },
+  {
+    id: 'cpot',
+    name: 'CPOT',
+    description: 'Critical-Care Pain Observation Tool. For assessing pain in non-verbal/sedated patients.',
+    category: 'ICU',
+    criteria: [
+      { id: 'face', label: 'Facial expression (Neutral to grimacing)?', options: [{ label: 'Relaxed (0)', points: 0 }, { label: 'Tense (1)', points: 1 }, { label: 'Grimacing (2)', points: 2 }] },
+      { id: 'body', label: 'Body movements (None to restlessness)?', options: [{ label: 'Absence (0)', points: 0 }, { label: 'Protection (1)', points: 1 }, { label: 'Restless (2)', points: 2 }] },
+      { id: 'muscle', label: 'Muscle tension (Relaxed to very tense)?', options: [{ label: 'Relaxed (0)', points: 0 }, { label: 'Tense (1)', points: 1 }, { label: 'Very Tense/Rigid (2)', points: 2 }] },
+      { id: 'vent', label: 'Compliance with Ventilator (or Vocalization)?', options: [{ label: 'Tolerating/Relaxed (0)', points: 0 }, { label: 'Coughing/Alarms (1)', points: 1 }, { label: 'Fighting vent (2)', points: 2 }] }
+    ],
+    riskLevels: [
+      { min: 0, max: 2, label: 'Minimal Pain', description: 'Low pain likely.', color: 'bg-green-100 text-green-700' },
+      { min: 3, max: 8, label: 'Significant Pain', description: 'High pain likely. Consider analgesia or procedural support.', color: 'bg-rose-100 text-rose-700' }
+    ]
   }
 ];

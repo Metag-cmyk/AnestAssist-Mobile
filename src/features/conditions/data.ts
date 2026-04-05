@@ -56,7 +56,21 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Anion Gap': '> 12.0 mmol/L',
       'Potassium': 'Variable (often elevated, but low total body K+)'
     },
-    differentialDiagnosis: ['Hyperosmolar Hyperglycemic State (HHS)', 'Alcoholic Ketoacidosis', 'Starvation Ketoacidosis', 'Salicylate Poisoning']
+    differentialDiagnosis: ['Hyperosmolar Hyperglycemic State (HHS)', 'Alcoholic Ketoacidosis', 'Starvation Ketoacidosis', 'Salicylate Poisoning'],
+    anesthesiaStrategy: [
+      'Elective surgery: Postpone until ketosis resolved and pH > 7.3',
+      'Emergency surgery: Start IV insulin/fluids; monitor K+ hourly',
+      'Fluid resuscitation: Aggressive replacement (20ml/kg NaCl 0.9%)',
+      'Avoid hyperventilation: Maintain compensated metabolic acidosis'
+    ],
+    preopOptimization: [
+      'Glucose 7-11 mmol/L',
+      'pH > 7.30 / Bicarbonate > 18',
+      'Potassium 4.0 - 5.0 mmol/L',
+      'Negative ketones'
+    ],
+    postopDisposition: 'ICU / HDU for continued Insulin/Fluid titration',
+    linkedScoreIds: ['qsofa']
   },
   {
     id: 'thyroid-storm',
@@ -105,7 +119,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Total T3': 'Markedly Elevated',
       'Alkaline Phosphatase': 'Elevated (in 2/3 cases)'
     },
-    differentialDiagnosis: ['Sepsis / Septic Shock', 'Anesthetic-induced Malignant Hyperthermia', 'Pheochromocytoma Crisis', 'Heat Stroke']
+    differentialDiagnosis: ['Sepsis / Septic Shock', 'Anesthetic-induced Malignant Hyperthermia', 'Pheochromocytoma Crisis', 'Heat Stroke'],
+    anesthesiaStrategy: [
+      'Avoid Sympathomimetics (Adrenaline, Ephedrine, Ketamine)',
+      'Adequate Depth: Prevent sympathetic surge during laryngoscopy',
+      'Beta-blockade: Esmolol infusion for HR control',
+      'Temperature: Avoid salicylate for fever control (displaces T4)'
+    ],
+    preopOptimization: [
+      'Euthyroid state (can take 6-10 weeks of medical prep)',
+      'HR < 90 bpm',
+      'Normalized electrolytes'
+    ],
+    postopDisposition: 'ICU for monitoring (risk of crisis up to 24h post-op)'
   },
   {
     id: 'cardiac-tamponade',
@@ -154,7 +180,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': 'Elevated (indicates cardiogenic shock)',
       'Troponin': 'May be elevated if myocardial injury present'
     },
-    differentialDiagnosis: ['Tension Pneumothorax', 'Massive Pulmonary Embolism', 'Myocardial Infarction', 'Right Ventricular Failure']
+    differentialDiagnosis: ['Tension Pneumothorax', 'Massive Pulmonary Embolism', 'Myocardial Infarction', 'Right Ventricular Failure'],
+    anesthesiaStrategy: [
+      'FULL STOMACH RSI: Pericardial window often urgent semi-elective',
+      'MAINTAIN PRELOAD: Rapid crystalloid/blood if needed',
+      'AVOID PPV: Positive pressure drops venous return -> CARDIAC ARREST',
+      'Keep heart "Full, Fast, and Contracile"',
+      'Local Anesthesia (+ minimal sedation) preferred for drainage if possible'
+    ],
+    preopOptimization: [
+      'Urgent drainage (needle or surgical) is the primary optimization',
+      'Volume loading (crystalloids)'
+    ],
+    postopDisposition: 'ICU / Cardiac Step-down'
   },
   {
     id: 'anaphylaxis',
@@ -204,7 +242,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'pH': '< 7.35 (due to respiratory/metabolic acidosis)',
       'Lactate': 'Elevated in distributive shock'
     },
-    differentialDiagnosis: ['Vasovagal Response', 'Asthma Exacerbation', 'Tension Pneumothorax', 'Malignant Hyperthermia (initially)']
+    differentialDiagnosis: ['Vasovagal Response', 'Asthma Exacerbation', 'Tension Pneumothorax', 'Malignant Hyperthermia (initially)'],
+    anesthesiaStrategy: [
+      'STOP TRIGGERS: Discard all syringes/fluids running',
+      'ADRENALINE: Titrate 10-50mcg IV boluses based on BP',
+      'FLUID: Massive volume leak; 20-40ml/kg often needed',
+      'DISPOSITION: Observe in ICU for 12-24h (biphasic risk)'
+    ],
+    preopOptimization: [
+      'Avoid known triggers',
+      'Pre-medicate with Antihistamines if high-risk allergy history'
+    ],
+    postopDisposition: 'ICU for monitoring biphasic reaction'
   },
   {
     id: 'pheochromocytoma',
@@ -254,7 +303,22 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Blood Glucose': 'Hyperglycemia common',
       'Hemoglobin/Hematocrit': 'Often high due to chronic volume contraction'
     },
-    differentialDiagnosis: ['Essential Hypertension', 'Panic Attack / Anxiety', 'Thyroid Storm', 'Carcinoid Syndrome']
+    differentialDiagnosis: ['Essential Hypertension', 'Panic Attack / Anxiety', 'Thyroid Storm', 'Carcinoid Syndrome'],
+    anesthesiaStrategy: [
+      'ALPHA-BLOCKADE FIRST: Phentolamine/Phenoxybenzamine',
+      'AVOID Sympathomimetics and Histamine-releasing drugs (Atracurium/Morphine)',
+      'HYPERTENSION: Phentolamine 1mg IV bolus or Nitroprusside infusion',
+      'HYPOTENSION (Post-clamping): Massive fluid loading and Noradrenaline',
+      'GLUCOSE: Monitor for profound rebound hypoglycemia after tumor removal'
+    ],
+    preopOptimization: [
+      'Alpha-blocked for 10-14 days (Phenoxybenzamine)',
+      'Beta-block ONLY after adequate alpha-blockade (to avoid crisis)',
+      'No SBP > 160 mmHg for 24h prior to surgery',
+      'No orthostatic hypotension',
+      'High salt diet to expand contracted volume'
+    ],
+    postopDisposition: 'ICU for 24-48h (Vasoplegia & Hypoglycemia risk)'
   },
   {
     id: 'acute-hf',
@@ -305,7 +369,21 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'NT-proBNP': 'Elevated (> 300 pg/mL)',
       'Troponin T/I': 'Commonly elevated due to wall stress/ischemia'
     },
-    differentialDiagnosis: ['ARDS', 'Pneumonia / Sepsis', 'Massive Pulmonary Embolism', 'Acute COPD Exacerbation']
+    differentialDiagnosis: ['ARDS', 'Pneumonia / Sepsis', 'Massive Pulmonary Embolism', 'Acute COPD Exacerbation'],
+    anesthesiaStrategy: [
+      'POSITION: Maintain upright/semi-fowler',
+      'PRELOAD: Restrictive fluids; use diuretics (Furosemide 40mg IV)',
+      'AFTERLOAD: Vasodilators (GTN) if BP allows; avoid sudden SVR drops',
+      'VENTILATION: Early CPAP/NIV to reduce work of breathing and edema',
+      'INOTROPES: Dobutamine if cardiogenic shock (SBP < 90)'
+    ],
+    preopOptimization: [
+      'Euvolemia (dry weight)',
+      'SpO2 > 94% on minimal O2',
+      'Optimized heart failure meds (ACEi/Beta-blockers)'
+    ],
+    postopDisposition: 'HDU / Cardiac Step-down',
+    linkedScoreIds: ['rcri']
   },
   {
     id: 'malignant-hyperthermia',
@@ -358,7 +436,21 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Potassium': 'Hyperkalemia (> 5.5 mmol/L)',
       'pH': '< 7.20 (Mixed Acidosis)'
     },
-    differentialDiagnosis: ['Sepsis', 'Thyroid Storm', 'Pheochromocytoma Crisis', 'Serotonin Syndrome', 'Iatrogenic Overheating']
+    differentialDiagnosis: ['Sepsis', 'Thyroid Storm', 'Pheochromocytoma Crisis', 'Serotonin Syndrome', 'Iatrogenic Overheating'],
+    anesthesiaStrategy: [
+      'STOP TRIGGERS: Volatiles and Sux immediately',
+      'DANTROLENE: 2.5mg/kg IV bolus; repeat every 5-10 mins',
+      'IV ACCESS: Large bore; 100% O2 high flows (>10L/min)',
+      'TIVA: Switch to Propofol infusion immediately',
+      'MONITOR: Core temp, Hourly Urine Output (Target > 2ml/kg/hr)',
+      'HYPERKALEMIA: Treat aggressively with glucose/insulin/calcium'
+    ],
+    preopOptimization: [
+      'Avoid triggers in known MH susceptible patients',
+      'Clean machine (charcoal filters or 20 min high flow flush)',
+      'Prepare Dantrolene on-site'
+    ],
+    postopDisposition: 'ICU for 24-48h (Recrudescence risk 25%)'
   },
   {
     id: 'last',
@@ -400,7 +492,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PaO2/SpO2': 'Hypoxia (worsens neurotoxicity)',
       'K+': 'Hyperkalemia (worsens cardiac toxicity)'
     },
-    differentialDiagnosis: ['Anaphylaxis', 'Total Spinal / High Spinal Anesthesia', 'Vasovagal Response', 'Air Embolism']
+    differentialDiagnosis: ['Anaphylaxis', 'Total Spinal / High Spinal Anesthesia', 'Vasovagal Response', 'Air Embolism'],
+    anesthesiaStrategy: [
+      'STOP LA: Cease any infusions or further injections',
+      'AIRWAY: 100% O2; Intubate if seizures or CV collapse',
+      'LIPID RESCUE 20%: 1.5ml/kg bolus + 0.25ml/kg/min infusion',
+      'SEIZURES: Benzodiazepines (Midazolam 2.5-5mg); avoid Propofol if unstable',
+      'ACLS: Avoid Vasopressin; use low-dose Adrenaline (< 1mcg/kg)'
+    ],
+    preopOptimization: [
+      'Verify 20% Lipid Emulsion is available during blocks',
+      'Fractionated dosing / negative aspiration'
+    ],
+    postopDisposition: 'ICU for at least 12h monitoring'
   },
   {
     id: 'difficult-airway',
@@ -445,7 +549,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'SpO2': 'Rapidly Declining (< 90%)',
       'ETCO2': 'Absent or intermittent capnogram'
     },
-    differentialDiagnosis: ['Laryngospasm', 'Bronchospasm', 'Airway Trauma', 'Foreign Body Obstruction']
+    differentialDiagnosis: ['Laryngospasm', 'Bronchospasm', 'Airway Trauma', 'Foreign Body Obstruction'],
+    anesthesiaStrategy: [
+      'CALL FOR HELP: Declaring a difficult airway early is life-saving',
+      'PLAN A: VL (Video Laryngoscopy) should be primary if difficulty suspected',
+      'PLAN B: Early use of 2nd Gen SAD (LMA) to maintain oxygenation',
+      'PLAN D: Scalpel-Bougie-Tube if CICO occurs',
+      'WAKE UP: If Plan A/B fail in elective cases, wake the patient up'
+    ],
+    preopOptimization: [
+      'Assess: Mallampati, Thyromental, Neck Mobility, Beard, BMI',
+      'Equipment: Check VL, Fiberscope, Bougies, and CICO kit pre-induction'
+    ],
+    postopDisposition: 'Recovery / HDU for 2-4h monitoring (risk of laryngeal edema)'
   },
   {
     id: 'sepsis-shock',
@@ -497,7 +613,20 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Procalcitonin': 'Elevated (> 0.5 ng/mL)',
       'pH': '< 7.35 (Metabolic Acidosis)'
     },
-    differentialDiagnosis: ['Hypovolemic Shock', 'Cardiogenic Shock', 'Acute Pulmonary Embolism', 'Adrenal Insufficiency']
+    differentialDiagnosis: ['Hypovolemic Shock', 'Cardiogenic Shock', 'Acute Pulmonary Embolism', 'Adrenal Insufficiency'],
+    anesthesiaStrategy: [
+      'INDUCTION: High risk of arrest; use Ketamine or Etomidate; scale down doses',
+      'FLUID: 30ml/kg Crystalloid (Balanced) early',
+      'PRESSORS: Early Noradrenaline titration (Target MAP 65-70)',
+      'SOURCE CONTROL: Surgery/Drainage must not be delayed',
+      'STEROIDS: Consider Hydrocortisone 200mg/day if refractory to pressors'
+    ],
+    preopOptimization: [
+      'Resuscitate before intubating if possible (Fluid + Pressors)',
+      'Blood Cultures taken BEFORE antibiotics'
+    ],
+    postopDisposition: 'ICU for Multiorgan Support',
+    linkedScoreIds: ['qsofa', 'aki_kdigo']
   },
   {
     id: 'ards',
@@ -549,7 +678,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Plateau Pressure': 'Often elevated (> 30 cmH2O if not protective)',
       'Compliance': 'Markedly decreased (Stiff lung)'
     },
-    differentialDiagnosis: ['Cardiogenic Pulmonary Edema', 'TRALI (Transfusion Related Acute Lung Injury)', 'Pneumonia (Multilobar)', 'Pulmonary Hemorrhage']
+    differentialDiagnosis: ['Cardiogenic Pulmonary Edema', 'TRALI (Transfusion Related Acute Lung Injury)', 'Pneumonia (Multilobar)', 'Pulmonary Hemorrhage'],
+    anesthesiaStrategy: [
+      'LUNG PROTECTION: 6ml/kg PBW; Plateau < 30; Driving pressure < 15',
+      'PEEP: Use high-PEEP table; target SpO2 88-92% to avoid toxicity',
+      'POSITION: Prone positioning (16h/day) for P/F < 150',
+      'FLUID: "Dry" strategy; conservative fluid balance reduces duration of ventilation'
+    ],
+    preopOptimization: [
+      'Treat underlying cause (Sepsis, Trauma)',
+      'Optimize recruitment'
+    ],
+    postopDisposition: 'ICU (Long-term ventilation)',
+    linkedScoreIds: ['aki_kdigo']
   },
   {
     id: 'status-epilepticus',
@@ -598,7 +739,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Creatine Kinase': 'Elevated (Rhabdomyolysis risk)',
       'Blood Glucose': 'Hyperglycemia initially, then Hypoglycemia'
     },
-    differentialDiagnosis: ['Vasovagal Syncope', 'Psychogenic Non-Epileptic Seizures (PNES)', 'Cardiac Arrhythmia', 'Stroke / ICH']
+    differentialDiagnosis: ['Vasovagal Syncope', 'Psychogenic Non-Epileptic Seizures (PNES)', 'Cardiac Arrhythmia', 'Stroke / ICH'],
+    anesthesiaStrategy: [
+      'ABC: Secure airway if GCS < 8 or convulsive > 30 mins',
+      'DRUGS: Propofol / Thiopental / Midazolam infusions for third-line',
+      'MONITOR: Continuous EEG is essential to rule out non-convulsive status',
+      'NEUROPROTECTION: Goal is burst suppression; maintain MAP for CPP'
+    ],
+    preopOptimization: [
+      'Check Glucose and Sodium immediately',
+      'Load Phenytoin or Levetiracetam (60mg/kg)'
+    ],
+    postopDisposition: 'ICU for Neuro-monitoring'
   },
   {
     id: 'tension-pneumothorax',
@@ -645,7 +797,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'ETCO2': 'Decreased (due to low cardiac output/perfusion)',
       'pH': 'Respiratory Acidosis'
     },
-    differentialDiagnosis: ['Cardiac Tamponade', 'Massive Pulmonary Embolism', 'Simple Pneumothorax', 'Hemothorax']
+    differentialDiagnosis: ['Cardiac Tamponade', 'Massive Pulmonary Embolism', 'Simple Pneumothorax', 'Hemothorax'],
+    anesthesiaStrategy: [
+      'DECOMPRESS: Must be done before induction / PPV to avoid total collapse',
+      'ABC: 100% O2; avoid high airway pressures; keep SBP > 90',
+      'DRAIN: Confirm "Safe Triangle" for chest drain insertion',
+      'MONITOR: Watch for re-expansion pulmonary edema'
+    ],
+    preopOptimization: [
+      'Needle decompression (2nd ICS MCL or 5th ICS AAL)',
+      'High-flow O2'
+    ],
+    postopDisposition: 'Recovery / HDU (Drain monitoring)'
   },
   {
     id: 'aki',
@@ -693,7 +856,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'pH': '< 7.35 (Metabolic Acidosis)',
       'Urea': 'Elevated (> 10-15 mmol/L)'
     },
-    differentialDiagnosis: ['Pre-renal Azotemia', 'Acute Tubular Necrosis (ATN)', 'Post-renal Obstruction', 'Interstitial Nephritis']
+    differentialDiagnosis: ['Pre-renal Azotemia', 'Acute Tubular Necrosis (ATN)', 'Post-renal Obstruction', 'Interstitial Nephritis'],
+    anesthesiaStrategy: [
+      'FLUID: Balanced Crystalloids; avoid 0.9% NaCl (risk of hyperchloremic acidosis)',
+      'MAP: Maintain MAP > 65-70 to ensure renal perfusion',
+      'DRUGS: Adjust doses (Morphine, Vecuronium, Sugammadex); avoid NSAIDs',
+      'ACID/BASE: Correct severe metabolic acidosis (pH < 7.2)'
+    ],
+    preopOptimization: [
+      'Euvolemia (neither dehydrated nor overloaded)',
+      'Hold ACEi/ARBs/NSAIDs day of surgery'
+    ],
+    postopDisposition: 'Ward (if mild) / ICU (if Stage 3 or RRT needed)',
+    linkedScoreIds: ['aki_kdigo']
   },
   {
     id: 'pulmonary-embolism',
@@ -745,7 +920,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'BNP/NT-proBNP': 'Elevated (indicates RV strain)',
       'PaO2': 'Reduced (< 10 kPa)'
     },
-    differentialDiagnosis: ['Acute Myocardial Infarction', 'Pneumonia / Pleural Effusion', 'Tension Pneumothorax', 'Pericardial Tamponade']
+    differentialDiagnosis: ['Acute Myocardial Infarction', 'Pneumonia / Pleural Effusion', 'Tension Pneumothorax', 'Pericardial Tamponade'],
+    anesthesiaStrategy: [
+      'RV PRELOAD: Cautious fluid bolus (250ml); do not overdistend RV',
+      'MAP: Maintain MAP > 65 with Noradrenaline (ensures RV perfusion)',
+      'THROMBOLYSIS: If SBP < 90 (Massive PE), give Alteplase',
+      'AIRWAY: Avoid high PEEP; minimize airway pressures during PPV'
+    ],
+    preopOptimization: [
+      'Anticoagulate immediately (UFH/LMWH)',
+      'Bedside Echo to assess RV function'
+    ],
+    postopDisposition: 'ICU (Massive) / HDU (Submassive)',
+    linkedScoreIds: ['caprini']
   },
   {
     id: 'hyperkalemia',
@@ -792,7 +979,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Sodium Bicarbonate': 'Often low (Acidosis worsens hyperkalemia shift)',
       'Calcium (Ionized)': 'Low calcium worsens cardiac instability'
     },
-    differentialDiagnosis: ['Spurious / Hemolysis (Pseudohyperkalemia)', 'Renal Failure (AKI/CKD)', 'Metabolic Acidosis', 'Rhabdomyolysis']
+    differentialDiagnosis: ['Spurious / Hemolysis (Pseudohyperkalemia)', 'Renal Failure (AKI/CKD)', 'Metabolic Acidosis', 'Rhabdomyolysis'],
+    anesthesiaStrategy: [
+      'STABILIZE: Calcium Gluconate 10ml 10% IV (protects membrane)',
+      'SHIFT: Insulin (10U) + Glucose (50ml 50%) + Salbutamol nebs',
+      'REMOVE: Furosemide or Hemodialysis if refractory',
+      'ECG: Continuous monitoring for peaked T / wide QRS'
+    ],
+    preopOptimization: [
+      'Target K+ < 5.5 mmol/L for elective surgery',
+      'Pre-op dialysis if CKD patient'
+    ],
+    postopDisposition: 'HDU (continued monitoring)'
   },
   {
     id: 'massive-hemorrhage',
@@ -840,7 +1038,20 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': 'Markedly Elevated (> 4.0 mmol/L)',
       'Ionized Calcium': 'Reduced (< 1.1 mmol/L due to citrate binding)'
     },
-    differentialDiagnosis: ['Coagulopathy (Inherent)', 'Septic Shock (Initial presentations)', 'Cardiac Failure', 'Anaphylactic Shock']
+    differentialDiagnosis: ['Coagulopathy (Inherent)', 'Septic Shock (Initial presentations)', 'Cardiac Failure', 'Anaphylactic Shock'],
+    anesthesiaStrategy: [
+      'MHP ACTIVATION: Call early; use dedicated runner',
+      '1:1:1 RATIO: RBC:FFP:PLTs to avoid dilutional coagulopathy',
+      'CALCIUM: Give 10ml 10% Calcium Chloride per 4 units (Citrate toxicity)',
+      'TEMPERATURE: Use high-flow warmers (Level1); maintain > 36°C',
+      'PERMISSIVE HYPOTENSION: Target SBP 80-90 until surgical control'
+    ],
+    preopOptimization: [
+      'TXA 1g bolus + 1g infusion',
+      'Confirm Blood Type / Cross-match',
+      'Large bore IV x 2 (14G)'
+    ],
+    postopDisposition: 'ICU (Resuscitation / Coagulopathy management)'
   },
   {
     id: 'stroke',
@@ -888,7 +1099,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Blood Glucose': 'Must be checked to rule out hypoglycemia mimic',
       'INR/APTT': 'Assessment of bleeding risk for lysis'
     },
-    differentialDiagnosis: ['Hypoglycemia', 'Todd\'s Palsy (Post-ictal state)', 'Complex Migraine', 'Conversion Disorder']
+    differentialDiagnosis: ['Hypoglycemia', 'Todd\'s Palsy (Post-ictal state)', 'Complex Migraine', 'Conversion Disorder'],
+    anesthesiaStrategy: [
+      'PERFUSION: Target MAP > 85 to maintain collateral flow unless lysing',
+      'AIRWAY: RSI if GCS < 8 or loss of protective reflexes',
+      'TIVA: Propofol/Remifentanil allows rapid wake-up/neuro-assessment',
+      'GLUCOSE: Maintain 4-10 mmol/L; avoid neuro-toxicity',
+      'TEMPERATURE: Strict normothermia'
+    ],
+    preopOptimization: [
+      'CT Head (rule out hemorrhage)',
+      'Glucose check (rule out mimic)'
+    ],
+    postopDisposition: 'Stroke Unit / Neuro-ICU'
   },
   {
     id: 'myasthenia-crisis',
@@ -936,7 +1159,20 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Negative Inspiratory Force (NIF)': 'Reduced (< -20 to -30 cmH2O)',
       'PaCO2': 'Elevated (late sign of respiratory failure)'
     },
-    differentialDiagnosis: ['Guillain-Barré Syndrome', 'Cholinergic Crisis (Over-medication)', 'Botulism', 'Lambert-Eaton Syndrome']
+    differentialDiagnosis: ['Guillain-Barré Syndrome', 'Cholinergic Crisis (Over-medication)', 'Botulism', 'Lambert-Eaton Syndrome'],
+    anesthesiaStrategy: [
+      'NMBAs: Avoid if possible; if required, use 1/10th dose of NDMR',
+      'SUXAMETHONIUM: Resistant; avoid if possible (risk of unpredictable block)',
+      'SUGAMMADEX: Gold standard for reversal to avoid cholinergic surge',
+      'EXTUBATION: Must be wide awake with FVC > 15ml/kg',
+      'OPIOIDS: Use short-acting (Remifentanil) to avoid respiratory suppression'
+    ],
+    preopOptimization: [
+      'Vital Capacity assessment',
+      'Optimization of Pyridostigmine/Steroids',
+      'Bridge with IVIG/PLEX if required'
+    ],
+    postopDisposition: 'ICU / HDU (High risk of ventilatory failure)'
   },
   {
     id: 'ponv',
@@ -978,7 +1214,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     expectedLabDeviations: {
       'Serum Electrolytes': 'May show Hypokalemia/Hypochloremic Alkalosis if prolonged vomiting'
     },
-    differentialDiagnosis: ['Opioid Side Effects', 'Gastric Outlet Obstruction', 'Increased ICP', 'Hypotension (orthostatic)']
+    differentialDiagnosis: ['Opioid Side Effects', 'Gastric Outlet Obstruction', 'Increased ICP', 'Hypotension (orthostatic)'],
+    anesthesiaStrategy: [
+      'MULTIMODAL: DEX (at induction) + Ondansetron (at end)',
+      'TIVA: Propofol-based anesthesia reduces risk by 25-50%',
+      'HYDRATION: Large volume crystalloid (1.5-2L)',
+      'OPIOID SPARING: Local/Regional + Paracetamol/NSAIDs',
+      'AVOID: Nitrous Oxide and high-dose Volatile agents'
+    ],
+    preopOptimization: [
+      'Apfel score calculation',
+      'Long fasting times avoidance (clear fluids up to 2h)'
+    ],
+    postopDisposition: 'PACU / Ward'
   },
   {
     id: 'hypoglycemia',
@@ -1023,7 +1271,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Potassium': 'May be low (if insulin-induced shift)',
       'Ketones': 'Low in hyperinsulinemia, High in starvation/DKA'
     },
-    differentialDiagnosis: ['Vasovagal Syncope', 'TIA / Stroke', 'Seizure (Post-ictal)', 'Adrenal Insufficiency']
+    differentialDiagnosis: ['Vasovagal Syncope', 'TIA / Stroke', 'Seizure (Post-ictal)', 'Adrenal Insufficiency'],
+    anesthesiaStrategy: [
+      'GLUCOSE: 100ml 10% Dextrose titrated to BG > 4.0 mmol/L',
+      'MONITOR: Check BG every 15 mins during resuscitation',
+      'TIVA: Propofol may mask symptoms; monitor BG frequently',
+      'POST-OP: Continue 5% or 10% Dextrose infusion'
+    ],
+    preopOptimization: [
+      'BG check pre-induction',
+      'Adjustment of oral meds/insulin'
+    ],
+    postopDisposition: 'Ward / HDU (if refractory)'
   },
   {
     id: 'raised-icp',
@@ -1070,7 +1329,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'CPP': 'Decreased (< 60 mmHg)',
       'Serum Osmolality': 'Increased with therapy (> 300-320 mOsm/kg)'
     },
-    differentialDiagnosis: ['Hypertensive Encephalopathy', 'Meningitis / Encephalitis', 'Venous Sinus Thrombosis', 'Intracranial Mass / Tumor']
+    differentialDiagnosis: ['Hypertensive Encephalopathy', 'Meningitis / Encephalitis', 'Venous Sinus Thrombosis', 'Intracranial Mass / Tumor'],
+    anesthesiaStrategy: [
+      'MAP: Maintain Cerebral Perfusion Pressure (CPP) > 60 mmHg',
+      'CO2: Target PaCO2 4.5 - 5.0 kPa; avoid extreme hyperventilation',
+      'POSITION: 30-degree head up; neutral neck position',
+      'TIVA: Propofol reduces CMRO2 and CBF (Gold standard)',
+      'HYPERTONIC: 150ml 3% NaCl or Mannitol for acute herniation'
+    ],
+    preopOptimization: [
+      'Neurological Baseline',
+      'Osmotherapy (Mannitol)'
+    ],
+    postopDisposition: 'Neuro-ICU'
   },
   {
     id: 'transfusion-reactions',
@@ -1117,7 +1388,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Protein (Edema fluid)': 'High in TRALI (exudate), Low in TACO (transudate)',
       'Chest X-ray': 'Bilateral infiltrates in both stages'
     },
-    differentialDiagnosis: ['Septic Shock', 'Anaphylactic Reaction', 'Hemolytic Transfusion Reaction', 'Cardiogenic Edema']
+    differentialDiagnosis: ['Septic Shock', 'Anaphylactic Reaction', 'Hemolytic Transfusion Reaction', 'Cardiogenic Edema'],
+    anesthesiaStrategy: [
+      'STOP: Disconnect blood immediately and discard tubing',
+      'SUPPORT: 100% O2; IV Fluid (NaCl 0.9%) to maintain line',
+      'DIURETICS: 40mg Furosemide if TACO suspected',
+      'MONITOR: Watch for Hemolytic reaction (Hypotension + Dark urine)',
+      'TRYPTASE: Draw baseline if anaphylaxis suspected'
+    ],
+    preopOptimization: [
+      'Check Blood Type Compatibility',
+      'Review previous transfusion history'
+    ],
+    postopDisposition: 'Ward / HDU (if severe)'
   },
   {
     id: 'anaphylaxis-periop',
@@ -1160,7 +1443,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': 'Increased due to low cardiac output/tissue hypoxia',
       'ABG': 'Mixed respiratory/metabolic acidosis'
     },
-    differentialDiagnosis: ['Vaso-vagal reaction', 'Bronchospasm (Asthmatic)', 'Tension Pneumothorax', 'Local Anesthetic Toxicity (LAST)']
+    differentialDiagnosis: ['Vaso-vagal reaction', 'Bronchospasm (Asthmatic)', 'Tension Pneumothorax', 'Local Anesthetic Toxicity (LAST)'],
+    anesthesiaStrategy: [
+      'STOP TRIGGERS: Cease all infusions; notify surgeon',
+      'ADRENALINE: Titrate 10-50mcg IV boluses based on BP',
+      'FLUID: Massive leak; target 20-40ml/kg balanced crystalloid',
+      'INTUBATION: Secure airway early if angioedema develops',
+      'DISPOSITION: Observe in ICU (Biphasic risk for 24h)'
+    ],
+    preopOptimization: [
+      'Allergy History Audit',
+      'Availability of Emergency Kit'
+    ],
+    postopDisposition: 'ICU (24h Monitoring)'
   },
   {
     id: 'hypernatremia',
@@ -1207,7 +1502,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Osmolality': 'Increased (> 295 mOsm/kg)',
       'Urine Osmolality': 'High in dehydration (> 600), Low in Diabetes Insipidus (< 300)'
     },
-    differentialDiagnosis: ['Diabetes Insipidus (Central/Nephrogenic)', 'Osmotic Diuresis (Glycosuria)', 'Inadequate Water Intake', 'Iatrogenic (Sodium Bicarbonate/Saline)']
+    differentialDiagnosis: ['Diabetes Insipidus (Central/Nephrogenic)', 'Osmotic Diuresis (Glycosuria)', 'Inadequate Water Intake', 'Iatrogenic (Sodium Bicarbonate/Saline)'],
+    anesthesiaStrategy: [
+      'SLOW CORRECTION: Target Na+ drop < 0.5 mmol/L/hr',
+      'FLUID: 5% Dextrose or 0.45% NaCl are preferred',
+      'MONITOR: Check Na+ every 4 hours to avoid cerebral edema',
+      'FREE WATER: NG water administration is highly effective'
+    ],
+    preopOptimization: [
+      'Free water deficit calculation',
+      'Serum/Urine Osmolality check'
+    ],
+    postopDisposition: 'HDU / Ward'
   },
   {
     id: 'acs',
@@ -1254,7 +1560,20 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Creatine Kinase (CK-MB)': 'Elevated',
       'ECG': 'ST Elevation (STEMI) or Depression/T inversion (NSTEMI)'
     },
-    differentialDiagnosis: ['Aortic Dissection', 'Pulmonary Embolism', 'Pericarditis / Myocarditis', 'Esophageal Spasm']
+    differentialDiagnosis: ['Aortic Dissection', 'Pulmonary Embolism', 'Pericarditis / Myocarditis', 'Esophageal Spasm'],
+    anesthesiaStrategy: [
+      'OXYGEN: Target SpO2 > 94%; avoid hyperoxia',
+      'BALANCE: Maintain low HR and stable BP (O2 supply vs demand)',
+      'MONITOR: Continuous 5-lead ECG with ST-segment analysis',
+      'DAPT: Caution with neuraxial if on Clopidogrel/Ticagrelor',
+      'HEARING: Notify Cardiology for potential urgent PCI'
+    ],
+    preopOptimization: [
+      '12-lead ECG',
+      'Troponin baseline',
+      'Aspirin 300mg / Ticagrelor 180mg'
+    ],
+    postopDisposition: 'CCU / Cardiac ICU'
   },
   {
     id: 'cap',
@@ -1308,7 +1627,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Procalcitonin': 'Elevated (> 0.5 ng/mL)',
       'PaO2': 'Reduced (< 11 kPa)'
     },
-    differentialDiagnosis: ['Pulmonary Edema', 'Pulmonary Embolism', 'Lung Malignancy / Obstruction', 'Pleural Effusion (non-infected)']
+    differentialDiagnosis: ['Pulmonary Edema', 'Pulmonary Embolism', 'Lung Malignancy / Obstruction', 'Pleural Effusion (non-infected)'],
+    anesthesiaStrategy: [
+      'VENTILATION: Lung-protective (6ml/kg PBW); Plateau < 30 cmH2O',
+      'PEEP: Titrate to shift SpO2 92-96%; avoid barotrauma',
+      'FLUIDS: Conservative "dry" strategy to avoid worsening ARDS',
+      'WEANING: Daily sedation vacation and SBT'
+    ],
+    preopOptimization: [
+      'Antibiotics within 4h',
+      'Sputum/Blood Cultures'
+    ],
+    postopDisposition: 'Ward / HDU'
   },
   {
     id: 'hap-vap',
@@ -1353,7 +1683,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PaO2/FiO2 Ratio': 'Declining (< 300 mmHg)',
       'Sputum/BAL Culture': 'Positive for pathogenic organisms'
     },
-    differentialDiagnosis: ['ARDS', 'TACO / TRALI', 'Pulmonary Contusion / Hemorrhage', 'Atelectasis']
+    differentialDiagnosis: ['ARDS', 'TACO / TRALI', 'Pulmonary Contusion / Hemorrhage', 'Atelectasis'],
+    anesthesiaStrategy: [
+      'VAP BUNDLE: HOB 30-45°; subglottic suction; oral chlorhexidine',
+      'RECRUITMENT: Cautious maneuvers if P/F < 150',
+      'ANTIBIOTICS: Broad-spectrum (Piperacillin/Tazobactam) early',
+      'DISPOSITION: ICU for multiorgan support'
+    ],
+    preopOptimization: [
+      'Mini-BAL for culture',
+      'Optimization of MV settings'
+    ],
+    postopDisposition: 'ICU'
   },
   {
     id: 'aspiration-pneumonia',
@@ -1398,7 +1739,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PaO2': 'Reduced (V/Q mismatch)',
       'WBC': 'Delayed elevation (if infection develops)'
     },
-    differentialDiagnosis: ['Mendelson\'s Syndrome (Chemical Pneumonitis)', 'Foreign Body Aspiration', 'Atelectasis', 'Pulmonary Edema']
+    differentialDiagnosis: ['Mendelson\'s Syndrome (Chemical Pneumonitis)', 'Foreign Body Aspiration', 'Atelectasis', 'Pulmonary Edema'],
+    anesthesiaStrategy: [
+      'AIRWAY: RSI with cricoid pressure for induction',
+      'SUCTION: Oropharyngeal suctioning before and during induction',
+      'VENTILATION: Similar to ARDS (protective 6ml/kg)',
+      'ANTIBIOTICS: Cover anaerobes if chronic aspiration / GI obstruction'
+    ],
+    preopOptimization: [
+      'NG tube decompression',
+      'Sodium Citrate pre-med'
+    ],
+    postopDisposition: 'HDU / ICU (if severe)'
   },
   {
     id: 'c-diff',
@@ -1440,7 +1792,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Creatinine': 'Elevated (indicates severity)',
       'Albumin': 'Low (< 30 g/L indicates severe disease)'
     },
-    differentialDiagnosis: ['Antibiotic-associated diarrhea (non-C.diff)', 'Ischemic Colitis', 'Inflammatory Bowel Disease (IBD) flare', 'Sepsis (non-GI)']
+    differentialDiagnosis: ['Antibiotic-associated diarrhea (non-C.diff)', 'Ischemic Colitis', 'Inflammatory Bowel Disease (IBD) flare', 'Sepsis (non-GI)'],
+    anesthesiaStrategy: [
+      'ISOLATION: Standard contact precautions; soap and water wash',
+      'FLUIDS: High loss via diarrhea; target euvolemia',
+      'OPIOIDS: Use with caution; risk of masking toxic megacolon',
+      'SURGERY: Monitor for peritonitis / shock'
+    ],
+    preopOptimization: [
+      'Electrolyte correction (K+, Mg2+)',
+      'Stool toxin confirmation'
+    ],
+    postopDisposition: 'Isolation Ward'
   },
   {
     id: 'paracetamol-od',
@@ -1484,7 +1847,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'INR': 'Prolonged (indicates liver failure)',
       'Lactate': 'Elevated (indicates severe toxicity/prognosis)'
     },
-    differentialDiagnosis: ['Viral Hepatitis', 'Ischemic Hepatitis (Shock Liver)', 'Amanita Phalloides (Mushroom) Poisoning', 'Other Hepatotoxic drug OD']
+    differentialDiagnosis: ['Viral Hepatitis', 'Ischemic Hepatitis (Shock Liver)', 'Amanita Phalloides (Mushroom) Poisoning', 'Other Hepatotoxic drug OD'],
+    anesthesiaStrategy: [
+      'NAC: Continue 21h infusion throughout perioperative period',
+      'COAGULOPATHY: INR > 1.5 indicates liver dysfunction; avoid neuraxial',
+      'GLUCOSE: High risk of hypoglycemia; monitor hourly',
+      'METABOLISM: Reduced drug clearance; scale down doses'
+    ],
+    preopOptimization: [
+      'Paracetamol level (nomogram check)',
+      'LFTs / INR / Creatinine baseline'
+    ],
+    postopDisposition: 'HDU / Liver Unit'
   },
   {
     id: 'opioid-od',
@@ -1525,7 +1899,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'SpO2': 'Reduced (< 92%)',
       'Blood Glucose': 'Re-check to rule out hypoglycemia mimic'
     },
-    differentialDiagnosis: ['Benzodiazepine Overdose', 'Brainstem Stroke / Hemorrhage', 'Hypoglycemic Coma', 'Organophosphate Poisoning']
+    differentialDiagnosis: ['Benzodiazepine Overdose', 'Brainstem Stroke / Hemorrhage', 'Hypoglycemic Coma', 'Organophosphate Poisoning'],
+    anesthesiaStrategy: [
+      'ANTAGONIST: Naloxone 40-400mcg titrated to respiratory rate > 10',
+      'AIRWAY: Secure airway if GCS < 8 or pulmonary edema (non-cardiogenic)',
+      'MONITOR: Watch for withdrawal symptoms if Naloxone given rapidly',
+      'RE-NARCOTIZATION: Naloxone half-life is shorter than most opioids'
+    ],
+    preopOptimization: [
+      'GCS assessment',
+      'Pupillary check (miosis)'
+    ],
+    postopDisposition: 'Ward / HDU (if infusion required)'
   },
   {
     id: 'bb-ccb-toxicity',
@@ -1560,7 +1945,27 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Blood Glucose': '4.0 - 7.0 mmol/L',
       'Potassium': '3.5 - 5.0 mmol/L',
       'Ionized Calcium': '1.1 - 1.3 mmol/L'
-    }
+    },
+    diagnosticCriteria: [
+      'History of ingestion + Refractory Bradycardia/Hypotension + Hyperglycemia (CCB) or Hypoglycemia (BB)'
+    ],
+    expectedLabDeviations: {
+      'Glucose': 'Elevated (CCB inhibits insulin) or Low (BB)',
+      'Potassium': 'Hypokalemia (with insulin therapy)',
+      'Lactate': 'Elevated (Shock)'
+    },
+    differentialDiagnosis: ['Tricyclic Antidepressant (TCA) OD', 'Organophosphate Poisoning', 'Myocardial Infarction / Cardiogenic Shock', 'Hyperkalemia'],
+    anesthesiaStrategy: [
+      'INOTROPES: Glucagon (5-10mg) for BB; Calcium for CCB',
+      'HIET: High-dose Insulin Euglycemic Therapy (1 unit/kg/hr)',
+      'PACING: Consider transvenous pacing for refractory bradycardia',
+      'MAP: Maintain SVR with Noradrenaline; contractility with Adrenaline'
+    ],
+    preopOptimization: [
+      'ECG (PR interval / Heart block)',
+      'Echocardiogram (EF assessment)'
+    ],
+    postopDisposition: 'ICU (Cardiovascular support)'
   },
   {
     id: 'upper-gi-bleeding',
@@ -1615,7 +2020,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Urea/Creatinine Ratio': 'Increased'
     },
     differentialDiagnosis: ['Variceal Bleeding', 'Peptic Ulcer Disease', 'Mallory-Weiss Tear', 'Lower GI Bleeding (if massive)'],
-    notes: 'Restrictive transfusion strategy (target Hb 7-9 g/dL) is associated with better outcomes than liberal strategy in non-massive UGIB.'
+    anesthesiaStrategy: [
+      'RSI: Mandatory for induction; assume full stomach (blood)',
+      'RESUSCITATION: MHP if active spurting; target MAP 65 (permissive)',
+      'OCTREOTIDE: 50mcg bolus then infusion if variceal',
+      'INTUBATION: Large bore ETT to facilitate endoscopy if needed'
+    ],
+    preopOptimization: [
+      'Cross-match 4-6 units',
+      'Terlipressin / Antibiotics (if cirrhotic)'
+    ],
+    postopDisposition: 'HDU / ICU'
   },
   {
     id: 'viral-pneumonia',
@@ -1668,7 +2083,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'D-dimer': 'Elevated (especially in COVID-19)'
     },
     differentialDiagnosis: ['Bacterial Pneumonia', 'Pneumocystis Jirovecii Pneumonia (PJP)', 'Heart Failure (Pulmonary Edema)', 'Vaping-associated Lung Injury (EVALI)'],
-    notes: 'Fluid restriction is crucial in viral pneumonia to prevent worsening of lung injury and progression to ARDS.'
+    anesthesiaStrategy: [
+      'PROTECTION: Avoid aerosol-generating procedures if possible',
+      'PRONE: Consider early prone positioning if P/F < 150',
+      'STEROIDS: Dexamethasone 6mg for COVID-19 / severe viral ARDS',
+      'CO-INFECTION: Cover for bacterial superinfection'
+    ],
+    preopOptimization: [
+      'Viral PCR confirmation',
+      'Chest Imaging (Ground-glass evaluation)'
+    ],
+    postopDisposition: 'HDU / ICU'
   },
   {
     id: 'acute-mesenteric-ischemia',
@@ -1721,7 +2146,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'pH': '< 7.35 (Metabolic Acidosis indicates bowel ischemia)'
     },
     differentialDiagnosis: ['Perforated Viscus / Peptic Ulcer', 'Acute Pancreatitis', 'Ruptured Aortic Aneurysm', 'Intestinal Obstruction / Volvulus'],
-    notes: 'Time is bowel. Early diagnosis via CTA and rapid intervention are critical to prevent massive bowel necrosis and death.'
+    anesthesiaStrategy: [
+      'FLUIDS: Aggressive balanced crystalloid; high lactate common',
+      'ACIDOSIS: Avoid aggressive bicarb; prioritize source control',
+      'VASOPRESSORS: Avoid pure alpha-agonists; maintain perfusion',
+      'POST-OP: High risk of abdominal compartment syndrome'
+    ],
+    preopOptimization: [
+      'Lactate / ABG assessment',
+      'CT Angiogram'
+    ],
+    postopDisposition: 'ICU'
   },
   {
     id: 'dic',
@@ -1773,7 +2208,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'D-dimer': 'Elevated (> 5x normal)'
     },
     differentialDiagnosis: ['Liver Disease (Coagulopathy of)', 'Thrombotic Thrombocytopenic Purpura (TTP)', 'Heparin-Induced Thrombocytopenia (HIT)', 'Immune Thrombocytopenia (ITP)'],
-    notes: 'DIC is a consumptive coagulopathy. Management focuses on treating the underlying cause and replacing consumed factors only if bleeding or pre-procedure.'
+    anesthesiaStrategy: [
+      'SOURCE: Treat underlying cause (Sepsis/Trauma/OB) primary',
+      'REPLACEMENT: FFP (15ml/kg), Cryo (1 unit/10kg), PLTs (> 50k)',
+      'NEURAXIAL: Strictly contraindicated due to hematoma risk',
+      'BLEEDING: Monitor surgical field; use TACO/TRALI precautions'
+    ],
+    preopOptimization: [
+      'Full coagulation panel / Fibrinogen',
+      'Correlation with TEG/ROTEM'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'adrenal-crisis',
@@ -1821,7 +2266,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Cortisol': 'Low (< 100 nmol/L in acute stress)'
     },
     differentialDiagnosis: ['Sepsis / Septic Shock', 'Acute Myocardial Infarction', 'Acute Pancreatitis', 'Massive Pulmonary Embolism'],
-    notes: 'In refractory shock, empirical hydrocortisone should be given even if suspicion of adrenal crisis is low, as the risk of omission outweighs the risk of a single dose.'
+    anesthesiaStrategy: [
+      'STEROIDS: Hydrocortisone 100mg IV stat then 200mg/24h',
+      'FLUIDS: NaCl 0.9% to correct hyponatremia and volume loss',
+      'GLUCOSE: Monitor for hypoglycemia; supplement as needed',
+      'VASOPRESSORS: Refractory shock if steroids not given early'
+    ],
+    preopOptimization: [
+      'Serum Sodium / Potassium / Glucose',
+      'Cortisol / ACTH levels (if time permits)'
+    ],
+    postopDisposition: 'HDU'
   },
   {
     id: 'acute-asthma',
@@ -1870,7 +2325,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'pH': '< 7.35 (Respiratory Acidosis)'
     },
     differentialDiagnosis: ['Acute Pulmonary Edema', 'Upper Airway Obstruction / Epiglottitis', 'Acute COPD Exacerbation', 'Anaphylaxis'],
-    notes: 'A "normal" PaCO2 in a severely breathless asthmatic is a life-threatening sign of impending respiratory failure and exhaustion.'
+    anesthesiaStrategy: [
+      'VENTILATION: Avoid high pressures; target long expiratory time (1:3 or 1:4)',
+      'KETAMINE: Preferred induction agent (bronchodilator properties)',
+      'AUTO-PEEP: Monitor for breath-stacking; disconnect circuit if occurs',
+      'MAGNESIUM: 2g IV over 20 mins to reduce smooth muscle tone',
+      'VOLATILE: Sevoflurane is a potent bronchodilator; useful for maintenance'
+    ],
+    preopOptimization: [
+      'Aggressive nebulization (Salbutamol/Ipratropium)',
+      'Coaching on inhaler technique',
+      'Optimization of steroid therapy'
+    ],
+    postopDisposition: 'HDU / ICU (High risk of dynamic hyperinflation)'
   },
   {
     id: 'copd-exacerbation',
@@ -1918,7 +2385,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PaO2': 'Reduced (< 8.0 kPa on air)'
     },
     differentialDiagnosis: ['Pneumonia', 'Heart Failure (Congestive)', 'Pneumothorax', 'Acute Pulmonary Embolism'],
-    notes: 'The goal of oxygen therapy in COPD is to maintain SpO2 88-92% to avoid abolishing the hypoxic respiratory drive and causing life-threatening hypercapnia.'
+    anesthesiaStrategy: [
+      'NIV: Preferred over invasive ventilation if possible',
+      'OXYGEN: Target SpO2 88-92% (Hypoxic drive maintenance)',
+      'DRUGS: Avoid opioids and sedatives that depress respiratory drive',
+      'CLEARANCE: Ensure aggressive post-operative chest physiotherapy',
+      'NEURAXIAL: Thoracic Epidural / PECS block to reduce opioid reliance'
+    ],
+    preopOptimization: [
+      'Establish baseline ABG / SpO2',
+      'Incentive spirometry'
+    ],
+    postopDisposition: 'HDU / Ward (with enhanced monitoring)'
   },
   {
     id: 'acute-pancreatitis',
@@ -1970,58 +2448,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'CRP': '> 150 mg/L (at 48h)'
     },
     differentialDiagnosis: ['Perforated Peptic Ulcer', 'Acute Mesenteric Ischemia', 'Biliary Colic / Cholecystitis', 'Myocardial Infarction'],
-    notes: 'Aggressive fluid resuscitation in the first 24 hours is the mainstay of treatment. Ringer\'s Lactate is the preferred fluid.'
+    anesthesiaStrategy: [
+      'FLUIDS: Ringer\'s Lactate (Balanced Crystalloid) preferred to reduce inflammation',
+      'ANALGESIA: IV Opioid (Fentanyl) / PCEA (Thoracic Epidural) if coagulopathy absent',
+      'MONITOR: Watch for hypocalcemia (Saponification) and hypomagnesemia',
+      'PROTECTION: High risk of ARDS (Pancreatitis-associated Lung Injury)'
+    ],
+    preopOptimization: [
+      'Aggressive fluid loading (250-500ml/hr)',
+      'Check Calcium and Magnesium'
+    ],
+    postopDisposition: 'HDU / ICU (if severe)'
   },
-  {
-    id: 'preeclampsia-eclampsia',
-    name: 'Preeclampsia & Eclampsia',
-    category: 'Obstetrics > Emergency',
-    severity: 'critical',
-    diagnosis: [
-      'Hypertension (SBP >= 140 or DBP >= 90) after 20 weeks',
-      'Proteinuria or End-organ dysfunction (Renal, Hepatic, CNS)',
-      'Eclampsia: New-onset generalized seizures in preeclampsia'
-    ],
-    immediateActions: [
-      'Seizure Control: Magnesium Sulfate 4g IV (loading) + 1g/h (infusion)',
-      'Antihypertensives: Labetalol (IV/PO) or Hydralazine (IV)',
-      'Fluid Management: Restricted (80 mL/h) to prevent pulmonary edema',
-      'Plan for Delivery: The only definitive treatment'
-    ],
-    secondaryManagement: [
-      'Monitor for HELLP syndrome (Hemolysis, Elevated Liver enzymes, Low Platelets)',
-      'Fetal monitoring (CTG)',
-      'Postpartum monitoring for 24-48 hours'
-    ],
-    ivFluidManagement: {
-      choices: ['Balanced Crystalloids'],
-      targets: ['MAP < 110 mmHg', 'Urine output > 0.5 mL/kg/hr', 'Avoid fluid overload'],
-      monitoring: ['Strict fluid balance', 'Respiratory rate (Mg toxicity)', 'Reflexes']
-    },
-    diagram: [
-      { title: 'Diagnosis', description: 'Hypertension + Proteinuria/End-organ damage. Severe if SBP > 160 or DBP > 110.', type: 'decision' },
-      { title: 'MgS04 Loading', description: '4g IV over 10-15 mins. If seizure recurs, give further 2g bolus. Monitor for toxicity (loss of reflexes, RR < 12).', type: 'action' },
-      { title: 'BP Control', description: 'Target SBP 140-150 and DBP 90-100. Use Labetalol 200mg PO or 20mg IV boluses. Avoid rapid drops.', type: 'action' },
-      { title: 'Delivery', description: 'Stabilize mother first. Deliver if > 37 weeks, or earlier if severe features or fetal distress.', type: 'warning' }
-    ],
-    normalLabRanges: {
-      'Platelets': '> 150 x10^9/L',
-      'ALT/AST': '< 40 U/L',
-      'Creatinine': '< 90 umol/L',
-      'Uric Acid': '< 350 umol/L'
-    },
-    diagnosticCriteria: [
-      'Hypertension (>= 140/90) plus 1 or more of: Proteinuria, Renal insufficiency, Hepatic involvement, Neurological complications, or Hematological/Fetal growth restriction'
-    ],
-    expectedLabDeviations: {
-      'Urine Protein': 'Elevated (>= 300mg/24h or Protein:Creatinine ratio >= 0.3)',
-      'Platelets': 'Decreased (< 100 x10^9/L in HELLP)',
-      'ALT / AST': 'Elevated (> 2x ULN)',
-      'Creatinine': 'Elevated (> 90 umol/L)'
-    },
-    differentialDiagnosis: ['Chronic Hypertension', 'Gestational Hypertension', 'Thrombotic Thrombocytopenic Purpura (TTP)', 'Acute Fatty Liver of Pregnancy (AFLP)'],
-    notes: 'Magnesium sulfate is the drug of choice for seizure prophylaxis and treatment. Monitor for loss of tendon reflexes as an early sign of toxicity.'
-  },
+
   {
     id: 'postpartum-hemorrhage',
     name: 'Postpartum Hemorrhage (PPH)',
@@ -2069,7 +2508,19 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': 'Elevated (indicator of tissue hypoperfusion)'
     },
     differentialDiagnosis: ['Uterine Atony (Tone - 70%)', 'Trauma (Tears/Inversion - 20%)', 'Tissue (Retained products - 10%)', 'Thrombin (Coagulopathy - 1%)'],
-    notes: 'The "4 Ts" (Tone, Trauma, Tissue, Thrombin) mnemonic should guide systematic assessment of PPH etiology.'
+    anesthesiaStrategy: [
+      'MHP: Activate early; 1:1:1 resuscitation; target Fibrinogen > 2 g/L',
+      'UTEROTONICS: Oxytocin (5u slow IV), Ergometrine (0.5mg IM), Carboprost (0.25mg IM)',
+      'CALCIUM: 10ml 10% Gluconate per 4 units PRBC (Citrate toxicity)',
+      'NEURAXIAL: If stable and bleeding controlled; GA if massive hemorrhage',
+      'POST-OP: High risk of SHEEHAN SYNDROME if severe hypotension'
+    ],
+    preopOptimization: [
+      'TXA 1g IV',
+      'Cross-match 4-6 units',
+      'Uterine massage / Bakri balloon'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'amniotic-fluid-embolism',
@@ -2118,7 +2569,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PT / APTT': 'Markedly prolonged'
     },
     differentialDiagnosis: ['Pulmonary Embolism', 'Myocardial Infarction', 'Anaphylaxis', 'Local Anesthetic Systemic Toxicity (LAST)'],
-    notes: 'AFE is an unpredictable and unpreventable catastrophe. Early and aggressive treatment of the associated "explosive" DIC is vital for survival.'
+    anesthesiaStrategy: [
+      'A-OK PROTOCOL: Atropine (0.8mg), Ondansetron (4mg), Ketorolac (30mg) IV',
+      'CPR: Displace uterus (LUD); Perimortem C-section (PMCS) if no ROSC in 4 mins',
+      'RV SUPPORT: Avoid fluid overload; use Milrinone / Noradrenaline',
+      'DIC: Explosive consumptive coagulopathy; early Cryo / Fibrinogen concentrate'
+    ],
+    preopOptimization: [
+      'High-quality CPR',
+      'Intubation / 100% O2'
+    ],
+    postopDisposition: 'ICU (Multi-organ support)'
   },
   {
     id: 'pediatric-cardiac-arrest',
@@ -2167,7 +2628,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Potassium': 'May be elevated (indicator of reversible cause)'
     },
     differentialDiagnosis: ['Hypoxia / Respiratory Failure', 'Hypovolemia / Shock', 'Tension Pneumothorax', 'Toxins / Poisoning'],
-    notes: 'Prioritize high-quality chest compressions and early oxygenation. In children, the majority of arrests are respiratory in origin.'
+    anesthesiaStrategy: [
+      'PALS: 15:2 ratio (if 2 rescuers); 3:1 in neonates',
+      'AIRWAY: Avoid excessive ventilation; 1 breath every 2-3s (20-30/min)',
+      'REVERSIBLE: 4Hs & 4Ts (Hypoxia, Hypovolemia, Hyperkalemia, Hypothermia; Tension, Tamponade, Toxins, Thromboembolism)',
+      'DEFIBRILLATION: 2 J/kg initial; 4 J/kg subsequent'
+    ],
+    preopOptimization: [
+      'Weight-based drug chart (WETFLAG)',
+      'Check ETT sizes (Internal diameter = (Age/4) + 4)'
+    ],
+    postopDisposition: 'PICU'
   },
   {
     id: 'croup-severe',
@@ -2214,7 +2685,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'X-ray (Neck)': 'Steeple sign (subglottic narrowing - rarely needed for diagnosis)'
     },
     differentialDiagnosis: ['Acute Epiglottitis', 'Bacterial Tracheitis', 'Foreign Body Aspiration', 'Retropharyngeal Abscess'],
-    notes: 'Keep the child as calm as possible; agitation can worsen the airway obstruction. Avoid examining the throat if epiglottitis is suspected.'
+    anesthesiaStrategy: [
+      'STEROIDS: Dexamethasone 0.6 mg/kg (PO/IM/IV); cornerstone of therapy',
+      'NEBULIZED: Adrenaline (5ml of 1:1000) for stridor at rest',
+      'AIRWAY: Secure only if impending failure; use 0.5-1.0 size smaller ETT',
+      'INDUCTION: Gas induction (Sevoflurane) often preferred to maintain spontaneous breathing'
+    ],
+    preopOptimization: [
+      'Minimize distress (keep with parent)',
+      'Humidified Oxygen'
+    ],
+    postopDisposition: 'HDU / PICU'
   },
   {
     id: 'pediatric-sepsis',
@@ -2265,7 +2746,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Creatinine': 'Elevated for age'
     },
     differentialDiagnosis: ['Non-infectious Shock (Cardiogenic/Hypovolemic)', 'Inborn Errors of Metabolism (IEM)', 'Adrenal Insufficiency', 'Severe Dehydration'],
-    notes: 'Early antibiotic administration (within 60 mins) and rapid fluid resuscitation are the cornerstones of pediatric sepsis management.'
+    anesthesiaStrategy: [
+      'FLUIDS: 10-20 ml/kg balanced crystalloid boluses; monitor for overload',
+      'INOTROPES: Adrenaline (Cold shock) or Noradrenaline (Warm shock)',
+      'ANTIBIOTICS: Give within 1 hour of recognition',
+      'TARGETS: Capillary refill < 2s; MAP-at-age; Normal mental status'
+    ],
+    preopOptimization: [
+      'Vascular access (IO if IV fails > 90s)',
+      'Blood cultures / Lactate'
+    ],
+    postopDisposition: 'PICU'
   },
   {
     id: 'pediatric-anaphylaxis',
@@ -2309,7 +2800,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Tryptase': 'Elevated (compared to baseline; peak at 1-2 hours)'
     },
     differentialDiagnosis: ['Severe Asthma', 'Laryngospasm / Croup', 'Vasovagal Syncope', 'Foreign Body Obstruction'],
-    notes: 'IM Adrenaline is the first-line treatment. If no response after 2-3 doses, start an IV Adrenaline infusion.'
+    anesthesiaStrategy: [
+      'ADRENALINE: 10 mcg/kg IM (Anterolateral thigh); repeat every 5 mins',
+      'POSITION: Lay flat; do not allow to stand or sit up suddenly',
+      'FLUIDS: 20 ml/kg bolus if hypotensive',
+      'NEBULIZED: Salbutamol if bronchospasm persistent'
+    ],
+    preopOptimization: [
+      'Identify and remove allergen',
+      'Availability of age-appropriate emergency kit'
+    ],
+    postopDisposition: 'PICU / HDU (Observe for 12-24h)'
   },
   {
     id: 'aortic-dissection',
@@ -2358,7 +2859,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Troponin': 'May be elevated if ostial involvement'
     },
     differentialDiagnosis: ['Myocardial Infarction', 'Pulmonary Embolism', 'Acute Pericarditis / Tamponade', 'Esophageal Rupture'],
-    notes: 'Control heart rate (Esmolol) BEFORE blood pressure to prevent reflex tachycardia and increased shear stress (dP/dt).'
+    anesthesiaStrategy: [
+      'BP CONTROL: Target SBP 100-120 mmHg (Esmolol/Labetalol)',
+      'HR CONTROL: Target < 60 bpm to reduce "shear stress" (dP/dt)',
+      'MONITOR: Right radial art-line (dissection often involves L subclavian)',
+      'TEE: Essential for intraoperative assessment of flap and valve'
+    ],
+    preopOptimization: [
+      'CTA Chest/Abdomen',
+      'Cross-match 10 units',
+      'Pain control (Opioids)'
+    ],
+    postopDisposition: 'Cardiac ICU'
   },
   {
     id: 'air-embolism',
@@ -2408,7 +2920,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'pH': 'Respiratory/Metabolic Acidosis'
     },
     differentialDiagnosis: ['Pulmonary Embolism (Thromboembolic)', 'Myocardial Infarction', 'Anaphylaxis', 'Tension Pneumothorax'],
-    notes: 'The Durant position (left lateral decubitus + Trendelenburg) helps trap the air in the right ventricle and prevents outflow obstruction.'
+    anesthesiaStrategy: [
+      'FIELD: Flood surgical field with saline; stop N2O',
+      'POSITION: Durant\'s (Left lateral decubitus + Trendelenburg)',
+      'SUPPORT: 100% O2; PEEP to increase venous pressure',
+      'ASPIRATE: Attempt air removal from multi-port CVC if present'
+    ],
+    preopOptimization: [
+      'CVC placement check',
+      'Precordial Doppler (if sitting position)'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'fat-embolism',
@@ -2461,7 +2983,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Haematocrit': 'Sudden drop (anaemia from haemorrhage into lung/marrow)',
       'Serum Triglycerides': 'Elevated (fat macroglobulinaemia — non-specific)'
     },
-    differentialDiagnosis: ['Pulmonary Embolism (DVT-related)', 'ARDS (from sepsis/trauma)', 'Bone Cement Implantation Syndrome (BCIS)', 'Aspiration Pneumonia', 'Contusion Pneumonia']
+    differentialDiagnosis: ['Pulmonary Embolism (DVT-related)', 'ARDS (from sepsis/trauma)', 'Bone Cement Implantation Syndrome (BCIS)', 'Aspiration Pneumonia', 'Contusion Pneumonia'],
+    anesthesiaStrategy: [
+      'SUPPORT: 100% O2 (target PaO2 > 8 kPa); NIV/CPAP to avoid intubation',
+      'FIXATION: Definitive fracture stabilization within 24h reduces fat load',
+      'ALBUMIN: Maintain normal albumin to bind free fatty acids (FFAs)',
+      'STEROIDS: Methylprednisolone 30mg/kg may reduce incidence (Controversial)'
+    ],
+    preopOptimization: [
+      'ABG / SpO2 baseline',
+      'Fracture immobilization'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'high-spinal',
@@ -2510,7 +3043,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PaCO2': 'Elevated'
     },
     differentialDiagnosis: ['Local Anesthetic Systemic Toxicity (LAST)', 'Vasovagal Reaction', 'Anaphylaxis', 'Amniotic Fluid Embolism (AFE)'],
-    notes: 'Management is purely supportive until the local anesthetic is metabolized and the block recedes. Early airway protection is critical.'
+    anesthesiaStrategy: [
+      'AIRWAY: 100% O2; Intubate early if apnea or loss of reflexes',
+      'SUPPORT: Vasopressors (Ephedrine/Phenylephrine); Adrenaline for arrest',
+      'BRADYCARDIA: Atropine 0.5mg; Pacing if refractory',
+      'VOLUME: Balanced crystalloid bolus to compensate for vasodilation'
+    ],
+    preopOptimization: [
+      'Confirm level of block before positioning',
+      'Check availability of intubation kit'
+    ],
+    postopDisposition: 'PACU / HDU'
   },
   {
     id: 'myxedema-coma',
@@ -2560,7 +3103,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Blood Glucose': 'Hypoglycemia'
     },
     differentialDiagnosis: ['Sepsis / Septic Shock', 'Adrenal Crisis', 'Hypothermia (Accidental)', 'Severe Depression / Catatonia'],
-    notes: 'Thyroid hormone replacement should only be started after glucocorticoids have been administered to avoid precipitating an adrenal crisis.'
+    anesthesiaStrategy: [
+      'STEROIDS: Hydrocortisone 100mg IV BEFORE Thyroid meds (avoid crisis)',
+      'REPLACEMENT: T4 (200-400mcg IV) followed by T3 (5-20mcg IV)',
+      'REWARMING: Passive rewarming only; avoid active (vasodilation risk)',
+      'FLUIDS: Normal Saline (0.9%); avoid free water (SIADH risk)'
+    ],
+    preopOptimization: [
+      'TSH / T4 / Cortisol baseline',
+      'Correct hyponatremia slowly',
+      'Correct hypoglycemia'
+    ],
+    postopDisposition: 'ICU (Cardiorespiratory support)'
   },
   {
     id: 'pheochromocytoma-crisis',
@@ -2609,7 +3163,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Blood Glucose': 'Hyperglycemia'
     },
     differentialDiagnosis: ['Essential Hypertension (Crisis)', 'Thyroid Storm', 'Panic Attack / Anxiety', 'Carcinoid Syndrome'],
-    notes: 'Alpha-blockade MUST always precede beta-blockade to prevent hypertensive crisis from unopposed alpha-adrenergic stimulation.'
+    anesthesiaStrategy: [
+      'ALPHA-BLOCKADE: Phentolamine 1-5mg IV boluses or Phenoxybenzamine (long-acting)',
+      'BETA-BLOCKADE: Only AFTER alpha-blockade; Esmolol is ideal (short-acting)',
+      'RESECTION: Extreme BP swings during manipulation; have vasodilators ready',
+      'POST-OP: High risk of profound hypotension and hypoglycemia'
+    ],
+    preopOptimization: [
+      'Roizen Criteria compliance',
+      'Alpha-blockade for 10-14 days',
+      'Volume expansion (Normal Saline)'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'acute-liver-failure',
@@ -2661,7 +3226,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Glucose': 'Hypoglycemia'
     },
     differentialDiagnosis: ['Decompensated Chronic Liver Disease', 'Drug-induced Liver Injury (DILI)', 'Autoimmune Hepatitis', 'Budd-Chiari Syndrome'],
-    notes: 'Cerebral edema is a leading cause of death in ALF. Management focuses on neuro-protection and early referral for liver transplantation.'
+    anesthesiaStrategy: [
+      'CEREBRAL: Maintain CPP > 60 mmHg; avoid hypoxia/hypercapnia',
+      'NAC: Continue N-acetylcysteine infusion (improves transplant-free survival)',
+      'GLUCOSE: Monitor hourly; high risk of profound hypoglycemia',
+      'COAGULOPATHY: Avoid neuraxial (INR > 1.5); monitor for bleeding'
+    ],
+    preopOptimization: [
+      'INR / LFTs / Ammonia baseline',
+      'Blood glucose check',
+      'Evaluate for transplant'
+    ],
+    postopDisposition: 'ICU / Liver Unit'
   },
   {
     id: 'aspiration-pneumonitis',
@@ -2708,7 +3284,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'WBC': 'May be elevated (indicator of inflammatory response or early infection)'
     },
     differentialDiagnosis: ['Aspiration Pneumonia (Infectious)', 'Bacterial Pneumonia', 'Pulmonary Embolism', 'Myocardial Infarction'],
-    notes: 'Aspiration pneumonitis is a chemical injury. Prophylactic antibiotics are not indicated unless there is no resolution after 48 hours.'
+    anesthesiaStrategy: [
+      'SUCTION: Oropharyngeal suctioning before and during induction',
+      'SUPPORT: 100% O2 + CPAP; PEEP helps recruit alveoli',
+      'BRONCHOSCOPY: Only if solid matter/food particulate suspected',
+      'ANTIBIOTICS: Do not give prophylactically; start only if fails to resolve in 48h'
+    ],
+    preopOptimization: [
+      'Suctioning immediately after event',
+      'Establishing oxygen requirements'
+    ],
+    postopDisposition: 'HDU / Ward (Observe for 24h)'
   },
   {
     id: 'bronchospasm',
@@ -2755,7 +3341,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'ETCO2 Waveform': 'Sloping or "shark-fin" appearance (obstructive pattern)'
     },
     differentialDiagnosis: ['Anaphylaxis', 'Endobronchial Intubation', 'ETT Kinking', 'Tension Pneumothorax'],
-    notes: 'Volatile anesthetics are potent bronchodilators and are the first-line defense in intraoperative bronchospasm after 100% O2.'
+    anesthesiaStrategy: [
+      'VOLATILE: Deepen anesthesia; Sevoflurane is a potent bronchodilator',
+      'SALBUTAMOL: 8-10 puffs via MDI into circuit or 5mg nebulized',
+      'KETAMINE: Useful induction agent (sympathomimetic bronchodilation)',
+      'MAGNESIUM: 2g IV over 20 mins to stabilize smooth muscle',
+      'ADRENALINE: 10-50mcg IV boluses for life-threatening closure'
+    ],
+    preopOptimization: [
+      'Review asthma/COPD history',
+      'Pre-induction nebulizers'
+    ],
+    postopDisposition: 'HDU / Ward (with bronchodilator review)'
   },
   {
     id: 'laryngospasm',
@@ -2802,7 +3399,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Heart Rate': 'Bradycardia (indicator of severe hypoxia / impending arrest)'
     },
     differentialDiagnosis: ['Airway Obstruction (Soft tissue / Secretions)', 'Local Anesthetic Systemic Toxicity (LAST)', 'High Spinal', 'Amniotic Fluid Embolism (AFE)'],
-    notes: 'The Larson maneuver (laryngospasm notch pressure) combined with 100% O2 and CPAP can break over 90% of laryngospasms.'
+    anesthesiaStrategy: [
+      'LARSON\'S MANEUVER: Pressure at laryngospasm notch + CPAP (10-20 cmH2O)',
+      'PROPOFOL: 0.5 mg/kg IV may break partial spasm',
+      'SUXAMETHONIUM: 0.1-0.5 mg/kg IV for complete closure (breaks spasm instantly)',
+      'BRADYCARDIA: Atropine if hypoxic bradycardia occurs (especially in peds)'
+    ],
+    preopOptimization: [
+      'Clear secretions before extubation',
+      'Extubate while either deep or fully awake'
+    ],
+    postopDisposition: 'PACU (Monitor for negative pressure pulmonary edema)'
   },
   {
     id: 'hyponatremia',
@@ -2854,7 +3461,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Urine Sodium (SIADH)': '> 40 mmol/L',
       'Urine Osmolality (SIADH)': '> Serum Osmolality'
     },
-    differentialDiagnosis: ['TURP Syndrome', 'SIADH', 'Heart Failure (hypervolaemic)', 'Hypothyroidism', 'Adrenal Insufficiency', 'Pseudohyponatremia (hyperglycemia, hyperlipidemia)']
+    differentialDiagnosis: ['TURP Syndrome', 'SIADH', 'Heart Failure (hypervolaemic)', 'Hypothyroidism', 'Adrenal Insufficiency', 'Pseudohyponatremia (hyperglycemia, hyperlipidemia)'],
+    anesthesiaStrategy: [
+      'SYMPTOMATIC: 150ml 3% NaCl over 20 mins for seizures/coma',
+      'CORRECTION: Max 8-10 mmol/L per 24h (Risk of ODS / Myelinolysis)',
+      'FLUIDS: Avoid hypotonic fluids (0.45% NaCl, 5% Dextrose)',
+      'TURP SYNDROME: Watch for neurological signs during glycine absorption'
+    ],
+    preopOptimization: [
+      'Determine acuity (Acute < 48h vs Chronic)',
+      'Check Serum/Urine Osmolality'
+    ],
+    postopDisposition: 'HDU / ICU (if hypertonic saline required)'
   },
   {
     id: 'diabetes-insipidus',
@@ -2902,7 +3520,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Serum Osmolality': 'Elevated (> 295 mOsm/kg)'
     },
     differentialDiagnosis: ['Primary Polydipsia', 'Osmotic Diuresis (Glycosuria)', 'SIADH (opposite profile)'],
-    notes: 'Desmopressin (DDAVP) is the treatment of choice for Central DI. Nephrogenic DI requires low-salt diet and thiazides.'
+    anesthesiaStrategy: [
+      'DDAVP: Desmopressin 1-2mcg IV/SC for Central DI; titrate to urine output',
+      'REPLACEMENT: Replace urine loss mL-for-mL with 5% Dextrose or water',
+      'SODIUM: Monitor every 4-6h; avoid rapid drops if hypernatremic',
+      'PITUITARY: High risk post-transsphenoidal surgery; monitor early'
+    ],
+    preopOptimization: [
+      'Serum Sodium / Osmolality baseline',
+      'Hourly urine output monitoring',
+      'Free access to water'
+    ],
+    postopDisposition: 'HDU / Ward (with strict fluid balance)'
   },
   {
     id: 'siadh',
@@ -2951,7 +3580,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Urine Sodium': 'Elevated (> 30 mmol/L)'
     },
     differentialDiagnosis: ['Adrenal Insufficiency', 'Hypothyroidism', 'Diuretic Use', 'Heart Failure'],
-    notes: 'Fluid restriction (500-1000 mL/day) is the cornerstone of SIADH treatment.'
+    anesthesiaStrategy: [
+      'RESTRICTION: 500-1000ml/day total intake includes all IV fluids/flushes',
+      'NORMAL SALINE: Avoid 0.45% or 5% Dextrose (pre-mix 0.9% for everything)',
+      'OSMOTIC: Risk of demyelination if Na+ corrected too fast (>10/day)',
+      'EMERGENCY: 100ml 3% NaCl bolus if seizure/coma; repeat until CNS symptoms resolve'
+    ],
+    preopOptimization: [
+      'Identify and treat cause (Small Cell Lung CA, CNS, Drugs)',
+      'Strict fluid restriction'
+    ],
+    postopDisposition: 'Ward / HDU (if 3% NaCl used)'
   },
   {
     id: 'bacterial-meningitis',
@@ -3001,7 +3640,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate (CSF)': 'Elevated'
     },
     differentialDiagnosis: ['Viral Meningitis', 'Encephalitis', 'Subarachnoid Hemorrhage', 'Brain Abscess'],
-    notes: 'Early antibiotics and steroids are life-saving. Do not delay treatment if LP is contraindicated/delayed.'
+    anesthesiaStrategy: [
+      'STEROIDS: Dexamethasone 10mg IV BEFORE or WITH first antibiotic',
+      'ICP: Monitor for signs of raised ICP; avoid triggers (coughing/straining)',
+      'PROTECTION: Droplet precautions; secure airway if GCS < 8',
+      'ANTIBIOTICS: Ceftriaxone 2g IV q12h; do not delay for imaging if clinically clear'
+    ],
+    preopOptimization: [
+      'Neurological GCS assessment',
+      'C-reactive protein / Blood cultures'
+    ],
+    postopDisposition: 'HDU / ICU (if raised ICP or shock)'
   },
   {
     id: 'guillain-barre',
@@ -3049,7 +3698,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Vital Capacity': 'Decreased (< 20 mL/kg indicates need for ICU/ventilation)'
     },
     differentialDiagnosis: ['Myasthenia Gravis', 'Chronic Inflammatory Demyelinating Polyneuropathy (CIDP)', 'Transverse Myelitis', 'Periodic Paralysis'],
-    notes: 'Monitor Vital Capacity (VC) and Peak Flow frequently (q4-6h). The "20/30/40" rule: Intubate if VC < 20mL/kg, PImax < 30cmH2O, or PEmax < 40cmH2O.'
+    anesthesiaStrategy: [
+      'VENTILATION: Intubate if VC < 15ml/kg (20/30/40 rule); do not wait for hypoxia',
+      'AUTONOMIC: Severe BP swings / Bradycardia; avoid sudden positioning changes',
+      'SUXAMETHONIUM: Strictly contraindicated (risk of fatal hyperkalemia)',
+      'PAIN: Use neuropathic agents (Gabapentin/Pregabalin) for dysesthesia'
+    ],
+    preopOptimization: [
+      'Vital Capacity (VC) monitoring q4-6h',
+      'ECG for autonomic status'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'neurogenic-shock',
@@ -3096,7 +3755,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Heart Rate': 'Decreased (Bradycardia - hallmark of neurogenic shock)'
     },
     differentialDiagnosis: ['Hypovolemic Shock (Commonly co-exists in trauma)', 'Obstructive Shock (Tamponade/Tension Pneumo)', 'Septic Shock'],
-    notes: 'The goal is to maintain MAP 85-90 mmHg for 7 days post-injury to optimize spinal cord perfusion and prevent secondary damage.'
+    anesthesiaStrategy: [
+      'STABILIZATION: Maintain rigid C-spine precautions during intubation',
+      'PERFUSION: Target MAP 85-90 mmHg for 7 days (optimize spinal cord flow)',
+      'VASOPRESSORS: Noradrenaline/Phenylephrine to compensate for sympathectomy',
+      'BRADYCARDIA: Atropine / Robinol / Pacing; high risk during suctioning'
+    ],
+    preopOptimization: [
+      'Invasive arterial BP placement',
+      'Assessment of sensory/motor level'
+    ],
+    postopDisposition: 'Spinal ICU'
   },
   {
     id: 'rhabdomyolysis',
@@ -3146,7 +3815,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Myoglobin (Urine)': 'Positive'
     },
     differentialDiagnosis: ['Myositis (Inflammatory)', 'Myocardial Infarction (Elevated CK-MB)', 'Sickle Cell Crisis', 'Primary Renal Disease (Hematuria)'],
-    notes: 'Aggressive fluid resuscitation with a target urine output of 200-300 mL/hr is essential to prevent myoglobin-induced AKI.'
+    anesthesiaStrategy: [
+      'FLUIDS: Target UO 200-300ml/hr (0.9% NaCl); prevents myoglobin precipitation',
+      'HYPERKALEMIA: Rapid release from muscle; have insulin/dextrose ready',
+      'ALKALINIZATION: Sodium Bicarbonate (8.4%) to target urine pH > 6.5 (Controversial)',
+      'COMPARTMENT: High risk; monitor limb pressures if suspected'
+    ],
+    preopOptimization: [
+      'Serum CK / Potassium / Creatinine',
+      'Urine Dipstick (Heme +ve, RBC -ve)'
+    ],
+    postopDisposition: 'HDU (Renal protection)'
   },
   {
     id: 'tumor-lysis-syndrome',
@@ -3197,7 +3876,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Calcium': 'Decreased'
     },
     differentialDiagnosis: ['Acute Kidney Injury (other causes)', 'Chronic Renal Failure', 'Pseudohyperkalemia (hemolysis)'],
-    notes: 'Rasburicase is highly effective for lowering uric acid but is contraindicated in G6PD deficiency.'
+    anesthesiaStrategy: [
+      'HYDRATION: Aggressive (3L/m2/day); avoid potassium in all IV fluids',
+      'URATE: Rasburicase (if high risk) or Allopurinol (if low risk)',
+      'CALCIUM: Avoid replacement for low Ca2+ unless symptomatic (seizures)',
+      'POST-OP: High risk of renal shutdown; early RRT if refractory'
+    ],
+    preopOptimization: [
+      'Uric Acid / K+ / PO4- / Ca2+ baseline',
+      'Renal function assessment'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'neutropenic-sepsis',
@@ -3243,7 +3932,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Lactate': 'Elevated (indicator of sepsis severity)'
     },
     differentialDiagnosis: ['Non-neutropenic Sepsis', 'Drug Reaction with Eosinophilia and Systemic Symptoms (DRESS)', 'Adrenal Insufficiency', 'Malignant Fever'],
-    notes: 'Treatment with broad-spectrum antibiotics (e.g., Tazocin) must be initiated within 60 minutes of presentation.'
+    anesthesiaStrategy: [
+      'ANTIBIOTICS: Give Broad-spectrum (Piperacillin/Tazobactam) within 1h',
+      'LINE SEPSIS: High risk from central lines; sample from all ports',
+      'SOURCE: Target source control if abscess/collection; avoid unnecessary invasive procedures',
+      'TARGET: MAP > 65 mmHg; Lactate < 2.0 mmol/L'
+    ],
+    preopOptimization: [
+      'Full Blood Count (ANC < 0.5)',
+      'Aggressive crystalloid fluid loading'
+    ],
+    postopDisposition: 'ICU / Neutropenic Unit'
   },
   {
     id: 'svco',
@@ -3288,7 +3987,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'PaO2': 'May be decreased if severe airway compression'
     },
     differentialDiagnosis: ['Angioedema', 'Heart Failure (SVC distension)', 'Pericardial Tamponade', 'Mediastinitis'],
-    notes: 'Emergency stenting provides rapid symptomatic relief. High-dose dexamethasone reduces peri-tumoral edema.'
+    anesthesiaStrategy: [
+      'POSITION: Maintain head-up tilt; avoid supine as it worsens obstruction',
+      'AIRWAY: Risk of critical airway collapse; avoid relaxants if possible',
+      'ACCESS: Strictly avoid upper limb IV/CV access; use lower limb / PICC',
+      'STEROIDS: High-dose Dexamethasone for peri-tumoral edema'
+    ],
+    preopOptimization: [
+      'Imaging to assess tracheal compression',
+      'Oncology / IR review for stenting'
+    ],
+    postopDisposition: 'HDU / Oncology Unit'
   },
   {
     id: 'mscc',
@@ -3333,7 +4042,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'MRI': 'Shows vertebral collapse / epidural mass'
     },
     differentialDiagnosis: ['Transverse Myelitis', 'Spinal Epidural Abscess', 'Disc Herniation / Cauda Equina Syndrome', 'Benign Tumor'],
-    notes: 'MRI of the WHOLE spine must be performed within 24 hours. Start high-dose dexamethasone (16mg) immediately on suspicion.'
+    anesthesiaStrategy: [
+      'STABILIZATION: Rigid spinal precautions for any movement/positioning',
+      'STEROIDS: Dexamethasone 16mg daily; start before definitive treatment',
+      'MAP: Maintain MAP > 65 to ensure spinal cord perfusion',
+      'PAIN: Aggressive multimodal analgesia for bone/neuropathic pain'
+    ],
+    preopOptimization: [
+      'Urgent Whole-Spine MRI',
+      'Baseline GCS/Motor assessment'
+    ],
+    postopDisposition: 'Ward / HDU'
   },
   {
     id: 'serotonin-syndrome',
@@ -3384,7 +4103,18 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Sodium': 'Hyponatremia possible (SIADH from SSRIs)',
       'Lactate': 'Elevated in severe cases (hyperthermia, hypermetabolism)'
     },
-    differentialDiagnosis: ['Malignant Hyperthermia', 'Neuroleptic Malignant Syndrome (NMS)', 'Anticholinergic Syndrome', 'Thyroid Storm', 'Meningitis / Encephalitis']
+    differentialDiagnosis: ['Malignant Hyperthermia', 'Neuroleptic Malignant Syndrome (NMS)', 'Anticholinergic Syndrome', 'Thyroid Storm', 'Meningitis / Encephalitis'],
+    anesthesiaStrategy: [
+      'STOP: Cease all serotonergic meds (SSRIs, Tramadol, Fentanyl, Linezolid)',
+      'BENZOS: Diazepam 5-10mg IV titrated to resolve agitation/rigidity',
+      'COOLING: Active cooling if temp > 41°C; intubate and paralyze if severe',
+      'ANTIDOTE: Cyproheptadine (Serotonin antagonist) 12mg loading dose PO/NG'
+    ],
+    preopOptimization: [
+      'Determine all medications used',
+      'Correct hyperthermia and agitation'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
     id: 'alcohol-withdrawal',
@@ -3433,7 +4163,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'MCV': 'Elevated (Macrocytosis - indicator of chronic use)'
     },
     differentialDiagnosis: ['Sepsis / Meningitis', 'Hepatic Encephalopathy', 'Thyrotoxicosis', 'Sedative-Hypnotic Withdrawal'],
-    notes: 'Delirium Tremens (DTs) is a medical emergency with up to 5% mortality. High-dose benzodiazepines and aggressive electrolyte replacement are required.'
+    anesthesiaStrategy: [
+      'SEDATION: Fixed-dose or symptom-triggered Diazepam/Chlordiazepoxide',
+      'PABRINEX: High-dose thiamine (B1) IV/IM; give BEFORE glucose',
+      'ELECTROLYTES: Correct Mg2+, K+, and PO4-; high risk of arrhythmias',
+      'REFRACTORY: Consider Propofol or Phenobarbital if Benzo-refractory'
+    ],
+    preopOptimization: [
+      'CIWA-Ar score monitoring',
+      'Aggressive thiamine replacement'
+    ],
+    postopDisposition: 'PACU / Ward (with safety watch)'
   },
   {
     id: 'carbon-monoxide',
@@ -3481,7 +4221,17 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Troponin': 'May be elevated (myocardial ischemia risk)'
     },
     differentialDiagnosis: ['Cyanide Poisoning (often co-exists in fires)', 'Methemoglobinemia', 'Hypoglycemia', 'Migraine'],
-    notes: 'Standard pulse oximetry (SpO2) CANNOT distinguish between carboxyhemoglobin and oxyhemoglobin and will be falsely normal.'
+    anesthesiaStrategy: [
+      'OXYGEN: 100% O2 via non-rebreathe mask (reduces half-life from 300 to 90 mins)',
+      'HBO: Consider hyperbaric chamber if COHb > 25% or neuro symptoms',
+      'MYOCARDIAL: High risk of ischemia; monitor ECG and Troponin',
+      'CYANIDE: Assume co-poisoning in house fires if lactic acidosis is out of proportion'
+    ],
+    preopOptimization: [
+      'ABG (COHb / Lactate)',
+      '100% O2 therapy'
+    ],
+    postopDisposition: 'HDU (Neurological observation)'
   },
   {
     id: 'hypertensive-emergency',
@@ -3530,261 +4280,347 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
       'Urine': 'Proteinuria / Hematuria'
     },
     differentialDiagnosis: ['Hypertensive Urgency (No end-organ damage)', 'Ischemic Stroke', 'Anxiety / Panic Attack', 'Cocaine / Sympathomimetic Toxicity'],
-    notes: 'Avoid rapid BP reduction in ischemic stroke (unless lysing) or if brain autoregulation is likely shifted, as this can cause cerebral hypoperfusion.'
+    anesthesiaStrategy: [
+      'AUTOREGULATION: Do not reduce MAP by > 25% in 1st hour (prevents stroke)',
+      'VASODILATORS: Labetalol / Nicardipine / Nitroprusside; avoid hydralazine for rapid control',
+      'HEART FAILURE: Switch to pressure-reducing agents if pulmonary edema occurs',
+      'DISSECTION: Rapidly reduce SBP to 100-120 and HR < 60'
+    ],
+    preopOptimization: [
+      'Organ damage assessment (Creatinine, ECG, Trop)',
+      'Invasive BP monitoring'
+    ],
+    postopDisposition: 'ICU / HDU'
   },
   {
-    id: 'osa',
-    name: 'Obstructive Sleep Apnea (OSA)',
-    category: 'Respiratory > Perioperative',
+    id: 'thyroid-storm',
+    name: 'Thyroid Storm',
+    category: 'Endocrine > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Hyperthermia, Tachycardia (>140 bpm), Agitation, Heart Failure',
+      'Burch-Wartofsky score > 45',
+      'Low TSH, High Free T4'
+    ],
+    immediateActions: [
+      'Control Sympathomimetics: Esmolol (infusion) or Propranolol (IV/PO)',
+      'Block Synthesis: Propylthiouracil (PTU) 200mg q4h or Carbimazole',
+      'Block Release: Lugol\'s Iodine (give AT LEAST 1h AFTER PTU)',
+      'Steroids: Hydrocortisone 100mg IV q6h (prevents T4 to T3 conversion)'
+    ],
+    secondaryManagement: [
+      'Passive cooling / Paracetamol',
+      'Aggressive fluids (balanced crystalloids)',
+      'Treat triggers (Infection, Surgery, Radioactive iodine)'
+    ],
+    ivFluidManagement: {
+      choices: ['Balanced Crystalloids'],
+      targets: ['Restore volume lost to sweating/vomiting', 'Maintain MAP'],
+      monitoring: ['Strict fluid balance', 'Continuous ECG', 'Core temperature']
+    },
+    diagram: [
+      { title: 'Diagnosis', description: 'Tachycardia + Hyperthermia + Agitation. Calculate Burch-Wartofsky score. Score > 45 is diagnostic.', type: 'decision' },
+      { title: 'Sympathetic Block', description: 'Esmolol infusion is ideal for rapid titration. Non-selective beta-blockers (Propranolol) also block T4-T3 conversion.', type: 'action' },
+      { title: 'Block Synthesis', description: 'PTU 200mg q4h. MUST give at least 1 hour before Iodine to avoid further hormone release (Wolff-Chaikoff effect).', type: 'warning' },
+      { title: 'Cooling', description: 'Passive cooling, paracetamol. Avoid Aspirin as it displaces T4 from binding proteins, increasing free hormone levels.', type: 'warning' }
+    ],
+    normalLabRanges: {
+      'TSH': '0.4 - 4.0 mIU/L',
+      'Free T4': '12 - 22 pmol/L'
+    },
+    diagnosticCriteria: [
+      'Burch-Wartofsky Score >= 45: Significant hyperthermia, CNS dysfunction, tachycardia, and GI involvement.'
+    ],
+    expectedLabDeviations: {
+      'TSH': 'Undetectable (< 0.01)',
+      'Free T4': 'Markedly Elevated (> 50 pmol/L)',
+      'Bilirubin': 'May be elevated (hepatic dysfunction)'
+    },
+    differentialDiagnosis: ['Sepsis', 'Malignant Hyperthermia', 'Pheochromocytoma', 'Neuroleptic Malignant Syndrome'],
+    anesthesiaStrategy: [
+      'SYMPATHETIC: Aggressive beta-blockade to target HR < 100 bpm',
+      'CONVERSION: Steroids are essential to block peripheral T4 conversion',
+      'STABILITY: Avoid Ketamine and Atropine; prioritize Esmolol for rapid control',
+      'POST-OP: High risk of decompensated heart failure and arrhythmias'
+    ],
+    preopOptimization: [
+      'Esmolol titration',
+      'PTU / Iodine blockade started',
+      'Cooling and hydration'
+    ],
+    postopDisposition: 'ICU'
+  },
+
+  {
+    id: 'aortic-stenosis',
+    name: 'Aortic Stenosis (Severe)',
+    category: 'Cardiovascular > Valvular',
+    severity: 'critical',
+    diagnosis: [
+      'AVA < 1.0 cm², Mean Gradient > 40 mmHg',
+      'SAD symptoms: Syncope, Angina, Dyspnea',
+      'Fixed stroke volume state'
+    ],
+    immediateActions: [
+      'Maintain rhythm (Sinus rhythm is mandatory for atrial kick)',
+      'Avoid tachycardia (Reduced filling time / increased demand)',
+      'Avoid bradycardia (Reduced cardiac output / fixed stroke volume)'
+    ],
+    secondaryManagement: [
+      'Early use of Phenylephrine to maintain SVR',
+      'Avoid spinal anesthesia (Sympathectomy too sudden/severe)',
+      'Avoid high-dose Propofol induction'
+    ],
+    anesthesiaStrategy: [
+      'GOAL: "Full, Sinus, and High SVR"',
+      'INDUCTION: Etomidate or Low-dose Ketamine/Midazolam; avoid Propofol',
+      'SVR: Maintain SVR with alpha-agonists (Phenylephrine/Noradrenaline)',
+      'PPV: Cautious positive pressure; avoid high PEEP/PIP'
+    ],
+    preopOptimization: [
+      'Euvolemia',
+      'Hb > 100 g/L to maximize O2 delivery',
+      'Beta-blockers if already taking (do not start day of)'
+    ],
+    postopDisposition: 'ICU / Cardiac Step-down',
+    linkedScoreIds: ['rcri']
+  },
+  {
+    id: 'myasthenia-gravis',
+    name: 'Myasthenia Gravis',
+    category: 'Neurological > Chronic',
     severity: 'standard',
     diagnosis: [
-      'STOP-BANG Score ≥ 3 = High Risk (Snoring, Tired, Observed apneas, Pressure, BMI >35, Age >50, Neck >40cm, Male)',
-      'PSG (Polysomnography): AHI > 5 events/hour confirms diagnosis',
-      'SpO2 dips on overnight oximetry'
+      'Autoimmune destruction of post-synaptic ACh receptors',
+      'Fatigable weakness; worsens throughout day'
     ],
     immediateActions: [
-      'Identify STOP-BANG score perioperatively',
-      'Continue prescribed CPAP/BiPAP in the perioperative period',
-      'Minimize opioids (multimodal analgesia strategy)',
-      'Postural measures: nurse in semi-recumbent or lateral position'
+      'Check respiratory function (Forced Vital Capacity > 20ml/kg)',
+      'Continue Pyridostigmine until morning of surgery'
     ],
     secondaryManagement: [
-      'Regional anesthesia where possible to reduce opioid need',
-      'Extended PACU observation (minimum 3 hours)',
-      'Continuous SpO2 monitoring on the ward',
-      'Sleep laboratory referral if untreated OSA confirmed'
+      'Sensitivity to Non-depolarizing Relaxants: Use 1/10th dose or avoid',
+      'Resistance to Succinylcholine: May need 1.5 - 2x dose'
     ],
-    ivFluidManagement: {
-      choices: ['Balanced Crystalloids (standard perioperative)'],
-      targets: ['Euvolemia', 'Avoid fluid overload exacerbating upper airway edema'],
-      monitoring: ['SpO2 continuous', 'Respiratory rate', 'Level of consciousness']
-    },
-    diagram: [
-      { title: 'STOP-BANG Score', description: 'Screen all patients. Score ≥3: High risk. Proceed with caution for airway and post-op monitoring.', type: 'decision' },
-      { title: 'Continue CPAP', description: 'Patients should bring their own CPAP device to hospital and use it pre- and post-op. Ensure settings are documented.', type: 'action' },
-      { title: 'Anesthetic Choice', description: 'Favour regional over general. If GA needed, use short-acting agents (Propofol, Desflurane/Sevoflurane, Remifentanil). Confirm full neuromuscular reversal before extubation.', type: 'action' },
-      { title: 'Extubation', description: 'Extubate wide awake, in the lateral/head-elevated position. Avoid re-sedation. Do not use reversal with Neostigmine without a confirmed TOF ratio > 0.9.', type: 'warning' },
-      { title: 'Post-op Monitoring', description: 'Minimum 3h in PACU. Continuous SpO2 on ward. Avoid unsupervised opioid PCA on surgical wards. Consider HDU.', type: 'info' }
+    anesthesiaStrategy: [
+      'RELAXANTS: TIVA (No relaxant) is preferred if possible',
+      'REVERSAL: Sugammadex is the gold standard for MG patients',
+      'Avoid Neostigmine (can cause cholinergic crisis if Pyridostigmine also used)'
     ],
-    normalLabRanges: {
-      'SpO2 (awake)': '94 - 98%',
-      'AHI': '< 5 events/hour (normal)',
-      'STOP-BANG Score': '0 - 2 (Low Risk)'
-    },
-    diagnosticCriteria: [
-      'STOP-BANG score >= 3 (High Risk) OR Formal PSG AHI > 5 events/hr'
+    preopOptimization: [
+      'FVC > 20 ml/kg',
+      'Minimal bulbar symptoms',
+      'Plasma exchange / IVIG if unstable pre-op'
     ],
-    expectedLabDeviations: {
-      'Bicarbonate': 'May be elevated (compensation for nocturnal hypercapnia)',
-      'Hemoglobin / Hematocrit': 'May be elevated (Polycythemia due to chronic hypoxia)'
-    },
-    differentialDiagnosis: ['Central Sleep Apnea', 'Obesity Hypoventilation Syndrome (OHS)', 'COPD', 'Congestive Heart Failure'],
-    notes: 'OSA patients are at high risk for "cannot ventilate, cannot intubate" (CVCI) scenarios and post-operative respiratory depression.'
+    postopDisposition: 'ICU / HDU (High risk of post-op respiratory failure)',
+    linkedScoreIds: []
   },
   {
-    id: 'esrd',
-    name: 'End-Stage Renal Disease (ESRD)',
-    category: 'Renal > Perioperative',
+    id: 'sickle-cell',
+    name: 'Sickle Cell Disease (Perioperative)',
+    category: 'Hematology > Genetics',
     severity: 'urgent',
     diagnosis: [
-      'eGFR < 15 mL/min/1.73m² (Stage 5 CKD)',
-      'Dependence on renal replacement therapy (hemodialysis, peritoneal dialysis)',
-      'Uremic symptoms: fatigue, nausea, encephalopathy'
+      'HbS Polymerization leading to vaso-occlusion',
+      'Triggers: Hypoxia, Acidosis, Cold, Dehydration'
     ],
     immediateActions: [
-      'Confirm most recent dialysis session and electrolytes (K+, Bicarb)',
-      'Identify and protect existing AV fistula/graft (no BP cuffs, IVs)',
-      'Check coagulation (uremic platelet dysfunction is common)',
-      'Avoid succinylcholine if K+ > 5.5 mmol/L'
+      'Aggressive warming (Bair Hugger, warmed fluids)',
+      'High-flow O2 and hydration (1.5x maintenance)'
     ],
     secondaryManagement: [
-      'Adjust all drug doses for dialysis dependence (avoid renally-cleared drugs)',
-      'Coordinate with renal team for perioperative dialysis schedule',
-      'Monitor for fluid overload (no renal autoregulation)',
-      'Avoid nephrotoxic drugs (contrast, NSAIDs, aminoglycosides)'
+      'Multimodal analgesia to avoid sickle crisis',
+      'Consider transfusion to target Hb 100g/L or HbS < 30%'
     ],
-    ivFluidManagement: {
-      choices: ['Plasmalyte or Hartmann\'s (avoid K+-rich fluids if hyperkalemic)', 'Strict volume restriction'],
-      targets: ['Avoid volume overload (no renal excretion)', 'Maintain BP for hemodynamic stability'],
-      monitoring: ['Strict fluid balance (no urine output!)', 'Daily weight', 'Pre/post dialysis electrolytes']
-    },
-    diagram: [
-      { title: 'Pre-op Assessment', description: 'Check recent electrolytes, Hb (often anemic), coag, and dialysis schedule. Arrange same-day or day-before dialysis if elective.', type: 'action' },
-      { title: 'Protect Fistula', description: 'Mark the fistula/graft limb clearly. NO BP cuffs, IV lines, blood draws, or tourniquet on that arm. Confirm patency (bruit/thrill).', type: 'warning' },
-      { title: 'Hyperkalemia Risk', description: 'K+ should be < 5.5 mmol/L before elective GA. Avoid succinylcholine (K+ surge). Use Rocuronium + Sugammadex instead.', type: 'warning' },
-      { title: 'Drug Dosing', description: 'Renally-cleared drugs accumulate: Morphine (active M6G metabolite), Metformin (lactic acidosis risk), Antibiotics (Gentamicin, Vancomycin need TDM).', type: 'info' },
-      { title: 'Post-op', description: 'Resume dialysis as soon as haemostasis allows. Monitor for hyperkalemia, pulmonary edema (fluid overload), and bleeding (uremic platelet dysfunction).', type: 'action' }
+    anesthesiaStrategy: [
+      'Avoid Tourniquets where possible',
+      'Maintain SpO2 > 96%',
+      'Fluid load pre-induction to ensure capillary flow',
+      'Avoid hyperventilation (Acidosis and hypocapnia cause vasoconstriction)'
     ],
-    normalLabRanges: {
-      'Potassium': '3.5 - 5.5 mmol/L (pre-op target)',
-      'Bicarbonate': '> 18 mmol/L',
-      'Hemoglobin': '> 100 g/L (pre-op target)',
-      'eGFR': '> 15 mL/min (Stage 1-4 CKD)'
-    },
-    diagnosticCriteria: [
-      'eGFR < 15 mL/min/1.73m² (Stage 5) OR Requirement for long-term Dialysis'
+    preopOptimization: [
+      'Hb target 100 g/L',
+      'Optimal hydration',
+      'Treatment of any active infection'
     ],
-    expectedLabDeviations: {
-      'Urea / Creatinine': 'Markedly Elevated',
-      'Potassium': 'Elevated (Hyperkalemia - risk of arrest)',
-      'Hemoglobin': 'Decreased (Anemia of chronic disease)',
-      'Phosphate': 'Elevated'
-    },
-    differentialDiagnosis: ['Acute Kidney Injury (AKI)', 'Acute-on-Chronic Renal Failure', 'Prerenal Azotemia'],
-    notes: 'A "thrill" or "bruit" must be confirmed in the AV fistula pre-operatively. Avoid BP cuffs or IV access in the fistula arm.'
+    postopDisposition: 'Ward (if minor) / HDU for pain and hydration monitoring'
   },
   {
-    id: 'pah',
-    name: 'Pulmonary Arterial Hypertension (PAH)',
-    category: 'Cardiovascular > Critical Care',
-    severity: 'critical',
+    id: 'cirrhosis',
+    name: 'Liver Cirrhosis (Perioperative)',
+    category: 'Gastrointestinal > Hepatic',
+    severity: 'urgent',
     diagnosis: [
-      'Mean Pulmonary Artery Pressure (mPAP) > 20 mmHg at rest on right heart catheterization',
-      'Pulmonary Vascular Resistance (PVR) > 2 Wood Units',
-      'Exertional dyspnea, syncope, right heart failure features'
+      'Portal HTN, Coagulopathy, Hepatorenal Syndrome',
+      'Child-Pugh and MELD scores for risk stratification'
     ],
     immediateActions: [
-      'Continue PAH-specific therapies throughout perioperative period (Sildenafil, Bosentan, Epoprostenol)',
-      'Avoid triggers: Hypoxia, Hypercarbia, Acidosis, Hypothermia, Pain/Anxiety, Atelectasis',
-      'Avoid drugs causing SVR drop without PVR drop (vasodilatory agents)'
+      'Check Coagulation and Platelets',
+      'Check Renal function (AKI risk)'
     ],
     secondaryManagement: [
-      'Multi-disciplinary discussion with Pulmonary Hypertension specialist before elective surgery',
-      'Consider regional anesthesia to minimize cardiopulmonary stress',
-      'Have iNO (inhaled Nitric Oxide) and Milrinone available for RV failure'
+      'Avoid NASIDs and Hepatotoxic drugs',
+      'Maintain MAP > 65 to protect kidneys'
     ],
-    ivFluidManagement: {
-      choices: ['Cautious Crystalloid (250mL increments)', 'Avoid large boluses (precipitate RV failure)'],
-      targets: ['Maintain RV preload without distension', 'Target MAP > 65 to maintain RV coronary perfusion'],
-      monitoring: ['Invasive PA pressure (PA catheter or ECHO)', 'RV function (TEE)', 'CVP']
-    },
-    diagram: [
-      { title: 'Avoid Triggers', description: 'The four horsemen of PAH crisis: Hypoxia, Hypercarbia, Acidosis, Hypothermia. Each independently raises PVR and can cause acute RV failure.', type: 'warning' },
-      { title: 'Maintain PVR Targets', description: 'Keep SpO2 > 94%, ETCO2 35-40 mmHg, pH > 7.35, Temp > 36°C. These are non-negotiable primary targets throughout anesthesia.', type: 'action' },
-      { title: 'RV Failure?', description: 'Signs: Rising CVP, falling MAP, worsening SpO2, RV dilation on echo. Act immediately.', type: 'decision' },
-      { title: 'Treat RV Failure', description: 'Inhaled Nitric Oxide (iNO) 10-40ppm + IV Milrinone 0.375-0.75mcg/kg/min. Norepinephrine to maintain systemic pressure. Avoid tachycardia (RV needs diastole).', type: 'action' },
-      { title: 'ECMO Bridge', description: 'VA-ECMO may be required as a bridge in catastrophic RV failure. Early discussion with cardiac surgery is mandatory.', type: 'info' }
+    anesthesiaStrategy: [
+      'DRUGS: Cisatracurium (Hofmann elimination) and Remifentanil preferred',
+      'RSI: Assume full stomach due to delayed gastric emptying / ascites',
+      'FLUID: Restrictive/Balanced; albumin for paracentesis'
     ],
-    normalLabRanges: {
-      'mPAP': '< 20 mmHg',
-      'PVR': '< 2 Wood Units',
-      'RAP (CVP)': '2 - 6 mmHg',
-      'SpO2': '> 94%'
-    },
-    diagnosticCriteria: [
-      'Mean Pulmonary Artery Pressure (mPAP) > 20 mmHg at rest with PVR > 2 Wood Units and PCWP <= 15 mmHg'
+    preopOptimization: [
+      'MELD Score < 15 for elective surgery',
+      'Correct INR if > 1.5; Platelets > 50k',
+      'Tense ascites: drained pre-op'
     ],
-    expectedLabDeviations: {
-      'NT-proBNP': 'Elevated (indicator of RV strain)',
-      'SpO2': 'May be decreased',
-      'PaCO2': 'May be low (tachypnea) or high (late sign of failure)'
-    },
-    differentialDiagnosis: ['Chronic Heart Failure (Left-sided)', 'Chronic Thromboembolic Pulmonary Hypertension (CTEPH)', 'COPD / Interstitial Lung Disease'],
-    notes: 'The right ventricle in PAH is highly afterload-sensitive. Induction of anesthesia is the period of highest risk for RV collapse.'
+    postopDisposition: 'ICU / HDU (High risk of encephalopathy/AKI)',
+    linkedScoreIds: ['meld']
   },
   {
-    id: 'nms',
-    name: 'Neuroleptic Malignant Syndrome (NMS)',
-    category: 'Toxicology > Pharmacological',
-    severity: 'critical',
+    id: 'aspiration-risk',
+    name: 'Aspiration Risk (Full Stomach)',
+    category: 'Gastrointestinal > Emergency',
+    severity: 'urgent',
     diagnosis: [
-      'Clinical Dx: Recent antipsychotic use (or dopamine withdrawal) + Fever + Muscle Rigidity + Altered Consciousness',
-      '"Lead-pipe" rigidity (unlike clonus of Serotonin Syndrome)',
-      'Markedly elevated CK (> 1000 U/L), Leukocytosis, Autonomic instability',
-      'Slow onset over 24-72h (unlike rapid serotonin syndrome)'
+      'Inadequate fasting, bowel obstruction, severe pain, opioids, pregnancy, diabetes'
     ],
     immediateActions: [
-      'Stop all antipsychotics / dopamine antagonists (Metoclopramide, Haloperidol)',
-      'Supportive Care: IV fluids, cooling, monitor vitals',
-      'Dantrolene: 1-2.5 mg/kg IV (reduces rigidity, hyperthermia)',
-      'Bromocriptine: 2.5-5mg PO/NG TDS (dopamine agonist)'
+      'RAPID SEQUENCE INDUCTION (RSI)',
+      'Pre-oxygenate to ETO2 > 85%',
+      'Cricoid pressure (controversial but standard)',
+      'NG tube for decompression BEFORE induction'
     ],
     secondaryManagement: [
-      'ICU admission, monitor for AKI (from rhabdomyolysis), DIC, respiratory failure',
-      'Benzodiazepines for agitation',
-      'Resolution expected over 1-2 weeks after drug withdrawal',
-      'Avoid all dopamine antagonists for at least 2 weeks — restart with caution'
+      'If aspiration occurs: Suction immediately, Head down/Lateral',
+      'Do not start antibiotics unless pneumonia symptoms develop or GI obstruction confirmed'
     ],
-    ivFluidManagement: {
-      choices: ['Balanced Crystalloids / Normal Saline', 'Dantrolene reconstitution requires Sterile Water'],
-      targets: ['Urine output > 1-2 mL/kg/hr (myoglobinuria prevention)', 'Core temp < 38.5°C', 'Euvolemia'],
-      monitoring: ['CK every 6h', 'Renal function daily', 'Core temperature continuous', 'Strict fluid balance']
-    },
-    diagram: [
-      { title: 'Key Distinction vs MH', description: 'NMS: Onset in 24-72h | Cause: antipsychotics | Rigidity is "lead-pipe" | Responds to Bromocriptine. MH: Onset in minutes | Cause: volatile anesthetics/succinylcholine | Responds to Dantrolene. Both: Hyperthermia, rigidity, elevated CK.', type: 'info' },
-      { title: 'Stop Offending Drug', description: 'Cease ALL dopamine antagonists, including Metoclopramide, Droperidol, Prochlorperazine. If on depot antipsychotic, longer treatment course needed.', type: 'action' },
-      { title: 'Dantrolene', description: '1-2.5 mg/kg IV. Reduces muscle rigidity and hyperthermia. Continue up to 10 mg/kg if needed. Also effective in severe rhabdomyolysis.', type: 'action' },
-      { title: 'Bromocriptine', description: '2.5-5mg PO/NG every 8h. Dopamine agonist — addresses the pathophysiology. Can take 24-72h for effect. Continue for 10 days post-resolution.', type: 'action' },
-      { title: 'Complications', description: 'Monitor for: AKI (myoglobinuria), DIC, Respiratory failure (rigidity + aspiration), Cardiac arrhythmias, DVT.', type: 'warning' }
+    anesthesiaStrategy: [
+      'RSI: Propofol + Succinylcholine (1.5mg/kg) or Rocuronium (1.2mg/kg)',
+      'Maintain 30-45 degree head-up tilt if possible',
+      'Only extubate when wide awake and airway reflexes fully returned'
     ],
-    normalLabRanges: {
-      'Serum CK': '< 200 U/L',
-      'Core Temperature': '36.5 - 37.5 °C',
-      'WBC': '4.0 - 11.0 x10^9/L',
-      'Creatinine': '60 - 120 umol/L'
-    },
-    diagnosticCriteria: [
-      'DSM-5 Criteria: Antipsychotic exposure + Severe muscle rigidity + High temperature + Two or more of: diaphoresis, dysphagia, tremor, incontinence, altered consciousness, leukocytosis, elevated CK',
-      'CK typically > 1000 U/L; often > 10,000 U/L in severe cases'
+    preopOptimization: [
+      'NG tube suctioning',
+      'Sodium Citrate / H2 blocker pre-med'
     ],
-    expectedLabDeviations: {
-      'Creatine Kinase (CK)': 'Markedly elevated (> 1000 U/L, often > 10,000 U/L)',
-      'WBC': 'Leukocytosis (15-30 x10^9/L)',
-      'Creatinine': 'Elevated if AKI from rhabdomyolysis',
-      'Iron (Serum)': 'Low serum iron is characteristic finding in NMS'
-    },
-    differentialDiagnosis: ['Malignant Hyperthermia', 'Serotonin Syndrome', 'Sepsis / Meningitis', 'Thyroid Storm', 'Malignant Catatonia']
+    postopDisposition: 'Recovery / Ward (Observe for Mendelsohn Syndrome for 6h)'
   },
   {
-    id: 'complete-heart-block',
-    name: 'Complete Heart Block (Perioperative High-Degree AVB)',
-    category: 'Cardiovascular > Arrhythmia',
-    severity: 'critical',
+    id: 'carotid-endarterectomy',
+    name: 'Carotid Endarterectomy (CEA)',
+    category: 'Vascular > Perioperative',
+    severity: 'urgent',
     diagnosis: [
-      'ECG: P-waves and QRS complexes independent (no relationship) — AV dissociation',
-      'Ventricular escape rate < 40-50 bpm (wide QRS = junctional/ventricular; narrow = junctional)',
-      'Symptoms: Syncope, Pre-syncope (Stokes-Adams attacks), Hypotension, Bradycardia unresponsive to Atropine'
+      'Symptomatic carotid stenosis (> 50%) or Asymptomatic (> 70%)',
+      'Goal: Prevent stroke by removing plaque'
     ],
     immediateActions: [
-      'Transcutaneous Pacing: Attach pads immediately — start at 70-80 bpm, increase output until capture',
-      'Atropine 600mcg IV (repeat up to 3mg if narrow escape — less effective in complete block)',
-      'Adrenaline 2-10 mcg/min infusion (rate support for wide-complex escape)',
-      'Isoprenaline 2-10 mcg/min (chronotropic bridge while awaiting pacemaker)'
+      'Maintain BP within 20% of baseline (Cerebral autoregulation often shifted)',
+      'Assess Neurological status immediately after wake-up'
     ],
     secondaryManagement: [
-      'Transvenous Temporary Pacemaker insertion (definitive bridge)',
-      'Identify reversible cause: Inferior MI (RCA occlusion), Drug toxicity (Beta-blockers, Digoxin, CCBs), Hyperkalemia, Lyme disease',
-      'Permanent Pacemaker if not reversible',
-      'Stop AV-nodal blocking drugs (Beta-blockers, Digoxin, CCBs, Amiodarone)'
+      'Shunt placement if stump pressure < 40-50 mmHg',
+      'Heparinization (50-100 units/kg) before cross-clamp'
     ],
-    ivFluidManagement: {
-      choices: ['Cautious crystalloid bolus (250-500mL) if hypotensive', 'Avoid fluid overload if underlying cardiac cause'],
-      targets: ['MAP > 65 mmHg', 'Heart rate > 50 bpm with pacing', 'Resolution of haemodynamic compromise'],
-      monitoring: ['Continuous ECG with pacer capture confirmation', 'Invasive arterial BP ideally', 'Regular U&Es (electrolytes)']
-    },
-    diagram: [
-      { title: 'Confirm CHB on ECG', description: 'AV dissociation — P-waves bear no relationship to QRS complexes. Calculate ventricular escape rate. Assess haemodynamic stability.', type: 'decision' },
-      { title: 'If Unstable', description: 'Immediate Transcutaneous Pacing. Apply pads (anterior-posterior preferred). Start at 70 bpm, output 50-100mA, increase until electrical AND mechanical capture verified.', type: 'action' },
-      { title: 'Drug Therapy', description: 'Atropine 600mcg IV (limited effect in CHB — targets AV node which is bypassed). Adrenaline or Isoprenaline infusion to increase escape rate and BP.', type: 'action' },
-      { title: 'Transvenous Pacing', description: 'Definitive temporary bridge. Insert via internal jugular or subclavian, float catheter to RV apex. Confirm pacing on ECG + arterial waveform.', type: 'action' },
-      { title: 'Reversible Cause?', description: 'YES → Treat (inferior STEMI reperfusion, reverse drug toxicity, correct hyperkalemia). If pacing needed > 7 days or cause irreversible → Permanent PPM.', type: 'decision' }
+    anesthesiaStrategy: [
+      'REGIONAL: Superficial/Deep Cervical Plexus Block (Gold standard for neuro-monitoring)',
+      'GA: Use Remifentanil/Propofol (TIVA) for rapid awakening and neuro-assessment',
+      'BP: Target high-normal BP during cross-clamp to maintain collateral flow',
+      'POST-OP: Strict BP control (avoid SBP > 140) to prevent Hyperperfusion Syndrome'
     ],
-    normalLabRanges: {
-      'PR Interval': '0.12 - 0.20 seconds',
-      'QRS Duration': '< 0.12 seconds',
-      'Ventricular Rate': '60 - 100 bpm',
-      'Potassium': '3.5 - 5.0 mmol/L'
-    },
-    diagnosticCriteria: [
-      'Complete AV dissociation on 12-lead ECG (P-waves independent of QRS)',
-      'Ventricular escape rate < 40-50 bpm, often with wide QRS'
+    preopOptimization: [
+      'Antiplatelet therapy continued',
+      'Statin therapy continued',
+      'BP baseline established'
     ],
-    expectedLabDeviations: {
-      'Potassium': 'Hyperkalemia may precipitate or worsen block',
-      'Digoxin Level': 'Elevated in digoxin toxicity (> 2 ng/mL)',
-      'Troponin': 'Elevated if inferior STEMI (RCA occlusion causing bundle branch necrosis)',
-      'Thyroid Function': 'Hypothyroidism can cause bradyarrhythmias'
-    },
-    differentialDiagnosis: ['Second Degree AVB (Mobitz II)', 'Third Degree AVB vs AV Dissociation with accelerated junctional rhythm', 'Junctional Rhythm', 'Ventricular Escape Rhythm']
+    postopDisposition: 'HDU / Stroke Unit (Neuro-obs Q1h)'
+  },
+  {
+    id: 'trali',
+    name: 'TRALI / TACO',
+    category: 'Respiratory > Transfusion',
+    severity: 'critical',
+    diagnosis: [
+      'TRALI: Non-cardiogenic edema (PaO2/FiO2 < 300) within 6h of transfusion; Fever common',
+      'TACO: Cardiogenic edema; Elevated CVP/BNP; High SBP; Responds to diuretics'
+    ],
+    immediateActions: [
+      'STOP TRANSFUSION immediately',
+      'Supportive: 100% O2, CPAP or Intubation',
+      'TACO: Give Furosemide 40mg IV',
+      'TRALI: Restrictive fluid strategy; avoid diuretics if hypotensive'
+    ],
+    secondaryManagement: [
+      'Notify Blood Bank; return unit for HLA/HNA testing',
+      'Notify hematology team'
+    ],
+    anesthesiaStrategy: [
+      'Lung Protective Ventilation: 6ml/kg PBW',
+      'Avoid further blood products unless life-threatening hemorrhage',
+      'Maintain MAP with vasopressors to avoid fluid loading if TRALI'
+    ],
+    preopOptimization: [
+      'Restrictive transfusion strategy (Hb > 70-80 g/L)',
+      'Screen high-risk patients for TACO (Heart failure/Elderly)'
+    ],
+    postopDisposition: 'ICU for ventilatory support'
+  },
+  {
+    id: 'air-embolism',
+    name: 'Venous Air Embolism (VAE)',
+    category: 'Critical Care > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Sudden drop in ETCO2 (Dead space increase)',
+      'Mill-wheel murmur (Late sign)',
+      'Hypotension / Hypoxia / Cardiovascular collapse'
+    ],
+    immediateActions: [
+      'Flood the field with saline / seal the Air entry point',
+      'Position: Left Lateral Decubitus + Trendelenburg (Durant\'s maneuver)',
+      '100% O2; Stop Nitrous Oxide',
+      'Aspirate air from Central Venous Catheter if present'
+    ],
+    secondaryManagement: [
+      'Chest compressions to break up air lock if arrest occurs',
+      'Consider hyperbaric O2 if neurological symptoms persist'
+    ],
+    anesthesiaStrategy: [
+      'SURGERY: Highest risk in Neurosurgery (Sitting position) and Laparoscopy',
+      'MONITOR: Precordial Doppler is the most sensitive non-invasive monitor'
+    ],
+    preopOptimization: [
+      'Hydration (Increases Vane/CVP to prevent air entry)',
+      'Verify CVC placement if sitting position planned'
+    ],
+    postopDisposition: 'ICU for monitoring (Neuro/Pulmonary)'
+  },
+  {
+    id: 'aortic-dissection',
+    name: 'Acute Aortic Dissection (Type A)',
+    category: 'Cardiovascular > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Tearing chest/back pain; BP differential between arms',
+      'New diastolic murmur (Aortic Regurgitation)',
+      'Tamponade signs on Echo'
+    ],
+    immediateActions: [
+      'ANTI-IMPULSE THERAPY: Target SBP 100-120 and HR < 60',
+      'DRUGS: Esmolol infusion (First-line) + Nitroprusside/GTN',
+      'URGENT SURGERY: Median sternotomy for Type A'
+    ],
+    secondaryManagement: [
+      'Cross-match 10 units PRBC; prepare for CPB / DHCA (Deep Hypothermic Circulatory Arrest)'
+    ],
+    anesthesiaStrategy: [
+      'BP SITES: Two Arterial Lines (Right Radial + Femoral) to monitor above/below',
+      'INDUCTION: Very smooth; avoid any hypertension (risk of rupture)',
+      'NEUROPROTECTION: Ice on head; Bispectral index (BIS) for DHCA monitoring'
+    ],
+    preopOptimization: [
+      'Target SBP 100-110 mmHg',
+      'Target Heart Rate 50-60 bpm'
+    ],
+    postopDisposition: 'ICU (Post-bypass / DHCA recovery)'
   }
 ];
