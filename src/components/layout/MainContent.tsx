@@ -13,6 +13,8 @@ const Surgery = React.lazy(() => import('../../features/surgery/Surgery'));
 const VentilatorModule = React.lazy(() => import('../../features/ventilator/VentilatorModule'));
 const RenalModule = React.lazy(() => import('../../features/renal/RenalModule'));
 const RegionalLibrary = React.lazy(() => import('../../features/regional/RegionalLibrary'));
+const AirwayModule = React.lazy(() => import('../../features/airway/AirwayModule'));
+const FluidsModule = React.lazy(() => import('../../features/fluids/FluidsModule'));
 
 export default function MainContent() {
   const { t } = useLanguage();
@@ -29,6 +31,8 @@ export default function MainContent() {
           case 'ventilator': return 'Ventilator';
           case 'renal': return 'Renal Replace';
           case 'regional': return 'Regional';
+          case 'airway': return 'Airway';
+          case 'fluids': return 'Fluids & Blood';
           case 'converter': return t('nav.converter');
           default: return '';
       }
@@ -53,6 +57,8 @@ export default function MainContent() {
           {activeTab === 'ventilator' && 'Condition-based mechanical ventilation strategies & targets.'}
           {activeTab === 'renal' && 'CRRT, IHD targets, and Plasma Exchange calculators.'}
           {activeTab === 'regional' && 'Ultrasound-guided regional anesthesia library & safety calculator.'}
+          {activeTab === 'airway' && 'Difficult airway algorithms & equipment sizing.'}
+          {activeTab === 'fluids' && 'MABL, fluid deficits, and transfusion protocols.'}
           {activeTab === 'converter' && t('converter.desc')}
         </p>
       </div>
@@ -74,6 +80,8 @@ export default function MainContent() {
             {activeTab === 'ventilator' && <VentilatorModule />}
             {activeTab === 'renal' && <RenalModule />}
             {activeTab === 'regional' && <RegionalLibrary />}
+            {activeTab === 'airway' && <AirwayModule />}
+            {activeTab === 'fluids' && <FluidsModule />}
             {activeTab === 'converter' && <Converter />}
           </Suspense>
         </motion.div>

@@ -10,7 +10,8 @@ import {
   Scissors,
   Activity,
   Wind,
-  Syringe
+  Syringe,
+  Droplets
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -31,6 +32,8 @@ export default function Header() {
     { id: 'ventilator', label: 'Ventilator', icon: Wind },
     { id: 'renal', label: 'Renal Replace', icon: Activity },
     { id: 'regional', label: 'Regional', icon: Syringe },
+    { id: 'airway', label: 'Airway', icon: Stethoscope },
+    { id: 'fluids', label: 'Fluids & Blood', icon: Droplets },
     { id: 'converter', label: t('nav.converter'), icon: Calculator },
   ];
 
