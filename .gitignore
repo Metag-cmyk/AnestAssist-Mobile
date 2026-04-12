@@ -26,3 +26,4 @@ dist-ssr
 # Temporary files
 tmp/
 brain_listing.txt
+bundle-stats.html

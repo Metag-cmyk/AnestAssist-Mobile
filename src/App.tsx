@@ -16,16 +16,18 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TabType } from './types';
-import GuidelinesDiagrams from './features/guidelines/GuidelinesDiagrams';
-import Conditions from './features/conditions/Conditions';
-import Converter from './features/converter/Converter';
-import PatientCalculator from './features/patient/PatientCalculator';
-import ClinicalScores from './features/scores/ClinicalScores';
-import Surgery from './features/surgery/Surgery';
-import VentilatorModule from './features/ventilator/VentilatorModule';
-import RenalModule from './features/renal/RenalModule';
-import RegionalLibrary from './features/regional/RegionalLibrary';
+import React, { Suspense } from 'react';
 import { useLanguage } from './contexts/LanguageContext';
+
+const GuidelinesDiagrams = React.lazy(() => import('./features/guidelines/GuidelinesDiagrams'));
+const Conditions = React.lazy(() => import('./features/conditions/Conditions'));
+const Converter = React.lazy(() => import('./features/converter/Converter'));
+const PatientCalculator = React.lazy(() => import('./features/patient/PatientCalculator'));
+const ClinicalScores = React.lazy(() => import('./features/scores/ClinicalScores'));
+const Surgery = React.lazy(() => import('./features/surgery/Surgery'));
+const VentilatorModule = React.lazy(() => import('./features/ventilator/VentilatorModule'));
+const RenalModule = React.lazy(() => import('./features/renal/RenalModule'));
+const RegionalLibrary = React.lazy(() => import('./features/regional/RegionalLibrary'));
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>(() => {
@@ -164,15 +166,17 @@ export default function App() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            {activeTab === 'guidelines' && <GuidelinesDiagrams />}
-            {activeTab === 'patient' && <PatientCalculator />}
-            {activeTab === 'scores' && <ClinicalScores />}
-            {activeTab === 'conditions' && <Conditions />}
-            {activeTab === 'surgery' && <Surgery />}
-            {activeTab === 'ventilator' && <VentilatorModule />}
-            {activeTab === 'renal' && <RenalModule />}
-            {activeTab === 'regional' && <RegionalLibrary />}
-            {activeTab === 'converter' && <Converter />}
+            <Suspense fallback={<div className="flex justify-center items-center h-64 text-slate-400">Loading...</div>}>
+              {activeTab === 'guidelines' && <GuidelinesDiagrams />}
+              {activeTab === 'patient' && <PatientCalculator />}
+              {activeTab === 'scores' && <ClinicalScores />}
+              {activeTab === 'conditions' && <Conditions />}
+              {activeTab === 'surgery' && <Surgery />}
+              {activeTab === 'ventilator' && <VentilatorModule />}
+              {activeTab === 'renal' && <RenalModule />}
+              {activeTab === 'regional' && <RegionalLibrary />}
+              {activeTab === 'converter' && <Converter />}
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>
