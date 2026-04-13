@@ -2,7 +2,9 @@ import React, { Suspense } from 'react';
 import { ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { useNavigation } from '../../contexts/NavigationContext';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import { navigationItems, isTranslationKey } from '../../config/navigation';
 
 const GuidelinesDiagrams = React.lazy(() => import('../../features/guidelines/GuidelinesDiagrams'));
 const Conditions = React.lazy(() => import('../../features/conditions/Conditions'));
@@ -16,27 +18,32 @@ const RegionalLibrary = React.lazy(() => import('../../features/regional/Regiona
 const AirwayModule = React.lazy(() => import('../../features/airway/AirwayModule'));
 const FluidsModule = React.lazy(() => import('../../features/fluids/FluidsModule'));
 
+function ErrorFallback({ error, resetErrorBoundary }: { error: Error, resetErrorBoundary: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center h-64 text-center">
+      <div className="text-red-500 mb-4">
+        <svg className="w-12 h-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 className="text-lg font-semibold text-slate-800">Something went wrong loading this module</h3>
+      <p className="text-sm text-slate-500 mt-2 max-w-md">{error.message}</p>
+      <button
+        onClick={resetErrorBoundary}
+        className="mt-4 px-4 py-2 bg-medical-accent text-white rounded-md hover:bg-blue-600 transition-colors"
+      >
+        Try again
+      </button>
+    </div>
+  );
+}
+
 export default function MainContent() {
   const { t } = useLanguage();
-  const { activeTab } = useNavigation();
+  const location = useLocation();
 
-  // Define tab labels here again for the title since we moved the array to Header
-  const getTabLabel = (id: string) => {
-      switch(id) {
-          case 'guidelines': return t('nav.guidelines');
-          case 'patient': return t('nav.patient');
-          case 'scores': return t('nav.scores');
-          case 'surgery': return t('nav.surgery');
-          case 'conditions': return t('nav.conditions');
-          case 'ventilator': return 'Ventilator';
-          case 'renal': return 'Renal Replace';
-          case 'regional': return 'Regional';
-          case 'airway': return 'Airway';
-          case 'fluids': return 'Fluids & Blood';
-          case 'converter': return t('nav.converter');
-          default: return '';
-      }
-  }
+  const currentTab = navigationItems.find(item => item.path === location.pathname) || navigationItems[0];
+  const getLabel = (labelKey: string) => isTranslationKey(labelKey) ? t(labelKey) : labelKey;
 
   return (
     <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -46,44 +53,39 @@ export default function MainContent() {
           {t('header.evidence')}
         </div>
         <h2 className="text-3xl font-bold text-medical-primary">
-          {getTabLabel(activeTab)}
+          {getLabel(currentTab.labelKey)}
         </h2>
         <p className="text-slate-500 mt-1">
-          {activeTab === 'guidelines' && t('guidelines.desc')}
-          {activeTab === 'patient' && t('patient.desc')}
-          {activeTab === 'conditions' && t('conditions.desc')}
-          {activeTab === 'surgery' && t('surgery.desc')}
-          {activeTab === 'scores' && t('common.selectScoreDesc')}
-          {activeTab === 'ventilator' && 'Condition-based mechanical ventilation strategies & targets.'}
-          {activeTab === 'renal' && 'CRRT, IHD targets, and Plasma Exchange calculators.'}
-          {activeTab === 'regional' && 'Ultrasound-guided regional anesthesia library & safety calculator.'}
-          {activeTab === 'airway' && 'Difficult airway algorithms & equipment sizing.'}
-          {activeTab === 'fluids' && 'MABL, fluid deficits, and transfusion protocols.'}
-          {activeTab === 'converter' && t('converter.desc')}
+          {getLabel(currentTab.descKey)}
         </p>
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={activeTab}
+          key={location.pathname}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
         >
-          <Suspense fallback={<div className="flex justify-center items-center h-64 text-slate-400">Loading...</div>}>
-            {activeTab === 'guidelines' && <GuidelinesDiagrams />}
-            {activeTab === 'patient' && <PatientCalculator />}
-            {activeTab === 'scores' && <ClinicalScores />}
-            {activeTab === 'conditions' && <Conditions />}
-            {activeTab === 'surgery' && <Surgery />}
-            {activeTab === 'ventilator' && <VentilatorModule />}
-            {activeTab === 'renal' && <RenalModule />}
-            {activeTab === 'regional' && <RegionalLibrary />}
-            {activeTab === 'airway' && <AirwayModule />}
-            {activeTab === 'fluids' && <FluidsModule />}
-            {activeTab === 'converter' && <Converter />}
-          </Suspense>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Suspense fallback={<div className="flex justify-center items-center h-64 text-slate-400">Loading...</div>}>
+              <Routes location={location}>
+                <Route path="/guidelines" element={<GuidelinesDiagrams />} />
+                <Route path="/patient" element={<PatientCalculator />} />
+                <Route path="/scores" element={<ClinicalScores />} />
+                <Route path="/conditions" element={<Conditions />} />
+                <Route path="/surgery" element={<Surgery />} />
+                <Route path="/ventilator" element={<VentilatorModule />} />
+                <Route path="/renal" element={<RenalModule />} />
+                <Route path="/regional" element={<RegionalLibrary />} />
+                <Route path="/airway" element={<AirwayModule />} />
+                <Route path="/fluids" element={<FluidsModule />} />
+                <Route path="/converter" element={<Converter />} />
+                <Route path="*" element={<Navigate to="/guidelines" replace />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
         </motion.div>
       </AnimatePresence>
     </main>
