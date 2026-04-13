@@ -1,16 +1,16 @@
 import Header from './components/layout/Header';
 import MainContent from './components/layout/MainContent';
 import Footer from './components/layout/Footer';
-import { NavigationProvider } from './contexts/NavigationContext';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 export default function App() {
   return (
-    <NavigationProvider>
+    <Router>
       <div className="min-h-screen flex flex-col">
         <Header />
         <MainContent />
         <Footer />
       </div>
-    </NavigationProvider>
+    </Router>
   );
 }
