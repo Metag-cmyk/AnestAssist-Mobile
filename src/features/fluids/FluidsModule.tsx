@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Droplets, Activity, AlertTriangle } from 'lucide-react';
+import SodiumCorrection from './SodiumCorrection';
 
 export default function FluidsModule() {
   const [weight, setWeight] = useState<number>(70);
@@ -126,6 +127,9 @@ export default function FluidsModule() {
            <p className="text-xs text-slate-600 mt-1">Definition: Replacement of &gt;1 blood volume in 24h, or &gt;50% in 4h.<br/>Goal Ratio: 1:1:1 (PRBC : FFP : Platelets).<br/>Remember to monitor and treat: Hypothermia, Acidosis, Hypocalcemia (administer Calcium after every few units of blood products).</p>
          </div>
        </div>
+
+       {/* Sodium Correction Calculator */}
+       <SodiumCorrection />
 
     </div>
   );
