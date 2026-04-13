@@ -214,6 +214,20 @@ export default function Converter() {
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <label className="block text-xs font-bold text-slate-500 uppercase">Drug Concentration</label>
+                    <select
+                      onChange={(e) => {
+                        if (e.target.value) setConcentration(Number(e.target.value));
+                      }}
+                      className="text-xs font-bold text-medical-accent bg-medical-accent/10 border-none rounded px-2 py-1 outline-none cursor-pointer"
+                    >
+                      <option value="">Standard Bags...</option>
+                      <option value="0.016">Norepinephrine (4mg/250mL)</option>
+                      <option value="0.032">Norepinephrine (8mg/250mL)</option>
+                      <option value="0.016">Epinephrine (4mg/250mL)</option>
+                      <option value="0.2">Vasopressin (20U/100mL)</option>
+                      <option value="0.4">Vasopressin (40U/100mL)</option>
+                      <option value="2">Dopamine (500mg/250mL)</option>
+                    </select>
                   </div>
                   <div className="relative">
                     <input

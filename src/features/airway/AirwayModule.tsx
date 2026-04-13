@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Stethoscope, Activity, FileText } from 'lucide-react';
+import { Stethoscope, Activity } from 'lucide-react';
+import InteractiveAirwayAlgorithm from './InteractiveAirwayAlgorithm';
 
 export default function AirwayModule() {
   const [age, setAge] = useState<number>(30);
@@ -74,14 +75,9 @@ export default function AirwayModule() {
         </div>
       </div>
 
-       {/* Quick Algorithm Note */}
-       <div className="bg-orange-50 rounded-xl shadow-sm border border-orange-200 p-4 flex gap-3 items-start">
-         <FileText className="w-5 h-5 text-orange-600 mt-0.5" />
-         <div>
-           <h3 className="font-bold text-orange-800 text-sm">Difficult Airway Algorithm Key Steps</h3>
-           <p className="text-xs text-orange-700 mt-1">1. Call for help immediately.<br/>2. Maintain oxygenation (Bag-mask ventilation).<br/>3. Consider supraglottic airway (SGA/LMA).<br/>4. If cannot ventilate, cannot intubate (CICO) &rarr; Emergency Surgical Airway (Cricothyroidotomy).</p>
-         </div>
-       </div>
+       {/* Interactive Algorithm */}
+       <InteractiveAirwayAlgorithm />
+
     </div>
   );
 }
