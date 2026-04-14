@@ -9,12 +9,12 @@ import {
   ShieldCheck,
   ExternalLink,
   BookOpen,
-  Search
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useData } from '../../hooks/useData';
 import { searchItems } from '../../lib/search';
 import { Step } from './data';
+import SearchInput from '../../components/SearchInput';
 
 export default function GuidelinesDiagrams() {
   const { diagramGuidelines: guidelines } = useData();
@@ -64,16 +64,11 @@ export default function GuidelinesDiagrams() {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* Sidebar List */}
       <div className="lg:col-span-4 space-y-4">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder={t('common.search')}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-medical-border text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
-          />
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-        </div>
+        <SearchInput
+          placeholder={t('common.search')}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
         <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
           {sortedGuidelines.map((g) => (

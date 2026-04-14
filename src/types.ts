@@ -91,6 +91,10 @@ export interface SurgeryProcedure {
     intraOp: string[];
     postOp: string[];
   };
+  anesthesiaStrategy?: string[];
+  positioningDetail?: string;
+  fluidBloodPlan?: string;
+  postopDisposition?: string;
 }
 
 export interface SurgerySpecialty {
@@ -152,4 +156,20 @@ export interface ClinicalAlgorithm {
   startingStepId: string;
 }
 
-export type TabType = 'assessment' | 'clinic' | 'pharmacology' | 'renal' | 'ventilator' | 'specialties';
+export type TabType = 
+  | 'assessment' 
+  | 'clinic' 
+  | 'pharmacology' 
+  | 'renal' 
+  | 'ventilator' 
+  | 'specialties' 
+  | 'guidelines' 
+  | 'conditions' 
+  | 'converter' 
+  | 'patient' 
+  | 'scores' 
+  | 'surgery' 
+  | 'regional' 
+  | 'airway' 
+  | 'fluids'
+  | 'nutrition';

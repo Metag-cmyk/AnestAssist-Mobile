@@ -416,13 +416,101 @@ export const STATIC_GUIDELINES: StaticGuideline[] = [
     category: 'Intra-op',
     summary: 'Emergency adrenaline dosing: 0.5 mg IM as first-line. For perioperative IV dosing, start with 10-20 mcg titrated boluses. Emphasizes supine position to prevent "empty heart" syndrome.'
   },
+{
+    id: 'aagbi-anaphylaxis-2023',
+    title: 'Management of Perioperative Anaphylaxis',
+    source: 'ERC',
+    year: 2023,
+    category: 'Intra-op',
+    summary: 'Updated AAGBI/ERC guidance. Immediate Adrenaline (IV 50mcg if experienced, IM 0.5mg otherwise). Stop triggers (NMBA, Antibiotics). Aggressive fluid resuscitation (20mL/kg). Tryptase sampling at 1h, 4h, and 24h.'
+  },
   {
-    id: 'esaic-par-2022',
-    title: 'Post-Anesthesia Recovery (PAR) Standards',
+    id: 'asra-last-2020-checklist',
+    title: 'Checklist for Local Anaesthetic Toxicity (LAST)',
+    source: 'ASRA',
+    year: 2020,
+    category: 'Regional',
+    summary: 'Step-by-step emergency protocol. Stop injection, secure airway (avoid propofol), and initiate 20% Lipid Emulsion (1.5 mL/kg bolus, then 0.25 mL/kg/min). Reduced dose of adrenaline (≤ 1 mcg/kg).'
+  },
+  {
+    id: 'mhaus-mh-23-emergency',
+    title: 'MH Crisis Management Protocol',
+    source: 'ESAIC',
+    year: 2023,
+    category: 'Intra-op',
+    summary: 'Immediate treatment for Malignant Hyperthermia. Stop volatiles/sux, hyperventilate 100% O2, Dantrolene (2.5 mg/kg), and treat hyperkalemia (Insulin/Dextrose/Calcium).'
+  },
+  {
+    id: 'das-peds-airway-2022',
+    title: 'Paediatric Difficult Airway Guidelines',
+    source: 'ASA',
+    year: 2022,
+    category: 'Pediatrics',
+    summary: 'Specific algorithm for children under 12. Emphasis on maintaining oxygenation (HFNO), limit to 2 attempts at intubation, and early escalation to 2nd-gen SAD. eFONA via scalpel-bougie.'
+  },
+  {
+    id: 'erc-newborn-nls-2021',
+    title: 'Newborn Life Support (NLS) Guidelines',
+    source: 'ERC',
+    year: 2021,
+    category: 'Pediatrics',
+    summary: 'Chain of survival for the neonate. Initial 5 inflation breaths are critical. 3:1 compression-to-ventilation ratio. Maintain normothermia (36.5-37.5°C) and avoid early hyperoxia.'
+  },
+  {
+    id: 'esc-perioperative-cardio-2022',
+    title: 'Perioperative Cardiovascular Care (Non-Cardiac)',
     source: 'ESAIC',
     year: 2022,
+    category: 'Pre-op',
+    summary: 'Focuses on NT-proBNP screening in high-risk patients. RCRI score utility. Delaying elective surgery post-MI or stent (3-6 months). Postoperative ECG and Troponin monitoring in high-risk cohorts.'
+  },
+  {
+    id: 'oaa-failed-obstetric-2023',
+    title: 'Failed Intubation in Obstetrics (Updated)',
+    source: 'OAA',
+    year: 2023,
+    category: 'Obstetrics',
+    summary: 'Revised joint OAA/DAS algorithm. Emphasis on switching to a 2nd-generation SAD immediately after failure. Decision to wake vs. proceed with SAD based on maternal vs. fetal urgency.'
+  },
+  {
+    id: 'esaic-ponv-2020',
+    title: 'Management of Postoperative Nausea/Vomiting',
+    source: 'ESAIC',
+    year: 2020,
     category: 'Post-op',
-    summary: 'Criteria for discharge from PACU. Refined Aldrete score ≥ 9, controlled pain, stable hemodynamics, and no significant nausea/vomiting.'
+    summary: 'Apfel score risk stratification. Recommends prophylaxis with 2 agents in moderate risk, 3+ for high risk. Dexamethasone, Ondansetron, and Droperidol remain first-line.'
+  },
+  {
+    id: 'aagbi-massive-haem-2022',
+    title: 'Massive Haemorrhage in Adults',
+    source: 'ESAIC',
+    year: 2022,
+    category: 'Intra-op',
+    summary: 'Focuses on 1:1:1 FFP/Platelets/PRBC ratio. Early TXA within 3 hours. Maintenance of normothermia and Calcium > 1.1 mmol/L. Early interventional control over fluid loading.'
+  },
+  {
+    id: 'aha-stroke-update-2021',
+    title: 'Acute Ischemic Stroke Management',
+    source: 'AHA',
+    year: 2021,
+    category: 'ICU',
+    summary: 'Time-critical interventions. Thrombectomy window up to 24h. BP target < 180/105 during tenecteplase/alteplase infusion. Specialized Stroke Unit admission requirement.'
+  },
+  {
+    id: 'esicm-right-heart-2024',
+    title: 'Acute Right Heart Failure in ICU',
+    source: 'ESICM',
+    year: 2024,
+    category: 'ICU',
+    summary: 'Management of RV failure. Preload optimization (often fluid-restrictive). Reducing RV afterload (iNO, Sildenafil). Maintaining RV perfusion (Inotropes: Milrinone/Dobutamine).'
+  },
+  {
+    id: 'asa-nmb-standards-2023',
+    title: 'Global Neuromuscular Monitoring Standards',
+    source: 'ASA',
+    year: 2023,
+    category: 'Intra-op',
+    summary: 'Mandatory quantitative monitoring (EMG/AMG) before extubation. Strict TOF ratio target of 1.0 (or > 0.9). Recommends Sugammadex for all depths of rocuronium block.'
   }
 ];
 
@@ -719,6 +807,123 @@ export const DIAGRAM_GUIDELINES: GuidelineDiagram[] = [
       { title: 'Hypotension Elimination Target', description: 'Immediately start prophylactic Phenylephrine infusion (25-50 mcg/min) concurrent with block placement. Maintain MAP > 90% of baseline. Prevent maternal nausea by stabilizing BP.', type: 'warning' },
       { title: 'Uterine Exteriorization Pain', description: 'If visceral pain occurs during uterine manipulation, do not jump to opioids. Administer IV Ondansetron and low-dose Ketamine or Nitrous Oxide first.', type: 'decision' },
       { title: 'Discharge Analgesic Taper', description: 'Provide multi-modal cocktail post-op. Standardize continuous PO Paracetamol 1g and Ibuprofen 600mg. Issue exactly 5-10 tabs of short-acting Oxycodone strictly for rescue.', type: 'action' }
+    ]
+  },
+  {
+    id: 'aagbi-anaphylaxis-2023',
+    title: 'Anaphylaxis Emergency Management (2023)',
+    source: 'ERC',
+    year: 2023,
+    link: 'https://anaesthetists.org/Home/Resources-publications/Guidelines/Perioperative-anaphylaxis-management',
+    steps: [
+      { title: 'Declaration & Stop Triggers', description: 'Declare "Anaphylaxis Emergency". Stop all potential triggers (NMBAs, antibiotics, colloids). Discontinue surgery if possible.', type: 'warning' },
+      { title: 'Immediate Adrenaline', description: 'Administer IM Adrenaline (0.5mg) or IV Adrenaline (50mcg titrations if cardiovascular monitor is active). Repeat every 3-5 mins as needed.', type: 'action' },
+      { title: 'Fluid Load Target', description: 'Initiate aggressive IV fluid resuscitation (20 mL/kg of balanced crystalloid). High-volume loading is critical for distributive shock.', type: 'action' },
+      { title: 'Bronchospasm Refractory?', description: 'If bronchospasm persists despite adrenaline, administer inhaled Salbutamol or IV Salbutamol/Aminophylline.', type: 'decision' },
+      { title: 'Secondary Drugs', description: 'Do NOT delay adrenaline for secondary agents. Consider Hydrocortisone (200mg) and Chlorphenamine (10mg) only after hemodynamics stabilize.', type: 'info' },
+      { title: 'Tryptase Sampling', description: 'Mandatory sampling schedule: Draw first sample within 1h of event, second at 4h, and third at 24h for baseline.', type: 'action' }
+    ]
+  },
+  {
+    id: 'asra-last-2020',
+    title: 'LAST: Lipid Emulsion Protocol (2020)',
+    source: 'ASRA',
+    year: 2020,
+    link: 'https://www.asra.com/guidelines-articles/original-articles/the-asra-checklist-for-managing-local-anesthetic-systemic-toxicity',
+    steps: [
+      { title: 'Airway & Suppression', description: 'Secure airway immediately with 100% O2. Suppress seizures with Midazolam. Avoid large doses of Propofol (depresses myocardium).', type: 'action' },
+      { title: 'Lipid Emulsion Bolus', description: 'Administer 20% Intralipid: 1.5 mL/kg Lean Body Mass bolus IV over 1 minute.', type: 'warning' },
+      { title: 'Lipid Infusion Start', description: 'Start continuous infusion of 20% Intralipid at 0.25 mL/kg/min.', type: 'action' },
+      { title: 'Stability Check', description: 'Is hemodynamic stability achieved within 5 minutes?', type: 'decision' },
+      { title: 'Repeat Bolus', description: 'If unstable: Repeat 1.5 mL/kg bolus and double infusion rate to 0.5 mL/kg/min. (Max dose: 12 mL/kg).', type: 'action' },
+      { title: 'Arrhythmia Management', description: 'Avoid Vasopressin, Calcium Channel Blockers, and Beta Blockers. Use Amiodarone for arrhythmias. Use low-dose Adrenaline (< 1mcg/kg).', type: 'warning' }
+    ]
+  },
+  {
+    id: 'mhaus-mh-2023',
+    title: 'Malignant Hyperthermia Emergency (2023)',
+    source: 'ESAIC',
+    year: 2023,
+    link: 'https://www.mhaus.org/healthcare-professionals/emergency-protocol-for-mh-crisis/',
+    steps: [
+      { title: 'Immediate Discontinuation', description: 'Turn off volatile agent and discard vaporizers. Switch to 100% O2 at max flows (>10 L/min). Discontinue Succinylcholine.', type: 'warning' },
+      { title: 'Dantrolene Preparation', description: 'Administer Dantrolene 2.5 mg/kg IV immediately. Reconstitute each 20mg vial with 60ml sterile water. (Ryanodex: 250mg 1 vial per 5ml).', type: 'action' },
+      { title: 'Hypermetabolic Control', description: 'Monitor ETCO2; aim to normalize despite massive production. Treat hyperkalemia: 10 units Insulin + 50ml D50% IV.', type: 'action' },
+      { title: 'Cooling Target', description: 'Active cooling (iced saline, surface cooling). Stop cooling once core temp reaches 38°C to prevent rebound hypothermia.', type: 'action' },
+      { title: 'Arrhythmia Safety', description: 'Treat arrhythmias with standard agents but AVOID Calcium Channel Blockers (potential for lethal hyperkalemia with dantrolene).', type: 'warning' },
+      { title: 'Post-Crisis Monitoring', description: 'Transfer to ICU. Monitor for DIC, myoglobinuria/renal failure, and MH recurrence (25% risk in first 24h).', type: 'info' }
+    ]
+  },
+  {
+    id: 'das-peds-airway-2022',
+    title: 'Paediatric Difficult Airway (2022)',
+    source: 'ASA',
+    year: 2022,
+    link: 'https://das.uk.com/guidelines/paediatric-difficult-airway-guidelines',
+    steps: [
+      { title: 'Pre-Oxygenation & Positioning', description: 'Optimize "Neutral" position for infants, "Sniffing" for older children. Apply HFNO (High Flow) for apneic oxygenation throughout.', type: 'action' },
+      { title: 'Plan A: VL/DL Intubation', description: 'Limit to 2 attempts. Use Videolaryngoscopy (VL) early. Ensure depth of anesthesia and paralysis before attempt.', type: 'action' },
+      { title: 'Plan B: 2nd-Gen SAD', description: 'Insert 2nd-gen SAD (e.g., i-Gel / ProSeal). Limit to 2 insertion attempts.', type: 'action' },
+      { title: 'Ventilation Successful?', description: 'Is SpO2 maintained > 90% via SAD?', type: 'decision' },
+      { title: 'Plan C: Bag-Mask Rescue', description: 'Maximize airway maneuvers (2-person bag-mask, OPA). Use "Wake Up" option as the primary rescue if non-urgent.', type: 'action' },
+      { title: 'Plan D: eFONA Rescue', description: 'CICO declared. Perform "Scalpel-Bougie-Tube" technique (if age-appropriate) or Needle Cricothyroidotomy if infant.', type: 'warning' }
+    ]
+  },
+  {
+    id: 'erc-nls-2021',
+    title: 'Newborn Life Support (NLS) (2021)',
+    source: 'ERC',
+    year: 2021,
+    link: 'https://cprguidelines.eu/assets/guidelines/NLS_Guidelines_2021.pdf',
+    steps: [
+      { title: 'Thermal Preservation', description: 'Dry and wrap immediately. Place under radiant heater. Maintain temp 36.5-37.5°C.', type: 'action' },
+      { title: 'Initial Inflation Breaths', description: 'Give 5 inflation breaths (30 cmH2O for 2-3 seconds each). This is the single most important resuscitative step.', type: 'warning' },
+      { title: 'Heart Rate Evaluation', description: 'Is HR > 60 bpm after 5 successful inflations?', type: 'decision' },
+      { title: 'Compresion-Ventilation', description: 'Start 3:1 ratio (90 compressions, 30 breaths per minute). Coordinate breaths on the "up" stroke of compressions.', type: 'action' },
+      { title: 'Pharmacological Support', description: 'Administer Epinephrine (10-30 mcg/kg IV) if HR remains < 60 despite high-quality CPR and ventilation.', type: 'action' }
+    ]
+  },
+  {
+    id: 'oaa-failed-obstetric-intubation',
+    title: 'Failed Obstetric Intubation (2023)',
+    source: 'OAA',
+    year: 2023,
+    link: 'https://www.oaa-anaes.ac.uk/Obstetric_Difficult_Airway_Guidelines',
+    steps: [
+      { title: 'Plan A: Declare Failure', description: 'Call for help. Limit to 2 intubation attempts. Maintain Head-Up/LUD position.', type: 'warning' },
+      { title: 'Plan B: SAD Insertion', description: 'Insert 2nd-gen SAD (e.g. ProSeal/i-Gel). This is the primary rescue device.', type: 'action' },
+      { title: 'Ventilation Quality Check', description: 'Is ventilation adequate through the SAD?', type: 'decision' },
+      { title: 'Clinical Urgency Veto', description: 'Is there critical fetal distress or life-threatening maternal hemorrhage?', type: 'decision' },
+      { title: 'Benefit/Risk: Wake Up', description: 'Wake patient up. Re-evaluate for regional anesthesia. This is the preferred safety option.', type: 'info' },
+      { title: 'Benefit/Risk: Proceed', description: 'Proceed via SAD ONLY if extremely urgent. Minimize volatile agent to maintain uterine tone.', type: 'warning' }
+    ]
+  },
+  {
+    id: 'aagbi-massive-haemorrhage',
+    title: 'Massive Haemorrhage in Adults (2022)',
+    source: 'ESAIC',
+    year: 2022,
+    link: 'https://anaesthetists.org/Home/Resources-publications/Guidelines/Management-of-severe-haemorrhage',
+    steps: [
+      { title: 'Activate MHP', description: 'Call for Massive Haemorrhage Protocol. Deploy Porter and specialized transfusion team.', type: 'warning' },
+      { title: 'Empirical 1:1:1 Ratio', description: 'Transfuse FFP, Platelets, and PRBC in a balanced 1:1:1 ratio until viscoelastic testing (TEG/ROTEM) is available.', type: 'action' },
+      { title: 'Tranexamic Acid (TXA)', description: 'Give 1g TXA IV immediately (within 3h of injury), followed by 1g over 8 hours.', type: 'action' },
+      { title: 'Physiological Target', description: 'Target MAP 50-60 mmHg (Permissive Hypotension) until surgical control. Maintain normothermia.', type: 'info' },
+      { title: 'Coagulation Optimization', description: 'Target Fibrinogen > 1.5-2.0 g/L. Maintain Ca2+ > 1.1 mmol/L (give Calcium Chloride 1g).', type: 'action' }
+    ]
+  },
+  {
+    id: 'asa-nmb-standards',
+    title: 'Neuromuscular Monitoring Standards (2023)',
+    source: 'ASA',
+    year: 2023,
+    link: 'https://pubs.asahq.org/anesthesiology/article/138/1/13/137451/Practice-Guidelines-for-Monitoring-and-Antagonism',
+    steps: [
+      { title: 'Quantitative Requirement', description: 'Mandatory use of quantitative (AMG/EMG) monitoring over qualitative (clinical/visual) assessment.', type: 'warning' },
+      { title: 'Reversal decision', description: 'Evaluate current TOF ratio or count before selecting reversal agent.', type: 'decision' },
+      { title: 'Deep Block (PTC 1-2)', description: 'Sugammadex 4 mg/kg is required. Do NOT use neostigmine.', type: 'action' },
+      { title: 'Moderate Block (TOF 1-3)', description: 'Sugammadex 2 mg/kg is required. Avoid neostigmine unless TOF count 4.', type: 'action' },
+      { title: 'Safe Extubation Threshold', description: 'Patient must achieve a quantitative TOF ratio of 1.0 (or at least > 0.9) before extubation.', type: 'warning' }
     ]
   }
 ];

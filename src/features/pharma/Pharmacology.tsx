@@ -19,6 +19,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import EmergencyDrugs from './EmergencyDrugs';
 import PharmacologyReference from './PharmacologyReference';
+import InteractionChecker from './InteractionChecker';
 import { calculateSodiumCorrection } from '../../lib/RenalCalculators';
 import { BookOpen } from 'lucide-react';
 
@@ -153,7 +154,7 @@ const DRUG_PRESETS: DrugPreset[] = [
 
 export default function Pharmacology() {
   const { t } = useLanguage();
-  const [activeView, setActiveView] = useState<'emergency' | 'infusion' | 'sodium' | 'reference'>('emergency');
+  const [activeView, setActiveView] = useState<'emergency' | 'infusion' | 'sodium' | 'reference' | 'interactions'>('emergency');
 
   const K_WEIGHT = 'anestassist_patient_weight';
   const K_SELECTED_DRUG = 'anestassist_converter_drug';
@@ -267,6 +268,15 @@ export default function Pharmacology() {
         >
           <BookOpen className="w-4 h-4" />
           Reference
+        </button>
+        <button
+          onClick={() => setActiveView('interactions')}
+          className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all text-center flex items-center justify-center gap-2 ${
+            activeView === 'interactions' ? 'bg-amber-500 text-white shadow-md' : 'text-slate-500 hover:bg-slate-50'
+          }`}
+        >
+          <ShieldAlert className="w-4 h-4" />
+          Interactions
         </button>
       </div>
 
@@ -752,6 +762,8 @@ export default function Pharmacology() {
           )}
 
           {activeView === 'reference' && <PharmacologyReference />}
+
+          {activeView === 'interactions' && <InteractionChecker />}
         </motion.div>
       </AnimatePresence>
     </div>

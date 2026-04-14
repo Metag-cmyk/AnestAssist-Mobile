@@ -1,92 +1,58 @@
 import { useState, useEffect } from 'react';
-import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, ClipboardList, ArrowRight, Droplets, AlertTriangle, Info, ShieldCheck, TrendingUp } from 'lucide-react';
+import { 
+  Stethoscope, 
+  ChevronRight, 
+  AlertCircle, 
+  Activity, 
+  ShieldAlert, 
+  ClipboardList, 
+  ArrowRight, 
+  Droplets, 
+  AlertTriangle, 
+  Info, 
+  ShieldCheck, 
+  TrendingUp,
+  Search
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ConditionProtocol, TreatmentStep } from '../../types';
+import { ConditionProtocol } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
 
-function TreatmentDiagram({ steps }: { steps: TreatmentStep[] }) {
-  const { t } = useLanguage();
-  return (
-    <div className="space-y-4 my-8">
-      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">{t('common.algorithm')}</h4>
-      <div className="flex flex-col gap-4">
-        {steps.map((step, index) => (
-          <div key={index} className="flex items-start gap-4">
-            <div className="flex flex-col items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 ${
-                step.type === 'action' ? 'bg-blue-50 border-blue-200 text-blue-600' :
-                step.type === 'decision' ? 'bg-amber-50 border-amber-200 text-amber-600' :
-                step.type === 'warning' ? 'bg-rose-50 border-rose-200 text-rose-600' :
-                'bg-slate-50 border-slate-200 text-slate-600'
-              }`}>
-                {index + 1}
-              </div>
-              {index < steps.length - 1 && (
-                <div className="w-0.5 h-12 bg-slate-100 my-1" />
-              )}
-            </div>
-            <div className={`flex-1 p-4 rounded-xl border ${
-              step.type === 'action' ? 'bg-blue-50/30 border-blue-100' :
-              step.type === 'decision' ? 'bg-amber-50/30 border-amber-100' :
-              step.type === 'warning' ? 'bg-rose-50/30 border-rose-100' :
-              'bg-slate-50/30 border-slate-100'
-            }`}>
-              <p className="font-bold text-sm text-slate-800">{step.title}</p>
-              <p className="text-xs text-slate-500 mt-1">{step.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// Shared Components & Hooks
+import { usePersistentState } from '../../hooks/usePersistentState';
+import { useModuleSearch } from '../../hooks/useModuleSearch';
+import { StepTimeline } from '../../components/shared/StepTimeline';
+import { CommandCard } from '../../components/shared/CommandCard';
+import { InfoSection } from '../../components/shared/DetailSection';
+import { ModuleEmptyState } from '../../components/shared/ModuleEmptyState';
+import SearchInput from '../../components/SearchInput';
 
 export default function Conditions() {
   const { conditions: rawConditions } = useData();
   const CONDITIONS_DATA = rawConditions as ConditionProtocol[];
   
-  const [selectedId, setSelectedId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_conditions_selected_id');
-  });
-  const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_conditions_search_term') || '';
-  });
-  const [activeCategory, setActiveCategory] = useState<string>(() => {
-    return localStorage.getItem('anestassist_conditions_active_category') || 'All';
-  });
+  const [selectedId, setSelectedId] = usePersistentState<string | null>('anestassist_conditions_selected_id', null);
+  const [searchTerm, setSearchTerm] = useState<string>(''); // Search doesn't necessarily need persistence across sessions if refined
+  const [activeCategory, setActiveCategory] = usePersistentState<string>('anestassist_conditions_active_category', 'All');
   
   const { t } = useLanguage();
-
-  useEffect(() => {
-    if (selectedId) localStorage.setItem('anestassist_conditions_selected_id', selectedId);
-    else localStorage.removeItem('anestassist_conditions_selected_id');
-  }, [selectedId]);
-
-  useEffect(() => {
-    localStorage.setItem('anestassist_conditions_search_term', searchTerm);
-  }, [searchTerm]);
-
-  useEffect(() => {
-    localStorage.setItem('anestassist_conditions_active_category', activeCategory);
-  }, [activeCategory]);
 
   const formatCategory = (cat: string) => {
     if (cat === 'All') return t('common.all');
     return cat.split(' > ').map(part => t(`category.${part}`)).join(' > ');
   };
 
-  const selectedCondition = CONDITIONS_DATA.find(c => c.id === selectedId) || null;
-  
   const categories = ['All', ...new Set(CONDITIONS_DATA.map(c => c.category.split(' > ')[0]))];
 
-  const filteredConditions: ConditionProtocol[] = searchItems<ConditionProtocol>(
-    CONDITIONS_DATA.filter(c => activeCategory === 'All' || c.category.startsWith(activeCategory)),
+  const filteredConditions = useModuleSearch<ConditionProtocol>({
+    data: CONDITIONS_DATA,
     searchTerm,
-    ['name', 'category']
-  );
+    searchFields: ['name', 'category'],
+    filter: (c) => activeCategory === 'All' || c.category.startsWith(activeCategory)
+  });
 
+  // Sync selection with filter
   useEffect(() => {
     if (selectedId && !filteredConditions.some(c => c.id === selectedId)) {
       if (filteredConditions.length > 0) {
@@ -95,7 +61,9 @@ export default function Conditions() {
         setSelectedId(null);
       }
     }
-  }, [filteredConditions, selectedId]);
+  }, [filteredConditions, selectedId, setSelectedId]);
+
+  const selectedCondition = CONDITIONS_DATA.find(c => c.id === selectedId) || null;
 
   const getSeverityStyles = (severity: string, isSelected: boolean) => {
     switch (severity) {
@@ -121,15 +89,12 @@ export default function Conditions() {
       {/* Sidebar */}
       <div className="lg:col-span-4 space-y-6">
         <div className="bg-white p-6 rounded-2xl border border-medical-border shadow-sm">
-          <div className="relative mb-6">
-            <input
-              type="text"
+          <div className="mb-6">
+            <SearchInput
               placeholder={t('common.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
             />
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           </div>
 
           <div className="flex flex-wrap gap-2 mb-6">
@@ -211,91 +176,48 @@ export default function Conditions() {
                 </div>
               </div>
 
-              {/* NEW: Anesthesia Command Card */}
-              {selectedCondition.anesthesiaStrategy && (
-                <section className="mb-10 p-6 bg-slate-900 rounded-3xl text-white relative overflow-hidden shadow-xl shadow-slate-900/10">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-medical-accent/10 rounded-full blur-3xl -mr-32 -mt-32" />
-                  <div className="relative z-10">
-                    <h3 className="flex items-center gap-2 text-xs font-black text-medical-accent uppercase tracking-[0.2em] mb-6">
-                      <ShieldAlert className="w-4 h-4" />
-                      Anesthesia Command & Strategy
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <ul className="space-y-3">
-                        {selectedCondition.anesthesiaStrategy.slice(0, Math.ceil(selectedCondition.anesthesiaStrategy.length / 2)).map((item, i) => (
-                          <li key={i} className="flex items-start gap-3 text-[13px] font-bold text-slate-100 leading-relaxed">
-                            <div className="w-1.5 h-1.5 rounded-full bg-medical-accent mt-2 shrink-0" />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                      <ul className="space-y-3">
-                        {selectedCondition.anesthesiaStrategy.slice(Math.ceil(selectedCondition.anesthesiaStrategy.length / 2)).map((item, i) => (
-                          <li key={i} className="flex items-start gap-3 text-[13px] font-bold text-slate-100 leading-relaxed">
-                            <div className="w-1.5 h-1.5 rounded-full bg-medical-accent mt-2 shrink-0" />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-              )}
+              {/* SHARED: Anesthesia Command Card */}
+              <CommandCard 
+                strategies={selectedCondition.anesthesiaStrategy || []} 
+              />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-8">
-                  <section>
-                    <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
-                      <ShieldAlert className="w-4 h-4 text-rose-500" />
-                      {t('common.diagnosis')}
-                    </h3>
-                    <ul className="space-y-3">
-                      {selectedCondition.diagnosis.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                          <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                  {/* SHARED: Diagnosis Section */}
+                  <InfoSection 
+                    title={t('common.diagnosis')}
+                    icon={ShieldAlert}
+                    iconColor="text-rose-500"
+                    bulletColor="bg-rose-400"
+                    items={selectedCondition.diagnosis}
+                  />
 
-                  {selectedCondition.diagnosticCriteria && selectedCondition.diagnosticCriteria.length > 0 && (
-                    <section className="p-5 bg-rose-50/30 rounded-2xl border border-rose-100">
-                      <h3 className="flex items-center gap-2 text-sm font-bold text-rose-800 mb-3">
-                        <ClipboardList className="w-4 h-4 text-rose-600" />
-                        {t('common.diagnosticCriteria')}
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedCondition.diagnosticCriteria.map((item, i) => (
-                          <li key={i} className="text-xs text-rose-700 leading-relaxed italic flex items-start gap-2">
-                            <div className="w-1 h-1 rounded-full bg-rose-300 mt-1.5 shrink-0" />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  )}
+                  {/* SHARED: Diagnostic Criteria */}
+                  <InfoSection 
+                    title={t('common.diagnosticCriteria')}
+                    icon={ClipboardList}
+                    iconColor="text-rose-600"
+                    bgColor="bg-rose-50/30"
+                    borderColor="border-rose-100"
+                    textColor="text-rose-700 font-medium italic"
+                    bulletColor="bg-rose-300"
+                    items={selectedCondition.diagnosticCriteria || []}
+                    variant="compact"
+                  />
 
-                  {/* NEW: Preop Optimization */}
-                  {selectedCondition.preopOptimization && (
-                    <section className="p-6 bg-emerald-50/50 rounded-3xl border border-emerald-100">
-                      <h3 className="flex items-center gap-2 text-xs font-black text-emerald-800 mb-4 uppercase tracking-widest">
-                        <Activity className="w-4 h-4 text-emerald-600" />
-                        Preoperative Optimization
-                      </h3>
-                      <ul className="space-y-3">
-                        {selectedCondition.preopOptimization.map((item, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm text-emerald-900 font-bold">
-                            <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
-                              <ChevronRight className="w-2.5 h-2.5 text-emerald-600" />
-                            </div>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  )}
+                  {/* SHARED: Preop Optimization */}
+                  <InfoSection 
+                    title="Preoperative Optimization"
+                    icon={Activity}
+                    iconColor="text-emerald-600"
+                    bgColor="bg-emerald-50/50"
+                    borderColor="border-emerald-100"
+                    textColor="text-emerald-900 font-bold"
+                    bulletColor="bg-emerald-400"
+                    items={selectedCondition.preopOptimization || []}
+                  />
 
+                  {/* Lab Ranges Container */}
                   {selectedCondition.normalLabRanges && (
                     <section className="p-5 bg-amber-50/50 rounded-2xl border border-amber-100">
                       <div className="space-y-6">
@@ -334,48 +256,49 @@ export default function Conditions() {
                     </section>
                   )}
 
-                  <section>
-                    <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
-                      <Activity className="w-4 h-4 text-blue-500" />
-                      {t('common.actions')}
-                    </h3>
-                    <ul className="space-y-3">
-                      {selectedCondition.immediateActions.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                  {/* SHARED: Actions Section */}
+                  <InfoSection 
+                    title={t('common.actions')}
+                    icon={Activity}
+                    iconColor="text-blue-500"
+                    bulletColor="bg-blue-400"
+                    items={selectedCondition.immediateActions}
+                  />
 
-                  {/* NEW: Linked Scores */}
-                  {selectedCondition.linkedScoreIds && selectedCondition.linkedScoreIds.length > 0 && (
-                    <section className="p-5 bg-indigo-50/50 rounded-2xl border border-indigo-100">
-                      <h3 className="flex items-center gap-2 text-xs font-black text-indigo-800 mb-4 uppercase tracking-widest">
-                        <Activity className="w-4 h-4 text-indigo-600" />
-                        Integrated Risk Scores
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedCondition.linkedScoreIds.map((scoreId, i) => (
-                          <div
-                            key={i}
-                            className="px-3 py-2 bg-white border border-indigo-200 rounded-xl text-xs font-black text-indigo-600 shadow-sm flex items-center gap-2"
-                          >
-                            <ChevronRight className="w-3 h-3" />
-                            {scoreId.toUpperCase().replace('_', ' ')}
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                  )}
+                  {/* SHARED: Integrated Risk Scores */}
+                  <div className="space-y-2">
+                    {selectedCondition.linkedScoreIds && selectedCondition.linkedScoreIds.length > 0 && (
+                      <section className="p-5 bg-indigo-50/50 rounded-2xl border border-indigo-100">
+                        <h3 className="flex items-center gap-2 text-xs font-black text-indigo-800 mb-4 uppercase tracking-widest">
+                          <Activity className="w-4 h-4 text-indigo-600" />
+                          Integrated Risk Scores
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedCondition.linkedScoreIds.map((scoreId, i) => (
+                            <div
+                              key={i}
+                              className="px-3 py-2 bg-white border border-indigo-200 rounded-xl text-xs font-black text-indigo-600 shadow-sm flex items-center gap-2"
+                            >
+                              <ChevronRight className="w-3 h-3" />
+                              {scoreId.toUpperCase().replace('_', ' ')}
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+                  </div>
                 </div>
 
                 <div className="space-y-8">
+                  {/* SHARED: Treatment Timeline */}
                   {selectedCondition.diagram && (
-                    <TreatmentDiagram steps={selectedCondition.diagram} />
+                    <StepTimeline 
+                      steps={selectedCondition.diagram} 
+                      title={t('common.algorithm')}
+                    />
                   )}
 
+                  {/* SHARED: Differential Diagnosis */}
                   {selectedCondition.differentialDiagnosis && selectedCondition.differentialDiagnosis.length > 0 && (
                     <section className="p-5 bg-slate-50/50 rounded-2xl border border-slate-200">
                       <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
@@ -392,22 +315,16 @@ export default function Conditions() {
                     </section>
                   )}
 
-                  <section>
-                    <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
-                      <ClipboardList className="w-4 h-4 text-medical-accent" />
-                      {t('common.secondary')}
-                    </h3>
-                    <ul className="space-y-3">
-                      {selectedCondition.secondaryManagement.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                          <ArrowRight className="w-3 h-3 text-medical-accent mt-1 shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                  {/* SHARED: Secondary Management */}
+                  <InfoSection 
+                    title={t('common.secondary')}
+                    icon={ClipboardList}
+                    iconColor="text-medical-accent"
+                    bulletColor="bg-medical-accent"
+                    items={selectedCondition.secondaryManagement}
+                  />
 
-                  {/* NEW: Postop Disposition */}
+                  {/* Postop Recovery */}
                   {selectedCondition.postopDisposition && (
                     <section className="p-6 bg-slate-100/50 rounded-3xl border border-slate-200 shadow-sm">
                       <h3 className="flex items-center gap-2 text-xs font-black text-slate-800 mb-4 uppercase tracking-widest">
@@ -421,6 +338,7 @@ export default function Conditions() {
                     </section>
                   )}
 
+                  {/* Fluid Management */}
                   {selectedCondition.ivFluidManagement && (
                     <section className="p-5 bg-blue-50/50 rounded-2xl border border-blue-100">
                       <h3 className="flex items-center gap-2 text-sm font-bold text-blue-800 mb-4">
@@ -476,15 +394,11 @@ export default function Conditions() {
               )}
             </motion.div>
           ) : (
-            <div className="bg-white p-12 rounded-2xl border border-medical-border border-dashed flex flex-col items-center justify-center text-center space-y-6 h-full min-h-[600px]">
-              <div className="p-6 bg-slate-50 rounded-full">
-                <Stethoscope className="w-16 h-16 text-slate-200" />
-              </div>
-              <div className="max-w-xs">
-                <h3 className="text-xl font-bold text-slate-700 mb-2">{t('common.selectProtocol')}</h3>
-                <p className="text-sm text-slate-500">{t('common.selectProtocolDesc')}</p>
-              </div>
-            </div>
+            <ModuleEmptyState 
+              icon={Stethoscope}
+              title={t('common.selectProtocol')}
+              description={t('common.selectProtocolDesc')}
+            />
           )}
         </AnimatePresence>
       </div>

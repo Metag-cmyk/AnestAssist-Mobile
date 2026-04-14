@@ -61,7 +61,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Administer local anesthetic infiltration at port sites (e.g., Bupivacaine) and consider intraperitoneal local anesthetic to reduce post-operative pain.'
           ],
           postOp: ['Regular analgesia', 'Discharge planning for day-case']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT + Deep Muscle Relaxation',
+          'Prophylactic triple-therapy antiemetics (High PONV risk)',
+          'OG tube for gastric decompression',
+          'Monitor for vagal response during insufflation/traction'
+        ],
+        positioningDetail: 'Reverse Trendelenburg with left tilt. Ensure footboard and secure straps.',
+        fluidBloodPlan: 'Restrictive crystalloid; EBL < 50ml. Standard IV access.',
+        postopDisposition: 'Day Surgery / Ward'
       },
       {
         id: 'appendectomy',
@@ -91,12 +100,21 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Fluid resuscitation', 'Analgesia (morphine titration)'],
           intraOp: [
             'Monitor for signs of sepsis or systemic inflammatory response syndrome (SIRS), including tachycardia and hypotension.',
-            'Maintain adequate hydration with balanced crystalloids to compensate for pre-operative fasting and potential sepsis-related fluid shifts.',
+            'Maintain adequate hydration with balanced crystalloids to compensate for pre-operative fashioning and potential sepsis-related fluid shifts.',
             'Ensure rapid sequence induction (RSI) if the patient has symptoms of bowel obstruction or significant peritonitis.',
             'Administer intra-operative antibiotics (e.g., Metronidazole and Cefuroxime) to reduce the risk of post-operative abscess formation.'
           ],
           postOp: ['Antibiotic course if perforated', 'Monitor for return of bowel function']
-        }
+        },
+        anesthesiaStrategy: [
+          'RSI with Cuffed ETT (Assume full stomach/ileus)',
+          'Aggressive Fluid Resuscitation if Septic',
+          'TAP block or port-site infiltration for analgesia',
+          'Avoid N2O to prevent bowel distension'
+        ],
+        positioningDetail: 'Supine; arms tucked for laparoscopic approach to allow surgeon movement.',
+        fluidBloodPlan: 'Balanced crystalloid (Plasmalyte/LR) for dehydration; EBL < 50ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'inguinal-hernia',
@@ -131,7 +149,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Consider bladder catheterization if the procedure is prolonged or if using spinal anesthesia to prevent retention.'
           ],
           postOp: ['Early mobilization', 'Scrotal support if needed']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal Anesthesia or GA (LMA suitable if not laparoscopic)',
+          'Prophylaxis for urinary retention (especially in elderly/spinal)',
+          'Ilioinguinal/iliohypogastric nerve block',
+          'Smooth emergence to avoid straining on mesh'
+        ],
+        positioningDetail: 'Supine. Slight Trendelenburg for TAPP/TEP laparoscopic approach.',
+        fluidBloodPlan: 'Maintenance crystalloid only; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'mastectomy',
@@ -167,7 +194,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Administer long-acting local anesthetic (e.g., Ropivacaine) via wound infiltration or regional blocks (PECS I/II or Paravertebral) to minimize post-operative opioid requirements.'
           ],
           postOp: ['Early mobilization of the arm', 'Drain management instructions']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with LMA or ETT',
+          'PECS II or Serratus Plane Block for analgesia',
+          'Avoid paralysis if using nerve monitoring for axillary dissection',
+          'Smooth emergence to prevent hematoma formation'
+        ],
+        positioningDetail: 'Supine with ipsilateral arm abducted 90 degrees on arm board. Pad ulnar nerve.',
+        fluidBloodPlan: 'Standard maintenance; EBL 100-300ml. Blood G&S only.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'hemicolectomy',
@@ -204,7 +240,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Ensure the patient remains normothermic and normoglycemic to reduce the risk of anastomotic leak and surgical site infection.'
           ],
           postOp: ['ERAS protocol', 'Early mobilization', 'Monitor for return of bowel function']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT + Mid-Thoracic Epidural or TAP Block',
+          'Goal-Directed Fluid Therapy (GDFT - SV/PPV optimization)',
+          'Restrictive fluid strategy to prevent anastomotic edema',
+          'Multimodal analgesia (Ketamine/Lidocaine infusions)'
+        ],
+        positioningDetail: 'Lloyd-Davies (modified lithotomy) for left-sided; Supine for right-sided.',
+        fluidBloodPlan: 'GDFT targeted; EBL 200-500ml. Type & Screen.',
+        postopDisposition: 'Ward / HDU if high-risk'
       },
       {
         id: 'gastrectomy',
@@ -241,7 +286,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain normothermia and monitor urine output as a surrogate for visceral perfusion.'
           ],
           postOp: ['Jejunostomy feeding (if applicable)', 'Monitor for leak (tachycardia/pain)']
-        }
+        },
+        anesthesiaStrategy: [
+          'RSI with cuffed ETT + Thoracic Epidural (T6-T8)',
+          'Invasive monitoring (Arterial Line essential)',
+          'Deep relaxation for upper abdominal exposure',
+          'Watch for arrhythmias during esophageal manipulation'
+        ],
+        positioningDetail: 'Supine. Ensure adequate padding for long duration (>4h).',
+        fluidBloodPlan: 'Balanced crystalloid + GDFT; EBL 300-600ml. Crossmatch 2 units.',
+        postopDisposition: 'HDU / ICU'
       },
       {
         id: 'esophagectomy',
@@ -277,7 +331,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Monitor for arrhythmias and hemodynamic instability during mediastinal dissection and esophageal mobilization.'
           ],
           postOp: ['ICU admission', 'Monitor chest drain output']
-        }
+        },
+        anesthesiaStrategy: [
+          'OLV (Double Lumen Tube or Blocker)',
+          'Thoracic Epidural + A-Line + CVL',
+          'Protective ventilation during OLV (6ml/kg + PEEP)',
+          'Avoid excessive fluid to protect graft'
+        ],
+        positioningDetail: 'Supine (Abdominal phase) then Left Lateral (Thoracic phase).',
+        fluidBloodPlan: 'GDFT; EBL 400-800ml. Crossmatch 4 units.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'liver-transplant',
@@ -314,7 +377,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Use Transesophageal Echocardiography (TEE) to assess right heart function and volume status throughout the procedure.'
           ],
           postOp: ['ICU management', 'Monitor for graft function']
-        }
+        },
+        anesthesiaStrategy: [
+          'TEE Monitoring + Rapid Infusion System (Level 1)',
+          'ROTEM/TEG Guided Coagulation Management',
+          'Prepare for Post-Reperfusion Syndrome (PRS)',
+          'Aggressive electrolyte management (Fixed-rate Ca++ infusion)'
+        ],
+        positioningDetail: 'Supine with Mercedes-Benz incision. Padded support for long duration (>8h).',
+        fluidBloodPlan: 'Massive Transfusion Protocol (MTP); EBL 1-10L. 10 units Crossmatched.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'gastric-bypass',
@@ -348,7 +420,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain strict fluid restriction to prevent bowel edema, which complicates the anastomosis.'
           ],
           postOp: ['Multimodal opioid-sparing analgesia', 'Early mobilization and CPAP']
-        }
+        },
+        anesthesiaStrategy: [
+          'Ramped/HELP Position for Induction',
+          'Avoid PPI (use H2 blocker) if laparoscopic',
+          'Opioid-sparing (Dexmedetomidine/Lidocaine infusions)',
+          'Recruitment maneuvers in steep Rev-Trendelenburg'
+        ],
+        positioningDetail: 'Steep Reverse Trendelenburg. Secure footboard and chest straps.',
+        fluidBloodPlan: 'Restrictive (<1500ml total) to prevent anastomotic edema; EBL minimal.',
+        postopDisposition: 'Ward with CPAP'
       },
       {
         id: 'apr',
@@ -382,7 +463,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Monitor for massive, sudden hemorrhage during the deep pelvic/presacral dissection phase.'
           ],
           postOp: ['Continuous epidural or IV PCA', 'Monitor colostomy perfusion']
-        }
+        },
+        anesthesiaStrategy: [
+          'Thoracic Epidural (T9-T10) + GA + A-Line',
+          'Watch for sudden presacral hemorrhage',
+          'Compartment syndrome prevention (Modified Lithotomy)',
+          'GDFT to support bowel and flap perfusion'
+        ],
+        positioningDetail: 'Lithotomy/Lloyd-Davies then Prone Jackknife (if staged).',
+        fluidBloodPlan: 'Major shifts expected; EBL 500-1500ml. Crossmatch 4 units.',
+        postopDisposition: 'ICU/HDU'
       },
       {
         id: 'whipple',
@@ -410,7 +500,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Nutritional optimization', 'Biliary drainage if jaundiced', 'ERAS protocol initiation', 'Crossmatch 4 units PRBCs'],
           intraOp: ['Arterial line + Central line', 'Epidural catheter', 'Active warming', 'Goal-directed fluid therapy', 'Consider TEG if prolonged bleeding'],
           postOp: ['HDU or ICU Day 1', 'Epidural for 3-5 days', 'Monitor drains for amylase-rich fluid (pancreatic leak)', 'Early enteral feeding']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Mid-Thoracic Epidural + CVL + A-Line',
+          'Strict normothermia management',
+          'GDFT using stroke volume variation (SVV)',
+          'Consider octreotide for pancreatic duct protection'
+        ],
+        positioningDetail: 'Supine. Meticulous padding for 6-8 hour duration.',
+        fluidBloodPlan: 'Major third-space losses; EBL 400-800ml. Crossmatch 4 units.',
+        postopDisposition: 'ICU/HDU'
       },
       {
         id: 'liver-resection',
@@ -439,7 +538,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['LFTs, Coagulation screen, CT volumetry of remnant liver', 'Portal vein embolization if FLR insufficient'],
           intraOp: ['A-line essential', 'Target CVP 0-5 during transection', 'Switch to high-volume resuscitation after hemostasis', 'Glucose monitoring'],
           postOp: ['Daily LFTs, INR, Bilirubin', 'Monitor for coagulopathy', 'Nutritional support early']
-        }
+        },
+        anesthesiaStrategy: [
+          'Low CVP Anaesthesia (<5 mmHg) for transection',
+          'A-Line mandatory; Large-bore IV access',
+          'Watch for air embolism during hepatic vein manipulation',
+          'Normothermia to prevent coagulopathy'
+        ],
+        positioningDetail: 'Supine. Ensure arms tucked if using Mercedes-Benz incision.',
+        fluidBloodPlan: 'Restrictive until transection complete; EBL 500-1500ml. Crossmatch 4 units.',
+        postopDisposition: 'HDU/ICU'
       },
       {
         id: 'exploratory-laparotomy',
@@ -461,7 +569,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['IV access x2 large bore', 'Fluid resuscitation', 'Bloods + Group & Save', 'NG tube'],
           intraOp: ['RSI with Ketamine/Rocuronium', 'A-line early', 'Warm fluids', 'Consider vasopressors if septic'],
           postOp: ['ICU if unstable or damage control', 'NGT decompression', 'Epidural or IV PCA']
-        }
+        },
+        anesthesiaStrategy: [
+          'RSI with cuffed ETTmandatory (Assume full stomach)',
+          'Assume unresuscitated hypovolemia/sepsis',
+          'Avoid N2O to prevent bowel gas expansion',
+          'Active warming (Aggressive fluid warming)'
+        ],
+        positioningDetail: 'Supine. Rapid access for surgery required.',
+        fluidBloodPlan: 'Aggressive; large fluid shifts. Crossmatch 4 units.',
+        postopDisposition: 'Ward / HDU / ICU'
       },
       {
         id: 'paraumbilical-hernia',
@@ -490,7 +607,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Confirm reducible vs non-reducible', 'Review BMI'],
           intraOp: ['Maintain depth during peritoneal handling', 'Local infiltration at closure'],
           postOp: ['Early mobilization', 'Avoid heavy lifting for 4-6 weeks']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with LMA or Spinal (Spinal preferred for open)',
+          'Smooth emergence to prevent mesh disruption',
+          'Local infiltration for enhanced recovery',
+          'Watch for vagal response during sac traction'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Crystalloid maintenance; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'lap-rectal-resection',
@@ -521,7 +647,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Bowel prep if indicated', 'Review for anemia'],
           intraOp: ['A-line placement', 'Goal-directed fluids', 'Active warming'],
           postOp: ['ERAS protocol', 'Daily drain check', 'Early mobilization']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Thoracic Epidural or TAP Block',
+          'GDFT for anastomotic perfusion',
+          'Restrictive fluid to prevent bowel edema',
+          'Protect airway during steep Trendelenburg (edema risk)'
+        ],
+        positioningDetail: 'Steep Trendelenburg in Lloyd-Davies position.',
+        fluidBloodPlan: 'GDFT; EBL 200-500ml. Type & Screen.',
+        postopDisposition: 'Ward / HDU'
       }
     ]
   },
@@ -585,7 +720,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Ensure meticulous positioning and padding in the lateral decubitus position to prevent pressure sores and nerve palsies (e.g., peroneal nerve at the fibular head).'
           ],
           postOp: ['Check hemoglobin levels', 'Ensure adequate analgesia for PT']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal Anesthesia (Hyperbaric Bupivacaine 0.5% 2.5-3ml)',
+          'Tranexamic Acid (TXA) 1-2g at induction',
+          'Vigilance for BCIS during femoral cementing',
+          'Lumbar Plexus Block or LIA for post-op analgesia'
+        ],
+        positioningDetail: 'Lateral Decubitus or Supine (depending on approach). Protect dependent eye/ear/brachial plexus.',
+        fluidBloodPlan: 'Maintenance + TXA; EBL 200-500ml. Blood Group & Save.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'tkr',
@@ -622,7 +766,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics during tourniquet deflation, as transient hypotension and metabolic changes (acidosis, hyperkalemia) may occur.'
           ],
           postOp: ['Continuous Passive Motion (CPM)', 'Aggressive VTE prophylaxis']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal Anesthesia + Sedation',
+          'Adductor Canal Block (ACB) + iPACK Block',
+          'Tourniquet management (Limit to <120 min)',
+          'TXA 15mg/kg at induction'
+        ],
+        positioningDetail: 'Supine. Ensure padded tourniquet on high thigh.',
+        fluidBloodPlan: 'Standard maintenance; EBL minimal due to tourniquet.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'orif-ankle',
@@ -659,7 +812,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Administer regional anesthesia (e.g., Popliteal and Saphenous blocks) to provide superior post-operative pain control and reduce opioid consumption.'
           ],
           postOp: ['Non-weight bearing instructions', 'Monitor for compartment syndrome']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal Anesthesia or GA + Popliteal Block',
+          'Saphenous Nerve Block for medial malleolus',
+          'Monitor for compartment syndrome post-block',
+          'Tourniquet management (usually ankle or thigh)'
+        ],
+        positioningDetail: 'Supine with bump under ipsilateral hip.',
+        fluidBloodPlan: 'Standard maintenance; EBL minimal.',
+        postopDisposition: 'Day Surgery / Ward'
       },
       {
         id: 'acl-reconstruction',
@@ -696,7 +858,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Provide effective analgesia using an adductor canal block or femoral nerve block, supplemented by intra-articular local anesthetic.'
           ],
           postOp: ['Early weight bearing (as tolerated)', 'Physiotherapy']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with LMA or Spinal',
+          'Adductor Canal Block (ACB) - Preserves Quadriceps',
+          'Intra-articular local anesthetic at end of procedure',
+          'Avoid N2O (minimizes PONV for day case)'
+        ],
+        positioningDetail: 'Supine with knee distal to table break to allow flexion.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL minimal.',
+        postopDisposition: 'Day Surgery'
       },
       {
         id: 'shoulder-arthroscopy',
@@ -733,7 +904,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Provide excellent analgesia using an interscalene brachial plexus block; monitor for potential side effects like phrenic nerve palsy (Horner\'s syndrome).'
           ],
           postOp: ['Sling management', 'Monitor for block resolution']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Interscalene Block (ISB)',
+          'Beach Chair complication awareness (Bezold-Jarisch reflex)',
+          'Controlled hypotension (MAP 60-70) to improve visibility',
+          'Monitor for phrenic palsy if respiratory disease'
+        ],
+        positioningDetail: 'Beach chair or Lateral decubitus. Meticulous head fixation to avoid cervical injury.',
+        fluidBloodPlan: 'Standard maintenance; monitor irrigation fluid absorption.',
+        postopDisposition: 'Day Surgery / Ward'
       },
       {
         id: 'shoulder-replacement',
@@ -770,7 +950,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics and monitor for blood loss, which can be significant during humeral reaming and glenoid preparation.'
           ],
           postOp: ['Sling immobilization', 'Monitor neurovascular status']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT + Interscalene Block',
+          'Maintain MAP at external auditory meatus level',
+          'Watch for BCIS if humeral component is cemented',
+          'VTS (Ventilation to Surgery) communication for Beach Chair'
+        ],
+        positioningDetail: 'Beach Chair. Ensure head is neutral and secured.',
+        fluidBloodPlan: 'Standard maintenance; EBL 200-400ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'im-nailing',
@@ -984,7 +1173,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Monitor for signs of bladder or prostatic capsule perforation: sudden abdominal pain, hypotension, and inability to retrieve irrigation fluid.'
           ],
           postOp: ['Monitor Sodium levels', 'Ensure continuous irrigation is patent']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal Anesthesia (T10 level) - Patient awake for CNS monitoring',
+          'Vigilance for TURP Syndrome (Hyponatremia/Overload)',
+          'Monitor for bladder perforation (Shoulder tip pain)',
+          'Tight fluid management'
+        ],
+        positioningDetail: 'Lithotomy. Ensure calves are padded and nerve points protected.',
+        fluidBloodPlan: 'Glycine/Saline irrigation; EBL often underestimated. Standard IV access.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'radical-nephrectomy',
@@ -1014,7 +1212,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Check baseline Creatinine/GFR', 'Review for IVC thrombus on imaging', 'Type & Screen'],
           intraOp: ['A-line placement', 'Manage fluid carefully to preserve remnant kidney function', 'Monitor for pneumothorax'],
           postOp: ['Monitor urine output and renal function', 'Maintain adequate MAP', 'Analgesia (TAP or Epidural)']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT + Mid-Thoracic Epidural (if open)',
+          'Invasive monitoring (A-Line essential)',
+          'Low-pressure pneumoperitoneum (if laparoscopic)',
+          'Preserve remnant kidney function (maintain MAP > 80)'
+        ],
+        positioningDetail: 'Lateral/Flank position with kidney bridge. Protect brachial plexus.',
+        fluidBloodPlan: 'Balanced crystalloid; EBL 300-800ml. Blood G&S.',
+        postopDisposition: 'Ward / HDU'
       },
       {
         id: 'kidney-transplant',
@@ -1044,7 +1251,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review latest K+ and dialysis timing', 'Strict NPO', 'Confirm crossmatch negative'],
           intraOp: ['Aggressive MAP control', 'Check K+ and glucose regularly', 'Immunosuppression loading (e.g., Methylprednisolone)'],
           postOp: ['Strict fluid monitoring', 'Hourly urine output', 'Daily renal function check']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + A-Line + CVC (for volume assessment)',
+          'Target higher MAP (>85) for reperfusion',
+          'Avoid nephrotoxic agents (NSAIDs/Aminoglycosides)',
+          'Manage rapid K+ and glucose shifts upon reperfusion'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Aggressive volume to support graft; EBL 200-400ml. Blood G&S.',
+        postopDisposition: 'Ward / HDU'
       },
       {
         id: 'cystoscopy',
@@ -1257,7 +1473,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review nutritional status (Albumin)', 'Renal function assessment'],
           intraOp: ['Restrict fluids (5-10 ml/kg/h)', 'Pressure point protection', 'A-line monitoring'],
           postOp: ['ERAS bowel protocol', 'Pain management (TAP/Rectus sheath)']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + A-Line + Wide-bore IVs',
+          'Tight fluid restriction until diversion complete',
+          'Manage steep Trendelenburg (Airway edema risk)',
+          'High CO2 clearance requirement'
+        ],
+        positioningDetail: 'Steep Trendelenburg. Secure padding to prevent sliding.',
+        fluidBloodPlan: 'Restrictive (<2L total) until diversion; EBL 200-500ml. Blood G&S.',
+        postopDisposition: 'HDU / ICU'
       }
     ]
   },
@@ -1322,7 +1547,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Utilize intra-operative neuromonitoring (e.g., motor or sensory evoked potentials) to protect eloquent brain regions during tumor removal.'
           ],
           postOp: ['ICU/HDU admission', 'Strict BP targets (e.g., SBP < 140)']
-        }
+        },
+        anesthesiaStrategy: [
+          'TIVA (Propofol/Remifentanil) - Gold Standard',
+          ' "Slack Brain" Strategy (Mannitol 0.5-1g/kg + PaCO2 4.5-5.0)',
+          'Maintain CPP (MAP - ICP) > 60 mmHg',
+          'Smooth emergence (Lidocaine/Remifentanil) to avoid coughing'
+        ],
+        positioningDetail: 'Supine with head in Mayfield frame. Head elevated 30 deg for venous drainage.',
+        fluidBloodPlan: 'Isotonic (NS) or Plasmalyte; avoid glucose/free water. Standard IV + A-Line.',
+        postopDisposition: 'HDU / ICU'
       },
       {
         id: 'vp-shunt',
@@ -1359,7 +1593,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Monitor for potential complications like intracranial hemorrhage or peritoneal injury during catheter placement.'
           ],
           postOp: ['Neurological observations', 'Monitor for shunt failure']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT + Smooth Induction',
+          'Avoid Sux if ICP severely raised',
+          'Watch for arrhythmias during tunneling',
+          'Normocapnia (CO2 4.5-5.0) to stabilize ICP'
+        ],
+        positioningDetail: 'Supine with head turned. Shoulder roll for neck extension.',
+        fluidBloodPlan: 'Maintenance isotonic crystalloid; EBL minimal.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'microdiscectomy',
@@ -1396,7 +1639,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Ensure a smooth emergence from anesthesia to avoid straining and coughing, which can increase intracranial and spinal venous pressure.'
           ],
           postOp: ['Early mobilization', 'Monitor for CSF leak (headache/drainage)']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT + Muscle Relaxation',
+          'Prone safety protocols (Eyes/Nerves)',
+          'Avoid abdominal pressure (decreases field bleeding)',
+          'Multimodal analgesia (Acetaminophen/Gabapentin/Local)'
+        ],
+        positioningDetail: 'Prone on Wilson frame. Meticulous eye and ulnar nerve protection.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 50-150ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'spinal-fusion',
@@ -1434,7 +1686,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics and monitor for potential complications like dural tear (CSF leak) or hardware malposition during screw insertion.'
           ],
           postOp: ['Neurological checks', 'Pain management (PCA)']
-        }
+        },
+        anesthesiaStrategy: [
+          'TIVA (Propofol/Remi) for Neuromonitoring (MEP/SSEP)',
+          'Avoid Paralysis after induction',
+          'Cell Saver + TXA Loading (Major blood loss risk)',
+          'POVL Awareness (Keep head above heart, maintain MAP)'
+        ],
+        positioningDetail: 'Prone on Jackson table. Protect eyes/face/genitals/breasts.',
+        fluidBloodPlan: 'GDFT + Cell Saver; EBL 500-1500ml. Crossmatch 2-4 units.',
+        postopDisposition: 'Ward / HDU'
       },
       {
         id: 'carpal-tunnel',
@@ -1470,7 +1731,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Provide effective analgesia and consider the use of sedation to reduce patient anxiety and improve the surgical experience.'
           ],
           postOp: ['Hand elevation', 'Early finger movements']
-        }
+        },
+        anesthesiaStrategy: [
+          'Local Anesthesia / Sedation or Bier Block',
+          'Vigilance for LAST during Bier Block',
+          'Short procedure, day-case efficiency',
+          'Gentle movement monitoring'
+        ],
+        positioningDetail: 'Supine with arm on hand board.',
+        fluidBloodPlan: 'Minimal; EBL minimal.',
+        postopDisposition: 'Day Case'
       },
       {
         id: 'aneurysm-clipping',
@@ -1507,7 +1777,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Utilize intra-operative neuromonitoring (e.g., SSEP, MEP, EEG) to identify and prevent potential cerebral ischemia during temporary clipping or dissection.'
           ],
           postOp: ['ICU management', 'Monitor for vasospasm (Nimodipine)']
-        }
+        },
+        anesthesiaStrategy: [
+          'TIVA (Propofol/Remi) + Tight BP Control',
+          'MAP target: baseline until clipped, then high-normal',
+          'Prepare for Rupture (Adenosine x 6-12mg ready)',
+          'Brain bulge management: Mannitol + drainage'
+        ],
+        positioningDetail: 'Supine with head in Mayfield frame. Access to groin for possible angiography.',
+        fluidBloodPlan: 'Isotonic crystalloid; EBL 200-500ml. Crossmatch 2-4 units.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'awake-craniotomy',
@@ -1538,7 +1817,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Be prepared with an LMA/Fiberoptic bronchoscope for emergency airway rescue if the patient becomes obtunded or seizes uncontrollably.'
           ],
           postOp: ['ICU management', 'Neurological checks']
-        }
+        },
+        anesthesiaStrategy: [
+          'Asleep-Awake-Asleep (AAA) or Monitored Anesthesia Care (MAC)',
+          'Scalp Block mandatory for somatic analgesia',
+          'Avoid GABA-ergic drugs (Propofol) during mapping if possible',
+          'Immediate Cold Saline (4°C) for intra-op seizures'
+        ],
+        positioningDetail: 'Lateral or Supine in Mayfield frame. Access for patient-anesthetist interaction.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 100-300ml.',
+        postopDisposition: 'ICU / HDU'
       },
       {
         id: 'spinal-cord-tumor',
@@ -1569,7 +1857,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Baseline neurological exam', 'Review imaging for cord compression level'],
           intraOp: ['TIVA management', 'Strict MAP targets (e.g., MAP > 80)', 'Frequent communication with monitoring team'],
           postOp: ['Flat for 24-48h if CSF leak risk', 'Neurological checks every 1-2h', 'Pain management (IV PCA)']
-        }
+        },
+        anesthesiaStrategy: [
+          'TIVA (Propofol/Remi) for IONM (MEP/SSEP)',
+          'High MAP targets (>80) for cord perfusion',
+          'Avoid muscle relaxants after induction',
+          'Total Spinal risk if dural breach occurs'
+        ],
+        positioningDetail: 'Prone on Jackson table. Meticulous padding.',
+        fluidBloodPlan: 'Isotonic crystalloid; EBL 200-500ml. Blood G&S.',
+        postopDisposition: 'ICU / HDU'
       },
       {
         id: 'dbs-insertion',
@@ -1600,7 +1897,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Hold anti-Parkinsonian meds (OFF state)', 'Explain the procedure phases'],
           intraOp: ['Dexmedetomidine for sedation (doesn\'t interfere with MER)', 'SBP control', 'Warm blankets'],
           postOp: ['Monitor for neurology/vision changes', 'CT brain to rule out hemorrhage']
-        }
+        },
+        anesthesiaStrategy: [
+          'MAC with Dexmedetomidine (OFF-meds state)',
+          'Strict SBP control (<140) to prevent hemorrhage',
+          'Avoid Propofol/Benzos (interferes with MER)',
+          'Emergency airway plan (LMA at hand)'
+        ],
+        positioningDetail: 'Supine in stereotactic frame. Semi-Fowler elevation.',
+        fluidBloodPlan: 'Minimal maintenance; EBL minimal.',
+        postopDisposition: 'HDU / ICU (Overnight)'
       },
       {
         id: 'pituitary-resection',
@@ -1631,7 +1937,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Baseline visual field testing', 'Review endocrine status (Cortisol/Thyroid)'],
           intraOp: ['Strict fluid balance', 'Monitor electrolytes/osmolarity', 'Neurosurgical throat pack'],
           postOp: ['Monitor urine output hourly (for DI)', 'Check serum Sodium daily', 'Strict "No Blowing Nose"']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Oral ETT (Shared Airway Focus)',
+          'Avoid N2O (Tension Pneumocephalus Risk)',
+          'Diabetes Insipidus (DI) Proactive Monitoring',
+          'Smooth emergence (Lidocaine/Remi) to avoid CSF leak',
+          'Maintenance of normorvolemia'
+        ],
+        positioningDetail: 'Semi-Fowler (30 deg) with head in horseshoe. Access for nasal endoscopy.',
+        fluidBloodPlan: 'Maintenance isotonic (Plasmalyte/NS); EBL minimal.',
+        postopDisposition: 'HDU'
       },
       {
         id: 'posterior-fossa-resection',
@@ -1661,7 +1977,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review MRI for brainstem involvement', 'Assess for baseline CN deficits'],
           intraOp: ['CVP line for VAE aspiration', 'Precordial doppler', 'Maintenance of normocapnia'],
           postOp: ['Delayed extubation if brainstem edema suspected', 'ICU level care']
-        }
+        },
+        anesthesiaStrategy: [
+          'TIVA (Propofol/Remi) + VAE Precautions',
+          'Precordial Doppler + CVC (Aspiration ready)',
+          'Maintain MAP > 65 for brainstem perfusion',
+          'Monitor for Oculocardiac/Brainstem reflexes',
+          'Specialized ETT (Armored) for prone/flexion safety'
+        ],
+        positioningDetail: 'Prone, Lateral, or Sitting (High VAE Risk). Mayfield Frame.',
+        fluidBloodPlan: 'Restrictive isotonic; EBL 200-500ml. Blood G&S.',
+        postopDisposition: 'ICU'
       }
     ]
   },
@@ -1726,7 +2052,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics and optimize preload, afterload, and contractility (using inotropes or vasopressors as needed) during the weaning process and post-bypass period.'
           ],
           postOp: ['Monitor chest drain output', 'Manage shivering and hypertension']
-        }
+        },
+        anesthesiaStrategy: [
+          'High-Dose Opioid or Balanced Technique',
+          'ACT-Guided Anticoagulation (ACT > 400s pre-CPB)',
+          'TEE Monitoring (Wall Motion / De-airing)',
+          'Manage Myocardial O2 Supply/Demand (MAP focus)',
+          'Glycemic Control (Target < 180 mg/dL)'
+        ],
+        positioningDetail: 'Supine. Pad elbows and heels for long duration.',
+        fluidBloodPlan: 'Priming CPB + GDFT; EBL 300-800ml. MTP Standby.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'avr',
@@ -1764,7 +2100,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics and optimize cardiac output during the weaning process, using inotropic support or vasopressors as indicated.'
           ],
           postOp: ['ICU management', 'Monitor for heart block (pacing wires)']
-        }
+        },
+        anesthesiaStrategy: [
+          'Opioid-Balanced GA + TEE Mandatory',
+          'Maintain Hemodynamic Stability (Avoid Tachycardia)',
+          'Assess Valve Function & De-airing via TEE',
+          'ACT-Guided Heparin Protocol',
+          'Vasoplegia Readiness (Norepinephrine / Methylene Blue)'
+        ],
+        positioningDetail: 'Supine. Sternotomy access.',
+        fluidBloodPlan: 'Priming CPB + GDFT; EBL 300-600ml. 4 units Crossmatched.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'mitral-valve',
@@ -1801,7 +2147,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Maintain stable hemodynamics and optimize preload and afterload during the weaning process, being mindful of the risk of left ventricular outflow tract (LVOT) obstruction after repair.'
           ],
           postOp: ['ICU management', 'Monitor for AF']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + TEE + High-Grade RV Focus',
+          'Assess Mitral Repair / SAM via TEE post-bypass',
+          'Manage Pulmonary Hypertension (Nitric Oxide ready)',
+          'Maintain stable HR/Rhythm (AF common)',
+          'Avoid LVOT Obstruction (Preload optimization)'
+        ],
+        positioningDetail: 'Supine (Sternotomy) or Lateral (Mini-thoracotomy).',
+        fluidBloodPlan: 'Maintenance + CPB; EBL 200-500ml. Blood Standby.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'thoracic-aneurysm',
@@ -1833,7 +2189,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review CT for anatomy', 'Optimize cardiac and renal function'],
           intraOp: ['Monitor CSF pressure', 'Aggressive blood conservation (Cell saver)'],
           postOp: ['ICU management', 'Monitor for neurological deficits']
-        }
+        },
+        anesthesiaStrategy: [
+          'OLV + LHB/CPB + Spinal Protection',
+          'CSF Drainage (Keep < 10 mmHg)',
+          'Manage Proximal Hypertension / Distal Hypotension',
+          'DHCA Readiness (if arch involved)',
+          'Aggressive Coagulopathy Management'
+        ],
+        positioningDetail: 'Right Lateral Decubitus (Thoracoabdominal).',
+        fluidBloodPlan: 'Major Loss Protocol; EBL 1-5L. Cell Saver + MTP.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'ascending-aortic-replacement',
@@ -1864,7 +2230,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Detailed neuro/vascular exam', 'Check carotid dopplers', 'Verify blood availability'],
           intraOp: ['NIRS (Near-Infrared Spectroscopy) for brain', 'Bilateral A-lines', 'pH-stat vs alpha-stat management during cooling'],
           postOp: ['Slow rewarming', 'Aggressive clotting factor replacement', 'ICU management']
-        }
+        },
+        anesthesiaStrategy: [
+          'DHCA + Neuroprotection (Ice/Steroids/Barbiturates)',
+          'NIRS + EEG Monitoring for Cerebral Perfusion',
+          'Bilateral A-Lines (Axillary cannulation monitoring)',
+          'pH-stat/Alpha-stat Management',
+          'Manage Re-warming Vasoplegia'
+        ],
+        positioningDetail: 'Supine. Pad for long duration.',
+        fluidBloodPlan: 'MTP stand-by; EBL 800-2000ml. Full CPB strategy.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'pericardiectomy',
@@ -1894,7 +2270,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review Echo/CT for calcification', 'Optimize fluid status'],
           intraOp: ['TEE is essential', 'Maintain high index of suspicion for perforation', 'Inotropic support ready'],
           postOp: ['Monitor for "rebound" heart failure', 'ICU level care']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Proactive Inotropic Readiness',
+          'Monitor the "Released Heart" physiology',
+          'Ready for Sudden Massive Hemorrhage (Perforation)',
+          'TEE for transmural pressure evaluation',
+          'Aggressive Volume vs RV Support focus'
+        ],
+        positioningDetail: 'Supine. Access for CPB if needed.',
+        fluidBloodPlan: 'Major IV Access; EBL 500-2000ml. Blood in room.',
+        postopDisposition: 'ICU / HDU'
       },
       {
         id: 'bentall-procedure',
@@ -1924,7 +2310,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review coronary anatomy', 'Confirm valve type choice'],
           intraOp: ['TEE to assess valve and regional wall motion', 'Aggressive hemostasis', 'Manage bypass physiology'],
           postOp: ['Vigilant ECG monitoring', 'Tight BP control to protect suture lines']
-        }
+        },
+        anesthesiaStrategy: [
+          'High-Dose Opioid + TEE + Selective Cardioplegia',
+          'Assess Regional Wall Motion post-reimplantation',
+          'Tight SBP control to protect aortic root sutures',
+          'Manage Prolonged Bypass / Cross-clamp times',
+          'Aggressive coagulation monitoring (TEG/ROTEM)'
+        ],
+        positioningDetail: 'Supine. Sternotomy access.',
+        fluidBloodPlan: 'CPB + GDFT; EBL 800-2000ml. Crossmatch 4-units + FFP.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'heart-transplant',
@@ -1954,7 +2350,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Rapid review of donor/recipient match', 'Hold anticoagulants', 'Strict sterile setup'],
           intraOp: ['Isoproterenol infusion ready', 'Nitric Oxide/Epoprostenol for RV support', 'Pacing wires ready'],
           postOp: ['Steroid boluses', 'Strict isolation', 'Continuous RV function monitoring']
-        }
+        },
+        anesthesiaStrategy: [
+          'Direct Sympathomimetics Focus (Denervated Heart)',
+          'Nitric Oxide / Epoprostenol (RV Support)',
+          'Strict Aseptic Technique (Immunocompromised)',
+          'Avoid Atropine (Ineffective post-transplant)',
+          'Manage Pulmonary HTN transition post-bypass'
+        ],
+        positioningDetail: 'Supine. Pad for long duration.',
+        fluidBloodPlan: 'Maintenance + CPB; EBL 1-3L. Blood MTP standby.',
+        postopDisposition: 'ICU (Isolation)'
       },
       {
         id: 'pulmonary-embolectomy',
@@ -2015,7 +2421,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Strict fluid management', 'Review donor/recipient status (if bridge to transplant)'],
           intraOp: ['Nitric Oxide for RV', 'Inotropic support', 'TEE monitoring of septum position'],
           postOp: ['Maintain MAP 70-80 (non-pulsatile)', 'Monitor for RV failure symptoms']
-        }
+        },
+        anesthesiaStrategy: [
+          'LVAD-Start Readiness (Septum Monitoring)',
+          'High-Grade RV Support (NO / Inotropes)',
+          'TEE Rule-out of ASD/PFO and Aortic AR',
+          'Manage Shift from Pulsatile to Continuous Flow',
+          'Suction Event Prevention (Preload optimization)'
+        ],
+        positioningDetail: 'Supine. Access for CPB and Driveline tunneling.',
+        fluidBloodPlan: 'CPB Prime + GDFT; EBL 500-1500ml. Blood Standby.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'tavi',
@@ -2042,10 +2458,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Heart block', 'Stroke', 'Cardiac arrest', 'Myocardial infarction']
         },
         management: {
-          preOp: ['Review aortic root diameter', 'Verify vascular access site plan'],
-          intraOp: ['Aggressive MAP control', 'Check heart rhythm instantly after pacing stops', 'Prepare for emergency CPB if needed'],
+          preOp: ['Review TAVI CT scan', 'Check for dual antiplatelet therapy', 'Monitor for heart failure signs'],
+          intraOp: ['Prepare for rapid pacing', 'Ensure TEE availability', 'Close communication during deployment', 'ACT monitoring'],
           postOp: ['Monitor for neurology/vascular changes', 'Daily ECG for conduction changes']
-        }
+        },
+        anesthesiaStrategy: [
+          'MAC (Conscious Sedation) vs GA (TEE focus)',
+          'Rapid Ventricular Pacing (RVP) Management',
+          'Manage Heart Block Risk (Pacing ready)',
+          'Large-Bore Access for Emergency CPB conversion',
+          'Tight MAP control during deployment'
+        ],
+        positioningDetail: 'Supine with arms tucked. Groin/Thoracic access.',
+        fluidBloodPlan: 'Maintenance + Blood standby; EBL 100-300ml.',
+        postopDisposition: 'HDU / CCU'
       }
     ]
   },
@@ -2102,7 +2528,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Check for recent URTI', 'Review coagulation screen if indicated'],
           intraOp: ['Ensure adequate depth of anesthesia', 'Suction stomach before emergence'],
           postOp: ['Monitor for "frequent swallowing" (sign of bleeding)', 'Analgesia (regular paracetamol/ibuprofen)']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + RAE Tube (Secure Airway)',
+          'Dexamethasone (8mg) for Edema/PONV',
+          'Wake Extubation in Lateral Position',
+          'Avoid Opioids (Focus on regular Paracetamol/NSAIDs)',
+          'Suction stomach (remove blood) before emergence'
+        ],
+        positioningDetail: 'Supine with neck extension (Boyle-Davis gag).',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 20-50ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'septoplasty',
@@ -2133,7 +2569,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for nasal obstruction', 'Confirm NPO'],
           intraOp: ['Monitor for arrhythmias', 'Ensure throat pack removal'],
           postOp: ['Monitor for bleeding', 'Avoid nose blowing']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Throat Pack (mandatory)',
+          'Topical Vasoconstrictors (Cocaine/Adrenaline) focus',
+          'Controlled Hypotension for bloodless field',
+          'Smooth emergence to prevent postoperative epistaxis',
+          'Post-op analgesia (NSAIDs preferred)'
+        ],
+        positioningDetail: 'Supine. Access for nasal endoscopy/packing.',
+        fluidBloodPlan: 'Minimal crystalloid; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'myringotomy',
@@ -2164,7 +2610,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for recent ear infections', 'Manage parental expectations'],
           intraOp: ['Ensure adequate depth for incision', 'Maintain airway'],
           postOp: ['Water precautions (ear plugs)', 'Audiology follow-up']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Mask or LMA (Short Duration)',
+          'Avoid Nitrous Oxide (N2O) - middle ear pressure influence',
+          'Manage Pediatric Emergence Delirium (Propofol bolus)',
+          'Gentle mask ventilation to avoid middle ear barotrauma',
+          'Rapid turnover protocol'
+        ],
+        positioningDetail: 'Supine with head turned 90 degrees.',
+        fluidBloodPlan: 'Minimal; EBL negligible.',
+        postopDisposition: 'Day Case'
       },
       {
         id: 'fess',
@@ -2195,7 +2651,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review CT sinuses', 'Optimize asthma/polyps (steroids)'],
           intraOp: ['Maintain low MAP (60-70 mmHg)', 'Ensure throat pack removal'],
           postOp: ['Nasal douching', 'Avoid straining']
-        }
+        },
+        anesthesiaStrategy: [
+          'Controlled Hypotension (MAP 60-70 mmHg)',
+          'TIVA (Propofol/Remi) for Bloodless Field',
+          'ETT + Throat Pack Mandatory',
+          'Avoid Coughing on Emergence (Lidocaine)',
+          'Topical Vasoconstrictors (Cocaine/Adrenaline)'
+        ],
+        positioningDetail: 'Semi-Fowler (15-30 deg) to enhance venous drainage.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 50-200ml.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'mastoidectomy',
@@ -2227,7 +2693,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review hearing tests', 'Check for vertigo'],
           intraOp: ['Monitor facial nerve signals', 'Maintain stable anesthesia'],
           postOp: ['Monitor for facial palsy', 'Manage dizziness']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + No Muscle Relaxation (Post-Induction)',
+          'Avoid Nitrous Oxide (N2O) - middle ear influence',
+          'Aggressive PONV Prophylaxis (Triple Therapy)',
+          'Facial Nerve Monitoring Coordination',
+          'Smooth emergence to prevent graft displacement'
+        ],
+        positioningDetail: 'Supine with head turned 90 deg and slightly up.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 50-150ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'myringoplasty',
@@ -2259,7 +2735,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for recent ear infections', 'Check baseline hearing'],
           intraOp: ['Maintain stable anesthesia', 'Avoid N2O'],
           postOp: ['Water precautions', 'Avoid nose blowing']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + NO Nitrous Oxide (N2O)',
+          'MAP Stability (Avoid Hypertension)',
+          'PONV Prophylaxis Mandatory',
+          'Lidocaine on emergence to prevent straining',
+          'Coordinate graft placement with anesthesia depth'
+        ],
+        positioningDetail: 'Supine with head turned. Access for ear surgery.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'laryngoscopy',
@@ -2290,7 +2776,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for stridor or airway obstruction', 'Check for loose teeth'],
           intraOp: ['Maintain stable anesthesia', 'Coordinate with surgeon for laser safety'],
           postOp: ['Monitor for airway obstruction', 'Voice rest']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + MLT ETT or Jet Ventilation',
+          'Laser Safety Protocols (FIO2 < 30%)',
+          'Deep relaxation mandatory (Sux/Roc)',
+          'Dexamethasone (8-12mg) for Airway Edema',
+          'Strict communication for suspension phase'
+        ],
+        positioningDetail: 'Supine with neck "sniffing" position. Suspension gag.',
+        fluidBloodPlan: 'Minimal; EBL minimal.',
+        postopDisposition: 'Day Case / HDU (if difficult)'
       },
       {
         id: 'commando-procedure',
@@ -2320,7 +2816,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Detailed airway assessment', 'Confirm tracheostomy tray presence'],
           intraOp: ['Strict fluid monitoring', 'Active warming', 'Avoid long-acting muscle relaxants'],
           postOp: ['ICU/HDU level care', 'Tracheostomy care', 'Nutrition support early']
-        }
+        },
+        anesthesiaStrategy: [
+          'Difficult Airway Focus (Fiberoptic / Tracheostomy)',
+          'Shared Airway Protocol',
+          'Free-Flap Management (Optimization of Doppler flow)',
+          'Avoid Vasopressors (Keep MAP 70-80 with fluids)',
+          'Active Warming to prevent vasoconstriction'
+        ],
+        positioningDetail: 'Supine. Access for neck dissection and donor site (leg/arm).',
+        fluidBloodPlan: 'EBL 500-1500ml. Crossmatch 2-4 units. TXA loading.',
+        postopDisposition: 'ICU'
       }
     ]
   },
@@ -2377,15 +2883,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['PONV', 'Nerve injury (Lithotomy position)', 'CO2 retention', 'Aspiration']
         },
         management: {
-          preOp: ['Check hemoglobin', 'Review BMI'],
-          intraOp: [
-            'Monitor for physiological changes associated with the steep Trendelenburg position and pneumoperitoneum, such as increased airway pressures and potential facial/airway edema.',
-            'Ensure deep muscle relaxation throughout the procedure to optimize surgical visualization and prevent patient movement during critical dissection.',
-            'Implement aggressive PONV prophylaxis, as this is a high-risk patient group; consider a multimodal approach including dexamethasone and ondansetron.',
-            'Monitor end-tidal CO2 closely and adjust ventilation to manage hypercapnia resulting from CO2 absorption during laparoscopy.'
-          ],
-          postOp: ['Early mobilization', 'Regular analgesia']
-        }
+          preOp: ['Check hemoglobin', 'Review BMI', 'Discuss regional options if converted'],
+          intraOp: ['Steep Trendelenburg monitoring', 'Aggressive PONV prophylaxis', 'Neuromuscular blockade optimization'],
+          postOp: ['VTE prophylaxis', 'Early mobilization', 'Regular simple analgesia']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Deep NMB',
+          'Aggressive PONV Blockade (Triple Therapy)',
+          'Controlled Ventilation for CO2 absorption',
+          'Limited fluid strategy to prevent facial edema',
+          'TAP Block at tail end for port-site pain'
+        ],
+        positioningDetail: 'Lithotomy + Steep Trendelenburg (25-30 deg). Arms tucked.',
+        fluidBloodPlan: 'Maintenance crystalloid (restrictive); EBL 100-300ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'diagnostic-laparoscopy',
@@ -2413,15 +2924,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['PONV', 'Shoulder-tip pain', 'CO2 retention']
         },
         management: {
-          preOp: ['Review HCG levels', 'Assess for hemodynamic stability'],
-          intraOp: [
-            'Be prepared for sudden, massive hemorrhage if the procedure is for a ruptured ectopic pregnancy; ensure large-bore IV access and blood products are available.',
-            'Maintain adequate muscle relaxation to allow for thorough visualization of the pelvic structures and safe manipulation of instruments.',
-            'Monitor for cardiovascular effects of pneumoperitoneum, especially in patients who may be hemodynamically unstable due to internal bleeding.',
-            'Provide effective PONV prophylaxis and manage post-operative shoulder-tip pain by ensuring complete CO2 evacuation at the end of the procedure.'
-          ],
-          postOp: ['Monitor for vaginal bleeding', 'Analgesia']
-        }
+          preOp: ['Review HCG levels', 'Assess hemodynamic stability', 'Confirm crossmatch if ruptured'],
+          intraOp: ['Prepare for massive hemorrhage if ruptured', 'Monitor CV effects of pneumoperitoneum', 'Complete CO2 evacuation'],
+          postOp: ['Monitor for vaginal bleeding', 'Analgesia', 'Manage shoulder-tip pain']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + RSI (if emergency/full stomach)',
+          'Rapid Fluid Resuscitation readiness (Large bore access)',
+          'Pneumoperitoneum CV monitoring',
+          'PONV prevention mandatory',
+          'Ensure complete deflation to prevent Phrenic nerve irritation'
+        ],
+        positioningDetail: 'Lithotomy + Trendelenburg.',
+        fluidBloodPlan: 'Maintenance; EBL variable (Minimal to Massively Hemorrhagic).',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'radical-vulvectomy',
@@ -2448,10 +2964,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['VTE', 'Nerve injury', 'PONV']
         },
         management: {
-          preOp: ['Review staging', 'Check baseline hemoglobin', 'Plan for flaps'],
-          intraOp: ['Maintain stable hemodynamics', 'Active warming', 'Manage fluid for flap survival'],
+          preOp: ['Review staging', 'Check baseline hemoglobin', 'Plan for flaps', 'Discuss Spinal/Epidural'],
+          intraOp: ['Maintain stable hemodynamics', 'Active warming', 'Manage fluid for flap survival', 'Antibiotic redosing if long'],
           postOp: ['VAC dressing often used', 'Strict VTE prophylaxis', 'Early mobilization']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + ETT +/- Regional (Epidural/Spinal)',
+          'Active Warming (Bair Hugger)',
+          'Goal Directed Fluid Therapy (GDFT)',
+          'Optimizing MAP for wound/flap healing (>65-70 mmHg)',
+          'Extended VTE Prophylaxis protocol'
+        ],
+        positioningDetail: 'Extended Lithotomy. Access for groin dissections.',
+        fluidBloodPlan: 'EBL 300-800ml. Crystalloid + Colloid GDFT.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'ovarian-cystectomy',
@@ -2480,15 +3006,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['PONV', 'Nerve injury', 'CO2 retention']
         },
         management: {
-          preOp: ['Review tumor markers (CA-125)', 'Assess cyst size/nature'],
-          intraOp: [
-            'Meticulously avoid cyst rupture during dissection, especially if there is any suspicion of malignancy, to prevent peritoneal seeding of cells.',
-            'Maintain stable hemodynamics and monitor for cardiovascular effects of pneumoperitoneum and Trendelenburg positioning throughout the procedure.',
-            'Ensure adequate muscle relaxation to facilitate surgical visualization and safe manipulation of the ovaries and surrounding structures.',
-            'Provide effective PONV prophylaxis and manage post-operative pain with a multimodal approach, including local anesthetic infiltration at port sites.'
-          ],
-          postOp: ['Monitor for pain', 'Early mobilization']
-        }
+          preOp: ['Review tumor markers (CA-125)', 'Assess cyst size/nature', 'Rule out malignancy'],
+          intraOp: ['Avoid cyst rupture (seeding risk)', 'Monitor CV effects of pneumoperitoneum', 'Aggressive PONV prophylaxis'],
+          postOp: ['Port site local infiltration', 'Early mobilization', 'Simple analgesia']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + NMB',
+          'Prophylactic Dexamethasone/Ondansetron',
+          'Controlled I-E ratio for pneumoperitoneum',
+          'Minimal fluid titration',
+          'Paracetamol/NSAIDs early'
+        ],
+        positioningDetail: 'Lithotomy + Trendelenburg.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL < 100ml.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'myomectomy',
@@ -2517,15 +3048,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['PONV', 'Blood loss-related hypotension', 'Vasopressin-related arrhythmias']
         },
         management: {
-          preOp: ['Check hemoglobin', 'Review fibroid location/size'],
-          intraOp: [
-            'Closely monitor for significant blood loss, as myomectomy can be highly vascular; ensure adequate IV access and consider the use of cell salvage if appropriate.',
-            'Monitor for cardiovascular effects of intramyometrial vasopressin injection, such as sudden bradycardia, hypertension, or pulmonary edema.',
-            'Maintain deep muscle relaxation to facilitate surgical access and ensure a high-quality, multi-layer closure of the uterine defects.',
-            'Provide effective analgesia (e.g., TAP block for open cases) and monitor for post-operative pain and signs of internal hemorrhage.'
-          ],
-          postOp: ['Monitor for pain', 'VTE prophylaxis']
-        }
+          preOp: ['Check hemoglobin', 'Review fibroid location/size', 'Group & Screen confirmed'],
+          intraOp: ['Monitor for Vasopressin-induced bradycardia/HTN', 'Manage significant blood loss', 'Ensure deep NMB for multi-layer closure'],
+          postOp: ['Monitor for internal hemorrhage', 'VTE prophylaxis', 'Multimodal analgesia']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Deep NMB',
+          'Large Bore IV Access (x2)',
+          'Vasopressin Reaction Monitoring (Anticipate Bradycardia)',
+          'Cell Salvage considered list-dependent',
+          'TAP Block or Epidural (if open case)'
+        ],
+        positioningDetail: 'Laparoscopic: Lithotomy/Trendelenburg; Open: Supine.',
+        fluidBloodPlan: 'EBL 200-800ml. Blood products standby. Crystalloid GDFT.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'hysterectomy-open',
@@ -2554,15 +3090,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['PONV', 'VTE', 'Pain']
         },
         management: {
-          preOp: ['Check hemoglobin', 'Review BMI'],
-          intraOp: [
-            'Monitor for significant blood loss, especially in cases with large fibroids or distorted anatomy; ensure adequate fluid resuscitation and consider blood transfusion if necessary.',
-            'Maintain stable hemodynamics and optimize ventilation, as the open abdominal approach can impact respiratory mechanics and venous return.',
-            'Provide effective analgesia using a multimodal approach, such as a thoracic epidural or TAP blocks, to facilitate early mobilization and recovery.',
-            'Ensure adequate muscle relaxation throughout the procedure to provide optimal surgical exposure and facilitate safe dissection of pelvic structures.'
-          ],
-          postOp: ['VTE prophylaxis', 'Early mobilization']
-        }
+          preOp: ['Check hemoglobin', 'Review BMI', 'Discuss post-op analgesia plan'],
+          intraOp: ['Fluid resuscitation for major loss', 'Active warming', 'Multi-modal analgesia (Spinal Opioids/Epidural)', 'Maintenance of normocapnia'],
+          postOp: ['VTE prophylaxis', 'Early mobilization', 'Analgesia optimization']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + TAP Block / Spinal Morphine',
+          'Active Warming (Bair Hugger)',
+          'Restrictive/Goal-Directed Fluids',
+          'Aggressive PONV prophylaxis',
+          'Optimizing bowel recovery (Alvimopan/Early feeding)'
+        ],
+        positioningDetail: 'Supine with arms out or tucked.',
+        fluidBloodPlan: 'EBL 300-600ml. GDFT approach.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'ruptured-ectopic-laparotomy',
@@ -2647,15 +3188,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Retrobulbar hemorrhage (if block used)', 'Globe penetration', 'Oculocardiac reflex']
         },
         management: {
-          preOp: ['Dilating drops', 'Confirm consent'],
-          intraOp: [
-            'Maintain a quiet and calm environment to ensure patient cooperation, especially if the procedure is performed under topical or local anesthesia.',
-            'Monitor for the oculocardiac reflex (bradycardia) during any manipulation of the extraocular muscles or pressure on the globe.',
-            'Ensure the patient remains perfectly still throughout the procedure to prevent sight-threatening complications like posterior capsule rupture.',
-            'Manage intraocular pressure (IOP) by optimizing fluidics and ensuring the eye remains formed during the various stages of the surgery.'
-          ],
-          postOp: ['Topical antibiotics/steroids', 'Avoid heavy lifting']
-        }
+          preOp: ['Dilating drops', 'Confirm consent', 'Topical anesthesia strategy'],
+          intraOp: ['Maintain quiet environment', 'Monitor Oculocardiac reflex', 'Ensure patient stillness', 'IOP optimization'],
+          postOp: ['Topical antibiotics/steroids', 'Avoid heavy lifting', 'Follow-up appointment']
+        },
+        anesthesiaStrategy: [
+          'Topical (Proxymetacaine/Tetracaine) or Sub-Tenon Block',
+          'Intracameral Lidocaine (1%) for pupillary dilation/analgesia',
+          'Minimal Sedation (Midazolam 0.5-1mg) if anxious',
+          'Avoid Retrobulbar block if possible (bleeding risk)',
+          'Maintain Ocular Perfusion Pressure'
+        ],
+        positioningDetail: 'Supine with head in ring. Tape forehead if needed.',
+        fluidBloodPlan: 'Maintenance; EBL negligible.',
+        postopDisposition: 'Day Case'
       },
       {
         id: 'vitrectomy',
@@ -2684,15 +3230,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Oculocardiac reflex', 'Nitrous-related IOP spike']
         },
         management: {
-          preOp: ['Review for previous eye surgeries', 'Confirm gas type if planned'],
-          intraOp: [
-            'Avoid the use of nitrous oxide if a gas tamponade is planned, as it can rapidly diffuse into the gas bubble and cause a dangerous increase in intraocular pressure (IOP).',
-            'Maintain stable intraocular pressure and blood pressure throughout the procedure to ensure adequate ocular perfusion and prevent choroidal hemorrhage.',
-            'Monitor for the oculocardiac reflex, especially during instrument insertion or manipulation of the vitreous base.',
-            'Ensure deep and stable anesthesia (if GA) or effective local block to prevent any patient movement, which could lead to catastrophic intraocular injury.'
-          ],
-          postOp: ['Posturing (if gas used)', 'Avoid air travel (if gas used)']
-        }
+          preOp: ['Review for previous eye surgeries', 'Confirm gas type if planned', 'NPO status'],
+          intraOp: ['Avoid N2O if gas used', 'Stable IOP/BP maintenance', 'Deep anesthesia (if GA) for immobility', 'OCR monitoring'],
+          postOp: ['Posturing (if gas used)', 'Avoid air travel (if gas used)', 'Pressure check']
+        },
+        anesthesiaStrategy: [
+          'General Anesthesia (Preferred for long cases) or Peribulbar',
+          'NO Nitrous Oxide (N2O) - absolute contraindication with gas',
+          'Controlled Ventilation for IOP stability',
+          'Opioid-sparing for early recovery',
+          'Aggressive PONV prophylaxis (multimodal)'
+        ],
+        positioningDetail: 'Supine. Post-op posturing (Face down/Lateral) critical.',
+        fluidBloodPlan: 'Maintenance; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'scleral-buckle',
@@ -2721,15 +3272,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Oculocardiac reflex', 'PONV']
         },
         management: {
-          preOp: ['Confirm NPO', 'Review for cardiac disease'],
-          intraOp: [
-            'Monitor the heart rate very closely for the oculocardiac reflex, which is highly likely during the isolation and manipulation of the rectus muscles.',
-            'Maintain stable intraocular pressure (IOP) and be prepared to manage sudden increases in pressure during buckle tightening or cryotherapy.',
-            'Ensure a smooth emergence from general anesthesia to prevent coughing or straining, which could lead to intraocular hemorrhage or buckle displacement.',
-            'Provide effective post-operative analgesia, as scleral buckling is generally more painful than other types of ophthalmic surgery.'
-          ],
-          postOp: ['Monitor for pain', 'Review activity restrictions']
-        }
+          preOp: ['Confirm NPO', 'Review for cardiac disease', 'Assess neck/back for flat lying'],
+          intraOp: ['Strict HR monitoring (OCR)', 'Manage IOP spikes', 'Ensure smooth emergence', 'Deep NMB if GA'],
+          postOp: ['Monitor for pain', 'Review activity restrictions', 'Ice packs if needed']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Complete Immobility',
+          'OCR Vigilance (Atropine/Glycopyrrolate ready)',
+          'Deep NMB during buckle tightening',
+          'Smooth Extubation (Bailey Maneuver) to prevent bucking',
+          'Multimodal Analgesia (Paracetamol/IV NSAIDs)'
+        ],
+        positioningDetail: 'Supine with head stabilized.',
+        fluidBloodPlan: 'Maintenance; EBL 50ml.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'corneal-transplant',
@@ -2757,15 +3313,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Oculocardiac reflex', 'Coughing on emergence']
         },
         management: {
-          preOp: ['Confirm donor tissue availability', 'Dilating drops'],
-          intraOp: [
-            'Maintain stable intraocular pressure (IOP) throughout the procedure to prevent complications like suprachoroidal hemorrhage during the "open sky" phase.',
-            'Ensure the patient remains perfectly still, as any movement during the trephination or suturing could lead to irreversible ocular damage.',
-            'Monitor for the oculocardiac reflex, especially during any manipulation of the globe or extraocular muscles.',
-            'Ensure a smooth emergence from general anesthesia to prevent coughing or straining, which could cause graft dehiscence or intraocular hemorrhage.'
-          ],
-          postOp: ['Topical steroids/antibiotics', 'Protect eye with shield']
-        }
+          preOp: ['Confirm donor tissue availability', 'Dilating drops', 'Consent check'],
+          intraOp: ['Open Sky phase ventilation control', 'Complete patient immobility', 'OCR monitoring', 'Smooth emergence transition'],
+          postOp: ['Topical steroids/antibiotics', 'Protect eye with shield', 'High dose steroids sometimes']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT (Preferred for "Open Sky" safety)',
+          'Maintain stable IOP (Avoid hypercapnia/HTN)',
+          'Lidocaine IV/Topical on ETT for smooth emergence',
+          'Absolute immobility mandatory (NMB used)',
+          'Coordinate with surgeon during trephination'
+        ],
+        positioningDetail: 'Supine. Head in ring.',
+        fluidBloodPlan: 'Maintenance; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'strabismus-surgery',
@@ -2794,15 +3355,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Oculocardiac reflex', 'Severe PONV']
         },
         management: {
-          preOp: ['Review for previous squint surgeries', 'Assess pediatric anxiety'],
-          intraOp: [
-            'Monitor the heart rate very closely for the oculocardiac reflex, which is extremely common during the isolation and manipulation of the extraocular muscles.',
-            'Provide aggressive PONV prophylaxis, as strabismus surgery is associated with a very high incidence of post-operative nausea and vomiting, especially in children.',
-            'Avoid the use of long-acting muscle relaxants if adjustable sutures are planned, as the patient needs to be able to move their eyes for the adjustment phase.',
-            'Maintain stable anesthesia and ensure a smooth emergence to prevent any sudden increases in intraocular pressure or patient agitation.'
-          ],
-          postOp: ['Monitor for pain', 'Review eye drop instructions']
-        }
+          preOp: ['Review for previous squint surgeries', 'Assess pediatric anxiety', 'Consent confirm'],
+          intraOp: ['Aggressive PONV prophylaxis', 'Severe OCR monitoring', 'Avoid long-acting NMB', 'Deep anesthetic state'],
+          postOp: ['Monitor for pain', 'Review eye drop instructions', 'Manage nausea']
+        },
+        anesthesiaStrategy: [
+          'GA + LMA (or ETT for adults/difficult)',
+          'High Vigilance for OCR (Very common in squint)',
+          'Multimodal PONV Prophylaxis (Triple Therapy)',
+          'Short-acting NMB (Sux/Miva) if adjustable sutures used',
+          'Paracetamol/NSAIDs + Topical drops for pain'
+        ],
+        positioningDetail: 'Supine. Head centered.',
+        fluidBloodPlan: 'Maintenance; EBL negligible.',
+        postopDisposition: 'Day Case'
       },
       {
         id: 'glaucoma-surgery',
@@ -2831,15 +3397,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Oculocardiac reflex', 'PONV']
         },
         management: {
-          preOp: ['Review current glaucoma medications', 'Check baseline IOP'],
-          intraOp: [
-            'Maintain stable intraocular pressure (IOP) and avoid any factors that could cause a sudden spike in pressure, such as coughing, straining, or bucking on the ETT.',
-            'Ensure the patient remains perfectly still throughout the procedure to facilitate the precise microsurgical maneuvers required for flap creation and sclerostomy.',
-            'Monitor for the oculocardiac reflex during any manipulation of the globe or iris.',
-            'Provide effective post-operative analgesia and manage intraocular pressure closely in the immediate post-operative period.'
-          ],
-          postOp: ['Topical steroids/antibiotics', 'Monitor IOP closely']
-        }
+          preOp: ['Review current glaucoma medications', 'Check baseline IOP', 'Rule out systemic BB/CAI absorption'],
+          intraOp: ['Avoid Cough/Strain (spike risk)', 'Precision immobility', 'OCR monitoring', 'Normocapnia maintenance'],
+          postOp: ['Topical steroids/antibiotics', 'Monitor IOP closely', 'Eye shield']
+        },
+        anesthesiaStrategy: [
+          'Local (Sub-Tenon) or GA (focus on IOP control)',
+          'Ensure smooth transition if GA used',
+          'Stable hemodynamics to optimize ocular perfusion',
+          'Avoid Suxamethonium if IOP already high',
+          'Deep anesthesia for iris manipulation'
+        ],
+        positioningDetail: 'Supine. Head in ring.',
+        fluidBloodPlan: 'Maintenance; EBL minimal.',
+        postopDisposition: 'Day Case / Ward'
       },
     ]
   },
@@ -2895,15 +3466,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Hypothermia', 'Pressure sores', 'Fluid overload', 'VTE']
         },
         management: {
-          preOp: ['Smoking cessation for 4-6 weeks', 'Optimize hemoglobin'],
-          intraOp: [
-            'Maintain a high-normal mean arterial pressure (MAP) to ensure adequate perfusion pressure across the microvascular anastomosis.',
-            'Avoid the use of systemic vasoconstrictors (e.g., phenylephrine, norepinephrine) if possible, as they can cause vasospasm and flap failure.',
-            'Implement active warming measures (e.g., forced-air warming, warmed fluids) to maintain core temperature > 36.5°C, which is essential for microvascular flow.',
-            'Utilize goal-directed fluid therapy to maintain normovolemia and optimize blood rheology (aim for hematocrit 30-35%) to facilitate flap perfusion.'
-          ],
-          postOp: ['Hourly flap checks', 'Keep room warm']
-        }
+          preOp: ['Smoking cessation for 4-6 weeks', 'Optimize hemoglobin', 'Detailed baseline vascular assessment'],
+          intraOp: ['MAP maintenance (>70 mmHg)', 'Avoid all vasoconstrictors', 'Active warming mandatory', 'GDFT for rheology'],
+          postOp: ['Hourly flap checks (Color/Temp/Cap Refill)', 'Maintain room temperature >22C', 'Avoid pressure on pedicle']
+        },
+        anesthesiaStrategy: [
+          'TIVA or GA + Low-Dose Inhalational (Vasodilation focus)',
+          'Strict avoidance of Alpha-1 Agonists (Phenylephrine)',
+          'Active Warming to core temp >36.5C',
+          'Goal-Directed Fluid Therapy (Targeting Hct 30-35%)',
+          'Optimize perfusion pressure (MAP >70-75)'
+        ],
+        positioningDetail: 'Supine with head/site ring. Complete protection of donor/recipient sites.',
+        fluidBloodPlan: 'Maintenance + GDFT; EBL 200-500ml. Blood standby.',
+        postopDisposition: 'Specialist Flap Ward / HDU'
       },
       {
         id: 'abdominoplasty',
@@ -2932,15 +3508,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['VTE (high risk)', 'PONV', 'Respiratory compromise (from plication)']
         },
         management: {
-          preOp: ['Review BMI', 'Smoking cessation'],
-          intraOp: [
-            'Maintain the patient in a slightly flexed position (beach chair) after the plication and during closure to reduce tension on the abdominal wall and the incision.',
-            'Monitor for potential respiratory compromise after rectus plication, as the increased intra-abdominal pressure can reduce functional residual capacity and compliance.',
-            'Implement aggressive VTE prophylaxis (e.g., sequential compression devices, pharmacological prophylaxis), as abdominoplasty is a high-risk procedure for thromboembolism.',
-            'Provide effective analgesia using a multimodal approach, such as TAP blocks or a rectus sheath block, to facilitate early mobilization and recovery.'
-          ],
-          postOp: ['Maintain flexed position', 'Early mobilization']
-        }
+          preOp: ['Review BMI', 'Smoking cessation', 'Check for existing respiratory disease'],
+          intraOp: ['Beach-chair position maintenance', 'Monitor ventilatory pressures after plication', 'VTE prophylaxis (Compression/SCDs)', 'Multimodal analgesia'],
+          postOp: ['Maintain flexed "Beach Chair" position', 'Early mobilization', 'Monitor for respiratory distress']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Complete NMB for plication',
+          'TAP Block or Rectus Sheath Block for analgesia',
+          'Aggressive VTE Prophylaxis (Mandatory)',
+          'Avoidance of abdominal binders in PACU (resp risk)',
+          'PONV prophylaxis (High risk profile)'
+        ],
+        positioningDetail: 'Supine; transitioned to Beach Chair (flexed) post-plication.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 200-400ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'breast-reduction',
@@ -2969,15 +3550,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['PONV', 'Chronic pain']
         },
         management: {
-          preOp: ['Review BMI', 'Smoking cessation'],
-          intraOp: [
-            'Maintain stable blood pressure and avoid hypertension to minimize the risk of post-operative hematoma formation, which can compromise NAC perfusion.',
-            'Provide effective analgesia using a multimodal approach, including intercostal nerve blocks or local anesthetic infiltration by the surgeon.',
-            'Monitor for signs of NAC ischemia (e.g., poor color, slow capillary refill) during and after transposition; communicate any concerns to the surgical team.',
-            'Implement aggressive PONV prophylaxis, as breast surgery is associated with a high incidence of post-operative nausea and vomiting.'
-          ],
-          postOp: ['Supportive bra', 'Monitor for nipple perfusion']
-        }
+          preOp: ['Review BMI', 'Smoking cessation', 'Symmetry assessment'],
+          intraOp: ['BP stability (avoid HTN)', 'Infiltration monitoring', 'NAC perfusion checks', 'Aggressive PONV prophylaxis'],
+          postOp: ['Supportive bra', 'Monitor for nipple perfusion', 'Analgesia optimization']
+        },
+        anesthesiaStrategy: [
+          'GA + LMA or ETT',
+          'Pectoral Nerve Blocks (PECS I/II) or Local Infiltration',
+          'Strict BP Control (Target systolic <120 for hematoma)',
+          'Multimodal PONV prophylaxis',
+          'Early oral intake as tolerated'
+        ],
+        positioningDetail: 'Supine with arms out (90 deg). Seat-belt-like strap.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 100-300ml.',
+        postopDisposition: 'Ward / Day Case'
       },
       {
         id: 'rhinoplasty',
@@ -3005,15 +3591,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Aspiration (if throat pack forgotten)', 'PONV', 'Laryngospasm']
         },
         management: {
-          preOp: ['Review expectations', 'Smoking cessation'],
-          intraOp: [
-            'Ensure a throat pack is meticulously placed and its presence is clearly documented to prevent aspiration of blood or surgical debris during the procedure.',
-            'Maintain stable blood pressure and consider mild controlled hypotension to reduce surgical field bleeding and improve visualization for the surgeon.',
-            'Monitor for potential cardiovascular effects of local anesthetic infiltration containing adrenaline, such as tachycardia or hypertension.',
-            'Ensure a smooth emergence from general anesthesia to prevent coughing, straining, or bucking, which could lead to post-operative epistaxis or hematoma.'
-          ],
-          postOp: ['Keep head elevated', 'Avoid nose blowing']
-        }
+          preOp: ['Review expectations', 'Smoking cessation', 'Airway assessment'],
+          intraOp: ['Throat pack management', 'Controlled mild hypotension', 'Monitoring for Adrenaline effects', 'Extubation coordination'],
+          postOp: ['Keep head elevated (30-45 deg)', 'Avoid nose blowing', 'Monitor for epistaxis']
+        },
+        anesthesiaStrategy: [
+          'GA + Oral ETT (Throat pack essential)',
+          'Controlled Hypotension (MAP 60-65) to minimize bleeding',
+          'Local Adrenaline infiltration monitoring',
+          'Smooth emergence (Lidocaine/Deep extubation if safe)',
+          'Vigilance for "forgotten" throat pack'
+        ],
+        positioningDetail: 'Supine with head of bed elevated 15-30 degrees.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL minimal.',
+        postopDisposition: 'Ward / Day Case'
       }
     ]
   },
@@ -3069,15 +3660,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Laryngospasm', 'Tracheomalacia (rare)', 'Pneumothorax']
         },
         management: {
-          preOp: ['Ensure euthyroid state', 'Review vocal cord mobility'],
-          intraOp: [
-            'Utilize a Nerve Integrity Monitor (NIM) endotracheal tube if recurrent laryngeal nerve monitoring is planned; avoid the use of long-acting muscle relaxants.',
-            'Monitor for potential cardiovascular instability, especially in patients with hyperthyroidism (risk of thyroid storm), and be prepared to manage sudden tachycardia or hypertension.',
-            'Ensure a smooth emergence from general anesthesia to prevent coughing or straining, which could lead to a post-operative hematoma and acute airway obstruction.',
-            'Administer dexamethasone intra-operatively to reduce laryngeal edema and minimize the risk of post-operative respiratory distress.'
-          ],
-          postOp: ['Keep stitch cutter at bedside', 'Monitor Calcium levels']
-        }
+          preOp: ['Ensure euthyroid state', 'Review vocal cord mobility', 'Assess for airway compression (Goitre)'],
+          intraOp: ['NIM tube placement/verification', 'Reverse Trendelenburg (15 deg)', 'Avoid muscle relaxants', 'Dexamethasone administration'],
+          postOp: ['Check voice function', 'Keep stitch cutter at bedside', 'Monitor for hematoma/airway distress', 'Check Calcium']
+        },
+        anesthesiaStrategy: [
+          'GA + NIM ETT (Nerve monitoring focus)',
+          'Avoidance of NMBA (Muscle relaxants) after induction',
+          'Reverse Trendelenburg for venous drainage',
+          'Smooth emergence (Lidocaine/Opiate focus) to avoid HTN',
+          'Multi-modal analgesia (Paracetamol/NSAIDs)'
+        ],
+        positioningDetail: 'Supine with head-up tilt. Shoulder roll for neck extension.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL < 100ml.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'parathyroidectomy',
@@ -3106,15 +3702,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Laryngospasm', 'Airway obstruction']
         },
         management: {
-          preOp: ['Review Calcium and PTH levels', 'Localizing scans (Sestamibi/US)'],
-          intraOp: [
-            'Maintain stable anesthesia and hemodynamics throughout the procedure, as precise dissection is required to identify the small parathyroid glands and avoid nerve injury.',
-            'Avoid the use of muscle relaxants if recurrent laryngeal nerve monitoring is being utilized during the neck exploration.',
-            'Monitor for a sudden drop in intra-operative PTH levels after resection, which indicates successful removal of the hyperfunctioning tissue.',
-            'Ensure a smooth emergence from general anesthesia to minimize the risk of post-operative hematoma formation and potential airway compromise.'
-          ],
-          postOp: ['Monitor Calcium levels', 'Check for voice changes']
-        }
+          preOp: ['Review Calcium and PTH levels', 'Localizing scans (Sestamibi/US)', 'Check Vitamin D status'],
+          intraOp: ['PTH timing and monitoring', 'Maintain normothermia', 'Vocal cord monitoring (if requested)', 'Avoid HTN'],
+          postOp: ['Monitor for hypocalcemia (Chvostek sign)', 'Voice check', 'Early mobilization']
+        },
+        anesthesiaStrategy: [
+          'GA + LMA or ETT',
+          'Intra-operative PTH (Hungry Bone Syndrome focus)',
+          'Maintenance of stable hemodynamics',
+          'Normothermia for laboratory accuracy (PTH sample processing)',
+          'Local infiltration for port sites/incision'
+        ],
+        positioningDetail: 'Supine with neck extended.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL minimal.',
+        postopDisposition: 'Ward / Day Case'
       },
       {
         id: 'adrenalectomy',
@@ -3142,15 +3743,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Hypertensive crisis', 'Post-op hypotension', 'Electrolyte imbalance']
         },
         management: {
-          preOp: ['Review hormone levels', 'Optimize BP (Alpha-blockade for Pheo)'],
-          intraOp: [
-            'Utilize invasive arterial blood pressure monitoring for all cases; for pheochromocytoma, have rapid-acting vasodilators (e.g., phentolamine, sodium nitroprusside) immediately available.',
-            'Monitor for a sudden and profound drop in blood pressure immediately after ligation of the adrenal vein in pheochromocytoma cases; be prepared to administer fluids and vasopressors.',
-            'Manage potential hypertensive crises during gland manipulation with careful titration of anesthetic depth and vasodilators; avoid drugs that stimulate the sympathetic nervous system.',
-            'Monitor for signs of acute adrenal insufficiency (Addisonian crisis) after bilateral adrenalectomy; administer stress-dose corticosteroids as indicated.'
-          ],
-          postOp: ['Monitor for adrenal insufficiency', 'Check electrolytes']
-        }
+          preOp: ['Review hormone levels (Catecholamines/Cortisol)', 'Optimize BP (Alpha-blockade)', 'Fluid loading if Pheo'],
+          intraOp: ['Arterial line mandatory', ' catecholamine surgemaximally managed', 'Ready for post-resection profound hypotension', 'Check Glucose'],
+          postOp: ['ICU/HDU level care for BP stability', 'Monitor for adrenal insufficiency', 'Electrolyte check']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Large Bore Access',
+          'Invasive Arterial Pressure (Continuous)',
+          'Alpha-blockade (Phenoxybenzamine/Doxazosin) pre-op',
+          'Phentolamine/Esmolol/Nitroprusside ready during induction/manipulation',
+          'Aggressive Fluid and Vasopressor support post-vein ligation'
+        ],
+        positioningDetail: 'Laparoscopic: Lateral Decubitus; Open: Supine/Subcostal.',
+        fluidBloodPlan: 'Maintenance + Bolus for Pheo; EBL 100-500ml. Blood standby.',
+        postopDisposition: 'ICU / HDU'
       },
       {
         id: 'neck-dissection',
@@ -3178,15 +3784,25 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Air embolism', 'Airway edema', 'VTE']
         },
         management: {
-          preOp: ['Review imaging for node involvement', 'Confirm consent'],
+          preOp: ['Review imaging for node/vessel involvement', 'Airway assessment', 'Hematology review (neck bulk)'],
           intraOp: [
             'Monitor for potential bradycardia or asystole due to the carotid sinus reflex during dissection near the carotid bulb; communicate with the surgeon and consider local anesthetic infiltration.',
             'Avoid the use of muscle relaxants if nerve monitoring (e.g., for the spinal accessory or marginal mandibular nerve) is being utilized during the dissection.',
             'Monitor for signs of venous air embolism if the internal jugular vein or other large neck veins are inadvertently opened or during resection.',
             'Maintain stable hemodynamics and ensure adequate venous return, as head-up positioning and neck manipulation can impact cerebral perfusion and venous drainage.'
           ],
-          postOp: ['Monitor drain output', 'Check for nerve function']
-        }
+          postOp: ['Monitor drain output for Chyle/Blood', 'VTE prophylaxis', 'Nerve function assessment (CN XI)']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Arterial Line',
+          'Nerve Monitoring (CN XI Accessory, Marginal Mandibular)',
+          'Atropine/Glycopyrrolate ready for Carotid sinus manipulation',
+          'Controlled Ventilation for VAE prevention',
+          'Active Warming to maintain core temp'
+        ],
+        positioningDetail: 'Supine with head rotated away from site. Sandbag between shoulders.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 200-800ml. Crossmatch 2u.',
+        postopDisposition: 'Ward / HDU'
       },
       {
         id: 'tracheostomy',
@@ -3214,15 +3830,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Loss of airway', 'Hypoxia', 'Hypercapnia']
         },
         management: {
-          preOp: ['Review airway anatomy', 'Ensure all equipment is ready'],
-          intraOp: [
-            'Ensure 100% oxygen is administered prior to and during the tracheal opening; coordinate closely with the surgeon during the transition from the endotracheal tube to the tracheostomy tube.',
-            'Monitor for a "loss of airway" or accidental decannulation during the tube exchange; have a smaller endotracheal tube and a bougie immediately available.',
-            'Manage the risk of an airway fire by minimizing the inspired oxygen concentration (if safe) and avoiding the use of electrocautery when the trachea is being opened.',
-            'Confirm correct tracheostomy tube position using capnography and, if possible, direct visualization through a bronchoscope before securing the tube.'
-          ],
-          postOp: ['Secure tube properly', 'Humidified oxygen']
-        }
+          preOp: ['Review airway anatomy', 'Ensure backup airway equipment', 'Pre-oxygenate 100%'],
+          intraOp: ['Shared airway coordination', '100% O2 during opening', 'Avoid fire risk (Cautery focus)', 'Confirmation of stoma placement'],
+          postOp: ['Secure tube/stoma', 'Humidified oxygen', 'Position head elevated']
+        },
+        anesthesiaStrategy: [
+          'GA + Shared Airway Protocol',
+          'Coordination for "Switch" from ETT to Tracheostomy tube',
+          'Fire Safety Audit (FIO2 < 30% if using laser/diathermy)',
+          'Apneic oxygenation or High-Flow Nasal Oxygen (HFNO)',
+          'Short-acting NMB for insertion phase'
+        ],
+        positioningDetail: 'Supine with neck extended (shoulder roll).',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL minimal.',
+        postopDisposition: 'Ward / HDU / ICU (if ventilated)'
       },
       {
         id: 'laryngectomy',
@@ -3250,15 +3871,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Airway management challenges', 'VTE', 'Aspiration']
         },
         management: {
-          preOp: ['Review imaging and biopsy', 'Speech therapy consultation'],
-          intraOp: [
-            'Manage a complex shared airway; expect a difficult intubation and have advanced airway equipment (e.g., fiberoptic bronchoscope, videolaryngoscope) ready.',
-            'Maintain stable hemodynamics and normothermia throughout the long procedure; utilize invasive monitoring (arterial line) for precise blood pressure control.',
-            'Ensure a smooth emergence from general anesthesia to prevent coughing or straining, which could place excessive tension on the pharyngeal closure and the new stoma.',
-            'Monitor for potential complications such as air embolism, carotid sinus reflex, or significant blood loss during the extensive neck dissection.'
-          ],
-          postOp: ['Stoma care', 'Monitor for fistula']
-        }
+          preOp: ['Review imaging/biopsy', 'Speech therapy/Consent', 'Difficult airway planning'],
+          intraOp: ['Arterial line monitoring', 'Difficult airway management', 'Manage major blood loss/fluids', 'VAE vigilance'],
+          postOp: ['Permanent stoma care', 'Monitor for fistula/leak', 'Manage neopharynx nutritional support']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT (often via existing tracheostomy or difficult airway protocol)',
+          'Invasive Arterial Pressure monitoring',
+          'Multi-modal analgesia (GA + Local infiltration)',
+          'Strict map control (65-75mmHg)',
+          'Avoidance of neck extension post-repair'
+        ],
+        positioningDetail: 'Supine with neck in sniffing position initially.',
+        fluidBloodPlan: 'Maintenance + GDFT; EBL 500-1000ml. Crossmatch 2-4u.',
+        postopDisposition: 'ICU / HDU'
       }
     ]
   },
@@ -3314,15 +3940,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Aspiration', 'Hypothermia', 'Post-operative apnea']
         },
         management: {
-          preOp: ['Correct hypochloremic hypokalemic metabolic alkalosis', 'Ensure adequate hydration'],
-          intraOp: [
-            'Recognize that this is a medical emergency, not a surgical one; ensure that hypochloremic, hypokalemic metabolic alkalosis and dehydration are fully corrected before proceeding to surgery.',
-            'Manage the high risk of aspiration by assuming a full stomach (milk or barium); perform a rapid sequence induction (RSI) or an awake intubation in neonates after thorough stomach suctioning.',
-            'Suction the stomach in three positions (left lateral, right lateral, and supine) using a large-bore orogastric tube immediately prior to induction to minimize gastric volume.',
-            'Maintain strict normothermia and monitor blood glucose levels throughout the procedure; provide effective local anesthetic infiltration at the incision site for post-operative analgesia.'
-          ],
-          postOp: ['Start feeding protocol (e.g., 6 hours post-op)', 'Monitor for apnea']
-        }
+          preOp: ['Correct hypochloremic hypokalemic metabolic alkalosis', 'Ensure adequate hydration', 'Verify electrolyte normalization (Cl >100)'],
+          intraOp: ['Stomach suctioned in 3 positions', 'RSI or Awake Intubation', 'Maintain normothermia', 'Check blood glucose'],
+          postOp: ['Start feeding protocol (e.g., 6 hours post-op)', 'Monitor for apnea (post-op 12-24h)', 'Analgesia (Paracetamol)']
+        },
+        anesthesiaStrategy: [
+          'RSI with Cricoid Pressure (Full stomach focus)',
+          'Suctioning via OGT prior to induction (3-position technique)',
+          'Avoidance of Morphine (Apnea risk in neonates)',
+          'Incisional Local Infiltration (Bupivacaine 0.125-0.25%)',
+          'Strict Thermal Regulation (Overhead warmer)'
+        ],
+        positioningDetail: 'Supine with head stabilized.',
+        fluidBloodPlan: 'Maintenance D5 0.45% NaCl; EBL minimal.',
+        postopDisposition: 'Neonatal Ward / apnea monitoring'
       },
       {
         id: 'orchidopexy',
@@ -3351,15 +3982,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Agitation on emergence', 'Laryngospasm']
         },
         management: {
-          preOp: ['Review for associated anomalies', 'Confirm side'],
-          intraOp: [
-            'Provide excellent intra-operative and post-operative analgesia using a caudal block or ilioinguinal/iliohypogastric nerve blocks combined with local anesthetic infiltration.',
-            'Maintain a stable depth of anesthesia to prevent movement during the delicate dissection of the spermatic cord and the creation of the scrotal pouch.',
-            'Monitor for potential cardiovascular effects (e.g., bradycardia) during traction on the spermatic cord or manipulation of the testis (vagal response).',
-            'Ensure a smooth emergence from general anesthesia to minimize the risk of agitation and potential injury to the surgical sites.'
-          ],
-          postOp: ['Avoid straddle toys', 'Regular analgesia']
-        }
+          preOp: ['Review for associated anomalies', 'Confirm side', 'Pediatric anxiety management'],
+          intraOp: ['Caudal block or ilioinguinal block', 'Vagal response monitoring (traction)', 'Normothermia maintenance'],
+          postOp: ['Avoid straddle toys', 'Regular weight-based analgesia', 'Check wound/scrotal swelling']
+        },
+        anesthesiaStrategy: [
+          'GA + LMA (if safe) or ETT',
+          'Caudal Block (0.125-0.25% Bupivacaine 1ml/kg)',
+          'Ilioinguinal/Iliohypogastric Nerve Block',
+          'Avoidance of bucking on emergence',
+          'Intra-operative Glycopyrrolate if bradycardic'
+        ],
+        positioningDetail: 'Supine with legs slightly abducted.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL negligible.',
+        postopDisposition: 'Day Case / Ward'
       },
       {
         id: 'intussusception-reduction',
@@ -3388,15 +4024,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Aspiration', 'Hypothermia', 'Post-operative apnea']
         },
         management: {
-          preOp: ['Fluid resuscitation', 'NG tube insertion'],
-          intraOp: [
-            'Perform a rapid sequence induction (RSI) with cricoid pressure, as these patients are at high risk for aspiration due to potential bowel obstruction and gastric distension.',
-            'Implement aggressive fluid resuscitation and monitor electrolyte balance, as significant fluid shifts and third-spacing can occur in cases of bowel ischemia or obstruction.',
-            'Maintain strict normothermia using active warming measures, as these procedures can be prolonged and involve significant heat loss from the exposed bowel.',
-            'Provide effective analgesia using a multimodal approach, including local anesthetic infiltration and systemic opioids, while monitoring for respiratory depression.'
-          ],
-          postOp: ['Monitor for recurrence', 'Gradual feeding restart']
-        }
+          preOp: ['Fluid resuscitation (aggressive if needed)', 'NG tube insertion for decompression', 'Review for peritonitis'],
+          intraOp: ['RSI with cricoid pressure', 'Monitor electrolyte balance/3rd space loss', 'Normothermia focus (Bair Hugger)', 'Multimodal analgesia'],
+          postOp: ['Monitor for recurrence', 'Gradual feeding restart', 'Manage pain and comfort']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + RSI (Bowel obstruction focus)',
+          'Goal-Directed Fluid Resuscitation',
+          'Avoid Nitrous Oxide (N2O) - absolute contraindication',
+          'Deep anesthesia for bowel "milking"',
+          'Local infiltration + Systemic Opioids (careful titration)'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Maintenance + 10-20ml/kg boluses; EBL 50-100ml.',
+        postopDisposition: 'PICU / Ward'
       },
       {
         id: 'tef-repair',
@@ -3424,15 +4065,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Hypoxia', 'Difficult intubation', 'Hypothermia']
         },
         management: {
-          preOp: ['Suction upper pouch', 'Review for VACTERL anomalies'],
-          intraOp: [
-            'Manage a complex neonatal airway; avoid positive pressure ventilation (PPV) before the fistula is ligated to prevent gastric distension and potential gastric rupture.',
-            'Position the endotracheal tube (ETT) tip distal to the fistula (if possible) to ensure effective ventilation of the lungs while minimizing air entry into the stomach.',
-            'Maintain strict normothermia and monitor blood glucose levels meticulously; utilize invasive monitoring (e.g., umbilical artery line) for continuous blood pressure and blood gas analysis.',
-            'Provide precise fluid management and maintain stable hemodynamics, as these neonates often have associated congenital anomalies (VACTERL) that can impact their physiological reserve.'
-          ],
-          postOp: ['NICU admission', 'Avoid neck extension']
-        }
+          preOp: ['Suction upper pouch frequently', 'Review for VACTERL (Echo/Renal US)', 'Stabilize respiratory status'],
+          intraOp: ['Spontaneous ventilation if possible until ligation', 'Avoid PPV before ligation', 'ETT distal to fistula', 'Check Glucose'],
+          postOp: ['NICU admission', 'Avoid neck extension/flexion', 'Chest drain monitoring']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT (Careful placement distal to fistula)',
+          'Spontaneous/Assisted ventilation until fistula secured',
+          'Gastric Decompression (if G-tube present)',
+          'Low PIP ventilation to prevent gastric distension',
+          'Strict Metabolic control (Normoglycemia focus)'
+        ],
+        positioningDetail: 'Semi-Lateral (Right side up) for Thoracotomy.',
+        fluidBloodPlan: 'Maintenance (D5/D10 balance); EBL minimal.',
+        postopDisposition: 'NICU'
       },
       {
         id: 'cdh-repair',
@@ -3459,10 +4105,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Pneumothorax of the contralateral lung (Fatal)', 'Worsening PPHN', 'Lability']
         },
         management: {
-          preOp: ['Ensure stabilization in NICU first (Gentle ventilation)', 'ECHO to assess PPHN severity'],
-          intraOp: ['Hand ventilation or pressure-controlled ventilation only', 'Inotropic support ready', 'Keep neonate warm'],
-          postOp: ['Return to NICU; continue sedation and gentle ventilation', 'iNO often required']
-        }
+          preOp: ['NICU stabilization (Gentle ventilation)', 'ECHO for PPHN/Congenital heart disease', 'Optimize acid/base status'],
+          intraOp: ['Pressure-controlled ventilation (Low PIP)', 'Permissive hypercapnia', 'Inotropic support ready', 'Keep neonate warm'],
+          postOp: ['Return to NICU; continue sedation/gentle vent', 'iNO therapy often required', 'Monitor for PPHN crisis']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Muscle Relaxation',
+          'Lung Protective Ventilation (Avoid barotrauma to "good" lung)',
+          'Pre- and Post-ductal Saturation Monitoring',
+          'Inotropic Support (Dopamine/Dobutamine/Milrinone)',
+          'Absolute normothermia to prevent PPHN exacerbation'
+        ],
+        positioningDetail: 'Supine or slightly lateral.',
+        fluidBloodPlan: 'Maintenance + Titrated inotropes; EBL minimal.',
+        postopDisposition: 'NICU'
       },
       {
         id: 'gastroschisis-repair',
@@ -3489,10 +4145,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Renal failure (from ACS)', 'Ventilatory failure', 'Hypothermia']
         },
         management: {
-          preOp: ['Aggressive fluid resuscitation', 'Maintain normothermia', 'Gastric decompression'],
-          intraOp: ['Monitor airway pressures meticulously', 'Avoid nitrous oxide', 'Muscle relaxation essential'],
-          postOp: ['NICU; monitor for ACS signs (urine output, ventilation)']
-        }
+          preOp: ['Aggressive fluid resuscitation', 'Maintain normothermia', 'Gastric decompression (Replogle)'],
+          intraOp: ['Monitor PIP meticulously during reduction', 'Avoid N2O', 'Muscle relaxation essential for reduction', 'Check Glucose'],
+          postOp: ['NICU admission; monitor for ACS signs', 'Monitor renal perfusion/urine output', 'Staged closure (Silo) monitoring']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + RSI (Ileus/Obstruction focus)',
+          'Paralysis (NMBA) for reduction phase',
+          'Aggressive Fluid Resuscitation (3rd space losses)',
+          'Monitor the "Reduction Peak" PIP (>25-30 cmH2O risk)',
+          'Optimization of MAP for bowel perfusion'
+        ],
+        positioningDetail: 'Supine with head ring.',
+        fluidBloodPlan: 'Maintenance + 20-40ml/kg boluses; EBL 50-150ml.',
+        postopDisposition: 'NICU'
       },
       {
         id: 'nec-laparotomy',
@@ -3519,10 +4185,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Multi-organ failure', 'DIC', 'Cardiac arrest']
         },
         management: {
-          preOp: ['Correct electrolytes and coagulopathy', 'Crossmatch 2-4 units PRBCs', 'Aggressive fluid loading'],
-          intraOp: ['Invasive BP monitoring', 'Check blood gas and glucose regularly', 'Maintain normothermia'],
-          postOp: ['NICU; intensive metabolic and hemodynamic support']
-        }
+          preOp: ['Correct electrolytes and coagulopathy', 'Crossmatch 2-4 PRBC/FFP/Platelets', 'Aggressive fluid loading'],
+          intraOp: ['A-line/CVC monitoring', 'Check ABG/Tox/Glucose/K+ frequently', 'Maintain normothermia', 'Vasoactive support'],
+          postOp: ['NICU; intensive metabolic/hemodynamic support', 'Monitor for DIC/Sepsis', 'Nutritional support']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Invasive Monitoring (Sepsis focus)',
+          'Damage Control Resuscitation (Blood products)',
+          'Correction of Hyperkalemia/Acidosis (Bicarb/Glu-Insulin)',
+          'Minimal Inhalational; TIVA-based titration',
+          'Active Warming (Aggressive overhead + fluids)'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Massive Transfusion Protocol (Weight-based); EBL 10-20% Vol.',
+        postopDisposition: 'NICU'
       },
       {
         id: 'cleft-lip-palate',
@@ -3549,10 +4225,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Airway obstruction', 'Laryngospasm', 'Aspiration']
         },
         management: {
-          preOp: ['Review for associated syndromes', 'Check baseline hemoglobin'],
-          intraOp: ['Ensure throat pack is placed and removed', 'Manage shared airway communication', 'Monitor blood loss'],
-          postOp: ['Avoid oral suctioning', 'Elbow splints', 'High-humidity oxygen']
-        }
+          preOp: ['Review for associated syndromes', 'Check baseline hemoglobin', 'NPO status'],
+          intraOp: ['Shared airway management', 'Throat pack placed/removed', 'Monitor blood loss (hidden in gag)', 'Active warming'],
+          postOp: ['Avoid oral suctioning', 'Elbow splints', 'High-humidity oxygen', 'Analgesia (Caudal/Local)']
+        },
+        anesthesiaStrategy: [
+          'GA + Oral/Nasal RAE Tube (Shared airway)',
+          'Throat Pack (Documentation mandatory)',
+          'Deep anesthesia for mouth-gag insertion',
+          'Infraorbital Nerve Blocks / Caudal (Palate)',
+          'Smooth emergence to avoid dehiscence'
+        ],
+        positioningDetail: 'Supine with head-down tilt (Rose position) for palate.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 50-150ml.',
+        postopDisposition: 'Pediatric Ward / HDU'
       },
       {
         id: 'choledochal-cyst',
@@ -3579,10 +4265,20 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Hypothermia', 'Pain', 'PONV']
         },
         management: {
-          preOp: ['Review LFTs and Vitamin K status', 'Optimize nutrition'],
-          intraOp: ['A-line placement for major cases', 'Aggressive warming', 'Restrictive fluid strategy'],
-          postOp: ['NPO until bowel function returns', 'Monitor LFTs and bilirubin']
-        }
+          preOp: ['Review LFTs and Vitamin K status', 'Optimize nutrition', 'Check Coagulation profile'],
+          intraOp: ['A-line placement', 'Aggressive warming', 'Restrictive fluid strategy', 'Check Glucose/Bilirubin'],
+          postOp: ['NPO until bowel function returns', 'Monitor LFTs and bilirubin', 'Pain management (Epidural focus)']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + NMB',
+          'Thoracic Epidural (T8-T10) for analgesia',
+          'Hepatobiliary-sparing drug titration',
+          'Aggressive thermal management',
+          'Goal-Directed Fluid Therapy'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Maintenance crystalloid; EBL 100-300ml.',
+        postopDisposition: 'PICU / Ward'
       },
     ]
   },
@@ -3597,71 +4293,111 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         'Assess for associated injuries (Head, Spine, Chest)'
       ],
       intraOp: [
-        'Prioritize "Damage Control Surgery" (DCS) to rapidly stop life-threatening hemorrhage and control gastrointestinal contamination; avoid definitive repairs in the initial phase.',
-        'Aggressively manage the "Lethal Triad" (acidosis, coagulopathy, and hypothermia) through rapid warming, balanced blood product resuscitation, and correction of metabolic derangements.',
-        'Implement "Permissive Hypotension" (maintaining a palpable radial pulse or MAP 50-60 mmHg) in patients with active non-compressible hemorrhage until surgical control is achieved.',
-        'Perform a rapid sequence induction (RSI) with cricoid pressure for all trauma patients, assuming a full stomach and potential cervical spine injury.',
-        'Utilize massive transfusion protocols (MTP) with a high ratio of plasma and platelets to packed red blood cells (e.g., 1:1:1) to prevent and treat trauma-induced coagulopathy.'
+        'Prioritize "Damage Control Surgery" (DCS) to rapidly stop hemorrhage; avoid definitive repairs.',
+        'Aggressively manage the "Lethal Triad" (Acidosis, Coagulopathy, Hypothermia).',
+        'Implement "Permissive Hypotension" (MAP 50-60 mmHg) until surgical control.',
+        'RSI with cricoid pressure for all trauma (full stomach/C-spine focus).',
+        'Utilize MTP 1:1:1 ratio to prevent trauma-induced coagulopathy.'
       ],
       postOp: [
-        'ICU admission for physiological optimization',
+        'ICU admission for physiological optimization (Correct Lethal Triad)',
         'Monitor for Abdominal Compartment Syndrome',
-        'Planned re-operation (take-back)',
-        'VTE prophylaxis (when safe)'
+        'Vigilance for tertiary survey findings',
+        'Ongoing resuscitation and coagulopathy correction'
       ]
     },
     procedures: [
       {
-        id: 'trauma-laparotomy',
-        name: 'Exploratory Laparotomy for Trauma',
+        id: 'damage-control-laparotomy',
+        name: 'Damage Control Laparotomy',
         guide: [
-          { title: 'Incision', description: 'Perform a rapid, full-length midline laparotomy from the xiphoid process to the pubic symphysis to provide maximum exposure of the abdominal cavity.' },
-          { title: 'Packing', description: 'Immediately perform four-quadrant packing with large laparotomy sponges to temporarily control diffuse hemorrhage and allow for initial assessment.' },
-          { title: 'Assessment', description: 'Systematic search for and prioritize life-threatening injuries, focusing on major vascular structures, solid organs (liver, spleen), and the hollow viscus.' },
-          { title: 'Control', description: 'Achieve rapid control of hemorrhage (e.g., clamping, ligation, or shunting) and contamination (e.g., stapling or simple ligation of bowel perforations).' },
-          { title: 'Temporary Closure', description: 'If the patient is physiologically unstable, perform a temporary abdominal closure (e.g., Bogota bag or negative pressure wound therapy) to prevent abdominal compartment syndrome.' }
+          { title: 'Access', description: 'Rapid midline laparotomy from xiphoid to pubis.' },
+          { title: 'Hemorrhage Control', description: 'Four-quadrant packing, direct pressure, and vascular repair/shunting of major vessels.' },
+          { title: 'Contamination Control', description: 'Rapid stapling of bowel perforations; avoid definitive anastomosis.' },
+          { title: 'Temporary Closure', description: 'Vacuum-assisted or Bogota bag closure to prevent abdominal compartment syndrome.' }
         ],
         anestheticConsiderations: [
-          'Resuscitation is simultaneous with surgery',
-          'Avoid Nitrous Oxide (bowel distension)',
-          'Maintain "Lethal Triad" awareness',
-          'Rapid access (large bore IVs, Level 1 infuser)'
+          'Critical, unstable patient with active hemorrhage.',
+          'Activate Massive Transfusion Protocol (MTP) immediately.',
+          'Prioritize "Damage Control Resuscitation" (DCR).',
+          'Assume full stomach and C-spine instability.'
         ],
         antibioticProphylaxis: {
-          drug: 'Co-amoxiclav + Gentamicin',
-          dosage: '1.2g + 5mg/kg IV',
+          drug: 'Cefazolin + Metronidazole',
+          dosage: '2g + 500mg IV',
           timing: 'As soon as possible',
           alternatives: 'Clindamycin + Gentamicin'
         },
         complications: {
-          surgical: ['Missed injury', 'Ongoing hemorrhage', 'Abdominal compartment syndrome', 'Sepsis'],
-          anesthetic: ['Coagulopathy', 'Hypothermia', 'Multi-organ failure', 'Aspiration']
+          surgical: ['Ongoing hemorrhage', 'Abdominal compartment syndrome', 'Bowel ischemia', 'Sepsis'],
+          anesthetic: ['Lethal Triad (Acidosis, Coagulopathy, Hypothermia)', 'Cardiac arrest', 'DIC']
         },
         management: {
-          preOp: ['Activate MTP', 'Crossmatch 10+ units'],
-          intraOp: [
-            'Coordinate resuscitation and surgery simultaneously; maintain close communication with the surgical team regarding blood loss, coagulopathy, and physiological status.',
-            'Avoid the use of nitrous oxide to prevent bowel distension, which can complicate surgical exposure and increase intra-abdominal pressure.',
-            'Utilize rapid-infusion devices (e.g., Level 1 or Belmont) and large-bore intravenous access for the rapid administration of warmed blood products and fluids.',
-            'Monitor for signs of the "Lethal Triad" (acidosis, coagulopathy, hypothermia) and adjust resuscitation strategies accordingly (e.g., administering TXA, calcium, and clotting factors).'
-          ],
-          postOp: ['ICU stabilization', 'Monitor bladder pressure (ICP)']
-        }
+          preOp: ['Activate MTP', 'Rapid Primary Survey (ATLS)', 'Prepare for immediate RSI'],
+          intraOp: ['Permissive hypotension until control', 'Aggressive warming (Room >30C)', 'Balanced blood product ratio (1:1:1)', 'Frequent ABGs/K+'],
+          postOp: ['ICU stabilization', 'Deferred definitive repair', 'Monitor for ACS']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + RSI (Assume Full Stomach)',
+          'Damage Control Resuscitation (MTP focus)',
+          'Permissive Hypotension (MAP 50-60 mmHg) until control',
+          'Low-dose induction (Ketamine 0.5-1mg/kg or Etomidate 0.15-0.3mg/kg)',
+          'Aggressive Core Warming (Forced air + fluid warmers)'
+        ],
+        positioningDetail: 'Supine with arms tucked or abducted.',
+        fluidBloodPlan: 'Massive Transfusion Protocol (MTP); Balanced Plasma:Platelets:RBC 1:1:1. Avoid excessive crystalloid.',
+        postopDisposition: 'ICU (Intensive Resuscitation)'
+      },
+      {
+        id: 'emergency-thoracotomy',
+        name: 'Emergency Thoracotomy (Clamshell)',
+        guide: [
+          { title: 'Access', description: 'Left anterolateral or bilateral transsternal (clamshell) incision.' },
+          { title: 'Intervention', description: 'Release cardiac tamponade, direct cardiac massage, and cross-clamping of descending aorta.' }
+        ],
+        anestheticConsiderations: [
+          'ULTRA-emergency; often performed in ED or immediately on arrival.',
+          'Maximum resuscitation required.',
+          'High risk of mortality.'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime',
+          dosage: '1.5g IV',
+          timing: 'Immediate',
+          alternatives: 'Clindamycin'
+        },
+        complications: {
+          surgical: ['Myocardial injury', 'Phrenic nerve injury', 'Ongoing Bleeding'],
+          anesthetic: ['Cardiac arrest', 'Profound shock', 'Air embolism']
+        },
+        management: {
+          preOp: ['Immediate surgical access', 'Dual large-bore IVs', 'O-Negative blood ready'],
+          intraOp: ['Direct cardiac massage coordination', 'Intra-thoracic aortic clamping', 'Rapid volume replacement', 'Continuous CPR'],
+          postOp: ['Operating Theatre for definitive repair', 'ICU for maximal support']
+        },
+        anesthesiaStrategy: [
+          'Immediate GA + ETT (If patient not already intubated)',
+          'Inotropic Support / Epinephrine boluses',
+          'Aortic Cross-Clamping optimization',
+          'Internal Defibrillation if required',
+          'Massive Transfusion (Level 1 infuser)'
+        ],
+        positioningDetail: 'Supine with arms abducted 90 degrees.',
+        fluidBloodPlan: 'MTP (Emergency Blood); Unmatched O-Neg initially.',
+        postopDisposition: 'ICU / Operating Room (Definitive repair)'
       },
       {
         id: 'splenectomy',
-        name: 'Splenectomy (Trauma/Elective)',
+        name: 'Splenectomy (Trauma)',
         guide: [
-          { title: 'Access', description: 'Perform a midline laparotomy (in trauma) or a left subcostal (Kocher) incision for elective cases to provide optimal access to the left upper quadrant.' },
-          { title: 'Mobilization', description: 'Systematically divide the splenocolic, splenorenal, splenophrenic, and gastrosplenic ligaments to fully mobilize the spleen from its attachments.' },
-          { title: 'Vascular Control', description: 'Carefully identify and ligated the splenic artery and vein at the splenic hilum, taking care to avoid injury to the tail of the pancreas.' },
-          { title: 'Removal', description: 'Remove the spleen and perform a thorough inspection of the splenic bed for any remaining bleeding points. Ensure the pancreatic tail is intact and dry.' }
+          { title: 'Access', description: 'Midline laparotomy (trauma) or subcostal (elective).' },
+          { title: 'Mobilization', description: 'Divide splenocolic and gastrosplenic ligaments.' },
+          { title: 'Vascular Control', description: 'Ligate splenic artery and vein at the hilum.' }
         ],
         anestheticConsiderations: [
-          'General anesthesia with ETT',
-          'Manage massive hemorrhage (if trauma)',
-          'Monitor for OPSI (Overwhelming Post-Splenectomy Infection) risk',
-          'Maintain stable hemodynamics'
+          'Manage potential for sudden massive hemorrhage.',
+          'Assess for associated injuries.',
+          'Vaccination focus post-operatively (OPSI risk).'
         ],
         antibioticProphylaxis: {
           drug: 'Cefuroxime',
@@ -3670,35 +4406,35 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           alternatives: 'Clindamycin'
         },
         complications: {
-          surgical: ['Hemorrhage', 'Pancreatic injury', 'OPSI', 'Thrombocytosis'],
-          anesthetic: ['Hypovolemia', 'Coagulopathy', 'Aspiration']
+          surgical: ['Hemorrhage', 'Pancreatic tail injury', 'OPSI'],
+          anesthetic: ['Hypovolemia', 'Coagulopathy']
         },
         management: {
-          preOp: ['Vaccinations (Pneumococcal, Meningococcal, Hib)', 'Check platelets'],
-          intraOp: [
-            'Be prepared for massive hemorrhage and rapid hemodynamic collapse in trauma cases; ensure adequate large-bore venous access and immediate availability of blood products.',
-            'Monitor for potential injury to the tail of the pancreas during hilar dissection, which can lead to post-operative pancreatitis or a pancreatic fistula.',
-            'Maintain stable hemodynamics and normothermia throughout the procedure; utilize invasive monitoring (arterial line) for continuous blood pressure assessment.',
-            'Recognize the long-term risk of Overwhelming Post-Splenectomy Infection (OPSI) and ensure the patient receives appropriate vaccinations and education post-operatively.'
-          ],
-          postOp: ['Post-splenectomy vaccinations', 'Life-long antibiotic prophylaxis (if indicated)']
-        }
+          preOp: ['Review crossmatch', 'Check platelets'],
+          intraOp: ['Manage hemorrhage', 'Monitor pancreatic area', 'Maintain stable MAP'],
+          postOp: ['Post-splenectomy vaccinations', 'Education on OPSI']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Muscle Relaxation',
+          'Aggressive volume loading if laparotomy for trauma',
+          'Avoid Nitrous Oxide',
+          'Maintain stable MAP for renal perfusion'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Standard maintenance + Hemorrhage management.',
+        postopDisposition: 'Ward / HDU'
       },
       {
-        id: 'pelvic-orif',
-        name: 'Pelvic Fracture ORIF',
+        id: 'pelvic-fixation',
+        name: 'Pelvic Binder & External Fixation',
         guide: [
-          { title: 'Access', description: 'Use an anterior approach (e.g., ilioinguinal, Stoppa, or Smith-Petersen) or a posterior approach (e.g., Kocher-Langenbeck) depending on the fracture pattern.' },
-          { title: 'Reduction', description: 'Achieve anatomical or near-anatomical realignment of the pelvic ring or acetabulum using specialized reduction clamps, traction, and bone hooks.' },
-          { title: 'Fixation', description: 'Secure the reduction with internal fixation devices, such as reconstruction plates and screws, placed across the fracture lines or the sacroiliac joint.' },
-          { title: 'Verification', description: 'Use intra-operative fluoroscopy (C-arm) to confirm the adequacy of the reduction and the correct placement of all hardware before closure.' },
-          { title: 'Closure', description: 'Perform a meticulous, layered closure over suction drains to minimize the risk of hematoma formation and deep surgical site infection.' }
+          { title: 'Stabilization', description: 'Apply pelvic binder at level of greater trochanters.' },
+          { title: 'Fixation', description: 'Percutaneous placement of supra-acetabular or iliac crest pins for external frame.' }
         ],
         anestheticConsiderations: [
-          'General anesthesia with ETT and invasive monitoring',
-          'Manage potential for massive hemorrhage (if acute trauma)',
-          'Consider cell saver',
-          'Muscle relaxation'
+          'High association with major retroperitoneal hemorrhage.',
+          'Stability is time-sensitive to reduce pelvic volume.',
+          'Avoid hip manipulation.'
         ],
         antibioticProphylaxis: {
           drug: 'Cefazolin',
@@ -3707,80 +4443,58 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           alternatives: 'Vancomycin'
         },
         complications: {
-          surgical: ['Nerve injury (Sciatic/Obturator)', 'Vascular injury', 'Infection', 'Non-union'],
-          anesthetic: ['VTE/PE (high risk)', 'Blood loss-related complications', 'Pressure injury']
+          surgical: ['Nerve injury', 'Vascular injury', 'Infection', 'Pressure sores (from binder)'],
+          anesthetic: ['Hemorrhagic shock', 'Embolism', 'Pain management challenges']
         },
         management: {
-          preOp: ['Review fracture pattern on CT', 'Check hemoglobin and crossmatch'],
-          intraOp: [
-            'Manage the potential for significant and sometimes massive blood loss, especially in complex pelvic fractures; utilize invasive monitoring and consider the use of a cell saver.',
-            'Provide profound muscle relaxation to facilitate the difficult reduction of the pelvic ring and acetabular fragments.',
-            'Monitor for potential nerve injury (e.g., sciatic, obturator, or femoral nerves) during the extensive dissection and hardware placement.',
-            'Implement aggressive VTE prophylaxis (e.g., sequential compression devices) intra-operatively, as pelvic fractures carry an exceptionally high risk of thromboembolism.'
-          ],
-          postOp: ['Aggressive VTE prophylaxis', 'Early mobilization (if stable)']
-        }
+          preOp: ['Maintain binder stability', 'Check distal pulses', 'Crossmatch 4-6 units'],
+          intraOp: ['MTP activation if unstable', 'Rapid fixation', 'Minimize patient movement', 'Coordinate with Interventional Radiology (IR)'],
+          postOp: ['Monitor for ongoing bleeding', 'VTE prophylaxis (once stable)', 'Skin integrity checks']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT or Spontaneous (if stable)',
+          'Resuscitation-focused anesthesia',
+          'Avoidance of Neuraxial (Coagulopathy/Hypovolemia risk)',
+          'Optimization of MAP for renal perfusion',
+          'Aggressive multimodal analgesia (Fentanyl/Ketamine)'
+        ],
+        positioningDetail: 'Supine (Avoid any log-rolling or lifting).',
+        fluidBloodPlan: 'Maintenance + MTP standby; EBL 500-2000ml (Retroperitoneal).',
+        postopDisposition: 'Ward / HDU / ICU (if shock present)'
       },
       {
-        id: 'damage-control-lap',
-        name: 'Damage Control Laparotomy (Trauma)',
+        id: 'reboa',
+        name: 'REBOA Placement',
         guide: [
-          { title: 'Abbreviated Laparotomy', description: 'Perform a rapid midline incision. Stop massive hemorrhage (packing/clamping) and control contamination (ligation).' },
-          { title: 'Temporary Closure', description: 'Perform "Bogota bag" or vacuum-assisted closure. Do NOT attempt definitive repair.' },
-          { title: 'Resuscitation', description: 'Transfer patient to ICU for correction of the "Lethal Triad" (Acidosis, Coagulopathy, Hypothermia).' }
+          { title: 'Access', description: 'Femoral artery cannulation (Percutaneous or Cut-down).' },
+          { title: 'Placement', description: 'Insertion of balloon-tipped catheter to Zone I (Aorta) or Zone III (Iliac bifurcation).' },
+          { title: 'Inflation', description: 'Controlled inflation to stop distal flow; coordinate with surgical team.' }
         ],
         anestheticConsiderations: [
-          'Ultrafast induction (often simple Ketamine/Succinylcholine) once surgeon is ready.',
-          'Immediate Massive Transfusion Protocol (MTP). Avoid Crystalloids.',
-          'Permissive hypotension (MAP 50-60) until surgical control of bleeding.',
-          'Assume full stomach and severe physiological exhaustion.'
+          'Temporizing measure for profound shock.',
+          'Strict time limits for balloon inflation (Ischemia risk).',
+          'Risk of "Reperfusion Injury" upon deflation.'
         ],
-        antibioticProphylaxis: {
-          drug: 'Cefazolin + Metronidazole',
-          dosage: '2g + 500mg IV',
-          timing: 'ASAP',
-          alternatives: 'Gentamicin + Clindamycin'
+        management: {
+          preOp: ['Stabilize airway', 'Identify hemorrhage zone', 'Heparinization decision'],
+          intraOp: ['Monitor "Afterload Peak" upon inflation', 'Anticipate profound hypotension on deflation', 'Monitor for Acidosis/Hyperkalemia', 'Coordinate transfer to OR'],
+          postOp: ['ICU; monitor limb perfusion', 'Assess for access site hematoma', 'Monitor renal function']
         },
         complications: {
-          surgical: ['Ongoing hemorrhage', 'Abdominal compartment syndrome', 'Bowel ischemia'],
-          anesthetic: ['Cardiac arrest', 'DIC', 'TRALI/TACO']
+          surgical: ['Limb ischemia', 'Aortic dissection', 'Access site hemorrhage'],
+          anesthetic: ['Profound Reperfusion Shock', 'Hyperkalemia', 'Vascular collapse']
         },
-        management: {
-          preOp: ['Activate MTP', 'Prep Rapid Infuser', 'Zero-delay to OR'],
-          intraOp: ['Aggressive warming', 'TEG/ROTEM guided resuscitation', 'Check Ca2+ regularly'],
-          postOp: ['ICU; return to OR for definitive repair in 24-48h once stable']
-        }
-      },
-      {
-        id: 'er-thoracotomy',
-        name: 'Emergency Department / ER Thoracotomy',
-        guide: [
-          { title: 'Incison', description: 'Left anterolateral thoracotomy in the 4th/5th intercostal space.' },
-          { title: 'Access', description: 'Identify the heart. Pericardiotomy if tamponade suspected.' },
-          { title: 'Intervention', description: 'Internal cardiac massage, cross-clamping of the descending aorta, or Repair of cardiac injury.' }
+        anesthesiaStrategy: [
+          'GA + ETT + A-line (Contralateral or Radial)',
+          'Vasopressor/Inotropic support ready for deflation',
+          'Calcium/Bicarbonate ready for reperfusion hyperkalemia/acidosis',
+          'Limit inflation time (<30-60 mins)',
+          'DCR focus'
         ],
-        anestheticConsiderations: [
-          'Performed on patients in profound shock or traumatic arrest.',
-          'Anesthesia is often NOT required initially; patient is unconscious.',
-          'Intubate immediately with 100% O2; no induction drugs usually.',
-          'Prioritize large-bore access (Cordis) and MTP.'
-        ],
-        antibioticProphylaxis: {
-          drug: 'Cefuroxime',
-          dosage: '1.5g IV',
-          timing: 'ASAP',
-          alternatives: 'Vancomycin'
-        },
-        complications: {
-          surgical: ['Internal mammary artery bleeding', 'Clamping of the esophagus', 'Phrenic nerve injury'],
-          anesthetic: ['Death (high mortality)', 'Extreme metabolic acidosis', 'Air embolism']
-        },
-        management: {
-          preOp: ['Zero time; Scoop and run from ED to OR'],
-          intraOp: ['Internal defibrillation if needed', 'Aggressive warming', 'High-dose adrenaline'],
-          postOp: ['ICU if survived; usually high-acuity multisystem support']
-        }
-      },
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'MTP focus; Balloon deflation requires rapid volume loading.',
+        postopDisposition: 'ICU'
+      }
     ]
   },
   {
@@ -3788,62 +4502,97 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
     name: 'Burns Surgery',
     generalConsiderations: {
       preOp: [
-        'Assess % TBSA (Total Body Surface Area) and depth',
-        'Evaluate for inhalation injury (Stridor, soot, singed hair)',
-        'Review fluid resuscitation status (Parkland formula)',
-        'Check for circumferential burns (Escharotomy needed?)'
+        'Detailed airway assessment (Search for Inhalational Injury)',
+        'Check vocal cord function (if hoarse)',
+        'Review TBSA (Total Body Surface Area %) and Parkland formula state',
+        'Fluid resuscitation status (Urine Output target 0.5-1.0ml/kg/hr)'
       ],
       intraOp: [
-        'Maintain a high ambient operating room temperature (typically > 28-30°C) and use active warming measures to prevent hypothermia, as burn patients have lost their primary thermoregulatory barrier.',
-        'Implement aggressive and precise fluid management to compensate for high evaporative losses and ongoing fluid shifts; utilize goal-directed therapy and monitor urine output closely.',
-        'Anticipate and prepare for a difficult airway due to potential inhalation injury or significant facial and neck edema; have advanced airway equipment and a surgical airway kit ready.',
-        'Manage significant and sometimes rapid blood loss during surgical debridement and excision; ensure adequate venous access and immediate availability of blood products.',
-        'Utilize a multimodal analgesic approach, as burn patients often have high opioid requirements and significant procedural pain.'
+        'Maintain aggressive warming measures (Forced-air, warmed fluids, Room >30C); burnt skin loses heat rapidly.',
+        'Succinylcholine is ABSOLUTELY CONTRAINDICATED after 24-48 hours post-burn (risk of fatal hyperkalemia).',
+        'Optimize analgesia with Ketamine/Narcotic balance; patients are often tolerant to high doses.',
+        'Monitor for signs of Inhalational Injury (SOOT, airway edema) during the entire procedure.',
+        'Anticipate massive fluid requirements and utilize Goal-Directed Fluid Therapy (GDFT) or Parkland formula adjustments.'
       ],
       postOp: [
-        'Continue fluid resuscitation and electrolyte monitoring',
-        'High caloric nutritional support',
-        'Pain and anxiety management',
-        'Monitor for sepsis (high risk)'
+        'Maintain normothermia',
+        'Ongoing fluid resuscitation monitoring',
+        'Managed dressing changes with adequate analgesia',
+        'Monitor for sepsis (Hyperdynamic state)'
       ]
     },
     procedures: [
       {
-        id: 'burn-debridement',
-        name: 'Debridement and Skin Grafting',
+        id: 'burn-excision-grafting',
+        name: 'Burn Excision & Skin Grafting',
         guide: [
-          { title: 'Excision', description: 'Perform tangential excision (removing thin layers of burnt tissue until viable tissue is reached) or fascial excision (removing all tissue down to the muscle fascia).' },
-          { title: 'Hemostasis', description: 'Achieve rapid control of bleeding from the large raw surfaces using adrenaline-soaked swabs, topical thrombin, electrocautery, or limb tourniquets.' },
-          { title: 'Harvesting', description: 'Use a dermatome to harvest split-thickness skin grafts (STSG) from unburnt donor sites. Adjust settings for desired graft thickness.' },
-          { title: 'Grafting', description: 'Apply the harvested skin grafts to the excised areas. Grafts may be meshed (to cover larger areas) or applied as solid sheets for better cosmesis.' },
-          { title: 'Dressing', description: 'Secure the grafts with staples, sutures, or fibrin glue. Apply non-adherent, antimicrobial dressings and ensure immobilization to promote graft take.' }
+          { title: 'Debridement', description: 'Removal of non-viable, burnt tissue down to bleeding dermis or fascia (Tangential excision).' },
+          { title: 'Harvesting', description: 'Harvest split-thickness skin grafts (STSG) from unburnt donor sites using a dermatome.' },
+          { title: 'Grafting', description: 'Application of grafts to the excised areas; secured with staples or sutures.' }
         ],
         anestheticConsiderations: [
-          'High risk of hypothermia (keep OR > 28°C)',
-          'Difficult venous access (may need CVC/IO)',
-          'Altered pharmacology (resistance to non-depolarizing relaxants)',
-          'Succinylcholine is CONTRAINDICATED after 24-48 hours (hyperkalemia risk)'
+          'Massive blood loss potential (Excised surfaces bleed freely).',
+          'Succinylcholine CONTRAINDICATED (Hyperkalemia risk).',
+          'Monitor for hypothermia (Aggressive warming mandatory).',
+          'Tumescent solutions (Adrenaline/Saline) used to limit bleeding.'
         ],
         antibioticProphylaxis: {
-          drug: 'Flucloxacillin or Cefazolin',
-          dosage: '2g IV',
+          drug: 'Vancomycin + Meropenem (if septic)',
+          dosage: 'Weight based',
           timing: 'At induction',
-          alternatives: 'Vancomycin if MRSA risk'
+          alternatives: 'Cefazolin (if stable)'
         },
         complications: {
-          surgical: ['Graft failure', 'Infection', 'Hemorrhage', 'Donor site morbidity'],
-          anesthetic: ['Hypothermia', 'Hyperkalemia (Succinylcholine)', 'Fluid/Electrolyte imbalance']
+          surgical: ['Hemorrhage', 'Graft failure', 'Infection', 'Compartment syndrome'],
+          anesthetic: ['Fatal hyperkalemia (Sux)', 'Hypothermia', 'Massive Transfusion (DIC)']
         },
         management: {
-          preOp: ['Optimize fluid status', 'Check coagulation'],
-          intraOp: [
-            'Recognize the high risk of hypothermia; maintain a warm environment and use warmed fluids and gases. Monitor core temperature continuously using an esophageal or bladder probe.',
-            'Establish reliable, large-bore venous access, which may be challenging in patients with extensive burns; consider the use of central venous or intraosseous access if needed.',
-            'Be aware of altered pharmacology in burn patients, such as resistance to non-depolarizing muscle relaxants and increased requirements for many anesthetic agents.',
-            'Remember that succinylcholine is strictly contraindicated after the first 24-48 hours post-burn due to the risk of life-threatening hyperkalemia.'
-          ],
-          postOp: ['Splinting of grafted areas', 'Monitor for graft take']
-        }
+          preOp: ['Review TBSA %', 'Assess donors/recipients', 'Verify warming equipment'],
+          intraOp: ['Aggressive warming (Room temp >30C)', 'Monitor blood loss closely', 'Avoid Succinylcholine', 'Ketamine-based analgesia'],
+          postOp: ['Maintain hydration', 'Normothermia focus', 'Analgesia (Regular narcotics)']
+        },
+        anesthesiaStrategy: [
+          'GA + ETT + Large Bore Access',
+          'Avoid Succinylcholine (Post-24h burns)',
+          'Tumescent fluid (Saline + Adrenaline) infiltration management',
+          'Intra-operative Ketamine infusion (0.2-0.5 mg/kg/hr)',
+          'Strict thermal management (Aggressive warming)'
+        ],
+        positioningDetail: 'Supine/Prone depending on burn site. Padded head-rest.',
+        fluidBloodPlan: 'Massive Transfusion standby; Balanced products (MTP). EBL 500-2000ml.',
+        postopDisposition: 'Specialized Burn Unit / ICU'
+      },
+      {
+        id: 'escharotomy',
+        name: 'Emergency Escharotomy',
+        guide: [
+          { title: 'Incision', description: 'Full-thickness incision through the eschar (burnt skin) along the axis of limbs or chest wall.' },
+          { title: 'Release', description: 'Release of underlying tension to restore distal circulation or chest wall compliance.' }
+        ],
+        anestheticConsiderations: [
+          'Emergency procedure to save life/limb from compartment syndrome.',
+          'High risk for metabolic acidosis and myoglobinuria (Rhabdomyolysis).',
+          'Prioritize airway and resuscitation concurrent with release.'
+        ],
+        management: {
+          preOp: ['Identify neurovascular compromise', 'Check ventilatory compliance', 'Analgesia (Ketamine/Fentanyl)'],
+          intraOp: ['Manage myoglobinuria (Bicarbonate/Fluids)', 'Monitor for reperfusion hyperkalemia', 'Assess distal pulses immediately post-release'],
+          postOp: ['Monitor for compartment syndrome recurrence', 'Fasciotomy if escharotomy fails', 'Limb elevation']
+        },
+        complications: {
+          surgical: ['Bleeding', 'Nerve injury', 'Underlying muscle ischemia'],
+          anesthetic: ['Hyperkalemia', 'Massive fluid shifts', 'Myoglobinuria']
+        },
+        anesthesiaStrategy: [
+          'Emergency Analgesia (Ketamine/Fentanyl) or GA (if intubated)',
+          'Bicarbonate and Fluid loading (Rhabdomyolysis focus)',
+          'Avoid Succinylcholine (Hyperkalemia risk)',
+          'Inotropic support ready',
+          'Close coordination with trauma/burn surgeons'
+        ],
+        positioningDetail: 'Supine with limb extension.',
+        fluidBloodPlan: 'Aggressive Crystalloid (Parkland); Check K+ level.',
+        postopDisposition: 'Burn Unit / ICU'
       }
     ]
   },
@@ -3906,7 +4655,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Coordinate with the neonatal team for immediate assessment and resuscitation of the newborn, especially in cases of fetal distress or prematurity.'
           ],
           postOp: ['Regular observations', 'Uterine fundal check']
-        }
+        },
+        anesthesiaStrategy: [
+          'Neuraxial Preferred (Spinal or CSE)',
+          'Phenylephrine (bolus/infusion) for BP maintenance',
+          'Left lateral tilt (15 deg) to prevent aortocaval compression',
+          'Uterotonics (Oxytocin 5U slow bolus + 20-40U infusion)',
+          'Aggressive PONV prophylaxis (triple therapy)'
+        ],
+        positioningDetail: 'Supine with 15-degree Left Lateral Tilt (Wedge or Table tilt).',
+        fluidBloodPlan: 'Maintenance + losses; 2 units G&S. Oxytocin infusion ready.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'cervical-cerclage',
@@ -3942,7 +4701,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Monitor for signs of premature rupture of membranes (PROM) or preterm labor during the procedure, and be prepared to manage these complications if they occur.'
           ],
           postOp: ['Monitor for contractions', 'Avoid heavy lifting']
-        }
+        },
+        anesthesiaStrategy: [
+          'Saddle Spinal (Low dose Bupivacaine) or GA',
+          'Strict Avoidance of Uterine Stimulants',
+          'Maintain stable MAP for uterine perfusion',
+          'Minimal fetal agent exposure focus'
+        ],
+        positioningDetail: 'Lithotomy (Standard or Modified).',
+        fluidBloodPlan: 'Restrictive crystalloid; EBL minimal.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'peripartum-hysterectomy',
@@ -3973,7 +4741,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Identify high-risk cases (Accreta) pre-operatively', 'Blood in room'],
           intraOp: ['Cell saver if available and appropriate', 'Thromboelastography (TEG/ROTEM) guided transfusion', 'Uterine artery embolization if stable'],
           postOp: ['ICU management', 'Monitor for secondary hemorrhage']
-        }
+        },
+        anesthesiaStrategy: [
+          'Immediate MTP Activation (1:1:1 Ratio)',
+          'Convert to GA + RSI if septic/shock/instability',
+          'Aggressive Ca++ and Temp management (Shock)',
+          'Invasive monitoring (Arterial Line essential)',
+          'Manage pregnancy-specific DIC (Fibrinogen focus)'
+        ],
+        positioningDetail: 'Supine with left tilt (if possible) or rapid leveling for laparotomy.',
+        fluidBloodPlan: 'Massive Transfusion Protocol (MTP); EBL 3-8L. Level 1 Infuser.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'placenta-previa-csection',
@@ -4000,11 +4778,21 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           anesthetic: ['Cardiac arrest', 'Aspiration', 'Uterine atony']
         },
         management: {
-          preOp: ['Type & Crossmatch 4-6 units PRBCs', 'Detailed anesthetic discussion with patient', 'Confirm Placenta location'],
+          preOp: ['Type & Crossmatch 4-units PRBCs', 'Detailed anesthetic discussion with patient', 'Confirm Placenta location'],
           intraOp: ['Aggressive fluid/blood resuscitation', 'Inotropes ready', 'Manage coagulopathy'],
           postOp: ['Monitor for secondary hemorrhage', 'HDU monitoring']
-        }
-      },
+        },
+        anesthesiaStrategy: [
+          'GA + RSI preferred (if active hemorrhage)',
+          'Large-Bore Access (14G x2) mandatory',
+          'Ready MTP (Blood in room)',
+          'Uterine atony prophylaxis (TXA + Uterotonics)',
+          'Arterial Line for high hemorrhage risk'
+        ],
+        positioningDetail: 'Supine with 15-degree Left Lateral Tilt.',
+        fluidBloodPlan: 'MTP standby; EBL 1-3L. 4 units Crossmatched.',
+        postopDisposition: 'HDU'
+      }
     ]
   },
   {
@@ -4068,7 +4856,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Administer restrictive fluid therapy (< 1-2 mL/kg/hr) to mitigate risk of lung injury and edema.'
           ],
           postOp: ['Maintain thoracic epidural/block running', 'Continuous SpO2 monitoring', 'Very early mobilization']
-        }
+        },
+        anesthesiaStrategy: [
+          'OLV via Left DLT (35-37Fr) + FOB confirmation',
+          'Protective Vent (6ml/kg + 5 PEEP) during OLV',
+          'Restrictive IVF (<2ml/kg/h) to prevent ALI',
+          'Early recruitment on re-expansion',
+          'Regional Block (Paravertebral/ESP) for analgesia'
+        ],
+        positioningDetail: 'Lateral Decubitus. Pad axilla and dependent peroneal nerve.',
+        fluidBloodPlan: 'Restrictive (<1.5L total); EBL 100-300ml. Blood G&S.',
+        postopDisposition: 'HDU'
       },
       {
         id: 'pneumonectomy',
@@ -4104,7 +4902,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Clamp IVF tightly. Excessive fluid is the primary driver of catastrophic post-pneumonectomy pulmonary edema in the remaining lung.'
           ],
           postOp: ['ICU Admission mandatory', 'Position patient strictly on the OPERATIVE side to avoid flooding the remaining lung if a fistula occurs', 'Keep pleural space neutral (verify mediastinal alignment on CXR)']
-        }
+        },
+        anesthesiaStrategy: [
+          'OLV + Aggressive Fluid Restriction (<500ml total)',
+          'Assess RV baseline (ECHO) pre-clamping',
+          'Left DLT pullback maneuver for Left Pneumonectomy',
+          'Avoid N2O (Air embolism risk)',
+          'Maintain high MAP post-clamping for RV perfusion'
+        ],
+        positioningDetail: 'Lateral Decubitus. Post-op: strictly on operative side.',
+        fluidBloodPlan: 'Extremely restrictive; strictly maintenance only. Cell Saver.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'pleurodesis',
@@ -4140,7 +4948,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Manage one-lung ventilation (OLV) if VATS is used, and monitor for hypoxia and hemodynamic stability during lung manipulation.'
           ],
           postOp: ['Chest drain management', 'Regular analgesia']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + OLV for VATS approach',
+          'Proactive Multimodal Analgesia (High Pain)',
+          'Paravertebral Block for pleuritic coverage',
+          'Monitor for ALI/SIRS post-talc insufflation'
+        ],
+        positioningDetail: 'Lateral Decubitus (VATS) or Supine.',
+        fluidBloodPlan: 'Restrictive; standard access.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'tracheal-resection',
@@ -4170,7 +4987,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review CT/Bronchoscopy', 'Ensure multiple sizes of ETT and flexometallic tubes available'],
           intraOp: ['TIVA with short-acting agents', 'Continuous ETCO2 from whichever site is ventilating', 'Limit neck extension'],
           postOp: ['Maintain neck flexion (Grillo stitch)', 'Often extubated awake on the table']
-        }
+        },
+        anesthesiaStrategy: [
+          'Cross-field Ventilation (Exchange ETT with Sterile Flexo)',
+          'TIVA (Avoid paralysis if critical airway)',
+          'Smooth emergence (Lidocaine/Remifentanil)',
+          'Meticulous Neck Flexion (Grillo Stitch) maintenance',
+          'Continuous ETCO2 via multiple sites'
+        ],
+        positioningDetail: 'Supine. Severe neck flexion ("Grillo Stitch") post-op.',
+        fluidBloodPlan: 'Restrictive; standard IV x2.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'lung-transplant',
@@ -4200,7 +5027,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review latest ABG/PFTs', 'Confirm HLA crossmatch'],
           intraOp: ['TEE for RV function', 'NO/Epoprostenol ready', 'Maintenance of high MAP (BP for RV)'],
           postOp: ['ICU management', 'Protective ventilation (low volumes)', 'Immunosuppression protocol']
-        }
+        },
+        anesthesiaStrategy: [
+          'TEE Monitoring + ECMO/CPB on standby',
+          'Aggressive RV Support (NO, Epoprostenol, Dobutamine)',
+          'Primary Graft Dysfunction (PGD) Prophylaxis (No Fluid)',
+          'Restrictive Protective Ventilation (Vte 4-6ml/kg)',
+          'Intra-Op Bronchoscopy for bronchial clearing'
+        ],
+        positioningDetail: 'Lateral (Single) or Clamshell (Bilateral).',
+        fluidBloodPlan: 'Near-zero fluid strategy; Blood/Colloid as needed. Cell Saver.',
+        postopDisposition: 'ICU'
       }
     ]
   },
@@ -4256,7 +5093,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['ECHO, stress test', 'Baseline Cr', 'Crossmatch 4-6 units PRBCs'],
           intraOp: ['A-line, CVP, TEE', 'Vasoactive drips ready', 'Active warming', 'Cell saver'],
           postOp: ['ICU admission', 'Epidural PCA', 'Keep MAP narrow to protect graft and organs']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Thoracic Epidural + A-Line + CVL + TEE',
+          'Manage clamping hypertensive surge (vasodilators)',
+          'Manage Unclamping Shock (Volume + Vasopressors)',
+          'Renal/Cord protection via MAP maintenance'
+        ],
+        positioningDetail: 'Supine or Lateral (if thoracoabdominal). Pad for major duration.',
+        fluidBloodPlan: 'Major shifts; EBL 1-3L. Level 1 Infuser + Cell Saver.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'evar',
@@ -4279,7 +5125,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Evaluate contrast allergy', 'Renal function check', 'Type & Screen'],
           intraOp: ['Standard monitoring; A-line if cardiac comorbidities exist', 'Maintain immobility'],
           postOp: ['Usually goes to PACU and floor, avoiding ICU', 'Monitor access site bleeding']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA or Regional (Local with MAC possible)',
+          'Minimal physiologic stress vs Open Repair',
+          'Emergency plan for rupture (convert to Open)',
+          'Contrast protection (Maintain urine output)'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Maintenance + hydration for contrast; EBL minimal. Type & Screen.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'carotid-endarterectomy',
@@ -4304,7 +5159,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Determine baseline BP and neuro exam', 'Continue Aspirin'],
           intraOp: ['A-line placement (often awake)', 'Careful positioning (neck extension)', 'Vasopressor/Vasodilator tight control'],
           postOp: ['PACU or ICU for strict BP monitoring', 'Observe for stridor or swelling']
-        }
+        },
+        anesthesiaStrategy: [
+          'Awake Regional (Cervical Block) or GA with EEG',
+          'High SBP (20% > baseline) during clamping for perfusion',
+          'Low SBP (<140) after unclamping for hematoma prevention',
+          'Cerebral protection (avoid hypo/hypercapnia)'
+        ],
+        positioningDetail: 'Supine with neck extended and head turned away.',
+        fluidBloodPlan: 'Restrictive; EBL minimal. Standard IV access.',
+        postopDisposition: 'HDU / ICU (Day 1)'
       },
       {
         id: 'fem-pop-bypass',
@@ -4326,7 +5190,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Cardiac optimization', 'Evaluate for regional vs general anesthesia'],
           intraOp: ['Heparin management', 'Keep patient warm', 'Aggressive hydration to keep graft open'],
           postOp: ['Maintain BP to support graft flow', 'Monitor pedal pulses']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal or Epidural + Sedation',
+          'Maintain high-normal MAP for graft perfusion',
+          'Watch for reperfusion metabolites upon unclamping',
+          'Manage heparinization (ACT > 200)'
+        ],
+        positioningDetail: 'Supine. Pad calcaneus and sacrum.',
+        fluidBloodPlan: 'Maintenance + hydration for graft; EBL 100-300ml. Type & Screen.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'tevar',
@@ -4356,7 +5229,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Lumbar drain placement', 'A-line (right radial often preferred)', 'Large bore IVs'],
           intraOp: ['Manage RVP or Adenosine sequence', 'Maintain MAP > 80-90'],
           postOp: ['ICU', 'Neurologic checks for lower extremities', 'Maintain spinal drain']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA + Lumbar Drain + Right Radial A-Line',
+          'Spinal Cord Perfusion focus (MAP - CSFP > 80)',
+          'Controlled flat MAP during deployment (RVP/Adenosine)',
+          'Manage induced cardiac standstill sequence'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Hydration for contrast + MAP support; EBL 100-300ml. Blood G&S.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'av-fistula',
@@ -4377,7 +5259,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Check Potassium (K+)', 'NO blood pressures or IVs in the operative arm'],
           intraOp: ['Regional Anesthesia preferred', 'Sedation as tolerated'],
           postOp: ['Protect the arm', 'Avoid tight dressings']
-        }
+        },
+        anesthesiaStrategy: [
+          'Axillary Brachial Plexus Block (Gold Standard)',
+          'Sympathectomy enhances vein dilation / success',
+          'Avoid K+ spikes (renal patient)',
+          'Minimal sedation if possible'
+        ],
+        positioningDetail: 'Supine with operative arm on board.',
+        fluidBloodPlan: 'Minimal; EBL minimal. No IV in operative arm.',
+        postopDisposition: 'Day Case'
       },
       {
         id: 'ruptured-aaa',
@@ -4401,7 +5292,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Activate MTP', 'Prep Rapid Infuser', 'Place Cordis (large central access) if time permits, otherwise large peripheral'],
           intraOp: ['Awake a-line if possible', 'Surgeon ready before pushing induction drugs', 'Calcemias, Acidosis management'],
           postOp: ['ICU, Open abdomen often', 'Continued resuscitation']
-        }
+        },
+        anesthesiaStrategy: [
+          'Ketamine / Etomidate Induction (Shock doses)',
+          'Immediate MTP activation (1:1:1 ratio)',
+          'Permissive hypotension (SBP 80) until clamped',
+          'Treat lethal triad (Acidosis, Cold, Coagulopathy)'
+        ],
+        positioningDetail: 'Supine (Rapid access).',
+        fluidBloodPlan: 'Massive Transfusion Protocol (MTP); EBL 3-10L. 10 units Crossmatched.',
+        postopDisposition: 'ICU'
       },
       {
         id: 'fem-distal-bypass',
@@ -4431,7 +5331,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for antiplatelet status', 'Assess cardiac reserve'],
           intraOp: ['Maintain stable hemodynamics', 'Tight MAP control', 'Check distal pulses'],
           postOp: ['Hourly pedal pulse checks', 'Pain management', 'Early mobilization']
-        }
+        },
+        anesthesiaStrategy: [
+          'Spinal or CSE (Combined Spinal-Epidural)',
+          'Maintenance of high MAP for distal perfusion',
+          'Vigilance for redo-anatomy instability',
+          'Monitor for compartment syndrome post-op'
+        ],
+        positioningDetail: 'Supine. Pad sacrum and heels.',
+        fluidBloodPlan: 'Balanced crystalloid; EBL 100-300ml. Type & Screen.',
+        postopDisposition: 'Ward'
       }
     ]
   },
@@ -4488,7 +5397,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Confirm NPO', 'Review dental X-rays'],
           intraOp: ['Document throat pack', 'Gentle suctioning', 'Control BP'],
           postOp: ['Extubate in lateral position', 'Verify throat pack removal']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with Nasal ETT or LMA (if suitable)',
+          'Throat pack mandatory (Document insertion/removal)',
+          'Steroids (Dexamethasone) for swelling',
+          'Local infiltration for emergence comfort'
+        ],
+        positioningDetail: 'Supine. Head in doughnut/ring.',
+        fluidBloodPlan: 'Standard maintenance; EBL minimal.',
+        postopDisposition: 'Day Case'
       },
       {
         id: 'jaw-orif',
@@ -4518,7 +5436,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Assess for associated injuries (Head, Spine)', 'Check neck mobility'],
           intraOp: ['Nasal intubation (Fiberoptic or GlideScope)', 'Maintain high index of suspicion for VAE', 'Regular Hgb checks'],
           postOp: ['Ensure wire cutters at bedside', 'Steroids for edema', 'Analgesia (IV PCA)']
-        }
+        },
+        anesthesiaStrategy: [
+          'Nasal Intubation (Mandatory for IMMF)',
+          'Wire cutters at bedside for extubation',
+          'Manage shared airway (Coordinate with surgeon)',
+          'Vigilance for VAE in complex facial trauma'
+        ],
+        positioningDetail: 'Supine. Head elevation.',
+        fluidBloodPlan: 'Standard + G&S; EBL 100-300ml.',
+        postopDisposition: 'Ward / HDU'
       },
       {
         id: 'le-fort',
@@ -4548,7 +5475,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Crossmatch 2-4 units', 'Detailed airway plan'],
           intraOp: ['A-line mandatory', 'Deliberate hypotension', 'Tranexamic Acid (TXA)'],
           postOp: ['Keep intubated if edema severe', 'ICU level care', 'Wire cutters at bedside']
-        }
+        },
+        anesthesiaStrategy: [
+          'Nasal Intubation + Deliberate Hypotension (MAP 60-65)',
+          'TXA 1g Loading + Infusion',
+          'Invasive monitoring (A-Line essential)',
+          'Plan for delayed extubation if edema severe'
+        ],
+        positioningDetail: 'Supine. Head elevated. Secure ETT meticulously.',
+        fluidBloodPlan: 'Balanced crystalloid; EBL 500-1500ml. Crossmatch 4 units.',
+        postopDisposition: 'ICU / HDU'
       }
     ]
   },
@@ -4604,7 +5540,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Check coagulation (INR/Plt)', 'Review for difficult airway'],
           intraOp: ['Oxygen via nasal prongs (if sedation)', 'Suction ready', 'Monitoring for bradycardia'],
           postOp: ['Monitor for lipase rise/pancreatitis pain', 'Recovery in lateral position']
-        }
+        },
+        anesthesiaStrategy: [
+          'GA with ETT preferred (Prone airway safety)',
+          'RSI if high aspiration risk (cholangitis)',
+          'Antispasmodics (Hyoscine) to facilitate cannulation',
+          'Vigilance for biliary sepsis / septic shock'
+        ],
+        positioningDetail: 'Prone or Semi-Prone (Left lateral decubitus).',
+        fluidBloodPlan: 'Maintenance + resuscitation if septic; EBL minimal.',
+        postopDisposition: 'Ward'
       },
       {
         id: 'mri-sedation',
@@ -4629,7 +5574,16 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['MRI safety questionnaire', 'Confirm non-ferrous monitors'],
           intraOp: ['TIVA preferred (avoids scavenging issues)', 'Strict cable management', 'Ear plugs'],
           postOp: ['Standard recovery monitoring', 'Monitor for thermal injury']
-        }
+        },
+        anesthesiaStrategy: [
+          'MRI-Conditional Equipment Only',
+          'TIVA (Propofol) via MRI-compatible pump',
+          'Remote monitoring (long tubing / extensions)',
+          'Ear protection mandatory for patient'
+        ],
+        positioningDetail: 'Supine in MRI tunnel.',
+        fluidBloodPlan: 'Maintenance via MRI pump.',
+        postopDisposition: 'Ward / Day Surgery'
       },
       {
         id: 'cardioversion',
@@ -4654,8 +5608,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Check K+ and Mg2+', 'Confirm NPO', 'Confirm anticoagulation (INR/NOAC)'],
           intraOp: ['BVM with 100% O2', 'Propofol titrating to unresponsive state', 'Monitor ECG immediately post-shock'],
           postOp: ['Observe for 1-2h for rhythm stability', 'Monitor for neurology deficits']
-        }
+        },
+        anesthesiaStrategy: [
+          'Deep Sedation / Short GA (Propofol)',
+          'Synchronized DC Shock sequence',
+          'Airway management (BVM + Oral airway)',
+          'Confirm Anticoagulation (Stroke risk)'
+        ],
+        positioningDetail: 'Supine.',
+        fluidBloodPlan: 'Standard maintenance.',
+        postopDisposition: 'Day Case'
       }
     ]
-  }
+  },
 ];

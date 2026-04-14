@@ -1,51 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Stethoscope, 
-  Search, 
   ChevronRight, 
   Activity, 
   ShieldCheck, 
   ClipboardList, 
   ArrowRight, 
   AlertTriangle, 
-  Info,
   Scissors,
   Syringe,
-  Microscope,
-  Zap,
-  BookOpen
+  BookOpen,
+  Droplets,
+  Compass,
+  ArrowRightCircle,
 } from 'lucide-react';
-import { SURGERY_DATA } from './data';
-import { SurgeryProcedure, SurgeryStep } from '../../types';
+import { SurgeryProcedure } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useData } from '../../hooks/useData';
 
-function SurgicalGuide({ steps }: { steps: SurgeryStep[] }) {
-  const { t } = useLanguage();
-  return (
-    <div className="space-y-4 my-8">
-      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">{t('surgery.guide')}</h4>
-      <div className="flex flex-col gap-4">
-        {steps.map((step, index) => (
-          <div key={index} className="flex items-start gap-4">
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 bg-indigo-50 border-indigo-200 text-indigo-600">
-                {index + 1}
-              </div>
-              {index < steps.length - 1 && (
-                <div className="w-0.5 h-12 bg-slate-100 my-1" />
-              )}
-            </div>
-            <div className="flex-1 p-4 rounded-xl border bg-indigo-50/30 border-indigo-100">
-              <p className="font-bold text-sm text-slate-800">{step.title}</p>
-              <p className="text-xs text-slate-500 mt-1">{step.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// Shared Components & Hooks
+import { usePersistentState } from '../../hooks/usePersistentState';
+import { useModuleSearch } from '../../hooks/useModuleSearch';
+import { StepTimeline } from '../../components/shared/StepTimeline';
+import { CommandCard } from '../../components/shared/CommandCard';
+import { InfoSection } from '../../components/shared/DetailSection';
+import { ModuleEmptyState } from '../../components/shared/ModuleEmptyState';
+import SearchInput from '../../components/SearchInput';
 
 function ThoracicSpirometryAnalyser({ procedureId }: { procedureId: string }) {
   const [fev1, setFev1] = useState('80');
@@ -144,39 +124,17 @@ function ThoracicSpirometryAnalyser({ procedureId }: { procedureId: string }) {
   );
 }
 
-import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
-
 const Surgery: React.FC = () => {
   const { surgery: SURGERY_DATA } = useData();
-  const [selectedId, setSelectedId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_surgery_selected_id');
-  });
-  const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_surgery_search_term') || '';
-  });
-  const [activeSpecialty, setActiveSpecialty] = useState<string>(() => {
-    return localStorage.getItem('anestassist_surgery_specialty') || 'All';
-  });
+  const [selectedId, setSelectedId] = usePersistentState<string | null>('anestassist_surgery_selected_id', null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeSpecialty, setActiveSpecialty] = usePersistentState<string>('anestassist_surgery_specialty', 'All');
   
   const { t } = useLanguage();
 
-  useEffect(() => {
-    if (selectedId) localStorage.setItem('anestassist_surgery_selected_id', selectedId);
-    else localStorage.removeItem('anestassist_surgery_selected_id');
-  }, [selectedId]);
-
-  useEffect(() => {
-    localStorage.setItem('anestassist_surgery_search_term', searchTerm);
-  }, [searchTerm]);
-
-  useEffect(() => {
-    localStorage.setItem('anestassist_surgery_specialty', activeSpecialty);
-  }, [activeSpecialty]);
-
   const specialties = ['All', ...SURGERY_DATA.map(s => s.name)];
 
-  const allProcedures = SURGERY_DATA.flatMap(s => 
+  const allProcedures = (SURGERY_DATA || []).flatMap(s => 
     s.procedures.map(p => ({ 
       ...p, 
       specialtyName: s.name, 
@@ -185,18 +143,21 @@ const Surgery: React.FC = () => {
     }))
   );
 
-  const filteredProcedures = searchItems(
-    allProcedures.filter(p => activeSpecialty === 'All' || p.specialtyName === activeSpecialty),
+  type SurgeryProcedureExtended = SurgeryProcedure & { specialtyName: string; specialtyId: string; generalConsiderations: any };
+
+  const filteredProcedures = useModuleSearch<SurgeryProcedureExtended>({
+    data: allProcedures,
     searchTerm,
-    ['name', 'specialtyName']
-  );
+    searchFields: ['name', 'specialtyName'],
+    filter: (p) => activeSpecialty === 'All' || p.specialtyName === activeSpecialty
+  });
 
   // Sync selection with filter to prevent "ghost" selections
   useEffect(() => {
     if (selectedId && !filteredProcedures.some(p => p.id === selectedId)) {
       setSelectedId(null);
     }
-  }, [selectedId, filteredProcedures, activeSpecialty]); // Also depend on activeSpecialty for safety
+  }, [selectedId, filteredProcedures, setSelectedId]);
 
   const selectedProcedure = allProcedures.find(p => p.id === selectedId);
 
@@ -205,15 +166,12 @@ const Surgery: React.FC = () => {
       {/* Sidebar */}
       <div className="lg:col-span-4 space-y-6">
         <div className="bg-white p-6 rounded-2xl border border-medical-border shadow-sm">
-          <div className="relative mb-6">
-            <input
-              type="text"
+          <div className="mb-6">
+            <SearchInput
               placeholder={t('common.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
             />
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           </div>
 
           <div className="flex flex-wrap gap-2 mb-6">
@@ -291,24 +249,57 @@ const Surgery: React.FC = () => {
                   <Scissors className="w-6 h-6 text-medical-accent" />
                 </div>
               </div>
+
+              {/* SHARED: Anesthesia Command Card */}
+              <CommandCard 
+                strategies={selectedProcedure.anesthesiaStrategy || []} 
+                onPrint={() => window.print()}
+              />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-8">
-                  <section>
-                    <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
-                      <Syringe className="w-4 h-4 text-indigo-500" />
-                      {t('surgery.anestheticConsiderations')}
-                    </h3>
-                    <ul className="space-y-3">
-                      {selectedProcedure.anestheticConsiderations.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                  {/* SHARED: Anesthetic Considerations */}
+                  <InfoSection 
+                    title={t('surgery.anestheticConsiderations')}
+                    icon={Syringe}
+                    iconColor="text-indigo-500"
+                    bulletColor="bg-indigo-400"
+                    items={selectedProcedure.anesthesiaStrategy && selectedProcedure.anesthesiaStrategy.length > 0 ? [] : selectedProcedure.anestheticConsiderations}
+                  />
 
+                  {/* Positioning & Fluid Sections */}
+                  {(selectedProcedure.positioningDetail || selectedProcedure.fluidBloodPlan) && (
+                    <div className="grid grid-cols-1 gap-4">
+                      {selectedProcedure.positioningDetail && (
+                        <InfoSection 
+                          title="Positioning Detail"
+                          icon={Compass}
+                          iconColor="text-indigo-600"
+                          bgColor="bg-indigo-50/50"
+                          borderColor="border-indigo-100"
+                          textColor="text-indigo-900 font-bold"
+                          bulletColor="bg-indigo-400"
+                          items={[selectedProcedure.positioningDetail]}
+                          variant="compact"
+                        />
+                      )}
+                      {selectedProcedure.fluidBloodPlan && (
+                        <InfoSection 
+                          title="Fluid & Blood Plan"
+                          icon={Droplets}
+                          iconColor="text-blue-600"
+                          bgColor="bg-blue-50/50"
+                          borderColor="border-blue-100"
+                          textColor="text-blue-900 font-bold"
+                          bulletColor="bg-blue-400"
+                          items={[selectedProcedure.fluidBloodPlan]}
+                          variant="compact"
+                        />
+                      )}
+                    </div>
+                  )}
+
+                  {/* Antibiotic Prophylaxis */}
                   {selectedProcedure.antibioticProphylaxis && (
                     <section className="p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100">
                       <h3 className="flex items-center gap-2 text-sm font-bold text-emerald-800 mb-4">
@@ -338,66 +329,72 @@ const Surgery: React.FC = () => {
                     </section>
                   )}
 
-                  <section>
-                    <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
-                      <AlertTriangle className="w-4 h-4 text-rose-500" />
-                      {t('surgery.surgicalComplications')}
-                    </h3>
-                    <ul className="space-y-3">
-                      {selectedProcedure.complications.surgical.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                          <div className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                  {/* SHARED: Surgical Complications */}
+                  <InfoSection 
+                    title={t('surgery.surgicalComplications')}
+                    icon={AlertTriangle}
+                    iconColor="text-rose-500"
+                    bulletColor="bg-rose-400"
+                    items={selectedProcedure.complications.surgical}
+                  />
                 </div>
 
                 <div className="space-y-8">
-                  <SurgicalGuide steps={selectedProcedure.guide} />
+                  {/* SHARED: Surgical Guide Steps */}
+                  <StepTimeline 
+                    steps={selectedProcedure.guide.map(s => ({ ...s, type: 'action' }))} 
+                    title={t('surgery.guide')}
+                  />
 
+                  {/* Management Protocols */}
                   <section>
                     <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
                       <ClipboardList className="w-4 h-4 text-medical-accent" />
                       {t('surgery.managementProtocols')}
                     </h3>
                     <div className="space-y-6">
-                      <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{t('surgery.preOp')}</p>
-                        <ul className="space-y-2">
-                          {selectedProcedure.management.preOp.map((item, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                              <ArrowRight className="w-3 h-3 text-medical-accent mt-1 shrink-0" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{t('surgery.intraOp')}</p>
-                        <ul className="space-y-2">
-                          {selectedProcedure.management.intraOp.map((item, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                              <ArrowRight className="w-3 h-3 text-medical-accent mt-1 shrink-0" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{t('surgery.postOp')}</p>
-                        <ul className="space-y-2">
-                          {selectedProcedure.management.postOp.map((item, i) => (
-                            <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                              <ArrowRight className="w-3 h-3 text-medical-accent mt-1 shrink-0" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <InfoSection 
+                        title={t('surgery.preOp')}
+                        icon={ArrowRight}
+                        iconColor="text-medical-accent"
+                        variant="compact"
+                        items={selectedProcedure.management.preOp}
+                      />
+                      <InfoSection 
+                        title={t('surgery.intraOp')}
+                        icon={ArrowRight}
+                        iconColor="text-medical-accent"
+                        variant="compact"
+                        items={selectedProcedure.management.intraOp}
+                      />
+                      <InfoSection 
+                        title={t('surgery.postOp')}
+                        icon={ArrowRight}
+                        iconColor="text-medical-accent"
+                        variant="compact"
+                        items={selectedProcedure.management.postOp}
+                      />
                     </div>
                   </section>
+
+                  {/* Postop Disposition */}
+                  {selectedProcedure.postopDisposition && (
+                    <section className="p-6 bg-slate-50 rounded-3xl border border-slate-200">
+                      <h3 className="flex items-center gap-2 text-xs font-black text-slate-800 mb-4 uppercase tracking-widest">
+                        <ArrowRightCircle className="w-4 h-4 text-slate-600" />
+                        Postoperative Disposition
+                      </h3>
+                      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Target Level</p>
+                          <p className="text-sm font-black text-slate-800 uppercase">{selectedProcedure.postopDisposition}</p>
+                        </div>
+                        <div className="px-3 py-1 bg-slate-100 rounded-lg text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                          Standard Protocol
+                        </div>
+                      </div>
+                    </section>
+                  )}
                 </div>
               </div>
 
@@ -415,7 +412,7 @@ const Surgery: React.FC = () => {
                   <div>
                     <h5 className="text-[10px] font-bold text-indigo-600 uppercase mb-2">{t('surgery.preOp')}</h5>
                     <ul className="space-y-1">
-                      {selectedProcedure.generalConsiderations.preOp.map((item, i) => (
+                      {selectedProcedure.generalConsiderations.preOp.map((item: string, i: number) => (
                         <li key={i} className="text-[11px] text-slate-600 flex gap-2">
                           <span className="text-indigo-400">•</span>
                           {item}
@@ -426,7 +423,7 @@ const Surgery: React.FC = () => {
                   <div>
                     <h5 className="text-[10px] font-bold text-indigo-600 uppercase mb-2">{t('surgery.intraOp')}</h5>
                     <ul className="space-y-1">
-                      {selectedProcedure.generalConsiderations.intraOp.map((item, i) => (
+                      {selectedProcedure.generalConsiderations.intraOp.map((item: string, i: number) => (
                         <li key={i} className="text-[11px] text-slate-600 flex gap-2">
                           <span className="text-indigo-400">•</span>
                           {item}
@@ -437,7 +434,7 @@ const Surgery: React.FC = () => {
                   <div>
                     <h5 className="text-[10px] font-bold text-indigo-600 uppercase mb-2">{t('surgery.postOp')}</h5>
                     <ul className="space-y-1">
-                      {selectedProcedure.generalConsiderations.postOp.map((item, i) => (
+                      {selectedProcedure.generalConsiderations.postOp.map((item: string, i: number) => (
                         <li key={i} className="text-[11px] text-slate-600 flex gap-2">
                           <span className="text-indigo-400">•</span>
                           {item}
@@ -449,15 +446,11 @@ const Surgery: React.FC = () => {
               </div>
             </motion.div>
           ) : (
-            <div className="bg-white p-12 rounded-2xl border border-medical-border border-dashed flex flex-col items-center justify-center text-center space-y-6 h-full min-h-[600px]">
-              <div className="p-6 bg-slate-50 rounded-full">
-                <Scissors className="w-16 h-16 text-slate-200" />
-              </div>
-              <div className="max-w-xs">
-                <h3 className="text-xl font-bold text-slate-700 mb-2">{t('surgery.selectProcedure')}</h3>
-                <p className="text-sm text-slate-500">{t('surgery.selectProcedureDesc')}</p>
-              </div>
-            </div>
+            <ModuleEmptyState 
+              icon={Scissors}
+              title={t('surgery.selectProcedure')}
+              description={t('surgery.selectProcedureDesc')}
+            />
           )}
         </AnimatePresence>
       </div>

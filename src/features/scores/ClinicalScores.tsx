@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Calculator, ChevronRight, Info, AlertCircle, CheckCircle2, RefreshCw, Search } from 'lucide-react';
+import { Calculator, ChevronRight, Info, AlertCircle, CheckCircle2, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useData } from '../../hooks/useData';
@@ -8,6 +8,7 @@ import { ClinicalScore } from '../../types';
 import ThoracicFitCalculator from './ThoracicFitCalculator';
 import SpirometryCalculator from './SpirometryCalculator';
 import AcidBaseInterpreter from './AcidBaseInterpreter';
+import SearchInput from '../../components/SearchInput';
 
 export default function ClinicalScores() {
   const { scores: CLINICAL_SCORES } = useData();
@@ -20,7 +21,7 @@ export default function ClinicalScores() {
   const [selectedScoreId, setSelectedScoreId] = useState<string | null>(() => {
     return localStorage.getItem('anestassist_scores_selected_id');
   });
-  
+
   const [selections, setSelections] = useState<Record<string, string>>(() => {
     const saved = localStorage.getItem('anestassist_scores_selections');
     return saved ? JSON.parse(saved) : {};
@@ -81,15 +82,12 @@ export default function ClinicalScores() {
       {/* Sidebar */}
       <div className="lg:col-span-4 space-y-6">
         <div className="bg-white p-6 rounded-2xl border border-medical-border shadow-sm">
-          <div className="relative mb-6">
-            <input
-              type="text"
+          <div className="mb-6">
+            <SearchInput
               placeholder={t('common.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
             />
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           </div>
           
           <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
