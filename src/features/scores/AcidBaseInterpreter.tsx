@@ -12,14 +12,16 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+import { usePatient } from '../../contexts/PatientContext';
+
 export default function AcidBaseInterpreter() {
+  const { ageNum } = usePatient();
   // ABG Inputs
   const [ph, setPh] = useState<number | ''>(7.40);
   const [pco2, setPco2] = useState<number | ''>(40);
   const [hco3, setHco3] = useState<number | ''>(24);
   
-  // Demographic & Biochemical Inputs (Optional)
-  const [age, setAge] = useState<number | ''>(45);
+  // Biochemical Inputs (Optional)
   const [na, setNa] = useState<number | ''>('');
   const [cl, setCl] = useState<number | ''>('');
   const [albumin, setAlbumin] = useState<number | ''>('');
@@ -190,9 +192,10 @@ export default function AcidBaseInterpreter() {
       hagma,
       deltaDelta,
       aaGradient,
-      differentialMnemonics
+      differentialMnemonics,
+      age: ageNum // Using context age
     };
-  }, [ph, pco2, hco3, na, cl, albumin, pao2, fio2, isChronic]);
+  }, [ph, pco2, hco3, na, cl, albumin, pao2, fio2, isChronic, ageNum]);
 
   return (
     <div className="space-y-8 pb-10">
@@ -204,7 +207,7 @@ export default function AcidBaseInterpreter() {
               <Droplets className="w-4 h-4" />
               ABG Values
             </h3>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">pH</label>
                 <input type="number" step="0.01" value={ph} onChange={(e) => setPh(e.target.value === '' ? '' : parseFloat(e.target.value))} className="w-full p-2.5 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none" />
@@ -216,10 +219,6 @@ export default function AcidBaseInterpreter() {
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">HCO3</label>
                 <input type="number" value={hco3} onChange={(e) => setHco3(e.target.value === '' ? '' : parseFloat(e.target.value))} className="w-full p-2.5 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none" />
-              </div>
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">Age</label>
-                <input type="number" value={age} onChange={(e) => setAge(e.target.value === '' ? '' : parseFloat(e.target.value))} className="w-full p-2.5 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none" />
               </div>
             </div>
             
@@ -299,7 +298,7 @@ export default function AcidBaseInterpreter() {
                        <span className="text-3xl font-black">{interpretation.aaGradient.toFixed(1)}</span>
                        <span className="text-xs mb-1 opacity-60">mmHg</span>
                     </div>
-                    <p className="text-[10px] mt-2 font-medium">Normal: {(10 * ((Number(fio2) || 21)/21) + (Number(age) || 40)/4).toFixed(0)} mmHg (Est.)</p>
+                    <p className="text-[10px] mt-2 font-medium">Normal: {(10 * ((Number(fio2) || 21)/21) + (ageNum || 40)/4).toFixed(0)} mmHg (Est.)</p>
                   </div>
                 )}
 

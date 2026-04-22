@@ -522,6 +522,43 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           intraOp: ['A-line placement', 'Goal-directed fluids', 'Active warming'],
           postOp: ['ERAS protocol', 'Daily drain check', 'Early mobilization']
         }
+      },
+      {
+        id: 'lap-sleeve-gastrectomy',
+        name: 'Laparoscopic Sleeve Gastrectomy',
+        guide: [
+          { title: 'Access', description: 'Insert 5-6 laparoscopic ports in the upper abdomen. Establish pneumoperitoneum (12-15 mmHg).' },
+          { title: 'Mobilization', description: 'Use a harmonic scalpel or bipolar device to divide the greater curvature attachments from the antrum to the Angle of His.' },
+          { title: 'Resection', description: 'Insert a 36-40 Fr bougie into the stomach to guide the resection. Use laparoscopic linear staplers to divide the stomach vertically, creating a narrow tube.' },
+          { title: 'Verification', description: 'Perform a leak test using methylene blue or air. Ensure the stapled edge is hemostatic.' },
+          { title: 'Removal', description: 'Extract the resected stomach through the umbilical port using an extraction bag.' }
+        ],
+        anestheticConsiderations: [
+          'High risk for difficult airway (OSA, short thick neck)',
+          'Requires HELP (Head-Elevated Laryngoscopy Position) for induction',
+          'Manage effects of steep reverse Trendelenburg on ventilation',
+          'Multimodal opioid-sparing analgesia'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '3g IV (for weight > 120kg)',
+          timing: 'At induction',
+          alternatives: 'Clindamycin + Gentamicin'
+        },
+        complications: {
+          surgical: ['Staple line leak', 'Hemorrhage', 'Gastric stenosis', 'Splenic injury'],
+          anesthetic: ['Failed intubation', 'Atelectasis', 'Rhabdomyolysis']
+        },
+        management: {
+          preOp: ['Screen for OSA (STOP-BANG)', 'Ensure large-bore IV access'],
+          intraOp: [
+            'Utilize pressure-controlled ventilation with high PEEP (10-15 cmH2O) and recruitment maneuvers to combat atelectasis in the obese patient.',
+            'Communicate closely with the surgeon during bougie insertion and removal to prevent esophageal or gastric injury.',
+            'Administer aggressive PONV prophylaxis, as bariatric patients are at very high risk.',
+            'Maintain strict fluid restriction to prevent bowel edema and facilitate stapling.'
+          ],
+          postOp: ['Early mobilization', 'Continuous CPAP if OSA', 'Multimodal analgesia']
+        }
       }
     ]
   },
@@ -1632,6 +1669,42 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           intraOp: ['CVP line for VAE aspiration', 'Precordial doppler', 'Maintenance of normocapnia'],
           postOp: ['Delayed extubation if brainstem edema suspected', 'ICU level care']
         }
+      },
+      {
+        id: 'burr-hole-sdh',
+        name: 'Burr Hole Evacuation of Chronic SDH',
+        guide: [
+          { title: 'Access', description: 'Perform 1-2 small scalp incisions over the site of the hematoma. Create burr holes using a hand-held or electric drill.' },
+          { title: 'Evacuation', description: 'Incise the dura mater and the outer membrane of the hematoma. Irrigate the subdural space with warm saline until the effluent is clear.' },
+          { title: 'Drainage', description: 'Insert a soft subdural drain (e.g., Jackson-Pratt or closed-system drain) to facilitate post-operative drainage and brain re-expansion.' },
+          { title: 'Closure', description: 'Irrigate the wounds and check for hemostasis. Close the scalp incisions in layers with absorbable sutures or staples.' }
+        ],
+        anestheticConsiderations: [
+          'Often performed on elderly patients with multiple comorbidities',
+          'Can be performed under local anesthesia with sedation or general anesthesia',
+          'Manage anticoagulation and antiplatelet status',
+          'Monitor for sudden ICP changes upon evacuation'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Recurrence of hematoma', 'Seizure', 'Pneumocephalus', 'Infection'],
+          anesthetic: ['Agitation (if under sedation)', 'Respiratory depression', 'Hemodynamic instability']
+        },
+        management: {
+          preOp: ['Review coagulation status (INR/Platelets)', 'Assess baseline neurological status (GCS)'],
+          intraOp: [
+            'Maintain a flat or slightly head-down position (if tolerated) during evacuation to prevent pneumocephalus.',
+            'Monitor for sudden bradycardia or hypertension (Cushing\'s triad) during dural opening and evacuation.',
+            'Provide gentle sedation and effective local anesthesia to keep the patient calm and cooperative if not under GA.',
+            'Ensure adequate hydration to facilitate brain re-expansion and reduce the risk of recurrence.'
+          ],
+          postOp: ['Maintain flat position for 24-48 hours', 'Frequent neurological observations', 'Monitor drain output']
+        }
       }
     ]
   },
@@ -1985,6 +2058,43 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Strict fluid management', 'Review donor/recipient status (if bridge to transplant)'],
           intraOp: ['Nitric Oxide for RV', 'Inotropic support', 'TEE monitoring of septum position'],
           postOp: ['Maintain MAP 70-80 (non-pulsatile)', 'Monitor for RV failure symptoms']
+        }
+      },
+      {
+        id: 'tavi',
+        name: 'Transcatheter Aortic Valve Implantation (TAVI/TAVR)',
+        guide: [
+          { title: 'Access', description: 'Establish femoral arterial access (usually) using a percutaneous approach or a small cutdown. Insert a temporary pacing wire.' },
+          { title: 'Crossing the Valve', description: 'Pass a guidewire across the stenotic aortic valve into the left ventricle under fluoroscopic guidance.' },
+          { title: 'Deployment', description: 'Position the prosthetic valve (balloon-expandable or self-expanding) within the native valve. Perform "Rapid Ventricular Pacing" (RVP) to reduce cardiac output during deployment.' },
+          { title: 'Verification', description: 'Assess valve function and check for paravalvular leak using aortography and TEE/TTE.' },
+          { title: 'Closure', description: 'Remove the delivery system and achieve hemostasis at the access site using vascular closure devices or sutures.' }
+        ],
+        anestheticConsiderations: [
+          'Can be performed under conscious sedation or general anesthesia',
+          'Manage the "Rapid Ventricular Pacing" (RVP) sequence (temporary asystole)',
+          'High risk for sudden hemodynamic collapse or heart block',
+          'Vigilant monitoring for vascular complications or stroke'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Vascular injury/bleeding', 'Stroke', 'Aortic rupture (rare but fatal)', 'Valve malposition'],
+          anesthetic: ['Heart block requiring pacing', 'Myocardial ischemia', 'Contrast-induced nephropathy']
+        },
+        management: {
+          preOp: ['Review Echo for valve area/gradient', 'Assess femoral access on CT', 'Crossmatch 2 units PRBCs'],
+          intraOp: [
+            'Communicate closely with the cardiology/surgical team during RVP; ensure the patient is ready for the transient period of asystole.',
+            'Monitor for new-onset heart block or arrhythmias; have the temporary pacer set at the appropriate backup rate.',
+            'Maintain stable MAP and be prepared for immediate conversion to open surgery if a catastrophic complication occurs.',
+            'Monitor for signs of stroke or peripheral ischemia throughout the procedure.'
+          ],
+          postOp: ['Monitor for heart block and vascular site bleeding', 'Early mobilization', 'Check renal function']
         }
       }
     ]
@@ -4239,6 +4349,43 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         }
       },
       {
+        id: 'evar',
+        name: 'Endovascular Aneurysm Repair (EVAR)',
+        guide: [
+          { title: 'Access', description: 'Establish bilateral femoral arterial access (percutaneous or small cutdown). Insert large sheaths.' },
+          { title: 'Imaging', description: 'Perform an initial aortogram to identify the renal arteries and the aneurysm neck.' },
+          { title: 'Deployment', description: 'Deploy the main bifurcated stent graft just below the renal arteries. Deploy the contralateral limb graft.' },
+          { title: 'Verification', description: 'Perform a completion aortogram to check for endoleaks and ensure the renal arteries are patent.' },
+          { title: 'Closure', description: 'Remove the sheaths and achieve hemostasis using vascular closure devices or sutures.' }
+        ],
+        anestheticConsiderations: [
+          'Can be performed under local anesthesia with sedation, regional, or general anesthesia',
+          'Manage potential for significant blood loss if access site complications occur',
+          'Vigilant monitoring for "Post-Implantation Syndrome" (fever, leukocytosis)',
+          'High risk for renal injury from contrast and/or stent deployment near renal arteries'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction',
+          alternatives: 'Vancomycin'
+        },
+        complications: {
+          surgical: ['Endoleak (Type I-V)', 'Vascular injury/rupture', 'Stent migration', 'Renal artery occlusion'],
+          anesthetic: ['Contrast-induced nephropathy', 'Myocardial ischemia', 'Cerebral emboli']
+        },
+        management: {
+          preOp: ['Review CT for anatomy and renal function', 'Confirm femoral access feasibility', 'Type & Screen'],
+          intraOp: [
+            'Maintain stable hemodynamics during graft deployment to ensure precise positioning.',
+            'Monitor urine output closely, especially if high volumes of contrast are used or if the stent is close to the renal arteries.',
+            'Be prepared for immediate conversion to open surgery if the aneurysm ruptures or if major vascular injury occurs.',
+            'Provide effective analgesia and sedation to ensure the patient remains perfectly still during critical imaging and deployment phases.'
+          ],
+          postOp: ['Monitor access sites for bleeding/hematoma', 'Check renal function and electrolytes', 'Monitor for signs of distal embolization']
+        }
+      },
+      {
         id: 'tevar',
         name: 'Thoracic Endovascular Aortic Repair (TEVAR)',
         guide: [
@@ -4341,6 +4488,71 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
           preOp: ['Review for antiplatelet status', 'Assess cardiac reserve'],
           intraOp: ['Maintain stable hemodynamics', 'Tight MAP control', 'Check distal pulses'],
           postOp: ['Hourly pedal pulse checks', 'Pain management', 'Early mobilization']
+        }
+      }
+  },
+  {
+    id: 'maxillofacial',
+    name: 'Maxillofacial Surgery',
+    generalConsiderations: {
+      preOp: [
+        'Detailed airway assessment (shared airway)',
+        'Check for restricted mouth opening (Trismus)',
+        'Review imaging (CT facial bones) for fracture site',
+        'Assess for C-spine injury in trauma patients'
+      ],
+      intraOp: [
+        'Manage "shared airway" communication with the surgical team; ensure the ETT is secure and out of the surgical field (often nasal intubation).',
+        'Use a throat pack to prevent aspiration of blood and debris; ensure a clear marker is visible and the pack is removed before extubation.',
+        'Avoid or minimize muscle relaxation if nerve monitoring (e.g., facial nerve) is used during the procedure.',
+        'Provide effective analgesia using local anesthetic blocks (e.g., mandibular or infraorbital blocks) to minimize post-operative pain.'
+      ],
+      postOp: [
+        'Monitor for airway obstruction/edema; ensure wire cutters are at the bedside if Maxillomandibular Fixation (MMF) is used.',
+        'Aggressive PONV prophylaxis (high risk due to swallowed blood).',
+        'Monitor for facial nerve function (if at risk).',
+        'Provide humidified oxygen and suctioning as needed.'
+      ]
+    },
+    procedures: [
+      {
+        id: 'mandibular-orif',
+        name: 'Mandibular Fracture ORIF',
+        guide: [
+          { title: 'Access', description: 'Perform an intraoral (sulcus) or extraoral incision depending on the fracture site (symphysis, body, or angle).' },
+          { title: 'Reduction', description: 'Align the fracture fragments. Often involves placing the patient in Maxillomandibular Fixation (MMF) temporarily using arch bars or screws.' },
+          { title: 'Fixation', description: 'Apply titanium mini-plates and screws across the fracture site to ensure stable internal fixation.' },
+          { title: 'Closure', description: 'Remove the throat pack. Check the occlusion. Irrigate and close the incisions with absorbable sutures.' }
+        ],
+        anestheticConsiderations: [
+          'Shared airway; nasal intubation is frequently required',
+          'Throat pack is mandatory to prevent aspiration of blood',
+          'High risk for PONV (blood in stomach)',
+          'Manage potential for Maxillomandibular Fixation (MMF) - jaws wired shut'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Co-amoxiclav',
+          dosage: '1.2g IV',
+          timing: 'At induction',
+          alternatives: 'Clindamycin + Gentamicin'
+        },
+        complications: {
+          surgical: ['Infection', 'Nerve injury (Mental nerve)', 'Malocclusion', 'Hardware failure'],
+          anesthetic: ['Airway obstruction (post-op)', 'PONV', 'Aspiration of blood']
+        },
+        management: {
+          preOp: ['Confirm NPO', 'Review C-spine status in trauma'],
+          intraOp: [
+            'Ensure the nasal ETT is well-secured and doesn\'t exert excessive pressure on the nares to prevent pressure necrosis.',
+            'Administer dexamethasone (8-10mg) to reduce facial and airway edema.',
+            'Ensure the throat pack is removed and documented before emergence.',
+            'Suction the stomach thoroughly before extubation to reduce the risk of PONV.'
+          ],
+          postOp: [
+            'Ensure wire cutters are taped to the head of the bed or accompany the patient if the jaws are wired (MMF).',
+            'Extubate when fully awake with airway reflexes intact.',
+            'Provide regular anti-emetics and multimodal analgesia.'
+          ]
         }
       }
     ]

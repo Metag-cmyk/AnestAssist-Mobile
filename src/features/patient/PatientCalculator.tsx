@@ -2,8 +2,8 @@ import { useState, useMemo, useEffect } from 'react';
 import { UserPlus, Scale, Activity, AlertTriangle, Info, ChevronDown, ChevronUp, ShieldX, ShieldCheck, Zap, HeartPulse } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
-
-type PatientType = 'adult' | 'pediatric' | 'neonatal';
+import { usePatient } from '../../contexts/PatientContext';
+import { calculateIBW, calculateBMI, calculateEstimatedCrCl, PatientType } from '../../lib/medicalDosing';
 
 interface Drug {
   name: string;
@@ -20,47 +20,28 @@ interface Drug {
 
 export default function PatientCalculator() {
   const { t } = useLanguage();
+  const patient = usePatient();
   
-  // Persistence Keys
-  const K_TYPE = 'anestassist_patient_type';
-  const K_AGE = 'anestassist_patient_age';
-  const K_WEIGHT = 'anestassist_patient_weight';
-  const K_HEIGHT = 'anestassist_patient_height';
-  const K_GENDER = 'anestassist_patient_gender';
-  const K_IBW = 'anestassist_patient_use_ibw';
-
+  // Local module-specific state
   const [type, setType] = useState<PatientType>(() => {
-    return (localStorage.getItem(K_TYPE) as PatientType) || 'adult';
-  });
-  const [age, setAge] = useState<number>(() => {
-    return Number(localStorage.getItem(K_AGE)) || 30;
-  });
-  const [weight, setWeight] = useState<number>(() => {
-    return Number(localStorage.getItem(K_WEIGHT)) || 70;
-  });
-  const [height, setHeight] = useState<number>(() => {
-    return Number(localStorage.getItem(K_HEIGHT)) || 175;
-  });
-  const [gender, setGender] = useState<'male' | 'female'>(() => {
-    return (localStorage.getItem(K_GENDER) as 'male' | 'female') || 'male';
+    return (localStorage.getItem('anestassist_patient_calc_type') as PatientType) || 'adult';
   });
   const [useIBW, setUseIBW] = useState(() => {
-    return localStorage.getItem(K_IBW) === 'true';
+    return localStorage.getItem('anestassist_patient_use_ibw') === 'true';
+  });
+  const [manualCrcl, setManualCrcl] = useState(() => {
+    return localStorage.getItem('anestassist_patient_manual_crcl') || '';
   });
 
   const [showDrugs, setShowDrugs] = useState(true);
   const [toast, setToast] = useState<string | null>(null);
-  const [manualCrcl, setManualCrcl] = useState<string>('');
   const [showAntibiotics, setShowAntibiotics] = useState(true);
   const [showCardio, setShowCardio] = useState(false);
 
   // Persistence Effects
-  useEffect(() => { localStorage.setItem(K_TYPE, type); }, [type]);
-  useEffect(() => { localStorage.setItem(K_AGE, age.toString()); }, [age]);
-  useEffect(() => { localStorage.setItem(K_WEIGHT, weight.toString()); }, [weight]);
-  useEffect(() => { localStorage.setItem(K_HEIGHT, height.toString()); }, [height]);
-  useEffect(() => { localStorage.setItem(K_GENDER, gender); }, [gender]);
-  useEffect(() => { localStorage.setItem(K_IBW, useIBW.toString()); }, [useIBW]);
+  useEffect(() => { localStorage.setItem('anestassist_patient_calc_type', type); }, [type]);
+  useEffect(() => { localStorage.setItem('anestassist_patient_use_ibw', useIBW.toString()); }, [useIBW]);
+  useEffect(() => { localStorage.setItem('anestassist_patient_manual_crcl', manualCrcl); }, [manualCrcl]);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -68,62 +49,33 @@ export default function PatientCalculator() {
   };
 
   const calculations = useMemo(() => {
-    let ibwValue = 0;
-    let percentileInfo = "";
-    const heightInMeters = height / 100;
-    const bmi = weight / (heightInMeters * heightInMeters);
+    const ibwValue = calculateIBW({
+      type,
+      heightCm: patient.heightNum,
+      gender: patient.gender,
+      ageYears: patient.ageNum
+    });
 
-    if (type === 'adult') {
-      const heightInInches = height / 2.54;
-      const inchesOver5ft = Math.max(0, heightInInches - 60);
-      ibwValue = gender === 'male' ? 50 + 2.3 * inchesOver5ft : 45.5 + 2.3 * inchesOver5ft;
-      
-      if (bmi < 18.5) percentileInfo = "Underweight";
-      else if (bmi < 25) percentileInfo = "Normal weight";
-      else if (bmi < 30) percentileInfo = "Overweight";
-      else percentileInfo = "Obese";
-    } else if (type === 'neonatal' || (type === 'pediatric' && age < 1)) {
-      const ageMonths = type === 'neonatal' ? age / 30 : age;
-      ibwValue = (0.5 * ageMonths) + 4;
-      percentileInfo = "Neonatal/Infant: Use WHO Growth Charts";
-    } else {
-      if (age >= 1 && age <= 5) {
-        ibwValue = (age * 2) + 8;
-      } else if (age >= 6 && age <= 12) {
-        ibwValue = (age * 3) + 7;
-      } else {
-        const heightInInches = height / 2.54;
-        const inchesOver5ft = Math.max(0, heightInInches - 60);
-        ibwValue = gender === 'male' ? 50 + 2.3 * inchesOver5ft : 45.5 + 2.3 * inchesOver5ft;
-      }
+    const { bmi, category } = calculateBMI(patient.weightNum, patient.heightNum, type, patient.ageNum);
 
-      if (bmi < 14) percentileInfo = "< 5th Percentile (Underweight)";
-      else if (bmi < 18) percentileInfo = "5th - 85th Percentile (Healthy)";
-      else if (bmi < 21) percentileInfo = "85th - 95th Percentile (Overweight)";
-      else percentileInfo = "> 95th Percentile (Obese)";
-    }
-    let baseCrcl = 120;
-    if (type === 'adult') {
-      const assumedScr = 0.9;
-      let cg = ((140 - age) * weight) / (72 * assumedScr);
-      if (gender === 'female') cg = cg * 0.85;
-      baseCrcl = Math.max(10, Math.min(200, cg));
-    } else {
-      const assumedScr = 0.4;
-      baseCrcl = (0.413 * height) / assumedScr;
-      baseCrcl = Math.max(10, Math.min(200, baseCrcl));
-    }
+    const defaultCrcl = calculateEstimatedCrCl({
+      type,
+      ageYears: patient.ageNum,
+      weightKg: patient.weightNum,
+      gender: patient.gender,
+      heightCm: patient.heightNum
+    });
 
     return { 
       ibw: ibwValue.toFixed(1), 
       bmi: bmi.toFixed(1), 
-      category: percentileInfo, 
+      category, 
       rawIbw: ibwValue,
-      defaultCrcl: baseCrcl
+      defaultCrcl
     };
-  }, [type, weight, height, gender, age]);
+  }, [type, patient.weightNum, patient.heightNum, patient.gender, patient.ageNum]);
 
-  const targetWeight = useIBW ? calculations.rawIbw : weight;
+  const targetWeight = useIBW ? calculations.rawIbw : patient.weightNum;
   const activeCrcl = manualCrcl === '' ? calculations.defaultCrcl : (parseFloat(manualCrcl) || calculations.defaultCrcl);
 
   const emergencyDrugs = useMemo((): Drug[] => {
@@ -282,7 +234,7 @@ export default function PatientCalculator() {
   }, [targetWeight]);
 
   const antibioticsList = useMemo(() => {
-    const actW = weight;
+    const actW = patient.weightNum;
     const ibw = calculations.rawIbw;
     // Adjusted Body Weight for Aminoglycosides if actual > 1.2 * IBW
     const adjBW = actW > (1.2 * ibw) ? (ibw + 0.4 * (actW - ibw)) : actW;
@@ -375,7 +327,7 @@ export default function PatientCalculator() {
       }
     ];
     return abs;
-  }, [weight, calculations.rawIbw, activeCrcl]);
+  }, [patient.weightNum, calculations.rawIbw, activeCrcl]);
 
   const equipmentSizes = useMemo(() => {
     if (type === 'adult') return null;
@@ -386,39 +338,28 @@ export default function PatientCalculator() {
     let blade = 0;
 
     if (type === 'neonatal') {
-      ett = age < 30 ? 3.0 : 3.5;
+      ett = patient.ageNum < 30 ? 3.0 : 3.5;
       depth = 9;
       lma = 1;
       blade = 0;
     } else {
       // Pediatric formulas
-      ett = (age / 4) + 4; // Uncuffed
-      depth = (age / 2) + 12;
+      ett = (patient.ageNum / 4) + 4; // Uncuffed
+      depth = (patient.ageNum / 2) + 12;
       
-      if (weight < 5) lma = 1;
-      else if (weight < 10) lma = 1.5;
-      else if (weight < 20) lma = 2;
-      else if (weight < 30) lma = 2.5;
+      if (patient.weightNum < 5) lma = 1;
+      else if (patient.weightNum < 10) lma = 1.5;
+      else if (patient.weightNum < 20) lma = 2;
+      else if (patient.weightNum < 30) lma = 2.5;
       else lma = 3;
 
-      if (age < 1) blade = 1;
-      else if (age < 5) blade = 2;
+      if (patient.ageNum < 1) blade = 1;
+      else if (patient.ageNum < 5) blade = 2;
       else blade = 3;
     }
 
     return { ett: ett.toFixed(1), depth: depth.toFixed(1), lma, blade };
-  }, [type, age, weight]);
-
-  const resetData = () => {
-    setType('adult');
-    setAge(30);
-    setWeight(70);
-    setHeight(175);
-    setGender('male');
-    setUseIBW(false);
-    setManualCrcl('');
-    showToast(t('patient.toastReset'));
-  };
+  }, [type, patient.ageNum, patient.weightNum]);
 
   const copyDoses = () => {
     const text = emergencyDrugs.map(d => {
@@ -434,148 +375,96 @@ export default function PatientCalculator() {
 
   const getAgeLabel = () => {
     if (type === 'neonatal') return t('patient.days');
-    if (type === 'pediatric' && age < 1) return t('patient.months');
+    if (type === 'pediatric' && patient.ageNum < 1) return t('patient.months');
     return t('patient.years');
   };
 
   return (
     <div className="space-y-6">
+      <PatientParameterCard />
+
       <div className="bg-white p-6 rounded-xl border border-medical-border shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold flex items-center gap-2">
-            <UserPlus className="w-5 h-5 text-medical-accent" />
-            {t('patient.title')}
+            <Scale className="w-5 h-5 text-indigo-600" />
+            Clinical Indices
           </h2>
-          <button 
-            onClick={resetData}
-            className="text-xs font-bold text-slate-400 hover:text-medical-accent transition-colors uppercase tracking-widest"
-          >
-            {t('patient.reset')}
-          </button>
+          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+            {(['adult', 'pediatric', 'neonatal'] as PatientType[]).map((tVal) => (
+              <button
+                key={tVal}
+                onClick={() => setType(tVal)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all ${
+                  type === tVal ? 'bg-white text-indigo-600 shadow-sm border border-slate-200' : 'text-slate-400 hover:text-slate-600'
+                }`}
+              >
+                {tVal}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border-b border-slate-100 pb-8">
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">{t('patient.type')}</label>
-            <div className="flex flex-col gap-1">
-              {(['adult', 'pediatric', 'neonatal'] as PatientType[]).map((tVal) => (
-                <button
-                  key={tVal}
-                  onClick={() => setType(tVal)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase border transition-all ${
-                    type === tVal ? 'bg-medical-primary text-white border-medical-primary' : 'bg-white text-slate-500 border-medical-border hover:bg-slate-50'
-                  }`}
-                >
-                  {tVal}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">
-              {t('patient.age')} ({getAgeLabel()})
-            </label>
-            <input 
-              type="number" 
-              value={age} 
-              onChange={(e) => setAge(Number(e.target.value))}
-              className="w-full p-2 border border-medical-border rounded-lg text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">{t('patient.weight')}</label>
-            <input 
-              type="number" 
-              value={weight} 
-              onChange={(e) => setWeight(Number(e.target.value))}
-              className="w-full p-2 border border-medical-border rounded-lg text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">{t('patient.height')}</label>
-            <input 
-              type="number" 
-              value={height} 
-              onChange={(e) => setHeight(Number(e.target.value))}
-              className="w-full p-2 border border-medical-border rounded-lg text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">{t('patient.gender')}</label>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setGender('male')}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-all ${
-                  gender === 'male' ? 'bg-medical-accent text-white border-medical-accent' : 'bg-white text-slate-600 border-medical-border hover:bg-slate-50'
-                }`}
-              >
-                {t('patient.male')}
-              </button>
-              <button
-                onClick={() => setGender('female')}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-all ${
-                  gender === 'female' ? 'bg-medical-accent text-white border-medical-accent' : 'bg-white text-slate-600 border-medical-border hover:bg-slate-50'
-                }`}
-              >
-                {t('patient.female')}
-              </button>
-            </div>
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">
-              CrCl (mL/min)
+            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+              Renal Clearance Override
             </label>
             <div className="relative">
               <input 
                 type="number" 
-                placeholder={calculations.defaultCrcl.toFixed(0)}
+                placeholder={`Auto-calc: ${calculations.defaultCrcl.toFixed(0)} mL/min`}
                 value={manualCrcl} 
                 onChange={(e) => setManualCrcl(e.target.value)}
-                className="w-full p-2 border border-medical-border rounded-lg text-sm bg-white"
+                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl outline-none focus:border-indigo-500/50 font-bold text-lg"
               />
-              {!manualCrcl && (
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none">
-                  (Auto: {calculations.defaultCrcl.toFixed(0)})
-                </div>
-              )}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold uppercase">
+                mL / min
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-4 bg-slate-50 rounded-xl border border-medical-border text-center">
-            <p className="text-xs font-bold text-slate-400 uppercase mb-1">{t('patient.ibw')}</p>
-            <p className="text-2xl font-bold text-medical-primary">{calculations.ibw} <span className="text-sm font-normal">kg</span></p>
-            {type !== 'adult' && <p className="text-[10px] text-slate-400 mt-1">{t('patient.apls')}</p>}
-          </div>
-          <div className="p-4 bg-slate-50 rounded-xl border border-medical-border text-center">
-            <p className="text-xs font-bold text-slate-400 uppercase mb-1">
-              {type === 'adult' ? t('patient.bmi') : t('patient.bmiPercentile')}
+            <p className="mt-2 text-[10px] text-slate-400 leading-relaxed italic">
+              Estimated using Cockcroft-Gault (Adult) or Bedside Schwartz (Peds). Override if known measured level.
             </p>
-            <p className="text-2xl font-bold text-medical-primary">{calculations.bmi}</p>
-            <p className="text-xs text-medical-accent font-medium">{calculations.category}</p>
           </div>
-          <div className="p-4 bg-blue-50 rounded-xl border border-blue-100 text-center">
-            <p className="text-xs font-bold text-blue-400 uppercase mb-1">{t('patient.targetWeight')}</p>
-            <p className="text-2xl font-bold text-blue-700 mb-2">{targetWeight.toFixed(1)} <span className="text-sm font-normal">kg</span></p>
-            <div className="flex bg-white/50 p-1 rounded-lg border border-blue-200">
+          
+          <div className="p-4 bg-indigo-50/50 rounded-xl border border-indigo-100 flex flex-col justify-center">
+            <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">{t('patient.targetWeight')}</p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl font-black text-indigo-900">{targetWeight.toFixed(1)}</span>
+              <span className="text-sm font-bold text-indigo-400">kg</span>
+            </div>
+            <div className="flex bg-white/50 p-1 rounded-lg border border-indigo-200 mt-3">
               <button
                 onClick={() => setUseIBW(false)}
-                className={`flex-1 py-1 text-[10px] font-bold uppercase rounded transition-all ${
-                  !useIBW ? 'bg-blue-600 text-white shadow-sm' : 'text-blue-400 hover:text-blue-600'
+                className={`flex-1 py-1.5 text-[10px] font-bold uppercase rounded transition-all ${
+                  !useIBW ? 'bg-indigo-600 text-white shadow-sm' : 'text-indigo-400 hover:text-indigo-600'
                 }`}
               >
                 {t('patient.actual')}
               </button>
               <button
                 onClick={() => setUseIBW(true)}
-                className={`flex-1 py-1 text-[10px] font-bold uppercase rounded transition-all ${
-                  useIBW ? 'bg-blue-600 text-white shadow-sm' : 'text-blue-400 hover:text-blue-600'
+                className={`flex-1 py-1.5 text-[10px] font-bold uppercase rounded transition-all ${
+                  useIBW ? 'bg-indigo-600 text-white shadow-sm' : 'text-indigo-400 hover:text-indigo-600'
                 }`}
               >
                 {t('patient.ideal')}
               </button>
             </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 bg-slate-50/50 rounded-xl border border-slate-200">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{t('patient.ibw')}</p>
+            <p className="text-2xl font-black text-slate-800">{calculations.ibw} <span className="text-sm font-bold text-slate-400">kg</span></p>
+            <p className="text-[10px] text-slate-400/80 mt-1 uppercase font-bold tracking-tighter">Metric: Devine / APLS Formula</p>
+          </div>
+          <div className="p-4 bg-slate-50/50 rounded-xl border border-slate-200">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
+              {type === 'adult' ? t('patient.bmi') : t('patient.bmiPercentile')}
+            </p>
+            <p className="text-2xl font-black text-slate-800">{calculations.bmi}</p>
+            <p className="text-[10px] text-indigo-500 font-bold uppercase tracking-tight">{calculations.category}</p>
           </div>
         </div>
       </div>

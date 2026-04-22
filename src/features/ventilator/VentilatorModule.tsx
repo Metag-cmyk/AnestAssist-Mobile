@@ -1,46 +1,28 @@
 import { useState, useEffect } from 'react';
 import { Wind, Ruler, ActivitySquare, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { usePatient } from '../../contexts/PatientContext';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
+import { calculateIBW } from '../../lib/medicalDosing';
 
 type ClinicalCondition = 'standard' | 'ards' | 'obstructive' | 'neuro' | 'restrictive' | 'cardiogenic' | 'neuromuscular' | 'pregnancy' | 'laparoscopy' | 'olv' | 'trauma';
 
 export default function VentilatorModule() {
-  const K_HEIGHT = 'anestassist_patient_height';
-  const K_GENDER = 'anestassist_patient_gender'; // 'male' | 'female'
-  const K_CONDITION = 'anestassist_ventilator_condition';
-
-  const [heightCm, setHeightCm] = useState(() => {
-    return localStorage.getItem(K_HEIGHT) || '170';
-  });
-  const [isMale, setIsMale] = useState(() => {
-    return localStorage.getItem(K_GENDER) !== 'female'; // Default to male
-  });
+  const { weightNum, heightNum, gender, ageNum } = usePatient();
   const [condition, setCondition] = useState<ClinicalCondition>(() => {
-    return (localStorage.getItem(K_CONDITION) as ClinicalCondition) || 'standard';
+    return (localStorage.getItem('anestassist_ventilator_condition') as ClinicalCondition) || 'standard';
   });
 
   useEffect(() => {
-    localStorage.setItem(K_HEIGHT, heightCm);
-  }, [heightCm]);
-
-  useEffect(() => {
-    localStorage.setItem(K_GENDER, isMale ? 'male' : 'female');
-  }, [isMale]);
-
-  useEffect(() => {
-    localStorage.setItem(K_CONDITION, condition);
+    localStorage.setItem('anestassist_ventilator_condition', condition);
   }, [condition]);
 
-  const calculateIBW = (height: number, male: boolean) => {
-    if (!height || height < 100) return 0;
-    if (male) {
-      return 50 + 0.91 * (height - 152.4);
-    } else {
-      return 45.5 + 0.91 * (height - 152.4);
-    }
-  };
-
-  const ibw = calculateIBW(parseFloat(heightCm) || 0, isMale);
+  const ibw = calculateIBW({
+    type: 'adult', // Ventilator module primarily uses adult IBW for tidal volumes
+    heightCm: heightNum,
+    gender,
+    ageYears: ageNum
+  });
 
   const getTargetVolumes = (conditionType: ClinicalCondition, ibw: number) => {
     if (ibw <= 0) return { min: 0, max: 0, label: '' };
@@ -298,43 +280,26 @@ export default function VentilatorModule() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+  return (
+    <div className="max-w-5xl mx-auto space-y-6">
+      <PatientParameterCard showWeight={false} showAge={false} className="bg-sky-50 border-sky-100" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
             <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
-              <Ruler className="w-4 h-4 text-sky-600" />
-              Patient Anthropometrics
+              <ActivitySquare className="w-4 h-4 text-sky-600" />
+              Tidal Volume Reference
             </h3>
             
             <div className="space-y-4">
-              <div className="flex gap-3">
-                <div className="flex-1">
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Sex</label>
-                  <select 
-                    value={isMale ? 'male' : 'female'} 
-                    onChange={(e) => setIsMale(e.target.value === 'male')}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:ring-2 focus:ring-sky-500 focus:outline-none"
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
-                </div>
-                <div className="flex-1">
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Height (cm)</label>
-                  <input 
-                    type="number" 
-                    value={heightCm} 
-                    onChange={(e) => setHeightCm(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:ring-2 focus:ring-sky-500 focus:outline-none"
-                  />
-                </div>
+              <div className="bg-sky-50/50 p-4 rounded-xl flex justify-between items-center border border-sky-100 shadow-inner">
+                <span className="text-sm font-bold text-sky-900">Ideal Body Wt (IBW):</span>
+                <span className="text-2xl font-black text-sky-600">{ibw > 0 ? ibw.toFixed(1) : '--'} <span className="text-base font-bold">kg</span></span>
               </div>
-
-              <div className="pt-2">
-                <div className="bg-sky-50 p-4 rounded-xl flex justify-between items-center border border-sky-100 shadow-inner">
-                  <span className="text-sm font-bold text-sky-900">Ideal Body Wt:</span>
-                  <span className="text-2xl font-black text-sky-600">{ibw > 0 ? ibw.toFixed(1) : '--'} <span className="text-base font-bold">kg</span></span>
-                </div>
-              </div>
+              <p className="text-[10px] text-slate-400 leading-relaxed italic px-1">
+                Tidal volumes are calculated based on Ideal Body Weight (IBW) to prevent Ventilator-Induced Lung Injury (VILI), regardless of actual body weight.
+              </p>
             </div>
           </div>
 

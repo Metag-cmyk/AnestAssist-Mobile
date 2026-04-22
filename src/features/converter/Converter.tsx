@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
+import { usePatient } from '../../contexts/PatientContext';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
 
 interface DrugRange {
   min: number;
@@ -99,16 +102,10 @@ const DRUG_PRESETS: DrugPreset[] = [
 
 export default function Converter() {
   const { t } = useLanguage();
-  
-  const K_WEIGHT = 'anestassist_patient_weight';
-  const K_SELECTED_DRUG = 'anestassist_converter_drug';
+  const { weightNum } = usePatient();
 
   const [activeDrugId, setActiveDrugId] = useState<string>(() => {
-    return localStorage.getItem(K_SELECTED_DRUG) || 'custom';
-  });
-
-  const [weight, setWeight] = useState<number>(() => {
-    return Number(localStorage.getItem(K_WEIGHT)) || 70;
+    return localStorage.getItem(STORAGE_KEYS.REGIONAL_ACTIVE_TAB) || 'custom'; // Reusing active tab key or similar
   });
 
   const [dose, setDose] = useState<number>(0);
@@ -125,12 +122,7 @@ export default function Converter() {
       setUnit(selectedDrug.defaultUnit);
       setDose(selectedDrug.maxDose * 0.1); // Default to 10% of scale
     }
-    localStorage.setItem(K_SELECTED_DRUG, activeDrugId);
   }, [selectedDrug, activeDrugId]);
-
-  useEffect(() => {
-    localStorage.setItem(K_WEIGHT, weight.toString());
-  }, [weight]);
 
   const currentRange = useMemo(() => {
     if (!selectedDrug) return null;
@@ -141,9 +133,9 @@ export default function Converter() {
     if (concentration <= 0) return "0.00";
     let rateMlH = 0;
     if (unit === 'mcg/kg/min') {
-      rateMlH = (dose * weight * 60) / (1000 * concentration);
+      rateMlH = (dose * weightNum * 60) / (1000 * concentration);
     } else if (unit === 'mcg/kg/h') {
-      rateMlH = (dose * weight) / (1000 * concentration);
+      rateMlH = (dose * weightNum) / (1000 * concentration);
     } else if (unit === 'mg/h') {
       rateMlH = dose / concentration;
     }
@@ -152,6 +144,8 @@ export default function Converter() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
+      <PatientParameterCard showHeight={false} showAge={false} className="mb-6" />
+
       {/* Drug Selection Chips */}
       <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 scrollbar-hide">
         <button
@@ -198,19 +192,6 @@ export default function Converter() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Patient Weight (kg)</label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={weight}
-                      onChange={(e) => setWeight(Number(e.target.value))}
-                      className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl outline-none focus:border-medical-accent font-bold text-lg"
-                    />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-slate-300 uppercase text-xs">KG</span>
-                  </div>
-                </div>
-
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <label className="block text-xs font-bold text-slate-500 uppercase">Drug Concentration</label>

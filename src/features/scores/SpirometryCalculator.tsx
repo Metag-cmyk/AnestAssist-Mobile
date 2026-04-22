@@ -72,11 +72,11 @@ const PRECISE_COEFFS: Record<string, Record<Ethnicity, Record<Sex, Coefficients>
   }
 };
 
+import { usePatient } from '../../contexts/PatientContext';
+
 export default function SpirometryCalculator() {
-  // Demographic Inputs
-  const [age, setAge] = useState<number | ''>(45);
-  const [height, setHeight] = useState<number | ''>(175);
-  const [sex, setSex] = useState<Sex>('male');
+  const { ageNum, heightNum, gender } = usePatient();
+  // Demographic Inputs (Specific to Spirometry)
   const [ethnicity, setEthnicity] = useState<Ethnicity>('caucasian');
 
   // Measured Inputs
@@ -85,17 +85,17 @@ export default function SpirometryCalculator() {
 
   // Calculations
   const predicted = useMemo(() => {
-    if (age === '' || height === '') return { fev1: 0, fvc: 0 };
+    if (!ageNum || !heightNum) return { fev1: 0, fvc: 0 };
     
     const calculate = (params: Coefficients) => {
-      return params.b0 + (params.b1 * age) + (params.b2 * Math.pow(age, 2)) + (params.b3 * Math.pow(height, 2));
+      return params.b0 + (params.b1 * ageNum) + (params.b2 * Math.pow(ageNum, 2)) + (params.b3 * Math.pow(heightNum, 2));
     };
 
     return {
-      fev1: calculate(PRECISE_COEFFS.fev1[ethnicity][sex]),
-      fvc: calculate(PRECISE_COEFFS.fvc[ethnicity][sex])
+      fev1: calculate(PRECISE_COEFFS.fev1[ethnicity][gender]),
+      fvc: calculate(PRECISE_COEFFS.fvc[ethnicity][gender])
     };
-  }, [age, height, sex, ethnicity]);
+  }, [ageNum, heightNum, gender, ethnicity]);
 
   const results = useMemo(() => {
     if (obsFEV1 === '' || obsFVC === '' || predicted.fev1 === 0) return null;
@@ -158,58 +158,18 @@ export default function SpirometryCalculator() {
         <div className="space-y-6">
           <section className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
             <h3 className="text-sm font-bold text-medical-primary mb-4 flex items-center gap-2">
-              <User className="w-4 h-4" />
-              Demographics
+              <Layers className="w-4 h-4" />
+              Reference Adjustment
             </h3>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                  Sex
-                </label>
-                <div className="flex p-1 bg-white rounded-xl border border-slate-100">
-                  {(['male', 'female'] as const).map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => setSex(s)}
-                      className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${sex === s ? 'bg-medical-primary text-white' : 'text-slate-400 hover:text-slate-600'}`}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                  Age (years)
-                </label>
-                <input
-                  type="number"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                  className="w-full p-2.5 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                  Height (cm)
-                </label>
-                <input
-                  type="number"
-                  value={height}
-                  onChange={(e) => setHeight(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                  className="w-full p-2.5 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none"
-                />
-              </div>
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                  Ethnicity
+                  Ethnicity (NHANES III Adjustment)
                 </label>
                 <select
                   value={ethnicity}
                   onChange={(e) => setEthnicity(e.target.value as Ethnicity)}
-                  className="w-full p-2.5 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none appearance-none"
+                  className="w-full p-3 rounded-xl bg-white border border-slate-200 text-sm font-bold focus:ring-2 focus:ring-medical-accent outline-none appearance-none"
                 >
                   <option value="caucasian">Caucasian</option>
                   <option value="african-american">African American</option>

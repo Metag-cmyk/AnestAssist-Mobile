@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, ClipboardList, ArrowRight, Droplets, AlertTriangle, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { usePatient } from '../../contexts/PatientContext';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
 import { ConditionProtocol, TreatmentStep } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useData } from '../../hooks/useData';
@@ -169,6 +171,7 @@ export default function Conditions() {
 
       {/* Content Area */}
       <div className="lg:col-span-8">
+        <PatientParameterCard className="mb-6" />
         <AnimatePresence mode="wait">
           {selectedCondition ? (
             <motion.div

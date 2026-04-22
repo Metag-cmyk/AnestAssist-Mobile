@@ -4,45 +4,43 @@ import { LA_AGENTS, calculateMaxLADose, doseToVolume } from '../../lib/BlockCalc
 import { Search, ChevronRight, Ruler, AlertCircle, Droplets, Info, ShieldAlert, Thermometer, User, Syringe, Layers, Activity } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, useEffect } from 'react';
+import { usePatient } from '../../contexts/PatientContext';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
 
 export default function RegionalLibrary() {
   const { regional: REGIONAL_BLOCKS } = useData();
+  const { weightNum } = usePatient();
+  
   const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_regional_search_term') || '';
+    return localStorage.getItem(STORAGE_KEYS.REGIONAL_SEARCH) || '';
   });
   const [selectedId, setSelectedId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_regional_selected_id') || REGIONAL_BLOCKS[0].id;
+    return localStorage.getItem(STORAGE_KEYS.REGIONAL_SELECTED_ID) || REGIONAL_BLOCKS[0].id;
   });
   const [activeTab, setActiveTab] = useState<'info' | 'calc'>(() => {
-    return (localStorage.getItem('anestassist_regional_active_tab') as 'info' | 'calc') || 'info';
+    return (localStorage.getItem(STORAGE_KEYS.REGIONAL_ACTIVE_TAB) as 'info' | 'calc') || 'info';
   });
 
   // Calculator State
-  const [weight, setWeight] = useState(() => {
-    return localStorage.getItem('anestassist_patient_weight') || '70';
-  });
   const [selectedAgent, setSelectedAgent] = useState('ropivacaine');
   const [hasEpi, setHasEpi] = useState(false);
   const [targetConc, setTargetConc] = useState('0.2');
 
   useEffect(() => {
-    localStorage.setItem('anestassist_regional_search_term', searchTerm);
+    localStorage.setItem(STORAGE_KEYS.REGIONAL_SEARCH, searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
-    if (selectedId) localStorage.setItem('anestassist_regional_selected_id', selectedId);
+    if (selectedId) localStorage.setItem(STORAGE_KEYS.REGIONAL_SELECTED_ID, selectedId);
   }, [selectedId]);
 
   useEffect(() => {
-    localStorage.setItem('anestassist_regional_active_tab', activeTab);
+    localStorage.setItem(STORAGE_KEYS.REGIONAL_ACTIVE_TAB, activeTab);
   }, [activeTab]);
 
-  useEffect(() => {
-    localStorage.setItem('anestassist_patient_weight', weight);
-  }, [weight]);
-
   const selectedBlock = REGIONAL_BLOCKS.find(b => b.id === selectedId) || REGIONAL_BLOCKS[0];
-  const maxMg = calculateMaxLADose(parseFloat(weight) || 0, selectedAgent, hasEpi);
+  const maxMg = calculateMaxLADose(weightNum, selectedAgent, hasEpi);
   const maxVol = doseToVolume(maxMg, parseFloat(targetConc) || 0.2);
 
   const filteredBlocks = searchItems(REGIONAL_BLOCKS, searchTerm, ['name', 'category']);
@@ -115,6 +113,8 @@ export default function RegionalLibrary() {
 
       {/* Content Area */}
       <div className="lg:col-span-8 space-y-6">
+        <PatientParameterCard showHeight={false} showAge={false} className="mb-6" />
+
         {/* Detail Tabs */}
         <div className="flex gap-2 p-1.5 bg-white border border-medical-border rounded-xl w-fit shadow-sm">
           <button
@@ -310,18 +310,6 @@ export default function RegionalLibrary() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                   <div className="space-y-6">
-                    <div>
-                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block flex items-center gap-2">
-                        <User className="w-3 h-3 text-indigo-400" /> Patient Weight (kg)
-                      </label>
-                      <input
-                        type="number"
-                        value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
-                        className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl text-lg font-bold focus:ring-2 focus:ring-indigo-500/20 transition-all outline-none"
-                      />
-                    </div>
-
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block flex items-center gap-2">
                         <Droplets className="w-3 h-3 text-emerald-400" /> Selective Agent

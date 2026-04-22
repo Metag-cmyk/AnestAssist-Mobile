@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { usePatient } from '../../contexts/PatientContext';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
 import { 
   Stethoscope, 
   Search, 
@@ -48,6 +50,7 @@ function SurgicalGuide({ steps }: { steps: SurgeryStep[] }) {
 }
 
 function ThoracicSpirometryAnalyser({ procedureId }: { procedureId: string }) {
+  const { weightNum } = usePatient(); // Just to show we can use context
   const [fev1, setFev1] = useState('80');
   const [dlco, setDlco] = useState('80');
   const [segments, setSegments] = useState(procedureId === 'pneumonectomy' ? '10' : '3');
@@ -258,6 +261,7 @@ const Surgery: React.FC = () => {
 
       {/* Content Area */}
       <div className="lg:col-span-8">
+        <PatientParameterCard className="mb-6" />
         <AnimatePresence mode="wait">
           {selectedProcedure ? (
             <motion.div

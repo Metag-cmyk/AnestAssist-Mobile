@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { Stethoscope, Activity, FileText } from 'lucide-react';
+import { usePatient } from '../../contexts/PatientContext';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
 
 export default function AirwayModule() {
-  const [age, setAge] = useState<number>(30);
-  const [weight, setWeight] = useState<number>(70);
+  const { ageNum } = usePatient();
 
   // Basic estimation logic
   const getEquipment = (age: number) => {
@@ -14,10 +13,12 @@ export default function AirwayModule() {
     return { ett: '7.0 - 8.0 cuffed', blade: 'Mac 3 or 4', lma: 'Size 4-5' };
   };
 
-  const equipment = getEquipment(age);
+  const equipment = getEquipment(ageNum);
 
   return (
     <div className="space-y-6">
+      <PatientParameterCard showWeight={false} className="bg-medical-primary/5 border-medical-border" />
+      
       {/* Difficult Airway Assessment (LEMON) */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
@@ -41,36 +42,26 @@ export default function AirwayModule() {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
           <Activity className="w-5 h-5 text-medical-primary" />
-          <h3 className="font-bold text-slate-800">Equipment Sizing Calculator</h3>
+          <h3 className="font-bold text-slate-800">Equipment Sizing Reference</h3>
         </div>
-        <div className="p-4">
-          <div className="flex gap-4 mb-6">
-            <div className="flex-1">
-              <label className="block text-xs font-medium text-slate-500 uppercase mb-1">Age (Years)</label>
-              <input
-                type="number"
-                min="0"
-                max="120"
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value) || 0)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-medical-accent"
-              />
+        <div className="p-6">
+          <div className="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Endotracheal Tube</p>
+              <p className="text-xl font-black text-medical-primary">{equipment.ett}</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Laryngoscope Blade</p>
+              <p className="text-xl font-black text-medical-primary">{equipment.blade}</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">LMA Size</p>
+              <p className="text-xl font-black text-medical-primary">{equipment.lma}</p>
             </div>
           </div>
-          <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-            <div>
-              <p className="text-xs font-medium text-slate-500 uppercase">Endotracheal Tube</p>
-              <p className="text-lg font-bold text-medical-primary">{equipment.ett}</p>
-            </div>
-            <div>
-              <p className="text-xs font-medium text-slate-500 uppercase">Laryngoscope Blade</p>
-              <p className="text-lg font-bold text-medical-primary">{equipment.blade}</p>
-            </div>
-            <div>
-              <p className="text-xs font-medium text-slate-500 uppercase">LMA Size</p>
-              <p className="text-lg font-bold text-medical-primary">{equipment.lma}</p>
-            </div>
-          </div>
+          <p className="mt-4 text-[10px] text-slate-400 italic text-center">
+            Sizes estimated for a {ageNum}-year-old patient. Always have one size smaller and larger available.
+          </p>
         </div>
       </div>
 

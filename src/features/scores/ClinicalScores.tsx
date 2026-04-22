@@ -138,6 +138,7 @@ export default function ClinicalScores() {
 
       {/* Content Area */}
       <div className="lg:col-span-8">
+        <PatientParameterCard className="mb-6" />
         <AnimatePresence mode="wait">
           {selectedScore ? (
             <motion.div

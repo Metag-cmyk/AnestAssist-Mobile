@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { Activity, Droplet, RefreshCcw, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { calculateCRRT, calculateIHD, calculatePlasmaExchange } from '../../lib/RenalCalculators';
+import { usePatient } from '../../contexts/PatientContext';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import { PatientParameterCard } from '../../components/PatientParameterCard';
 
 // Fixed import error in previous thought: it's lucide-react, not luc David-react
 import { Activity as ActivityIcon, Droplet as DropletIcon, RefreshCcw as RefreshCcwIcon, Waves as WavesIcon } from 'lucide-react';
@@ -9,22 +12,13 @@ import { Activity as ActivityIcon, Droplet as DropletIcon, RefreshCcw as Refresh
 type SubTab = 'crrt' | 'ihd' | 'tpe';
 
 export default function RenalModule() {
-  // Persistence Keys
-  const K_TAB = 'anestassist_renal_active_subtab';
-  const K_WEIGHT = 'anestassist_patient_weight';
-  const K_HEIGHT = 'anestassist_patient_height';
-  const K_AGE = 'anestassist_patient_age';
-  const K_GENDER = 'anestassist_patient_gender';
+  const { weight, weightNum, heightNum, ageNum, gender, genderNum } = usePatient() as any; 
+  // Note: I'll use the proper types from usePatient
+  const patient = usePatient();
 
   const [activeTab, setActiveTab] = useState<SubTab>(() => {
-    return (localStorage.getItem(K_TAB) as SubTab) || 'crrt';
+    return (localStorage.getItem(STORAGE_KEYS.RENAL_ACTIVE_TAB) as SubTab) || 'crrt';
   });
-
-  // Shared Patient State (Persistent)
-  const [weight, setWeight] = useState(() => localStorage.getItem(K_WEIGHT) || '70');
-  const [height, setHeight] = useState(() => localStorage.getItem(K_HEIGHT) || '175');
-  const [age, setAge] = useState(() => localStorage.getItem(K_AGE) || '30');
-  const [isMale, setIsMale] = useState(() => localStorage.getItem(K_GENDER) !== 'female');
 
   // CRRT Specific State
   const [crrtHct, setCrrtHct] = useState('35');
@@ -39,14 +33,10 @@ export default function RenalModule() {
   const [ihdPostUrea, setIhdPostUrea] = useState('10');
 
   // Persistence Effects
-  useEffect(() => { localStorage.setItem(K_TAB, activeTab); }, [activeTab]);
-  useEffect(() => { localStorage.setItem(K_WEIGHT, weight); }, [weight]);
-  useEffect(() => { localStorage.setItem(K_HEIGHT, height); }, [height]);
-  useEffect(() => { localStorage.setItem(K_AGE, age); }, [age]);
-  useEffect(() => { localStorage.setItem(K_GENDER, isMale ? 'male' : 'female'); }, [isMale]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.RENAL_ACTIVE_TAB, activeTab); }, [activeTab]);
 
   const crrtResults = calculateCRRT({
-    weightKg: parseFloat(weight) || 0,
+    weightKg: patient.weightNum,
     hctPercent: parseFloat(crrtHct) || 0,
     bloodFlowMlMin: parseFloat(crrtQb) || 0,
     preFilterPercent: parseFloat(crrtPreFilter) || 0,
@@ -55,30 +45,34 @@ export default function RenalModule() {
     pbpMlHr: parseFloat(crrtPbp) || 0
   });
 
-  const tpeResults = calculatePlasmaExchange(parseFloat(weight) || 0, parseFloat(crrtHct) || 35);
+  const tpeResults = calculatePlasmaExchange(patient.weightNum, parseFloat(crrtHct) || 35);
 
   const ihdResults = calculateIHD({
     preUrea: parseFloat(ihdPreUrea) || 0,
     postUrea: parseFloat(ihdPostUrea) || 0,
     durationHours: 4,
-    weightKg: parseFloat(weight) || 0,
-    isMale: isMale,
-    age: parseFloat(age) || 0,
-    heightCm: parseFloat(height) || 0
+    weightKg: patient.weightNum,
+    isMale: patient.gender === 'male',
+    age: patient.ageNum,
+    heightCm: patient.heightNum
   });
 
   return (
-    <div className="max-w-4xl mx-auto bg-slate-900 rounded-xl shadow-xl overflow-hidden text-slate-200">
+    <div className="max-w-4xl mx-auto space-y-6">
       
-      {/* Header */}
-      <div className="bg-red-900/30 p-6 border-b border-red-900/50">
-        <div className="flex items-center gap-3">
-          <div className="bg-red-600 p-2 rounded-lg">
-            <ActivityIcon className="w-6 h-6 text-white" />
+      <PatientParameterCard />
+
+      <div className="bg-slate-900 rounded-xl shadow-xl overflow-hidden text-slate-200 border border-slate-800">
+        
+        {/* Header */}
+        <div className="bg-red-900/30 p-6 border-b border-red-900/50">
+          <div className="flex items-center gap-3">
+            <div className="bg-red-600 p-2 rounded-lg">
+              <ActivityIcon className="w-6 h-6 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold text-red-50">Renal Replacement Therapy</h2>
           </div>
-          <h2 className="text-2xl font-bold text-red-50">Renal Replacement Therapy</h2>
         </div>
-      </div>
 
       {/* Tabs */}
       <div className="flex border-b border-slate-700">
@@ -115,10 +109,6 @@ export default function RenalModule() {
                   <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-700 pb-2">CRRT Parameters</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Weight (kg)</label>
-                      <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                    </div>
-                    <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Hct (%)</label>
                       <input type="number" value={crrtHct} onChange={e => setCrrtHct(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
@@ -138,8 +128,8 @@ export default function RenalModule() {
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-Blood Pump (PBP mL/hr)</label>
                       <input type="number" value={crrtPbp} onChange={e => setCrrtPbp(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-pink-500" />
                     </div>
-                    <div className="col-span-2">
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-Filter Ratio (%) - Replace</label>
+                    <div className="col-span-1">
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-Filter Ratio (%)</label>
                       <input type="range" min="0" max="100" value={crrtPreFilter} onChange={e => setCrrtPreFilter(e.target.value)} className="w-full accent-red-600" />
                       <div className="flex justify-between text-xs text-slate-500 mt-1">
                         <span>{crrtPreFilter}% Pre</span>
@@ -209,36 +199,15 @@ export default function RenalModule() {
             <motion.div key="ihd" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-700 pb-2">Anthropometrics & Urea</h3>
+                  <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-700 pb-2">Urea Parameters</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Sex</label>
-                      <select value={isMale ? '1' : '0'} onChange={e => setIsMale(e.target.value === '1')} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500">
-                        <option value="1">Male</option>
-                        <option value="0">Female</option>
-                      </select>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-BUN/Urea</label>
+                      <input type="number" value={ihdPreUrea} onChange={e => setIhdPreUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Age (yrs)</label>
-                      <input type="number" value={age} onChange={e => setAge(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Height (cm)</label>
-                      <input type="number" value={height} onChange={e => setHeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Weight (kg)</label>
-                      <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                    </div>
-                    <div className="col-span-2 grid grid-cols-2 gap-4 mt-2 border-t border-slate-700 pt-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Pre-BUN/Urea</label>
-                        <input type="number" value={ihdPreUrea} onChange={e => setIhdPreUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-400 mb-1">Post-BUN/Urea</label>
-                        <input type="number" value={ihdPostUrea} onChange={e => setIhdPostUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                      </div>
+                      <label className="block text-xs font-semibold text-slate-400 mb-1">Post-BUN/Urea</label>
+                      <input type="number" value={ihdPostUrea} onChange={e => setIhdPostUrea(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
                     </div>
                   </div>
                 </div>
@@ -270,12 +239,8 @@ export default function RenalModule() {
             <motion.div key="tpe" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-700 pb-2">Patient Status</h3>
+                  <h3 className="font-bold text-slate-100 flex items-center gap-2 border-b border-slate-700 pb-2">Treatment Parameters</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-400 mb-1">Weight (kg)</label>
-                      <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
-                    </div>
                     <div>
                       <label className="block text-xs font-semibold text-slate-400 mb-1">Hct (%)</label>
                       <input type="number" value={crrtHct} onChange={e => setCrrtHct(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white outline-none focus:border-red-500" />
