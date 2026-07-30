@@ -29,6 +29,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'lap-chole',
         name: 'Laparoscopic Cholecystectomy',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Standard GA (RSI if acute abdomen/full stomach)',
+        recommendedBlocks: ['TAP Block (Subcostal)', 'Erector Spinae Plane (ESP) Block', 'Port-site Infiltration'],
+        erasHighlights: ['Low-pressure pneumoperitoneum (8-10 mmHg)', 'Multi-modal PONV prophylaxis (Ondansetron + Dexamethasone)', 'Opioid-sparing multimodal analgesia'],
         guide: [
           { title: 'Positioning', description: 'Supine or reverse Trendelenburg with 15-20 degree left tilt to displace viscera away from the gallbladder. Ensure arms are tucked or abducted < 90 degrees to prevent brachial plexus injury.' },
           { title: 'Access', description: 'Veress needle or Hasson technique for umbilical port (10mm). Establish pneumoperitoneum (12-15 mmHg). Insert subxiphoid (10mm), and two right subcostal (5mm) ports under direct vision.' },
@@ -590,6 +595,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'thr',
         name: 'Total Hip Replacement (THR)',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Spinal (Subarachnoid Block) + Sedation or ETT + Standard GA',
+        recommendedBlocks: ['Fascia Iliaca Block (FIB)', 'PENG Block', 'Lumbar Plexus Block'],
+        erasHighlights: ['Pre-op IV Tranexamic Acid (1g at induction)', 'Opioid-sparing multimodal analgesia', 'Early mobilization at 4-6 hours'],
         guide: [
           { title: 'Approach', description: 'Posterior (splitting gluteus maximus), Lateral (Hardinge), or Anterior (Smith-Petersen) approach. Each has specific risks for nerve injury (Sciatic vs. Femoral/LFCN).' },
           { title: 'Preparation', description: 'Perform a capsulotomy, dislocate the femoral head (usually by flexion and internal rotation), and resect the femoral neck at a predetermined level based on pre-operative templating.' },
@@ -627,6 +637,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'tkr',
         name: 'Total Knee Replacement (TKR)',
+        estimatedBloodLoss: '100 - 300 mL (with Tourniquet)',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Spinal (Subarachnoid Block) + Sedation or ETT + Standard GA',
+        recommendedBlocks: ['Adductor Canal Block (ACB)', 'IPACK Block', 'Femoral Triangle Block'],
+        erasHighlights: ['Tourniquet time limit < 90 mins', 'Intra-articular LIA infiltration', 'Opioid-sparing recovery & early ambulation'],
         guide: [
           { title: 'Incision', description: 'Perform a midline skin incision followed by a medial parapatellar arthrotomy. Evert the patella to expose the femoral condyles and tibial plateau.' },
           { title: 'Bone Cuts', description: 'Use specialized cutting jigs to perform precise resection of the distal femur and proximal tibia, ensuring correct mechanical alignment and rotation.' },
@@ -4517,6 +4532,138 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Extubate when fully awake with airway reflexes intact.',
             'Provide regular anti-emetics and multimodal analgesia.'
           ]
+        }
+      }
+    ]
+  },
+  {
+    id: 'obstetrics-gynecology',
+    name: 'Obstetrics & Gynecology',
+    generalConsiderations: {
+      preOp: [
+        'Assess airway carefully (increased risk of difficult intubation in pregnancy due to mucosal edema).',
+        'Check full blood count (FBC) and blood type/crossmatch; assess for preeclampsia/HELLP syndrome.',
+        'Ensure left lateral tilt (15 degrees) after 20 weeks gestation to prevent aortocaval compression.',
+        'Review fetal monitoring (CTG) prior to regional block or general anesthesia.'
+      ],
+      intraOp: [
+        'Spinal/Epidural neuraxial anesthesia is preferred for Cesarean section to minimize airway manipulation and fetal drug exposure.',
+        'Pre-treat with IV fluid bolus and co-administer Phenylephrine/Ephedrine infusion to prevent spinal hypotension.',
+        'Administer Oxytocin (5 IU slow IV) following delivery of the fetus, followed by continuous infusion.',
+        'RSI with cricoid pressure is mandatory if general anesthesia is required (high aspiration risk).'
+      ],
+      postOp: [
+        'Monitor uterine tone and vaginal bleeding (postpartum hemorrhage surveillance).',
+        'Multimodal analgesia (TAP block, intrathecal morphine 100-150mcg, paracetamol, NSAIDs).',
+        'Early thromboprophylaxis and mobilization.'
+      ]
+    },
+    procedures: [
+      {
+        id: 'cesarean-section',
+        name: 'Cesarean Section (Elective / Emergency Category 1-4)',
+        estimatedBloodLoss: '500 - 1000 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units PRBCs for high risk',
+        airwayStrategy: 'Neuraxial (Spinal/CSE) Primary; ETT + RSI (Rapid Sequence) if Emergency/GA',
+        recommendedBlocks: ['Spinal Anesthesia (0.5% Heavy Bupivacaine 2.2-2.6mL + Fentanyl + Morphine)', 'TAP Block (post-op)', 'Epidural Top-up'],
+        erasHighlights: ['Left lateral tilt 15°', 'Active warming', 'Prophylactic Phenylephrine infusion', 'Intrathecal Morphine 100mcg for 24h analgesia'],
+        guide: [
+          { title: 'Incision', description: 'Pfannenstiel (transverse lower abdominal) or Joel-Cohen incision. Dissect through subcutaneous fat and fascia.' },
+          { title: 'Uterine Access', description: 'Incise parietal peritoneum and lower uterine segment (hysterotomy). Rupture membranes and deliver fetal head.' },
+          { title: 'Delivery & Placenta', description: 'Deliver fetus, double-clamp and divide umbilical cord. Administer Oxytocin IV. Manual or traction delivery of placenta.' },
+          { title: 'Closure', description: 'Two-layer uterine closure, repair visceral peritoneum, and layered abdominal wall closure.' }
+        ],
+        anestheticConsiderations: [
+          'High risk of rapid desaturation and difficult intubation during GA',
+          'Spinal hypotension requires active vasopressor management (Phenylephrine infusion)',
+          'High risk for postpartum hemorrhage (PPH); prepare uterotonics (Oxytocin, Ergometrine, Carboprost, Misoprostol)',
+          'Acid aspiration prophylaxis (Sodium Citrate 30mL oral pre-op)'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV (3g if weight > 120kg)',
+          timing: 'Within 60 mins before skin incision',
+          alternatives: 'Clindamycin + Gentamicin'
+        },
+        complications: {
+          surgical: ['Postpartum hemorrhage (PPH)', 'Bladder/Ureteral injury', 'Uterine atony', 'Infection'],
+          anesthetic: ['High spinal block', 'Failed intubation', 'Aspiration', 'Spinal hypotension']
+        },
+        management: {
+          preOp: ['Administer 0.3M Sodium Citrate 30mL', 'Confirm CTG', 'Check platelet count if preeclamptic'],
+          intraOp: [
+            'Maintain left lateral tilt until fetus is delivered.',
+            'Run prophylactic Phenylephrine infusion to maintain MAP at baseline.',
+            'Administer Oxytocin 5 IU slow IV over 2 minutes upon shoulder delivery.',
+            'If PPH occurs, escalate to second-line uterotonics (Ergometrine 500mcg IM, Carboprost 250mcg IM, Misoprostol 800mcg PR) and TXA 1g IV.'
+          ],
+          postOp: ['Monitor vital signs and lochia q15m for 1 hour', 'Assess spinal block regression', 'Early skin-to-skin and breastfeeding']
+        }
+      }
+    ]
+  },
+  {
+    id: 'neurosurgery',
+    name: 'Neurosurgery',
+    generalConsiderations: {
+      preOp: [
+        'Perform baseline neurological assessment (GCS, pupillary light reflex, motor deficits).',
+        'Assess for signs of elevated intracranial pressure (ICP): headache, nausea, papilledema, Cushing\'s triad.',
+        'Review neuroimaging (MRI/CT) for midline shift, mass effect, and cerebral edema.',
+        'Avoid pre-op sedatives in patients with elevated ICP or impaired consciousness.'
+      ],
+      intraOp: [
+        'Maintain cerebral perfusion pressure (CPP = MAP - ICP); target MAP 80-90 mmHg.',
+        'Avoid tight neck positioning or excessive rotation to prevent venous outflow obstruction.',
+        'Smooth induction and emergence to avoid spikes in ICP and arterial hypertension.',
+        'Use Total Intravenous Anesthesia (TIVA) with Propofol and Remifentanil for intraoperative neuromonitoring (IONM).'
+      ],
+      postOp: [
+        'Immediate neurological assessment upon awakening.',
+        'Strict BP control (avoid hypertension leading to intracranial hematoma).',
+        'Head of bed elevated 30 degrees to facilitate venous drainage.'
+      ]
+    },
+    procedures: [
+      {
+        id: 'craniotomy-brain-tumor',
+        name: 'Craniotomy for Brain Tumor Resection',
+        estimatedBloodLoss: '200 - 1000 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + TIVA / Balanced GA (Awake Craniotomy option for motor/speech areas)',
+        recommendedBlocks: ['Scalp Block (Bupivacaine with Epinephrine)', 'Local Infiltration of Pin Sites'],
+        erasHighlights: ['TIVA (Propofol/Remifentanil)', 'Normocapnia (PaCO2 35-38 mmHg)', 'Mannitol 20% (0.5-1g/kg) for brain relaxation'],
+        guide: [
+          { title: 'Positioning & Head Frame', description: 'Position head in Mayfield 3-pin skull clamp. Elevate head 15-30 degrees.' },
+          { title: 'Craniotomy', description: 'Curved skin incision, raise subgaleal flap. Drill burr holes, cut bone flap using craniotome.' },
+          { title: 'Dural Entry & Resection', description: 'Incise dura, use neuronavigation and cavitron ultrasonic surgical aspirator (CUSA) to resect lesion.' },
+          { title: 'Closure', description: 'Watertight dural closure, replace bone flap with titanium plates, galeal and skin closure.' }
+        ],
+        anestheticConsiderations: [
+          'Tight BP control: avoid hypertension during incision/skull clamping and emergence',
+          'Brain relaxation: Mannitol (0.5-1g/kg IV) or Hypertonic Saline 3%',
+          'Avoid nitrous oxide (pneumocephalus risk)',
+          'Prophylactic anticonvulsants (Levetiracetam 1g IV)'
+        ],
+        antibioticProphylaxis: {
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction (redose q4h)',
+          alternatives: 'Vancomycin 15mg/kg'
+        },
+        complications: {
+          surgical: ['Intracranial hemorrhage', 'Cerebral edema', 'Neurological deficit', 'CSF leak'],
+          anesthetic: ['Elevated ICP', 'Venous air embolism (sitting position)', 'Seizures', 'Delayed emergence']
+        },
+        management: {
+          preOp: ['Administer Dexamethasone 10mg IV for vasogenic edema', 'Verify type and crossmatch'],
+          intraOp: [
+            'Infiltrate scalp pin sites with local anesthetic before Mayfield application to prevent hypertensive surge.',
+            'Maintain PaCO2 35-38 mmHg; avoid hypercapnia which increases CBV and ICP.',
+            'Administer Mannitol 20% (0.5-1g/kg) prior to dural opening if brain is tight.',
+            'Smooth emergence: use Labetalol or Esmolol to suppress coughing and HTN on extubation.'
+          ],
+          postOp: ['ICU or Neuro-HD unit monitoring', 'Serial GCS and pupil checks', 'CT head if GCS drops']
         }
       }
     ]

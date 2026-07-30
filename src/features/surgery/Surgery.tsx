@@ -288,7 +288,67 @@ const Surgery: React.FC = () => {
                   <Scissors className="w-6 h-6 text-medical-accent" />
                 </div>
               </div>
-              
+
+              {/* Rich Clinical Overview Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                {selectedProcedure.estimatedBloodLoss && (
+                  <div className="bg-rose-50/70 border border-rose-100 p-3 rounded-xl">
+                    <span className="text-[9px] font-bold text-rose-500 uppercase tracking-widest block mb-1">Est. Blood Loss</span>
+                    <span className="text-xs font-extrabold text-rose-900">{selectedProcedure.estimatedBloodLoss}</span>
+                  </div>
+                )}
+                {selectedProcedure.bloodProductPrep && (
+                  <div className="bg-amber-50/70 border border-amber-100 p-3 rounded-xl">
+                    <span className="text-[9px] font-bold text-amber-600 uppercase tracking-widest block mb-1">Blood Prep</span>
+                    <span className="text-xs font-extrabold text-amber-900">{selectedProcedure.bloodProductPrep}</span>
+                  </div>
+                )}
+                {selectedProcedure.airwayStrategy && (
+                  <div className="bg-sky-50/70 border border-sky-100 p-3 rounded-xl col-span-1 sm:col-span-2">
+                    <span className="text-[9px] font-bold text-sky-600 uppercase tracking-widest block mb-1">Airway Strategy</span>
+                    <span className="text-xs font-extrabold text-sky-900">{selectedProcedure.airwayStrategy}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Regional Block Pairings & ERAS Highlights */}
+              {(selectedProcedure.recommendedBlocks?.length || selectedProcedure.erasHighlights?.length) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                  {selectedProcedure.recommendedBlocks && selectedProcedure.recommendedBlocks.length > 0 && (
+                    <div className="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
+                      <h4 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <Syringe className="w-3.5 h-3.5 text-indigo-600" />
+                        Recommended Regional Blocks
+                      </h4>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedProcedure.recommendedBlocks.map((block, idx) => (
+                          <span key={idx} className="bg-white px-2.5 py-1 rounded-lg text-xs font-bold text-indigo-700 border border-indigo-200 shadow-2xs">
+                            {block}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedProcedure.erasHighlights && selectedProcedure.erasHighlights.length > 0 && (
+                    <div className="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                      <h4 className="text-xs font-bold text-emerald-900 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-emerald-600" />
+                        ERAS Key Targets
+                      </h4>
+                      <ul className="space-y-1">
+                        {selectedProcedure.erasHighlights.map((eras, idx) => (
+                          <li key={idx} className="text-xs text-emerald-800 font-medium flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                            {eras}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-8">
                   <section>

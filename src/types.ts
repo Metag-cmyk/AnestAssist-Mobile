@@ -70,6 +70,11 @@ export interface SurgeryStep {
 export interface SurgeryProcedure {
   id: string;
   name: string;
+  estimatedBloodLoss?: string;
+  bloodProductPrep?: string;
+  airwayStrategy?: string;
+  recommendedBlocks?: string[];
+  erasHighlights?: string[];
   guide: SurgeryStep[];
   anestheticConsiderations: string[];
   antibioticProphylaxis?: {
