@@ -223,8 +223,11 @@ const Surgery: React.FC = () => {
                     : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                 }`}
               >
-                {spec === 'All' ? t('common.all') : t(`surgery.${spec}`)}
+                {spec === 'All' 
+                  ? t('common.all') 
+                  : (isTranslationKey(`surgery.${spec}`) ? t(`surgery.${spec}`) : spec)}
               </button>
+
             ))}
           </div>
           
@@ -279,8 +282,11 @@ const Surgery: React.FC = () => {
                       {t('surgery.guide')}
                     </div>
                     <div className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-[9px] font-bold uppercase tracking-wider">
-                      {t(`surgery.${selectedProcedure.specialtyName}`)}
+                      {isTranslationKey(`surgery.${selectedProcedure.specialtyName}`) 
+                        ? t(`surgery.${selectedProcedure.specialtyName}`) 
+                        : selectedProcedure.specialtyName}
                     </div>
+
                   </div>
                   <h2 className="text-3xl font-bold text-medical-primary tracking-tight">{selectedProcedure.name}</h2>
                 </div>

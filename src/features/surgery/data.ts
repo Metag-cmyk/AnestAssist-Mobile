@@ -71,6 +71,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'appendectomy',
         name: 'Appendectomy (Laparoscopic/Open)',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + RSI (Rapid Sequence Induction) if acute abdomen/peritonitis',
+        recommendedBlocks: ['TAP Block (Transversalis Plane)', 'Local Infiltration'],
+        erasHighlights: ['Opioid-sparing analgesia', 'Early mobilization', 'Day-case discharge protocol if uncomplicated'],
         guide: [
           { title: 'Approach', description: 'Laparoscopic (umbilical 10mm, suprapubic 5mm, left iliac fossa 5mm ports) or Open (McBurney\'s point or Lanz incision in the right iliac fossa).' },
           { title: 'Identification', description: 'Follow the taeniae coli of the cecum to their convergence at the base of the appendix. Mobilize the cecum if necessary to expose a retrocecal appendix.' },
@@ -106,6 +111,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'inguinal-hernia',
         name: 'Inguinal Hernia Repair (Open/Laparoscopic)',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA (for elective open) or ETT (for lap TEP/TAPP or incarcerated)',
+        recommendedBlocks: ['Ilioinguinal / Iliohypogastric Nerve Block', 'TAP Block', 'Transversalis Fascia Block'],
+        erasHighlights: ['Day-case procedure', 'Opioid-sparing multi-modal analgesia', 'Early ambulation'],
         guide: [
           { title: 'Incision', description: 'Open (oblique groin incision) or Laparoscopic (TEP - Totally Extraperitoneal or TAPP - Transabdominal Preperitoneal approach).' },
           { title: 'Reduction', description: 'Identify the hernia sac (indirect, direct, or femoral). Carefully dissect the sac away from the spermatic cord structures (in males) and reduce contents into the peritoneal cavity.' },
@@ -141,6 +151,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'mastectomy',
         name: 'Mastectomy (Simple/Radical)',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA or Oral ETT',
+        recommendedBlocks: ['PECS I & II Blocks', 'Erector Spinae Plane (ESP) Block', 'Thoracic Paravertebral Block'],
+        erasHighlights: ['Opioid-sparing multimodal protocol', 'PONV prophylaxis (Dual antiemetics)', 'Same-day / Early discharge'],
         guide: [
           { title: 'Incision', description: 'Perform a transverse elliptical (Stewart) incision encompassing the nipple-areola complex and any previous biopsy scars, ensuring adequate skin flaps for closure.' },
           { title: 'Dissection', description: 'Raise superior and inferior skin flaps in the plane between the subcutaneous fat and breast fascia. Dissect the breast tissue off the pectoralis major fascia from the clavicle to the inframammary fold.' },
@@ -177,6 +192,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'hemicolectomy',
         name: 'Hemicolectomy (Right/Left)',
+        estimatedBloodLoss: '150 - 400 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Standard GA',
+        recommendedBlocks: ['TAP Block (Bilateral)', 'Thoracic Epidural (T8-T10)', 'Quadratus Lumborum (QL) Block'],
+        erasHighlights: ['Goal-Directed Fluid Therapy (GDFT)', 'Pre-op carbohydrate loading', 'Avoid routine nasogastric tubes & early oral intake'],
         guide: [
           { title: 'Access', description: 'Laparoscopic approach (umbilical camera port, 3-4 working ports) or a formal midline laparotomy for better exposure in complex cases.' },
           { title: 'Mobilization', description: 'Reflect the colon medially by dividing the lateral peritoneal attachments (White line of Toldt). Mobilize the hepatic (right) or splenic (left) flexure as required to ensure a tension-free anastomosis.' },
@@ -214,6 +234,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'gastrectomy',
         name: 'Gastrectomy (Total/Partial)',
+        estimatedBloodLoss: '200 - 600 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + RSI (High aspiration risk)',
+        recommendedBlocks: ['Thoracic Epidural (T7-T9)', 'TAP Block (Subcostal)', 'ESP Block'],
+        erasHighlights: ['Goal-Directed Fluid Therapy', 'Avoid fluid overload to preserve anastomosis', 'Early post-op ambulation & jejunal feeding'],
         guide: [
           { title: 'Access', description: 'Upper midline laparotomy or multi-port laparoscopic approach (for partial gastrectomy).' },
           { title: 'Mobilization', description: 'Divide the greater and lesser omentum. Mobilize the stomach by dividing the short gastric vessels and the left gastric artery.' },
@@ -251,6 +276,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'esophagectomy',
         name: 'Esophagectomy (Ivor-Lewis/McKeown)',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Left Double-Lumen Tube (DLT) or Bronchial Blocker for One-Lung Ventilation (OLV)',
+        recommendedBlocks: ['Thoracic Epidural (T5-T7)', 'Paravertebral Block', 'ESP Block'],
+        erasHighlights: ['Protective One-Lung Ventilation (4-6 mL/kg PBW + PEEP)', 'Strict fluid restriction', 'Early extubation in ICU'],
         guide: [
           { title: 'Abdominal Phase', description: 'Mobilize the stomach, preserving the right gastroepiploic artery. Create a gastric conduit using linear staplers.' },
           { title: 'Thoracic Phase', description: 'Perform a right thoracotomy. Resect the esophagus and perform a radical mediastinal lymphadenectomy (Ivor-Lewis approach).' },
@@ -287,6 +317,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'liver-transplant',
         name: 'Liver Transplantation',
+        estimatedBloodLoss: '1000 - 5000+ mL (Massive Hemorrhage Risk)',
+        bloodProductPrep: 'Massive Transfusion Protocol (MTP): 10 Units PRBCs, 10 FFP, 2 Platelets, Cryoprecipitate',
+        airwayStrategy: 'Oral ETT + RSI (High aspiration & encephalopathy risk)',
+        recommendedBlocks: ['Systemic Opioid TIVA (Avoid Regional due to severe coagulopathy)'],
+        erasHighlights: ['TEG/ROTEM guided transfusion', 'Post-reperfusion syndrome prophylaxis', 'Continuous TEE monitoring'],
         guide: [
           { title: 'Hepatectomy', description: 'Expose the liver via a Mercedes-Benz or bilateral subcostal incision. Mobilize and remove the diseased liver, preserving the IVC (Piggyback technique) or using veno-venous bypass.' },
           { title: 'Anhepatic Phase', description: 'Manage the period without a liver. Expect profound metabolic acidosis, hypocalcemia, and hemodynamic instability due to lack of venous return.' },
@@ -324,6 +359,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'gastric-bypass',
         name: 'Gastric Bypass (Roux-en-Y) / Bariatric Surgery',
+        estimatedBloodLoss: '< 100 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + HELP (Head-Elevated Laryngoscopy Position) Ramp for OSA / Morbid Obesity',
+        recommendedBlocks: ['TAP Block (Subcostal)', 'ESP Block', 'Wound Infiltration'],
+        erasHighlights: ['Low-pressure pneumoperitoneum', 'Aggressive multi-modal PONV prophylaxis', 'Early CPAP & mobilization'],
         guide: [
           { title: 'Positioning', description: 'Steep reverse Trendelenburg to displace the liver and bowel inferiorly. Essential to strap securely and use a footboard.' },
           { title: 'Access & Pneumoperitoneum', description: 'Optical trocar or Veress for initial entry. Beware of increased baseline intra-abdominal pressure and rapidly escalating peak airway pressures.' },
