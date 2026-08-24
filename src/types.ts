@@ -10,6 +10,12 @@ export interface IVFluidManagement {
   monitoring: string[];
 }
 
+export interface DifferentialItem {
+  condition: string;
+  distinguishingFeatures: string;
+  pocusOrKeyTest?: string;
+}
+
 export interface ConditionProtocol {
   id: string;
   name: string;
@@ -25,6 +31,8 @@ export interface ConditionProtocol {
   diagnosticCriteria?: string[];
   expectedLabDeviations?: { [key: string]: string };
   differentialDiagnosis?: string[];
+  diagnosticTriggers?: string[];
+  differentialMatrix?: DifferentialItem[];
 }
 
 export interface Guideline {
@@ -59,7 +67,7 @@ export interface ClinicalScore {
   description: string;
   criteria: ScoreCriterion[];
   riskLevels: ScoreRiskLevel[];
-  category: 'Respiratory' | 'Sepsis' | 'General' | 'Cardiac' | 'Neurological' | 'Cardiovascular' | 'Vascular' | 'Gastrointestinal' | 'Anesthesia' | 'ICU';
+  category: 'Respiratory' | 'Sepsis' | 'General' | 'Cardiac' | 'Neurological' | 'Cardiovascular' | 'Vascular' | 'Gastrointestinal' | 'Anesthesia' | 'ICU' | 'Airway';
 }
 
 export interface SurgeryStep {

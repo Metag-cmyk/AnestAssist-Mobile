@@ -2,6 +2,82 @@ import { ClinicalScore } from '../../types';
 
 export const CLINICAL_SCORES: ClinicalScore[] = [
   {
+    id: 'composite-difficult-airway',
+    name: 'Composite Difficult Airway Risk (SARI)',
+    description: 'Multivariate Airway Assessment Score (Simplified Airway Risk Index). Evaluates 7 anatomical predictors to stratify difficult mask ventilation & intubation risk.',
+    category: 'Airway',
+    criteria: [
+      {
+        id: 'mouth_opening',
+        label: 'Mouth Opening (Interincisor Distance)',
+        options: [
+          { label: '≥ 4.0 cm (≥ 3 fingerbreadths)', points: 0 },
+          { label: '3.0 - 3.9 cm (2 - 3 fingerbreadths)', points: 1 },
+          { label: '< 3.0 cm (< 2 fingerbreadths)', points: 2 }
+        ]
+      },
+      {
+        id: 'thyromental_distance',
+        label: 'Thyromental Distance (TMD)',
+        options: [
+          { label: '> 6.5 cm (> 3 fingerbreadths)', points: 0 },
+          { label: '6.0 - 6.5 cm', points: 1 },
+          { label: '< 6.0 cm (< 3 fingerbreadths)', points: 2 }
+        ]
+      },
+      {
+        id: 'mallampati',
+        label: 'Modified Mallampati Class',
+        options: [
+          { label: 'Class I (Soft palate, fauces, uvula, pillars visible)', points: 0 },
+          { label: 'Class II (Soft palate, fauces, portion of uvula visible)', points: 1 },
+          { label: 'Class III (Soft palate, base of uvula visible)', points: 2 },
+          { label: 'Class IV (Hard palate only visible)', points: 3 }
+        ]
+      },
+      {
+        id: 'neck_mobility',
+        label: 'Neck Extension / Cervical Range of Motion',
+        options: [
+          { label: '> 90° (Full unhindered extension)', points: 0 },
+          { label: '80° - 90° (Moderate restriction)', points: 1 },
+          { label: '< 80° (Severe restriction or rigid C-spine collar)', points: 2 }
+        ]
+      },
+      {
+        id: 'mandibular_protrusion',
+        label: 'Mandibular Protrusion / Upper Lip Bite Test (ULBT)',
+        options: [
+          { label: 'Class A (Lower incisors bite above vermilion border)', points: 0 },
+          { label: 'Class B (Lower incisors bite below vermilion border)', points: 1 },
+          { label: 'Class C (Lower incisors cannot bite upper lip)', points: 2 }
+        ]
+      },
+      {
+        id: 'patient_weight',
+        label: 'Body Weight / BMI Category',
+        options: [
+          { label: 'BMI < 30 kg/m²', points: 0 },
+          { label: 'BMI 30 - 40 kg/m² (Obesity)', points: 1 },
+          { label: 'BMI > 40 kg/m² (Morbid Obesity)', points: 2 }
+        ]
+      },
+      {
+        id: 'history_osa',
+        label: 'Prior Difficult Airway History / Severe OSA',
+        options: [
+          { label: 'No history of difficult airway / Normal screening', points: 0 },
+          { label: 'Known history of difficult intubation or STOP-Bang ≥ 5', points: 2 }
+        ]
+      }
+    ],
+    riskLevels: [
+      { min: 0, max: 2, label: 'low', description: 'Low Risk (Easy Airway): Standard direct laryngoscopy or videolaryngoscopy. Low probability of difficult mask ventilation or intubation.', color: 'bg-emerald-100 text-emerald-800' },
+      { min: 3, max: 6, label: 'moderate', description: 'Moderate Risk (Anticipated Difficult Airway): Primary Videolaryngoscopy strongly recommended. Have 2nd-generation LMA and bougie at bedside before induction.', color: 'bg-amber-100 text-amber-800' },
+      { min: 7, max: 15, label: 'high', description: 'Severe Risk (High-Acuity Airway): High probability of difficult intubation & mask ventilation. Strongly consider Awake Fiberoptic Intubation (AFOI) or video-assisted awake technique with ENT standby.', color: 'bg-rose-100 text-rose-800' }
+    ]
+  },
+  {
     id: 'curb-65',
     name: 'CURB-65',
     description: 'Confusion, Urea, Respiratory rate, Blood pressure, Age ≥ 65. Used to predict mortality in community-acquired pneumonia.',

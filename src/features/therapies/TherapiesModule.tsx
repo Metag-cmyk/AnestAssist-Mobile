@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect } from 'react';
-
 import { 
   Activity, 
   Syringe, 
@@ -8,14 +7,20 @@ import {
   HeartPulse, 
   CheckCircle2, 
   ArrowRightLeft, 
-  Sliders
+  Sliders,
+  LineChart,
+  TrendingUp,
+  Gauge,
+  Zap,
+  Info,
+  RefreshCw
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { usePatient } from '../../contexts/PatientContext';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
 import { calculateIBW } from '../../lib/medicalDosing';
 
-type ActiveModuleTab = 'cvvhdf' | 'infusions';
+type ActiveModuleTab = 'cvvhdf' | 'infusions' | 'hemodynamics';
 
 interface InfusionProtocol {
   id: string;
@@ -51,6 +56,15 @@ export default function TherapiesModule() {
   const [dosingWeightType, setDosingWeightType] = useState<'tbw' | 'ibw'>('tbw');
   const [customDose, setCustomDose] = useState<number>(0.05);
   const [customConc, setCustomConc] = useState<number>(0.1); // mg/mL (4mg in 40ml)
+
+  // ================= INVASIVE HEMODYNAMICS CALCULATOR STATE =================
+  const [hemoMap, setHemoMap] = useState<number>(85);
+  const [hemoCvp, setHemoCvp] = useState<number>(8);
+  const [hemoMpap, setHemoMpap] = useState<number>(20);
+  const [hemoPaop, setHemoPaop] = useState<number>(10);
+  const [hemoCo, setHemoCo] = useState<number>(5.0);
+  const [hemoHr, setHemoHr] = useState<number>(75);
+  const [dampingState, setDampingState] = useState<'normal' | 'overdamped' | 'underdamped'>('normal');
 
 
   const ibw = useMemo(() => calculateIBW({
@@ -257,6 +271,38 @@ export default function TherapiesModule() {
     };
   }, [patient.weightNum, hct, qb, targetDose, pbpRate, netUfr, prePostRatio]);
 
+  // Invasive Hemodynamics Calculator & Profiles
+  const hemodynamicResults = useMemo(() => {
+    const bsa = patient.bsa || 1.73;
+    const co = Math.max(0.1, hemoCo);
+    const hr = Math.max(1, hemoHr);
+    
+    // SVR = ((MAP - CVP) * 80) / CO
+    const svr = Math.round(((hemoMap - hemoCvp) * 80) / co);
+    // PVR = ((MPAP - PAOP) * 80) / CO
+    const pvr = Math.round(((hemoMpap - hemoPaop) * 80) / co);
+    
+    const ci = (co / bsa).toFixed(2);
+    const sv = Math.round((co * 1000) / hr);
+    const svi = Math.round(sv / bsa);
+    const lvswi = Math.round((1.36 * (hemoMap - hemoPaop) * svi) / 100);
+    const rvswi = Math.round((1.36 * (hemoMpap - hemoCvp) * svi) / 100);
+
+    return {
+      svr,
+      pvr,
+      ci,
+      sv,
+      svi,
+      lvswi,
+      rvswi,
+      isSvrLow: svr < 800,
+      isSvrHigh: svr > 1200,
+      isPvrHigh: pvr > 250,
+      isCiLow: Number(ci) < 2.5,
+    };
+  }, [hemoMap, hemoCvp, hemoMpap, hemoPaop, hemoCo, hemoHr, patient.bsa]);
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <PatientParameterCard />
@@ -270,7 +316,7 @@ export default function TherapiesModule() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900 tracking-tight">ICU & Anesthesia Therapies</h2>
-              <p className="text-slate-500 text-xs mt-0.5">Prismaflex CVVHDF prescription & unified vasoactive infusion calculator.</p>
+              <p className="text-slate-500 text-xs mt-0.5">Prismaflex CVVHDF, Vasoactive Infusions & Invasive Hemodynamics.</p>
             </div>
           </div>
         </div>
@@ -285,7 +331,7 @@ export default function TherapiesModule() {
                 : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            <Activity className="w-4 h-4" /> Prismaflex CVVHDF Prescription
+            <Activity className="w-4 h-4" /> Prismaflex CVVHDF
           </button>
           <button
             onClick={() => setActiveTab('infusions')}
@@ -295,7 +341,17 @@ export default function TherapiesModule() {
                 : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            <HeartPulse className="w-4 h-4" /> Infusions & Rate Converter
+            <HeartPulse className="w-4 h-4" /> Infusions & Converter
+          </button>
+          <button
+            onClick={() => setActiveTab('hemodynamics')}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-xs transition-all ${
+              activeTab === 'hemodynamics' 
+                ? 'bg-white text-indigo-600 shadow-sm border border-slate-200' 
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            <LineChart className="w-4 h-4" /> Hemodynamics & Waveforms
           </button>
         </div>
 
@@ -644,6 +700,420 @@ export default function TherapiesModule() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+          {activeTab === 'hemodynamics' && (
+            <motion.div
+              key="hemodynamics"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="p-6 bg-white space-y-8"
+            >
+              {/* SECTION 1: INVASIVE HEMODYNAMIC CALCULATOR */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
+                  <Gauge className="w-4 h-4 text-indigo-600" />
+                  Invasive Hemodynamic Parameter Calculator & Derived Indices
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Parameter Inputs Column */}
+                  <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                    <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                      <span>Primary Measurements</span>
+                      <span className="text-[10px] text-slate-400 font-normal">Live Inputs</span>
+                    </h3>
+
+                    <div className="grid grid-cols-2 gap-3 text-xs">
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">MAP (mmHg)</label>
+                        <input
+                          type="number"
+                          value={hemoMap}
+                          onChange={e => setHemoMap(Number(e.target.value) || 0)}
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 font-bold text-slate-900 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">CVP (mmHg)</label>
+                        <input
+                          type="number"
+                          value={hemoCvp}
+                          onChange={e => setHemoCvp(Number(e.target.value) || 0)}
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 font-bold text-slate-900 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">MPAP (mmHg)</label>
+                        <input
+                          type="number"
+                          value={hemoMpap}
+                          onChange={e => setHemoMpap(Number(e.target.value) || 0)}
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 font-bold text-slate-900 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">PAOP / Wedge</label>
+                        <input
+                          type="number"
+                          value={hemoPaop}
+                          onChange={e => setHemoPaop(Number(e.target.value) || 0)}
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 font-bold text-slate-900 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">Cardiac Output (L/min)</label>
+                        <input
+                          type="number"
+                          step="0.1"
+                          value={hemoCo}
+                          onChange={e => setHemoCo(Number(e.target.value) || 0)}
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 font-bold text-slate-900 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-500 mb-1">Heart Rate (bpm)</label>
+                        <input
+                          type="number"
+                          value={hemoHr}
+                          onChange={e => setHemoHr(Number(e.target.value) || 0)}
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 font-bold text-slate-900 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-indigo-50/60 rounded-xl border border-indigo-100 text-[11px] text-indigo-900">
+                      <span className="font-bold block">Patient BSA:</span> {patient.bsa ? `${patient.bsa} m²` : '1.73 m² (Standard Default)'}
+                    </div>
+                  </div>
+
+                  {/* Derived Calculations Grid */}
+                  <div className="lg:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {/* SVR Card */}
+                    <div className={`p-4 rounded-2xl border transition-all ${
+                      hemodynamicResults.isSvrLow 
+                        ? 'bg-amber-50 border-amber-200' 
+                        : hemodynamicResults.isSvrHigh 
+                        ? 'bg-rose-50 border-rose-200' 
+                        : 'bg-emerald-50/50 border-emerald-200'
+                    }`}>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">SVR (Systemic Vasc Res)</span>
+                      <span className="text-2xl font-black text-slate-900">{hemodynamicResults.svr}</span>
+                      <span className="text-[10px] font-semibold text-slate-500 block">dynes·sec/cm⁵</span>
+                      <div className="mt-2 text-[10px] font-bold flex items-center gap-1">
+                        {hemodynamicResults.isSvrLow && <span className="text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">Vasodilation / Vasoplegia</span>}
+                        {hemodynamicResults.isSvrHigh && <span className="text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">Vasoconstriction</span>}
+                        {!hemodynamicResults.isSvrLow && !hemodynamicResults.isSvrHigh && <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Normal (800-1200)</span>}
+                      </div>
+                    </div>
+
+                    {/* PVR Card */}
+                    <div className={`p-4 rounded-2xl border transition-all ${
+                      hemodynamicResults.isPvrHigh ? 'bg-rose-50 border-rose-200' : 'bg-emerald-50/50 border-emerald-200'
+                    }`}>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">PVR (Pulm Vasc Res)</span>
+                      <span className="text-2xl font-black text-slate-900">{hemodynamicResults.pvr}</span>
+                      <span className="text-[10px] font-semibold text-slate-500 block">dynes·sec/cm⁵</span>
+                      <div className="mt-2 text-[10px] font-bold">
+                        {hemodynamicResults.isPvrHigh ? (
+                          <span className="text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">High (Pulm HTN / PE)</span>
+                        ) : (
+                          <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Normal (100-250)</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Cardiac Index Card */}
+                    <div className={`p-4 rounded-2xl border transition-all ${
+                      hemodynamicResults.isCiLow ? 'bg-amber-50 border-amber-200' : 'bg-emerald-50/50 border-emerald-200'
+                    }`}>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Cardiac Index (CI)</span>
+                      <span className="text-2xl font-black text-slate-900">{hemodynamicResults.ci}</span>
+                      <span className="text-[10px] font-semibold text-slate-500 block">L/min/m²</span>
+                      <div className="mt-2 text-[10px] font-bold">
+                        {hemodynamicResults.isCiLow ? (
+                          <span className="text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">Low Output (&lt; 2.5)</span>
+                        ) : (
+                          <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Normal (2.5-4.0)</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Stroke Volume Index */}
+                    <div className="p-4 rounded-2xl bg-white border border-slate-200">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Stroke Vol Index (SVI)</span>
+                      <span className="text-2xl font-black text-slate-900">{hemodynamicResults.svi}</span>
+                      <span className="text-[10px] font-semibold text-slate-500 block">mL/m² (Normal: 33-47)</span>
+                    </div>
+
+                    {/* LVSWI */}
+                    <div className="p-4 rounded-2xl bg-white border border-slate-200">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">LVSWI (LV Work Index)</span>
+                      <span className="text-2xl font-black text-slate-900">{hemodynamicResults.lvswi}</span>
+                      <span className="text-[10px] font-semibold text-slate-500 block">g-m/m²/beat (Normal: 45-60)</span>
+                    </div>
+
+                    {/* RVSWI */}
+                    <div className="p-4 rounded-2xl bg-white border border-slate-200">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">RVSWI (RV Work Index)</span>
+                      <span className="text-2xl font-black text-slate-900">{hemodynamicResults.rvswi}</span>
+                      <span className="text-[10px] font-semibold text-slate-500 block">g-m/m²/beat (Normal: 7-12)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 2: ARTERIAL LINE WAVEFORM & DAMPING ANALYZER */}
+              <div className="space-y-4 border-t border-slate-200 pt-6">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                  <div className="flex items-center gap-2 text-sm font-bold text-slate-800 uppercase tracking-wider">
+                    <TrendingUp className="w-4 h-4 text-indigo-600" />
+                    Arterial Line Waveform & Damping Analysis (Square-Wave Flush Test)
+                  </div>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setDampingState('normal')}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                        dampingState === 'normal' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      Normal Damping
+                    </button>
+                    <button
+                      onClick={() => setDampingState('overdamped')}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                        dampingState === 'overdamped' ? 'bg-amber-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      Overdamped
+                    </button>
+                    <button
+                      onClick={() => setDampingState('underdamped')}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                        dampingState === 'underdamped' ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                    >
+                      Underdamped
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Interactive Waveform SVG Renderer */}
+                  <div className="bg-slate-950 p-4 rounded-2xl text-white space-y-3 shadow-inner">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="font-mono text-emerald-400 font-bold">ART PRESS: 120/80 (85) mmHg</span>
+                      <span className="text-[10px] text-slate-400 font-mono">Damping Coefficient (ζ): {
+                        dampingState === 'normal' ? '0.6 - 0.7 (Optimal)' : dampingState === 'overdamped' ? '> 1.0 (High Damping)' : '< 0.4 (Low Damping)'
+                      }</span>
+                    </div>
+
+                    <div className="h-40 w-full flex items-center justify-center bg-slate-900/60 rounded-xl overflow-hidden p-2 relative">
+                      <svg viewBox="0 0 400 120" className="w-full h-full stroke-current text-emerald-400 fill-none" strokeWidth="2.5">
+                        {dampingState === 'normal' && (
+                          <path d="M 10 90 L 30 90 L 45 20 L 55 50 L 62 45 L 75 80 L 100 90 L 140 90 L 145 10 L 145 100 L 155 85 L 165 92 L 180 90 L 220 90 L 235 20 L 245 50 L 252 45 L 265 80 L 300 90 L 390 90" />
+                        )}
+                        {dampingState === 'overdamped' && (
+                          <path d="M 10 90 L 40 90 L 60 40 L 90 75 L 120 90 L 140 90 L 145 10 L 145 100 L 160 90 L 220 90 L 240 40 L 270 75 L 300 90 L 390 90" />
+                        )}
+                        {dampingState === 'underdamped' && (
+                          <path d="M 10 90 L 30 90 L 40 5 L 50 65 L 55 35 L 62 85 L 68 75 L 75 90 L 140 90 L 145 10 L 145 100 L 150 20 L 155 105 L 160 70 L 165 95 L 170 88 L 180 90 L 220 90 L 230 5 L 240 65 L 245 35 L 252 85 L 260 90 L 390 90" />
+                        )}
+                      </svg>
+                    </div>
+
+                    <div className="text-[11px] text-slate-300 leading-relaxed font-sans bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                      {dampingState === 'normal' && (
+                        <p><strong className="text-emerald-400">Normal Waveform:</strong> Sharp upstroke, distinct dicrotic notch (aortic valve closure), and 1-2 small oscillations following the square-wave flush. SBP & DBP are accurately measured.</p>
+                      )}
+                      {dampingState === 'overdamped' && (
+                        <p><strong className="text-amber-400">Overdamped Waveform:</strong> Slurred upstroke, loss of dicrotic notch, and zero post-flush oscillations. Falsely LOW SBP and falsely HIGH DBP (MAP remains accurate).</p>
+                      )}
+                      {dampingState === 'underdamped' && (
+                        <p><strong className="text-rose-400">Underdamped Waveform:</strong> Overshooting tall narrow peak with multiple excessive post-flush oscillations (&gt;2). Falsely HIGH SBP and falsely LOW DBP.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Troubleshooting & Clinical Action Guide */}
+                  <div className="space-y-3 text-xs">
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                      <h4 className="font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                        <Info className="w-4 h-4 text-indigo-600" />
+                        Square-Wave Flush Test & Troubleshooting
+                      </h4>
+                      {dampingState === 'overdamped' && (
+                        <ul className="list-disc list-inside space-y-1 text-slate-600">
+                          <li><strong>Common Causes:</strong> Air bubbles in tubing/transducer, blood clot at catheter tip, kinked catheter, soft/compliant extension tubing, loose stopcock.</li>
+                          <li><strong>Correction Protocol:</strong> Flush line to clear blood/bubbles, check for kinks, aspirate clot, ensure short non-compliant pressure tubing.</li>
+                        </ul>
+                      )}
+                      {dampingState === 'underdamped' && (
+                        <ul className="list-disc list-inside space-y-1 text-slate-600">
+                          <li><strong>Common Causes:</strong> Excessive tubing length, multiple stopcocks, catheter whipping, hypothermia, hyperdynamic circulation.</li>
+                          <li><strong>Correction Protocol:</strong> Remove unnecessary extension tubing/stopcocks, use a damping device (e.g. Accudamp), rely on MAP rather than peak SBP.</li>
+                        </ul>
+                      )}
+                      {dampingState === 'normal' && (
+                        <ul className="list-disc list-inside space-y-1 text-slate-600">
+                          <li><strong>Flush Test Criteria:</strong> High-pressure flush generates a square wave followed by 1-2 rebound oscillations before resuming normal arterial wave.</li>
+                          <li><strong>Pulse Pressure Variation (PPV):</strong> PPV &gt; 13% predicts volume responsiveness ONLY if mechanically ventilated, tidal volume &ge; 8 mL/kg PBW, and sinus rhythm.</li>
+                        </ul>
+                      )}
+                    </div>
+
+                    <div className="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100 space-y-1.5">
+                      <h4 className="font-bold text-indigo-900 uppercase tracking-wider">Pulse Pressure Variation (PPV) Rules</h4>
+                      <p className="text-indigo-800 leading-relaxed font-mono text-xs">
+                        PPV (%) = [(PPmax - PPmin) / PPmean] × 100
+                      </p>
+                      <p className="text-indigo-800 leading-relaxed">
+                        Values &gt; 13% indicate the patient is on the steep ascending limb of the Frank-Starling curve and will increase Cardiac Output with fluid boluses.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 3: CENTRAL VENOUS PRESSURE (CVP) WAVEFORM ANALYSIS */}
+              <div className="space-y-4 border-t border-slate-200 pt-6">
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
+                  <Activity className="w-4 h-4 text-indigo-600" />
+                  Central Venous Pressure (CVP) Waveform Analysis & Pathological Signs
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Waveform Components Table */}
+                  <div className="bg-white rounded-xl border border-slate-200 overflow-hidden text-xs">
+                    <table className="w-full text-left">
+                      <thead className="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200">
+                        <tr>
+                          <th className="p-3">Wave / Descent</th>
+                          <th className="p-3">Cardiac Cycle Event</th>
+                          <th className="p-3">ECG Timing</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 font-medium text-slate-600">
+                        <tr>
+                          <td className="p-3 font-bold text-indigo-600">a wave</td>
+                          <td className="p-3">Right Atrial contraction</td>
+                          <td className="p-3">Just after P wave</td>
+                        </tr>
+                        <tr>
+                          <td className="p-3 font-bold text-indigo-600">c wave</td>
+                          <td className="p-3">Tricuspid valve bulging into RA (isovolumetric contraction)</td>
+                          <td className="p-3">End of QRS complex</td>
+                        </tr>
+                        <tr>
+                          <td className="p-3 font-bold text-indigo-600">x descent</td>
+                          <td className="p-3">Atrial relaxation & downward displacement of tricuspid valve</td>
+                          <td className="p-3">ST segment</td>
+                        </tr>
+                        <tr>
+                          <td className="p-3 font-bold text-indigo-600">v wave</td>
+                          <td className="p-3">Venous filling of RA against closed tricuspid valve</td>
+                          <td className="p-3">End of T wave</td>
+                        </tr>
+                        <tr>
+                          <td className="p-3 font-bold text-indigo-600">y descent</td>
+                          <td className="p-3">Tricuspid valve opening & rapid passive ventricular filling</td>
+                          <td className="p-3">Before P wave</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Pathological Signs */}
+                  <div className="space-y-3 text-xs">
+                    <div className="bg-rose-50 p-4 rounded-xl border border-rose-200 space-y-2">
+                      <h4 className="font-bold text-rose-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <AlertTriangle className="w-4 h-4 text-rose-600" />
+                        Key Pathological CVP Waveform Patterns
+                      </h4>
+                      <ul className="space-y-2 text-rose-800">
+                        <li>
+                          <strong>Cannon a Waves:</strong> Atrium contracts against a closed tricuspid valve. Seen in Complete Heart Block (3rd degree AV block), Junctional Rhythm, and VT.
+                        </li>
+                        <li>
+                          <strong>Giant v Waves:</strong> Severe Tricuspid Regurgitation (systolic backflow into RA during RV contraction obliterates x descent).
+                        </li>
+                        <li>
+                          <strong>Friedreich Sign (Deep y descent):</strong> Constrictive Pericarditis (rapid initial filling followed by sudden abrupt ventricular restriction).
+                        </li>
+                        <li>
+                          <strong>Blunted / Absent y descent:</strong> Cardiac Tamponade (high intrapericardial pressure prevents rapid passive filling during diastole).
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECTION 4: SHOCK PROFILES REFERENCE MATRIX */}
+              <div className="space-y-4 border-t border-slate-200 pt-6">
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
+                  <ShieldCheck className="w-4 h-4 text-indigo-600" />
+                  Invasive Hemodynamic Profiles in Shock States
+                </div>
+
+                <div className="bg-white rounded-xl border border-slate-200 overflow-hidden text-xs">
+                  <table className="w-full text-left">
+                    <thead className="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[10px] border-b border-slate-200">
+                      <tr>
+                        <th className="p-3">Shock Classification</th>
+                        <th className="p-3">CVP</th>
+                        <th className="p-3">PAOP / Wedge</th>
+                        <th className="p-3">CO / CI</th>
+                        <th className="p-3">SVR</th>
+                        <th className="p-3">SvO₂</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 text-slate-700 font-medium">
+                      <tr>
+                        <td className="p-3 font-bold text-slate-900">Hypovolemic Shock</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓</td>
+                        <td className="p-3 text-rose-600 font-bold">↓</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑</td>
+                        <td className="p-3 text-rose-600 font-bold">↓</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3 font-bold text-slate-900">Cardiogenic Shock</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑ (&gt;18)</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓ (&lt;2.2)</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3 font-bold text-slate-900">Distributive (Septic / Vasoplegic)</td>
+                        <td className="p-3 text-slate-500 font-bold">↔ / ↓</td>
+                        <td className="p-3 text-slate-500 font-bold">↔ / ↓</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑ (Early)</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓ (&lt;800)</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑ (Impaired extraction)</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3 font-bold text-slate-900">Obstructive (Tamponade)</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑ (Equalized)</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑ (Equalized)</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑</td>
+                        <td className="p-3 text-rose-600 font-bold">↓</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3 font-bold text-slate-900">Obstructive (Massive PE)</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑</td>
+                        <td className="p-3 text-slate-500 font-bold">Normal / Low</td>
+                        <td className="p-3 text-rose-600 font-bold">↓↓</td>
+                        <td className="p-3 text-emerald-600 font-bold">↑↑</td>
+                        <td className="p-3 text-rose-600 font-bold">↓</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </motion.div>

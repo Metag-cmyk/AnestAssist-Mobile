@@ -37,8 +37,20 @@ export default function GuidelinesDiagrams() {
     else localStorage.removeItem('anestassist_guidelines_selected_id');
   }, [selectedId]);
 
-  const filteredGuidelines = searchItems(guidelines, searchTerm, ['title', 'source']);
-  const sortedGuidelines = [...filteredGuidelines].sort((a, b) => b.year - a.year);
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'crisis' | 'algorithms'>('all');
+
+  const categoryFiltered = guidelines.filter(g => {
+    if (categoryFilter === 'crisis') return g.isCrisis || g.category === 'crisis';
+    if (categoryFilter === 'algorithms') return !g.isCrisis && g.category !== 'crisis';
+    return true;
+  });
+
+  const filteredGuidelines = searchItems(categoryFiltered, searchTerm, ['title', 'source']);
+  const sortedGuidelines = [...filteredGuidelines].sort((a, b) => {
+    if (a.isCrisis && !b.isCrisis) return -1;
+    if (!a.isCrisis && b.isCrisis) return 1;
+    return b.year - a.year;
+  });
 
   const getTypeStyles = (type: Step['type']) => {
     switch (type) {
@@ -64,6 +76,34 @@ export default function GuidelinesDiagrams() {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* Sidebar List */}
       <div className="lg:col-span-4 space-y-4">
+        {/* Category Filter Pills */}
+        <div className="flex bg-slate-100 p-1 rounded-xl gap-1 text-xs font-bold">
+          <button
+            onClick={() => setCategoryFilter('all')}
+            className={`flex-1 py-2 rounded-lg transition-all ${
+              categoryFilter === 'all' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setCategoryFilter('crisis')}
+            className={`flex-1 py-2 rounded-lg transition-all flex items-center justify-center gap-1 ${
+              categoryFilter === 'crisis' ? 'bg-rose-600 text-white shadow-sm' : 'text-slate-500 hover:text-rose-600'
+            }`}
+          >
+            🚨 Crisis Cards
+          </button>
+          <button
+            onClick={() => setCategoryFilter('algorithms')}
+            className={`flex-1 py-2 rounded-lg transition-all flex items-center justify-center gap-1 ${
+              categoryFilter === 'algorithms' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-indigo-600'
+            }`}
+          >
+            📘 Algorithms
+          </button>
+        </div>
+
         <div className="relative">
           <input
             type="text"
@@ -76,27 +116,41 @@ export default function GuidelinesDiagrams() {
         </div>
 
         <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-          {sortedGuidelines.map((g) => (
-            <button
-              key={g.id}
-              onClick={() => setSelectedId(g.id)}
-              className={`w-full text-left p-4 rounded-xl border transition-all ${
-                selectedId === g.id 
-                  ? 'bg-medical-primary text-white border-medical-primary shadow-md' 
-                  : 'bg-white text-slate-600 border-medical-border hover:bg-slate-50'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${
-                  selectedId === g.id ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
-                }`}>
-                  {g.source}
-                </span>
-                <span className="text-[10px] opacity-60 font-medium">{g.year}</span>
-              </div>
-              <h3 className="font-bold text-sm leading-tight">{g.title}</h3>
-            </button>
-          ))}
+          {sortedGuidelines.map((g) => {
+            const isCrisis = g.isCrisis || g.category === 'crisis';
+            return (
+              <button
+                key={g.id}
+                onClick={() => setSelectedId(g.id)}
+                className={`w-full text-left p-4 rounded-xl border transition-all ${
+                  selectedId === g.id 
+                    ? isCrisis ? 'bg-rose-600 text-white border-rose-600 shadow-md' : 'bg-medical-primary text-white border-medical-primary shadow-md'
+                    : isCrisis ? 'bg-rose-50/60 text-slate-800 border-rose-200 hover:bg-rose-100/70' : 'bg-white text-slate-600 border-medical-border hover:bg-slate-50'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${
+                      selectedId === g.id 
+                        ? 'bg-white/20 text-white' 
+                        : isCrisis ? 'bg-rose-200 text-rose-800 font-black' : 'bg-slate-100 text-slate-500'
+                    }`}>
+                      {g.source}
+                    </span>
+                    {isCrisis && (
+                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${
+                        selectedId === g.id ? 'bg-white/30 text-white' : 'bg-rose-600 text-white'
+                      }`}>
+                        EMERGENCY
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-[10px] opacity-60 font-medium">{g.year}</span>
+                </div>
+                <h3 className="font-bold text-sm leading-tight">{g.title}</h3>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -111,11 +165,28 @@ export default function GuidelinesDiagrams() {
               exit={{ opacity: 0, x: -20 }}
               className="bg-white rounded-2xl border border-medical-border shadow-sm overflow-hidden"
             >
-              <div className="p-6 border-b border-medical-border bg-slate-50 flex justify-between items-center">
+              <div className={`p-6 border-b flex justify-between items-center ${
+                selectedGuideline.isCrisis || selectedGuideline.category === 'crisis'
+                  ? 'bg-rose-50 border-rose-200'
+                  : 'bg-slate-50 border-medical-border'
+              }`}>
                 <div>
-                  <div className="flex items-center gap-2 text-medical-accent text-xs font-bold uppercase tracking-widest mb-1">
-                    <ShieldCheck className="w-4 h-4" />
-                    {t('common.visualAlgorithm')}
+                  <div className={`flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-1 ${
+                    selectedGuideline.isCrisis || selectedGuideline.category === 'crisis'
+                      ? 'text-rose-700 font-black'
+                      : 'text-medical-accent'
+                  }`}>
+                    {selectedGuideline.isCrisis || selectedGuideline.category === 'crisis' ? (
+                      <>
+                        <AlertCircle className="w-4 h-4 text-rose-600" />
+                        EMERGENCY CRISIS COGNITIVE AID CARD
+                      </>
+                    ) : (
+                      <>
+                        <ShieldCheck className="w-4 h-4" />
+                        {t('common.visualAlgorithm')}
+                      </>
+                    )}
                   </div>
                   <h2 className="text-xl font-bold text-medical-primary">
                     {selectedGuideline.title}

@@ -355,13 +355,127 @@ export interface Step {
 export interface GuidelineDiagram {
   id: string;
   title: string;
-  source: 'ASA' | 'ESAIC' | 'ESICM' | 'OAA' | 'RCOG' | 'SOAP' | 'AHA' | 'ACC' | 'ASRA' | 'ERC';
+  source: 'ASA' | 'ESAIC' | 'ESICM' | 'OAA' | 'RCOG' | 'SOAP' | 'AHA' | 'ACC' | 'ASRA' | 'ERC' | 'CRISIS' | 'DAS';
   year: number;
   steps: Step[];
   link: string;
+  isCrisis?: boolean;
+  category?: 'crisis' | 'algorithm';
 }
 
 export const DIAGRAM_GUIDELINES: GuidelineDiagram[] = [
+  {
+    id: 'crisis-malignant-hyperthermia',
+    title: 'Malignant Hyperthermia (MH) Emergency Rescue',
+    source: 'CRISIS',
+    year: 2024,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://www.mhaus.org/healthcare-professionals/mhaus-treatment-protocol/',
+    steps: [
+      { title: '1. Call for Help & Stop Triggers', description: 'Discontinue all volatile anesthetics and Succinylcholine. Call for MH Cart & senior help. Hyperventilate with 100% O2 at 10-15 L/min flow. Insert activated charcoal filters.', type: 'warning' },
+      { title: '2. Dantrolene Administration', description: 'Administer Dantrolene 2.5 mg/kg IV push rapidly. Repeat 2.5 mg/kg q5-10m until hypermetabolism subsides (max dose 10 mg/kg). (For Ryanodex: 1 vial 250mg in 5ml sterile water).', type: 'action' },
+      { title: '3. Active Cooling Protocol', description: 'Initiate active cooling for core temp > 38.5°C using iced cold saline 1000 mL IV, surface ice packs to axillae/groin, and cold gastric lavage. Stop cooling at 38.0°C.', type: 'action' },
+      { title: '4. Treat Severe Hyperkalemia', description: 'Give Calcium Chloride 10 mg/kg IV, Glucose 50% 50 mL + Regular Insulin 10 IU IV, and Sodium Bicarbonate 1-2 mEq/kg for severe metabolic acidosis.', type: 'action' },
+      { title: '5. Post-Crisis ICU Care', description: 'Monitor in ICU for 24-48h. Continue Dantrolene 1 mg/kg q6h. Check serial CK, myoglobinuria, TEG/coagulation panel for DIC, and maintain urine output > 2 mL/kg/h.', type: 'info' }
+    ]
+  },
+  {
+    id: 'crisis-last-rescue',
+    title: 'Local Anesthetic Systemic Toxicity (LAST) Rescue',
+    source: 'ASRA',
+    year: 2024,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://www.asra.com/advisory-guidelines/local-anesthetic-systemic-toxicity-last',
+    steps: [
+      { title: '1. Stop LA & Call for LAST Kit', description: 'Immediately stop local anesthetic injection/infusion. Call for senior assistance and the LAST Rescue Kit containing 20% Lipid Emulsion.', type: 'warning' },
+      { title: '2. Airway & Seizure Suppression', description: 'Hyperoxygenate with 100% O2. Suppress seizures using Benzodiazepines (Midazolam 0.05-0.1 mg/kg IV). Avoid Propofol if hemodynamically unstable.', type: 'action' },
+      { title: '3. 20% Lipid Emulsion Bolus', description: 'Administer 20% Lipid Emulsion 1.5 mL/kg IV over 1 min (~100 mL bolus for 70 kg adult). Repeat bolus once or twice for persistent cardiovascular collapse.', type: 'action' },
+      { title: '4. 20% Lipid Emulsion Infusion', description: 'Start 20% Lipid Emulsion continuous infusion at 0.25 mL/kg/min (~18 mL/min or 1000 mL/h). Double infusion rate to 0.5 mL/kg/min if hypotension persists.', type: 'action' },
+      { title: '5. ACLS Modifications', description: 'Avoid Vasopressin, Calcium channel blockers, and Beta-blockers. Reduce Epinephrine boluses to small doses (< 1 mcg/kg or 10-100 mcg IV).', type: 'warning' }
+    ]
+  },
+  {
+    id: 'crisis-cico-efona',
+    title: 'Can\'t Intubate, Can\'t Oxygenate (CICO) eFONA',
+    source: 'DAS',
+    year: 2022,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://das.uk.com/guidelines/',
+    steps: [
+      { title: '1. Declare CICO Emergency', description: 'Declare "Can\'t Intubate, Can\'t Oxygenate". Call for senior help and eFONA kit. Ensure 100% O2 via 2-person bag-mask with OPA/NPA.', type: 'warning' },
+      { title: '2. Patient Neck Extension', description: 'Extend neck fully ("laryngeal handshake" position) to identify cricothyroid membrane (CTM).', type: 'action' },
+      { title: '3. Scalpel Stab Incision', description: 'Perform transverse stab incision through CTM with #10 scalpel blade. Turn blade 90 degrees with cutting edge caudal.', type: 'action' },
+      { title: '4. Bougie Insertion', description: 'Pass coudé-tip tracheostomy/endotracheal bougie alongside scalpel blade into trachea (advance 10-15 cm until feeling tracheal hold-up).', type: 'action' },
+      { title: '5. Railroad ETT & Verify', description: 'Railroad a size 6.0 mm cuffed ETT over bougie into trachea. Inflate cuff, confirm EtCO2 wave, and secure tube.', type: 'action' }
+    ]
+  },
+  {
+    id: 'crisis-anaphylaxis-ga',
+    title: 'Anaphylaxis Under General Anesthesia',
+    source: 'ESAIC',
+    year: 2023,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://www.esaic.org/anaphylaxis-guidelines',
+    steps: [
+      { title: '1. Immediate Trigger Cessation', description: 'Stop administration of all suspected causative agents (antibiotics, NMBDs, IV colloids, chlorhexidine, blood products).', type: 'warning' },
+      { title: '2. 100% O2 & Discontinue Volatiles', description: 'Call for help. Increase O2 to 100% at high flow. Discontinue volatile anesthetics to avoid compounding vasodilation.', type: 'action' },
+      { title: '3. Epinephrine IV Titration', description: 'Grade II (Moderate): Epinephrine 10-20 mcg IV. Grade III (Life-threatening): Epinephrine 100-200 mcg IV q1-2 min or infusion 0.05-0.4 mcg/kg/min. Grade IV: 1 mg IV.', type: 'warning' },
+      { title: '4. Aggressive Fluid Resuscitation', description: 'Rapid IV bolus of 20-30 mL/kg balanced crystalloids (Plasma-Lyte/LR) to combat severe distributive vasodilation.', type: 'action' },
+      { title: '5. Secondary Therapies & Tryptase', description: 'Hydrocortisone 200 mg IV + Chlorphenamine 10 mg IV. Draw Serum Tryptase sample 1 at 1-2h post-event and sample 2 at 24h.', type: 'info' }
+    ]
+  },
+  {
+    id: 'crisis-high-spinal',
+    title: 'High / Total Spinal Anesthesia Rescue',
+    source: 'ASA',
+    year: 2023,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://pubs.asahq.org/anesthesiology',
+    steps: [
+      { title: '1. Early Recognition', description: 'Detect ascending sensory level above T4, sudden severe bradycardia, profound hypotension, aphonia, dyspnea, and loss of consciousness.', type: 'warning' },
+      { title: '2. Positioning & Airway', description: 'Call for help. Maintain 15° left lateral tilt. Keep head slightly elevated to prevent further cephalad block spread while preserving venous return.', type: 'action' },
+      { title: '3. Immediate Airway Control', description: 'Administer 100% O2 via bag-mask; perform rapid sequence endotracheal intubation if spontaneous respiration or airway reflexes fail.', type: 'action' },
+      { title: '4. Hemodynamic Resuscitation', description: 'Ephedrine 10-15 mg IV or Phenylephrine 100 mcg IV. Escalate to Epinephrine 10-50 mcg IV for profound bradycardia/hypotension.', type: 'warning' },
+      { title: '5. Atropine & Fluid Loading', description: 'Atropine 0.5-1.0 mg IV for bradycardia (HR < 50). Rapid crystalloid bolus 10-15 mL/kg. Continue mechanical ventilation until motor block regresses.', type: 'info' }
+    ]
+  },
+  {
+    id: 'crisis-massive-hemorrhage',
+    title: 'Massive Hemorrhage Protocol (MHP)',
+    source: 'ESAIC',
+    year: 2023,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://journals.lww.com/ejanaesthesiology',
+    steps: [
+      { title: '1. MHP Activation', description: 'Call blood bank to trigger Massive Hemorrhage Protocol. Assign blood runner and transfusion controller.', type: 'warning' },
+      { title: '2. Empiric 1:1:1 Transfusion', description: 'Transfuse Pack 1 (4 U PRBCs, 4 U FFP, 1 Pool Platelets) via rapid blood warmer/infuser.', type: 'action' },
+      { title: '3. Antifibrinolytic Administration', description: 'Tranexamic Acid (TXA) 1g IV over 10 min immediately (within 3h of bleeding onset).', type: 'action' },
+      { title: '4. Lethal Triad Prevention', description: 'Maintain temp > 36°C (forced air + warm fluids), pH > 7.20, and ionized Ca²⁺ > 1.1 mmol/L (administer 1g Calcium Chloride per 4 U blood).', type: 'action' },
+      { title: '5. Viscoelastic Target Replacement', description: 'Guide with TEG/ROTEM: Fibrinogen concentrate 2-4g if FIBTEM A5 < 10mm (or fibrinogen < 1.5 g/L), PCC 25-50 IU/kg if EXTEM CT prolonged.', type: 'info' }
+    ]
+  },
+  {
+    id: 'crisis-delayed-emergence',
+    title: 'Delayed Emergence / Unexplained Coma',
+    source: 'ASA',
+    year: 2024,
+    isCrisis: true,
+    category: 'crisis',
+    link: 'https://pubs.asahq.org/anesthesiology',
+    steps: [
+      { title: '1. Ventilation & Temperature Check', description: 'Verify EtCO2, normocapnia, SpO2 > 98%, and core temp > 35.5°C.', type: 'action' },
+      { title: '2. Quantitative Twitch Monitoring', description: 'Check TOF ratio at adductor pollicis using quantitative NMT monitor. Rule out residual neuromuscular block.', type: 'action' },
+      { title: '3. Point-of-Care ABG / Electrolytes', description: 'Measure glucose (rule out severe hypoglycemia), PaCO2 (rule out CO2 narcosis > 70 mmHg), and Sodium (rule out hyponatremia).', type: 'action' },
+      { title: '4. Targeted Pharmacological Reversal', description: 'Sugammadex 2-4 mg/kg IV for residual rocuronium; Naloxone 40-100 mcg IV for suspected opioid excess; Flumazenil 0.2 mg IV for suspected benzodiazepine excess.', type: 'warning' },
+      { title: '5. Stat Neuroimaging', description: 'If unresponsive despite normal POCT labs and full reversal, order urgent non-contrast Head CT to rule out ischemic stroke, ICH, or cerebral edema.', type: 'info' }
+    ]
+  },
   {
     id: 'asa-difficult-airway',
     title: 'Difficult Airway Management (2022)',

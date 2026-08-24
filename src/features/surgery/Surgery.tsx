@@ -21,6 +21,8 @@ import {
 import { SURGERY_DATA } from './data';
 import { SurgeryProcedure, SurgeryStep } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { isTranslationKey } from '../../config/navigation';
+
 
 function SurgicalGuide({ steps }: { steps: SurgeryStep[] }) {
   const { t } = useLanguage();

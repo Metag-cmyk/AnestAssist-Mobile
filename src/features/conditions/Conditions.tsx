@@ -3,10 +3,123 @@ import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, 
 import { motion, AnimatePresence } from 'motion/react';
 import { usePatient } from '../../contexts/PatientContext';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
-import { ConditionProtocol, TreatmentStep } from '../../types';
+import { ConditionProtocol, TreatmentStep, DifferentialItem } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useData } from '../../hooks/useData';
 import { searchItems } from '../../lib/search';
+
+function DifferentialMatrixView({ condition }: { condition: ConditionProtocol }) {
+  const triggers = condition.diagnosticTriggers || condition.diagnosis.slice(0, 3);
+  
+  const matrixItems: DifferentialItem[] = condition.differentialMatrix || (
+    condition.differentialDiagnosis ? condition.differentialDiagnosis.map((item) => {
+      let feature = 'Evaluate clinical onset, drug exposures, baseline risk factors, and systemic signs.';
+      let pocus = 'POCUS / Bedside ABG / Focused Ultrasound';
+      
+      const lower = item.toLowerCase();
+      if (lower.includes('pneumothorax')) {
+        feature = 'Unilateral absent breath sounds, tracheal shift, acute high peak airway pressure & hypotension.';
+        pocus = 'Lung POCUS: Absent lung sliding, absence of B-lines, presence of Lung Point.';
+      } else if (lower.includes('tamponade')) {
+        feature = 'Beck\'s triad (Hypotension, JVD, muffled heart sounds), low QRS voltage, pulsus paradoxus.';
+        pocus = 'FOCUS: Pericardial effusion with diastolic RV collapse & dilated non-collapsible IVC.';
+      } else if (lower.includes('anaphylaxis')) {
+        feature = 'Sudden severe bronchospasm, mucosal edema, profound vasodilation, cutaneous flushing/hives.';
+        pocus = 'Serum Tryptase at 1-2h & 24h; POCUS: Normal lung sliding with hyperdynamic empty LV.';
+      } else if (lower.includes('hyperthermia') || lower.includes('mh')) {
+        feature = 'Unexplained steep EtCO2 rise, masseter muscle rigidity, hyperkalemia, dark myoglobinuria.';
+        pocus = 'ABG: Severe combined respiratory & metabolic acidosis + hyperkalemia + elevated CK.';
+      } else if (lower.includes('embolism') || lower.includes('pe')) {
+        feature = 'Sudden EtCO2 drop, acute RV strain, hypoxemia, right-sided heart failure.';
+        pocus = 'FOCUS / TEE: McConnell sign (RV apical sparing), RV/LV ratio > 1.0, D-shaped LV.';
+      } else if (lower.includes('bronchospasm') || lower.includes('asthma')) {
+        feature = 'High peak airway pressure with normal plateau pressure, wheezing, prolonged expiration.';
+        pocus = 'Lung POCUS: Bilateral lung sliding, absent pneumothorax, lung hyperinflation.';
+      } else if (lower.includes('last') || lower.includes('toxicity')) {
+        feature = 'Perioral numbness, metallic taste, seizures progressing to QRS widening & refractory arrest.';
+        pocus = 'ECG: QRS prolongation, AV block; FOCUS: Global LV hypokinesis.';
+      } else if (lower.includes('sepsis')) {
+        feature = 'Fever/hypothermia, refractory distributive vasodilation, elevated lactate, infectious focus.';
+        pocus = 'POCUS: Hyperdynamic LV, collapsible IVC (<50%); Blood cultures + ABG.';
+      } else if (lower.includes('stroke') || lower.includes('ischemia')) {
+        feature = 'Focal neurological deficit, facial droop, arm drift, asymmetric gaze.';
+        pocus = 'Stat non-contrast CT Head to rule out intracranial hemorrhage.';
+      }
+      
+      return {
+        condition: item,
+        distinguishingFeatures: feature,
+        pocusOrKeyTest: pocus
+      };
+    }) : []
+  );
+
+  return (
+    <section className="p-6 bg-slate-50/80 rounded-2xl border border-slate-200 space-y-5 my-6">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 uppercase tracking-wider">
+          <Search className="w-4 h-4 text-indigo-600" />
+          Diagnostic Triggers & Differential Matrix
+        </h3>
+        <span className="text-[10px] font-bold bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+          Clinical Differential Analysis
+        </span>
+      </div>
+
+      {/* Diagnostic Triggers Bar */}
+      {triggers && triggers.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            Key Clinical Diagnostic Triggers
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {triggers.map((trig, idx) => (
+              <span key={idx} className="px-3 py-1.5 bg-amber-50 border border-amber-200 text-amber-900 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                {trig}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Differential Matrix Items */}
+      {matrixItems && matrixItems.length > 0 && (
+        <div className="space-y-3 pt-2">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            Differential Diagnosis & Key Distinguishing Features
+          </p>
+          <div className="grid grid-cols-1 gap-3">
+            {matrixItems.map((item, idx) => (
+              <div key={idx} className="p-4 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 transition-all space-y-2 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-bold text-sm text-slate-800 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0" />
+                    {item.condition}
+                  </h4>
+                  {item.pocusOrKeyTest && (
+                    <span className="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 shrink-0">
+                      {item.pocusOrKeyTest.split(':')[0]}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed pl-3 border-l-2 border-indigo-200">
+                  <strong className="text-slate-800">Distinguishing Features: </strong>
+                  {item.distinguishingFeatures}
+                </p>
+                {item.pocusOrKeyTest && (
+                  <p className="text-[11px] text-indigo-950 bg-indigo-50/60 p-2 rounded-lg font-mono">
+                    🔍 {item.pocusOrKeyTest}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
 
 function TreatmentDiagram({ steps }: { steps: TreatmentStep[] }) {
   const { t } = useLanguage();
@@ -297,21 +410,7 @@ export default function Conditions() {
                     <TreatmentDiagram steps={selectedCondition.diagram} />
                   )}
 
-                  {selectedCondition.differentialDiagnosis && selectedCondition.differentialDiagnosis.length > 0 && (
-                    <section className="p-5 bg-slate-50/50 rounded-2xl border border-slate-200">
-                      <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">
-                        <Search className="w-4 h-4 text-slate-600" />
-                        {t('common.differentialDiagnosis')}
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedCondition.differentialDiagnosis.map((item, i) => (
-                          <span key={i} className="px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] text-slate-600 font-bold uppercase tracking-wider">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </section>
-                  )}
+                  <DifferentialMatrixView condition={selectedCondition} />
 
                   <section>
                     <h3 className="flex items-center gap-2 text-sm font-bold text-slate-800 mb-4">

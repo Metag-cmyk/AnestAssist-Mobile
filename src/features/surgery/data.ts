@@ -77,10 +77,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         recommendedBlocks: ['TAP Block (Transversalis Plane)', 'Local Infiltration'],
         erasHighlights: ['Opioid-sparing analgesia', 'Early mobilization', 'Day-case discharge protocol if uncomplicated'],
         guide: [
-          { title: 'Approach', description: 'Laparoscopic (umbilical 10mm, suprapubic 5mm, left iliac fossa 5mm ports) or Open (McBurney\'s point or Lanz incision in the right iliac fossa).' },
-          { title: 'Identification', description: 'Follow the taeniae coli of the cecum to their convergence at the base of the appendix. Mobilize the cecum if necessary to expose a retrocecal appendix.' },
-          { title: 'Ligation', description: 'Use a harmonic scalpel, clips, or ties to divide the mesoappendix and its artery. Secure the base of the appendix with endoloops or a stapler, ensuring the stump is clear of the cecum.' },
-          { title: 'Removal', description: 'Place the appendix in an extraction bag to prevent wound contamination. Irrigate the paracolic gutter and pelvis thoroughly with warm saline if perforation or pus is present.' }
+          { title: 'Positioning & Port Access', description: 'Place patient supine with left tilt. Establish pneumoperitoneum and place umbilical (10mm), suprapubic (5mm), and left lower quadrant (5mm) ports under vision.' },
+          { title: 'Cecal Mobilization & Identification', description: 'Follow the taeniae coli of the cecum distally to their convergence at the base of the appendix. Mobilize retrocecal appendix if bound by adhesions.' },
+          { title: 'Mesoappendix Dissection & Ligation', description: 'Divide the mesoappendix and appendiceal artery using bipolar diathermy, harmonic scalpel, or titanium clips.' },
+          { title: 'Stump Ligation & Appendectomy', description: 'Secure the base of the appendix with two proximal endoloops or an endoscopic stapler and transect the appendix.' },
+          { title: 'Specimen Extraction & Peritoneal Lavage', description: 'Place the appendix in an extraction bag and retrieve through the umbilical port. Irrigate pelvis with warm saline and close port sites.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with RSI if suspected peritonitis or full stomach',
@@ -117,10 +118,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         recommendedBlocks: ['Ilioinguinal / Iliohypogastric Nerve Block', 'TAP Block', 'Transversalis Fascia Block'],
         erasHighlights: ['Day-case procedure', 'Opioid-sparing multi-modal analgesia', 'Early ambulation'],
         guide: [
-          { title: 'Incision', description: 'Open (oblique groin incision) or Laparoscopic (TEP - Totally Extraperitoneal or TAPP - Transabdominal Preperitoneal approach).' },
-          { title: 'Reduction', description: 'Identify the hernia sac (indirect, direct, or femoral). Carefully dissect the sac away from the spermatic cord structures (in males) and reduce contents into the peritoneal cavity.' },
-          { title: 'Mesh Placement', description: 'Place a large-pore synthetic mesh to cover the entire myopectineal orifice. Secure with tacks (laparoscopic) or sutures (open), ensuring no tension.' },
-          { title: 'Closure', description: 'In open repair, close the external oblique aponeurosis to reconstruct the inguinal canal. Layered closure of Scarpa\'s fascia and skin.' }
+          { title: 'Incision & Canal Access', description: 'Make an oblique groin incision 2 cm parallel to inguinal ligament. Divide subcutaneous tissues and incise external oblique aponeurosis to open inguinal canal.' },
+          { title: 'Cord Structure Identification', description: 'Isolate the spermatic cord (or round ligament) on a Penrose drain. Identify ilioinguinal and iliohypogastric nerves to prevent entrapment.' },
+          { title: 'Hernia Sac Dissection & Reduction', description: 'Dissect the indirect hernia sac away from vas deferens and testicular vessels up to internal ring. High ligate or reduce direct sac into retroperitoneum.' },
+          { title: 'Mesh Prosthesis Placement', description: 'Position a tailored polypropylene mesh over the inguinal floor, securing to pubic tubercle and inguinal ligament with non-absorbable sutures.' },
+          { title: 'Layered Canal Reconstruction & Closure', description: 'Reconstruct external oblique aponeurosis over the cord to restore internal ring tightness. Perform layered subcutaneous and skin closure.' }
         ],
         anestheticConsiderations: [
           'General anesthesia or Spinal/Local with sedation',
@@ -157,10 +159,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         recommendedBlocks: ['PECS I & II Blocks', 'Erector Spinae Plane (ESP) Block', 'Thoracic Paravertebral Block'],
         erasHighlights: ['Opioid-sparing multimodal protocol', 'PONV prophylaxis (Dual antiemetics)', 'Same-day / Early discharge'],
         guide: [
-          { title: 'Incision', description: 'Perform a transverse elliptical (Stewart) incision encompassing the nipple-areola complex and any previous biopsy scars, ensuring adequate skin flaps for closure.' },
-          { title: 'Dissection', description: 'Raise superior and inferior skin flaps in the plane between the subcutaneous fat and breast fascia. Dissect the breast tissue off the pectoralis major fascia from the clavicle to the inframammary fold.' },
-          { title: 'Axilla', description: 'Identify the long thoracic and thoracodorsal nerves. Perform sentinel lymph node biopsy (using blue dye/radioisotope) or formal axillary lymph node dissection (Levels I and II) as indicated.' },
-          { title: 'Closure', description: 'Ensure meticulous hemostasis using cautery or ties. Place one or two closed-suction drains (e.g., Jackson-Pratt) and close the skin in layers with absorbable sutures or staples.' }
+          { title: 'Incision & Flap Elevation', description: 'Perform horizontal elliptical Stewart incision enclosing nipple-areola complex. Elevate superior and inferior subcutaneous skin flaps to clavicle and inframammary fold.' },
+          { title: 'Breast Gland Resection', description: 'Dissect breast tissue off the pectoralis major muscle fascia from lateral sternal border to latissimus dorsi muscle edge.' },
+          { title: 'Sentinel Node / Axillary Dissection', description: 'Perform sentinel lymph node biopsy (using isosulfan blue/technetium) or Level I/II axillary lymphadenectomy, preserving long thoracic and thoracodorsal nerves.' },
+          { title: 'Hemostasis & Cavity Irrigation', description: 'Achieve meticulous thermal cautery hemostasis over chest wall bed. Irrigate field with warm sterile saline.' },
+          { title: 'Suction Drain Placement & Skin Closure', description: 'Insert one or two closed-suction Jackson-Pratt drains in axilla and subcutaneous space. Perform continuous intradermal skin closure.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with LMA or ETT',
@@ -282,10 +285,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         recommendedBlocks: ['Thoracic Epidural (T5-T7)', 'Paravertebral Block', 'ESP Block'],
         erasHighlights: ['Protective One-Lung Ventilation (4-6 mL/kg PBW + PEEP)', 'Strict fluid restriction', 'Early extubation in ICU'],
         guide: [
-          { title: 'Abdominal Phase', description: 'Mobilize the stomach, preserving the right gastroepiploic artery. Create a gastric conduit using linear staplers.' },
-          { title: 'Thoracic Phase', description: 'Perform a right thoracotomy. Resect the esophagus and perform a radical mediastinal lymphadenectomy (Ivor-Lewis approach).' },
-          { title: 'Anastomosis', description: 'Pull the gastric conduit into the chest (or neck) and perform a circular or hand-sewn esophagogastric anastomosis.' },
-          { title: 'Closure', description: 'Place chest tubes, a mediastinal drain, and a feeding jejunostomy tube. Close the thoracotomy and laparotomy incisions.' }
+          { title: 'Abdominal Mobilization & Conduit Prep', description: 'Perform laparotomy or laparoscopy to mobilize stomach, preserving right gastroepiploic artery. Form tubular gastric conduit using endoscopic linear staplers.' },
+          { title: 'Feeding Jejunostomy Placement', description: 'Insert needle-catheter enteral feeding jejunostomy tube 15 cm distal to ligament of Treitz for early postoperative nutritional support.' },
+          { title: 'Thoracic Mobilization (One-Lung Ventilation)', description: 'Position patient in left lateral decubitus. Initiate OLV via DLT, perform right posterolateral thoracotomy, and dissect thoracic esophagus en-bloc with mediastinal nodes.' },
+          { title: 'Esophagogastric Anastomosis', description: 'Pull gastric conduit into thoracic cavity or cervical incision. Perform intrathoracic or cervical end-to-side esophagogastric anastomosis using circular or hand-sewn technique.' },
+          { title: 'Pleural Drainage & Layered Closure', description: 'Place apical and basal chest tubes in right hemithorax and mediastinal drain. Re-expand right lung under direct vision and close incisions in layers.' }
         ],
         anestheticConsiderations: [
           'Major surgery with two/three-field approach',
@@ -365,9 +369,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         recommendedBlocks: ['TAP Block (Subcostal)', 'ESP Block', 'Wound Infiltration'],
         erasHighlights: ['Low-pressure pneumoperitoneum', 'Aggressive multi-modal PONV prophylaxis', 'Early CPAP & mobilization'],
         guide: [
-          { title: 'Positioning', description: 'Steep reverse Trendelenburg to displace the liver and bowel inferiorly. Essential to strap securely and use a footboard.' },
-          { title: 'Access & Pneumoperitoneum', description: 'Optical trocar or Veress for initial entry. Beware of increased baseline intra-abdominal pressure and rapidly escalating peak airway pressures.' },
-          { title: 'Anastomosis', description: 'Creation of a small gastric pouch and gastrojejunostomy. Leak test usually performed with methylene blue or air under water seal.' }
+          { title: 'Positioning & Access', description: 'Place patient in steep reverse Trendelenburg to displace viscera inferiorly. Establish pneumoperitoneum (12-15 mmHg) via optical trocar or Veress needle and place 5-6 laparoscopic ports.' },
+          { title: 'Pouch Creation', description: 'Divide the lesser omentum near the nerve of Latarjet. Use laparoscopic linear staplers to create a small (15-30 mL) vertical gastric pouch over a calibration bougie, isolating it from the distal stomach.' },
+          { title: 'Alimentary & Biliopancreatic Limbs', description: 'Identify the Ligament of Treitz. Measure an 75-100 cm biliopancreatic limb and divide the jejunum. Measure a 100-150 cm alimentary (Roux) limb and bring it antecolic to the gastric pouch.' },
+          { title: 'Gastrojejunostomy', description: 'Perform an end-to-side or side-to-side gastrojejunostomy using a linear stapler or circular stapler, hand-sewing the enterotomy. Perform a side-to-side jejunostomy to connect the biliopancreatic limb.' },
+          { title: 'Leak Test & Closure', description: 'Instill methylene blue or air via OGT under water seal to check for anastomotic leak. Close mesenteric defects to prevent internal hernia and resect/extract excess tissue if needed.' }
         ],
         anestheticConsiderations: [
           'High risk for difficult airway (OSA, short thick neck)',
@@ -398,10 +404,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'apr',
         name: 'Abdominoperineal Resection (APR)',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Standard GA',
+        recommendedBlocks: ['Thoracic Epidural (T8-T10)', 'TAP Block', 'Pudendal Nerve Block (Perineal Phase)'],
+        erasHighlights: ['Goal-Directed Fluid Therapy', 'Avoid routine NGT', 'Presacral plexus hemorrhage protocol'],
         guide: [
-          { title: 'Approach', description: 'Combined abdominal and perineal approach for low rectal cancers. Involves removing the rectum, anus, and sphincter complex.' },
-          { title: 'Positioning', description: 'Lithotomy or Lloyd-Davies position with steep Trendelenburg during the abdominal phase, often flipped to prone jackknife for the perineal phase (or done simultaneously).' },
-          { title: 'Stoma', description: 'Permanent end-colostomy is formed in the left iliac fossa.' }
+          { title: 'Positioning & Access', description: 'Place patient in Lloyd-Davies or lithotomy position with Trendelenburg. Perform a laparoscopic multi-port entry or lower midline laparotomy.' },
+          { title: 'Abdominal Mobilization', description: 'Mobilize the left colon and sigmoid. High tie of the Inferior Mesenteric Artery (IMA) and vein. Perform Total Mesorectal Excision (TME) down to the pelvic floor levator muscles.' },
+          { title: 'Perineal Phase', description: 'Position for perineal approach. Perform a circumferential elliptical incision around the anus. Dissect through the levator ani muscles to meet the abdominal plane.' },
+          { title: 'Specimen Extraction & Stoma', description: 'Deliver the entire rectum, anal canal, and sphincter complex en-bloc through the perineal defect. Form a permanent end-colostomy in the left iliac fossa.' },
+          { title: 'Pelvic Reconstruction & Closure', description: 'Perform meticulous hemostasis of the presacral venous plexus. Reconstruct the pelvic floor with biological mesh or primary closure over suction drains. Close perineal skin in layers.' }
         ],
         anestheticConsiderations: [
           'Prolonged surgery with significant fluid shifts',
@@ -432,9 +445,18 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'whipple',
         name: 'Whipple Procedure (Pancreaticoduodenectomy)',
+        estimatedBloodLoss: '500 - 1500 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Cell Saver',
+        airwayStrategy: 'Oral ETT + Invasive Arterial Line / CVP',
+        recommendedBlocks: ['Thoracic Epidural (T7-T9)', 'Bilateral Subcostal TAP Block', 'Erector Spinae Plane (ESP) Block'],
+        erasHighlights: ['Low CVP during resection', 'Strict GDFT in reconstruction phase', 'Tight glycemic control (target 100-140 mg/dL)'],
         guide: [
-          { title: 'Resection Phase', description: 'En-bloc removal of the pancreatic head, duodenum, proximal jejunum, gallbladder, and common bile duct. Major vessels (SMA, PV) are exposed and carefully preserved.' },
-          { title: 'Reconstruction Phase', description: 'Three anastomoses: Pancreaticojejunostomy (pancreatic duct to jejunum), hepaticojejunostomy (bile duct to jejunum), and gastrojejunostomy (stomach to jejunum).' }
+          { title: 'Access & Staging', description: 'Bilateral subcostal (Rooftopp) or upper midline laparotomy. Perform diagnostic laparoscopy/ultrasound to rule out peritoneal or liver metastases.' },
+          { title: 'Kocherization & Dissection', description: 'Extensively mobilize the duodenum and pancreatic head (Kocher maneuver). Dissect the hepatoduodenal ligament, isolating the common bile duct, hepatic artery, and portal vein.' },
+          { title: 'Resection', description: 'Divide the stomach/duodenum (pylorus-preserving or classic), common bile duct, proximal jejunum, and pancreatic neck over the portal vein tunnel en-bloc.' },
+          { title: 'Pancreaticojejunostomy', description: 'Perform duct-to-mucosa or invagination pancreaticojejunostomy to the retrocolic jejunal loop as the primary reconstruction step.' },
+          { title: 'Hepaticojejunostomy & Gastrojejunostomy', description: 'Perform an end-to-side hepaticojejunostomy distally on the jejunal loop, followed by an antecolic gastrojejunostomy/duodenojejunostomy.' },
+          { title: 'Drainage & Layered Closure', description: 'Perform meticulous hemostasis and leak testing. Place closed-suction drains adjacent to the pancreatic and biliary anastomoses and close the abdominal wall in layers.' }
         ],
         anestheticConsiderations: [
           'One of the most physiologically demanding GI operations. Duration 4-8 hours.',
@@ -460,10 +482,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'liver-resection',
         name: 'Liver Resection (Hepatectomy)',
+        estimatedBloodLoss: '400 - 1200 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Low CVP (< 5 cmH2O) Target during transection',
+        recommendedBlocks: ['Erector Spinae Plane (ESP) Block', 'TAP Block (Subcostal)', 'Intrathecal Morphine (100-200 mcg)'],
+        erasHighlights: ['Controlled Low CVP anesthesia (< 5 mmHg)', 'Pringle Maneuver time monitoring', 'Fluid restriction until hemostasis'],
         guide: [
-          { title: 'Mobilization', description: 'Divide hepatic ligaments to free the liver. Intraoperative ultrasound to define tumor margins and identify key vessels.' },
-          { title: 'Pringle Manoeuvre', description: 'Temporary occlusion of the hepatoduodenal ligament (hepatic artery + portal vein) to reduce bleeding during parenchymal transection. Tolerated up to ~60 min intermittent.' },
-          { title: 'Parenchymal Transection', description: 'Using CUSA (Cavitron Ultrasonic Surgical Aspirator), harmonic scalpel, or stapler. Bile ducts and vessels are ligated as encountered.' }
+          { title: 'Access & Mobilization', description: 'Perform a right subcostal or Mercedes-Benz incision. Divide the triangular and falciform ligaments to mobilize the liver. Perform intraoperative ultrasound to map tumor margins.' },
+          { title: 'Vascular Control & Pringle Prep', description: 'Isolate the inflow vessels (portal vein branch and hepatic artery branch). Encircle the hepatoduodenal ligament with a tourniquet for Pringle maneuver (inflow occlusion).' },
+          { title: 'Parenchymal Transection', description: 'Perform parenchymal transection using CUSA (Cavitron Ultrasonic Surgical Aspirator), bipolar cautery, or linear staplers under low CVP (< 5 mmHg) to minimize venous bleeding.' },
+          { title: 'Hemostasis & Bile Leak Test', description: 'Secure intrahepatic vascular and biliary structures with clips or ties. Perform a bile leak test by injecting air/fluorescein via the cystic duct or compressing the gallbladder.' },
+          { title: 'Drainage & Layered Closure', description: 'Achieve complete surface hemostasis with topical hemostatic agents (e.g., fibrin sealant). Place closed-suction drains in the resection bed and perform a layered closure.' }
         ],
         anestheticConsiderations: [
           'Low CVP anaesthesia (CVP < 5 mmHg) during transection reduces hepatic venous bleeding significantly. Use position (head-up), volatile agents, and judicious fluid restriction.',
@@ -489,15 +518,29 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'exploratory-laparotomy',
         name: 'Exploratory Laparotomy',
+        estimatedBloodLoss: '100 - 1000 mL (Condition Dependent)',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Rapid Sequence Induction (RSI) mandatory',
+        recommendedBlocks: ['Bilateral TAP Block', 'Erector Spinae Plane (ESP) Block', 'Wound Infiltration'],
+        erasHighlights: ['Rapid warming & GDFT', 'Early extubation if non-septic', 'Opioid-sparing multimodal analgesia'],
         guide: [
-          { title: 'Entry', description: 'Midline laparotomy. Rapid systematic survey of all abdominal quadrants: inspect bowel from Ligament of Treitz to recto-sigmoid, assess solid organs, mesentery, and peritoneum.' },
-          { title: 'Damage Control', description: 'In unstable patients: pack bleeding quadrants, staple bowel ends, close temporarily (Bogota bag or vacuum dressing). Return in 24-48h for definitive repair when physiology corrected.' }
+          { title: 'Incision & Entry', description: 'Perform a rapid, generous midline laparotomy from xiphoid process to pubic symphysis. Eviscerate and perform immediate suctioning of blood, enteric contents, or purulent fluid.' },
+          { title: 'Systematic Quadrant Exploration', description: 'Systematically run the entire small bowel from the Ligament of Treitz to the ileocecal valve. Inspect the stomach, duodenum, colon, liver, spleen, mesentery, and retroperitoneum.' },
+          { title: 'Source Control & Hemostasis', description: 'Identify the underlying pathology (perforation, ischemia, bleeding, obstruction). Control hemorrhage with vascular clamping or packing, and control contamination with bowel clamps.' },
+          { title: 'Definitive Repair or Resection', description: 'Perform bowel resection, primary anastomosis, stoma creation, or ulcer repair depending on viability and hemodynamic stability.' },
+          { title: 'Abdominal Closure or Open Abdomen', description: 'Irrigate the peritoneal cavity with warm saline. Perform layered fascial closure, or implement temporary abdominal closure (e.g., Bogota bag or ABThera) if damage control is needed.' }
         ],
         anestheticConsiderations: [
           'Often an emergency or semi-emergency. RSI mandatory - assume full stomach.',
           'Presentation ranges from stable (diagnostic) to actively dying (ruptured viscus, bowel ischemia). Prepare for both extremes.',
           'Avoid N2O (bowel distension), aggressive PEEP if hemodynamically compromised.'
         ],
+        antibioticProphylaxis: {
+          drug: 'Cefuroxime + Metronidazole',
+          dosage: '1.5g + 500mg IV',
+          timing: 'At induction',
+          alternatives: 'Gentamicin + Clindamycin'
+        },
         complications: {
           surgical: ['Bowel injury if adhesiolysis', 'Missed injury', 'Post-op ileus'],
           anesthetic: ['Aspiration', 'Hemodynamic collapse at induction (sepsis/hemorrhage)', 'Hypothermia']
@@ -512,9 +555,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'paraumbilical-hernia',
         name: 'Paraumbilical Hernia Repair',
         guide: [
-          { title: 'Access', description: 'Perform a small curvilinear or omega incision around the umbilicus. Reduce hernia contents (fat or bowel).' },
-          { title: 'Repair', description: 'Anatomical closure of the defect (Mayo repair) or, more commonly, placement of a sublay or onlay mesh for larger defects.' },
-          { title: 'Closure', description: 'Invert the umbilicus and secure it to the fascia to restore cosmetic appearance.' }
+          { title: 'Incision & Dissection', description: 'Perform an infra-umbilical curvilinear or omega incision. Dissect subcutaneous tissue down to the hernia sac, taking care not to enter the bowel.' },
+          { title: 'Sac Dissection & Reduction', description: 'Dissect the hernia sac away from the umbilical skin stalk and line of defect. Open the sac, inspect contents (omentum or small bowel), and reduce them into the peritoneal cavity.' },
+          { title: 'Defect Preparation', description: 'Expose the anterior rectus sheath fascia surrounding the hernia defect for a distance of at least 2-3 cm in all directions.' },
+          { title: 'Mesh Reinforcement', description: 'Place a macroporous synthetic mesh in the retromuscular (sublay) or preperitoneal space, securing it with non-absorbable sutures to overlap the defect.' },
+          { title: 'Umbilical Reconstruction & Closure', description: 'Re-anchor the umbilical skin stalk down to the anterior fascia (tacking stitch). Perform layered subcutaneous closure and skin apposition.' }
         ],
         anestheticConsiderations: [
           'Often simple, but can be an emergency if incarcerated (assume full stomach).',
@@ -541,10 +586,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'lap-rectal-resection',
         name: 'Laparoscopic Anterior Resection (Dixon\'s)',
         guide: [
-          { title: 'Access', description: 'Multi-port laparoscopy. Medial-to-lateral mobilization of the sigmoid and rectum.' },
-          { title: 'Ligation', description: 'Ligate the Inferior Mesenteric Artery (IMA) at its origin (high tie) and the vein at the pancreatic border.' },
-          { title: 'Resection', description: 'Divide the rectum below the tumor (Total Mesorectal Excision - TME for low tumors) using a linear stapler.' },
-          { title: 'Anastomosis', description: 'Restore continuity using a circular stapler (EEA). Perform a leak test (air under water).' }
+          { title: 'Positioning & Access', description: 'Place patient in Lloyd-Davies position with Trendelenburg and right tilt. Establish pneumoperitoneum (12-15 mmHg) and place 4-5 laparoscopic ports.' },
+          { title: 'Medial-to-Lateral Dissection', description: 'Incise peritoneum over sacral promontory. High ligation of Inferior Mesenteric Artery (IMA) preserving autonomic nerves. Mobilize mesocolon off Gerota\'s fascia.' },
+          { title: 'Total Mesorectal Excision (TME)', description: 'Enter embryological avascular mesorectal plane ("holy plane"). Dissect bilaterally down to pelvic floor levators, preserving hypogastric nerve plexuses.' },
+          { title: 'Transection & Extraction', description: 'Transect rectum distal to tumor using a laparoscopic linear cutter-stapler. Make a small Pfannenstiel incision to extract specimen and place anvil in proximal colon.' },
+          { title: 'Stapled Anastomosis & Leak Test', description: 'Re-establish pneumoperitoneum. Perform end-to-end double-stapled colorectal anastomosis with circular EEA stapler. Perform rigid sigmoidoscopy leak test under water seal.' }
         ],
         anestheticConsiderations: [
           'Major abdominal surgery, steep Trendelenburg, long duration.',
@@ -719,6 +765,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'orif-ankle',
         name: 'ORIF Ankle Fracture',
+        estimatedBloodLoss: '< 50 mL (Tourniquet)',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA / ETT / Spinal Anesthesia',
+        recommendedBlocks: ['Popliteal Sciatic Block', 'Saphenous Nerve Block', 'Ankle Block'],
+        erasHighlights: ['Day-case procedure', 'Multi-modal non-opioid baseline', 'Early limb elevation'],
         guide: [
           { title: 'Incision', description: 'Make a lateral incision over the fibula and/or a medial incision over the medial malleolus, taking care to preserve the superficial peroneal and saphenous nerves.' },
           { title: 'Reduction', description: 'Clear the fracture site of hematoma and debris. Use bone reduction forceps to achieve anatomic alignment of the fibula and/or tibia.' },
@@ -756,6 +807,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'acl-reconstruction',
         name: 'ACL Reconstruction',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA / ETT / Spinal Anesthesia',
+        recommendedBlocks: ['Adductor Canal Block (ACB)', 'IPACK Block', 'Femoral Triangle Block'],
+        erasHighlights: ['Day-case procedure', 'Opioid-sparing recovery', 'Early weight bearing as tolerated'],
         guide: [
           { title: 'Harvesting', description: 'Harvest the autograft (e.g., semitendinosus and gracilis tendons or bone-patellar tendon-bone) through a small incision. Prepare and tension the graft on a back table.' },
           { title: 'Arthroscopy', description: 'Perform a systematic diagnostic arthroscopy. Debride the torn ACL remnants and perform a notchplasty if necessary to prevent graft impingement.' },
@@ -793,6 +849,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'shoulder-arthroscopy',
         name: 'Shoulder Arthroscopy (Decompression/Repair)',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT or LMA (Beach Chair position requires strict airway security)',
+        recommendedBlocks: ['Interscalene Brachial Plexus Block (ISB)', 'Suprascapular + Axillary Block'],
+        erasHighlights: ['Controlled BP to prevent cerebral hypoperfusion', 'Opioid-sparing pathway', 'Day-case discharge'],
         guide: [
           { title: 'Positioning', description: 'Secure the patient in the beach chair position (ensuring head and neck stability) or lateral decubitus position with arm traction.' },
           { title: 'Access', description: 'Establish a posterior portal for the camera. Create anterior and lateral portals under direct vision for instrument access and suture management.' },
@@ -830,6 +891,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'shoulder-replacement',
         name: 'Total Shoulder Replacement',
+        estimatedBloodLoss: '200 - 500 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT (Beach Chair Position)',
+        recommendedBlocks: ['Interscalene Block', 'Suprascapular + Axillary Nerve Block'],
+        erasHighlights: ['Pre-op IV Tranexamic Acid (1g)', 'Beach chair blood pressure monitoring at ear level', 'Early passive motion'],
         guide: [
           { title: 'Incision', description: 'Perform a deltopectoral incision, identifying and preserving the cephalic vein. Retract the deltoid and pectoralis major to expose the clavipectoral fascia.' },
           { title: 'Exposure', description: 'Divide the subscapularis tendon (or perform a lesser tuberosity osteotomy) to expose the shoulder joint. Perform a capsulotomy and dislocate the humeral head.' },
@@ -867,10 +933,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'im-nailing',
         name: 'Femoral Intramedullary (IM) Nailing',
+        estimatedBloodLoss: '300 - 800 mL (Occult loss into thigh)',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT or Spinal Anesthesia',
+        recommendedBlocks: ['Femoral Nerve Block', 'Fascia Iliaca Block (FIB)'],
+        erasHighlights: ['Pre-op block for traction positioning pain', 'Tranexamic Acid 1g IV', 'Early mobilization'],
         guide: [
-          { title: 'Positioning', description: 'Fracture table in supine or lateral decubitus. Affected leg in traction boot with perineal post. The uninjured leg is placed in a well-leg holder.' },
-          { title: 'Reduction & Reaming', description: 'Closed reduction under fluoroscopy. Guidewire is passed across the fracture, and the canal is reamed.' },
-          { title: 'Nail Insertion', description: 'The IM nail is driven down the canal. Proximal and distal interlocking screws are placed.' }
+          { title: 'Positioning & Traction', description: 'Place patient on fracture table (supine or lateral decubitus). Apply traction via foot boot against perineal post to achieve initial closed fracture alignment.' },
+          { title: 'Entry Point & Reaming', description: 'Make a 3-5 cm skin incision proximal to the greater trochanter. Insert entry awl and pass a flexible ball-tipped guidewire across the fracture site under fluoroscopy. Ream the medullary canal sequentially.' },
+          { title: 'Nail Insertion', description: 'Select an appropriately sized intramedullary nail and drive it down the reamed femoral canal over the guidewire across the fracture line.' },
+          { title: 'Interlocking Screws', description: 'Place proximal locking screws (or cephalomedullary hip screw) and distal interlocking screws using fluoroscopic targeting to prevent rotation and shortening.' },
+          { title: 'Closure & Dressing', description: 'Remove guidewire and traction. Flush entry wounds and perform a layered closure of fascia, subcutaneous tissue, and skin over a simple sterile dressing.' }
         ],
         anestheticConsiderations: [
           'High risk of Fat Embolism Syndrome (FES) during canal reaming',
@@ -900,10 +973,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'total-shoulder-arthroplasty',
         name: 'Total Shoulder Arthroplasty (TSA)',
+        estimatedBloodLoss: '200 - 500 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Beach Chair position safety checks',
+        recommendedBlocks: ['Interscalene Block', 'Suprascapular + Axillary Block'],
+        erasHighlights: ['Phenylephrine infusion to maintain MAP at brain level', 'TXA 1g IV at induction'],
         guide: [
-          { title: 'Positioning', description: 'Beach-chair or lateral decubitus. Beach-chair requires strict head positioning to prevent cerebral hypoperfusion (keep MAP ≥ 65 at ear level, not at heart).' },
-          { title: 'Approach', description: 'Deltopectoral approach. Subscapularis tendon takedown for exposure of glenohumeral joint.' },
-          { title: 'Implantation', description: 'Humeral head resection, glenoid preparation and component implantation, humeral stem insertion and reduction.' }
+          { title: 'Positioning & Beach Chair Prep', description: 'Position patient in 45-60 degree beach chair position. Secure head in rigid headrest ensuring free neck positioning and zero pressure on eyes/ear lobules.' },
+          { title: 'Deltopectoral Exposure', description: 'Make an anterior incision from coracoid process down toward deltoid insertion. Mobilize cephalic vein lateral, divide clavipectoral fascia, and perform subscapularis tenotomy.' },
+          { title: 'Humeral Preparation', description: 'Dislocate humeral head anteriorly. Perform anatomical neck osteotomy. Sequential reaming and broaching of humeral medullary canal.' },
+          { title: 'Glenoid Preparation & Implantation', description: 'Expose glenoid cavity using specialized retractors. Clear labrum, ream glenoid surface to correct version, drill anchoring peg holes, and cement high-density polyethylene glenoid component.' },
+          { title: 'Humeral Stem Insertion & Subscapularis Repair', description: 'Insert trial humeral stem and head, verify stability and range of motion. Insert final prostheses, reattach subscapularis tendon with heavy non-absorbable sutures, and close in layers.' }
         ],
         anestheticConsiderations: [
           'Beach-chair position: high risk of cerebral hypoperfusion from orthostatic gradient. MAP at the Brain = measured MAP minus the vertical distance (in cmH2O converted to mmHg) between the transducer and the head.',
@@ -929,10 +1009,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'multilevel-spinal-fusion',
         name: 'Multi-level Spinal Fusion (≥3 levels)',
+        estimatedBloodLoss: '500 - 2000 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Cell Saver',
+        airwayStrategy: 'Oral ETT + TIVA (Propofol/Remifentanil for IONM)',
+        recommendedBlocks: ['Erector Spinae Plane (ESP) Block (Bilateral)', 'Thoracic Epidural'],
+        erasHighlights: ['TIVA mandatory for neuromonitoring', 'TXA loading + continuous infusion', 'Logan prone positioning (eye protection)'],
         guide: [
-          { title: 'Positioning', description: 'Prone on a Wilson frame or Jackson table. Meticulous padding of all pressure points. Eyes taped and checked every 30 min for pressure.' },
-          { title: 'Instrumentation', description: 'Pedicle screw placement under fluoroscopic or navigation guidance. Multiple levels require extended retractor placement causing significant blood loss.' },
-          { title: 'Decompression & Fusion', description: 'Laminectomy/discectomy at affected levels. Bone graft (autograft from iliac crest, or allograft) packed into disc spaces and posterolateral gutters.' }
+          { title: 'Positioning & Eye Check', description: 'Log-roll patient prone onto Wilson frame or Jackson table. Ensure abdomen hangs free (prevents epidural venous engorgement). Meticulous eye offloading (prevent POVL).' },
+          { title: 'Midline Exposure & Level Marking', description: 'Make a midline longitudinal incision over targeted spine segments. Subperiosteally strip paraspinal muscles from spinous processes and laminae. Confirm levels via C-arm fluoroscopy.' },
+          { title: 'Pedicle Screw Placement', description: 'Prepare pedicle entry points under fluoroscopic/navigational guidance using gearshift probe. Tap pedicles and insert titanium pedicle screws across all targeted levels.' },
+          { title: 'Decompression & Interbody Fusion (PLIF/TLIF)', description: 'Perform laminectomies and facetectomies. Carefully retract dural sac and nerve roots. Perform discectomy and pack interbody cage with bone graft into disc space.' },
+          { title: 'Rod Fixation & Layered Closure', description: 'Contour titanium rods into lumbar lordosis and lock onto pedicle screw heads with set screws. Place decorticated posterolateral bone graft. Insert deep drain and close fascia in layers.' }
         ],
         anestheticConsiderations: [
           'Significant blood loss expected (500-2000mL+). Use Cell Saver, Tranexamic Acid (TXA) infusion, and consider deliberate hypotension (MAP 65-75) to reduce field bleeding.',
@@ -958,10 +1045,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'total-elbow-replacement',
         name: 'Total Elbow Arthroplasty',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA / Oral ETT',
+        recommendedBlocks: ['Supraclavicular Brachial Plexus Block', 'Infraclavicular Block'],
+        erasHighlights: ['Supraclavicular block for opioid avoidance', 'Early controlled mobilization'],
         guide: [
-          { title: 'Access', description: 'Posterior midline incision. Identify and protect the ulnar nerve (often transposed).' },
-          { title: 'Preparation', description: 'Prepare the humeral and ulnar canals using sequential reamers.' },
-          { title: 'Implantation', description: 'Cemented insertion of the humeral and ulnar components. Link the components (for semiconstrained prostheses).' }
+          { title: 'Incision & Ulnar Nerve Transposition', description: 'Make a posterior midline incision curving laterally around olecranon. Identify, mobilize, and anteriorly transpose the ulnar nerve to prevent postoperative stretch palsy.' },
+          { title: 'Joint Exposure & Resection', description: 'Reflect or split the triceps mechanism. Perform distal humeral and proximal ulnar osteotomies to expose the medullary canals.' },
+          { title: 'Canal Preparation & Broaching', description: 'Sequentially ream and rasp the humeral and ulnar medullary canals to fit the semiconstrained stem components.' },
+          { title: 'Cementing & Coupling', description: 'Pulse-lavage bone canals. Inject PMMA bone cement and insert humeral and ulnar components. Link the hinge pin mechanism once cement cures.' },
+          { title: 'Triceps Repair & Closure', description: 'Reattach the triceps tendon to the olecranon using heavy non-absorbable sutures/anchors. Place a suction drain and close skin in layers.' }
         ],
         anestheticConsiderations: [
           'GA or Regional (Supraclavicular/Infraclavicular block).',
@@ -987,10 +1081,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'hip-hemiarthroplasty',
         name: 'Hip Hemiarthroplasty',
+        estimatedBloodLoss: '200 - 500 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units',
+        airwayStrategy: 'Spinal (Subarachnoid Block) + Sedation or ETT',
+        recommendedBlocks: ['Fascia Iliaca Block (FIB)', 'PENG Block'],
+        erasHighlights: ['TXA 1g IV at induction', 'BCIS monitoring protocol during cementing', 'Early post-op mobilization at 6h'],
         guide: [
-          { title: 'Incision', description: 'Lateral or posterior approach. Resect the fractured femoral head.' },
-          { title: 'Preparation', description: 'Ream the femoral canal manually or with progressive broaches.' },
-          { title: 'Insertion', description: 'Insert the femoral prosthesis (Austin-Moore or Thompson, often cemented in the elderly) and reduce into the native acetabulum.' }
+          { title: 'Incision & Capsulotomy', description: 'Perform a posterolateral (Hardinge) or direct lateral incision. Dissect down to the hip capsule and perform a T-shaped capsulotomy.' },
+          { title: 'Femoral Head Resection', description: 'Dislocate the fractured femoral head. Measure head size with a gauge to select the appropriate prosthetic head diameter.' },
+          { title: 'Canal Preparation & Broaching', description: 'Perform a femoral neck cut at the designated level. Sequentially broach the femoral canal manually to ensure axial and rotational stability.' },
+          { title: 'Femoral Component Insertion', description: 'Thoroughly irrigate and dry the canal. Insert a cemented or uncemented stem (Austin-Moore / Thompson / Bipolar head prosthesis), monitoring closely for BCIS during cement pressurization.' },
+          { title: 'Reduction & Layered Closure', description: 'Reduce the prosthetic head into the native acetabulum. Check range of motion and joint stability. Repair posterior capsule/rotators and close fascia and skin in layers.' }
         ],
         anestheticConsiderations: [
           'Typically elderly, frail patients with multiple comorbidities.',
@@ -1044,6 +1145,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'turp',
         name: 'Transurethral Resection of Prostate (TURP)',
+        estimatedBloodLoss: '100 - 400 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Spinal Anesthesia (T10 level) preferred / LMA if GA',
+        recommendedBlocks: ['Spinal Anesthesia', 'Pudendal Nerve Block', 'Local Infiltration'],
+        erasHighlights: ['Isotonic saline irrigation with bipolar loop', 'TURP syndrome surveillance (Na+ monitoring)', 'Early catheter trial'],
         guide: [
           { title: 'Access', description: 'Insert a resectoscope through the urethra into the bladder. Use continuous irrigation (glycine or saline) to maintain a clear view.' },
           { title: 'Resection', description: 'Systematically resect the obstructing prostatic tissue using an electrical loop (monopolar or bipolar), starting from the bladder neck and moving towards the verumontanum.' },
@@ -1081,11 +1187,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'radical-nephrectomy',
         name: 'Radical Nephrectomy (Open/Laparoscopic)',
+        estimatedBloodLoss: '200 - 600 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Standard GA',
+        recommendedBlocks: ['Paravertebral Block', 'Erector Spinae Plane (ESP) Block', 'TAP Block'],
+        erasHighlights: ['Renal protective hydration', 'Early post-op ambulation', 'Opioid-sparing recovery'],
         guide: [
-          { title: 'Access', description: 'Flank (retroperitoneal), subcostal, or midline incision (Open); or a multi-port laparoscopic approach (Transperitoneal).' },
-          { title: 'Vascular Control', description: 'Identify and ligate the renal artery and then the renal vein early to minimize hematogenous tumor spread.' },
-          { title: 'Resection', description: 'Remove the kidney within Gerota\'s fascia, including the adrenal gland (if indicated) and regional lymph nodes.' },
-          { title: 'Extension Check', description: 'If there is a tumor thrombus in the IVC, coordinate with vascular/cardiac surgery for IVC control and thrombectomy.' }
+          { title: 'Positioning & Surgical Access', description: 'Place patient in lateral kidney position or supine. Perform subcostal, flank, or laparoscopic multi-port access to Gerota\'s space.' },
+          { title: 'Renal Hilar Vascular Isolation', description: 'Identify and isolate the renal artery and renal vein early in the hilar dissection to minimize hematogenous tumor cell dissemination.' },
+          { title: 'Vascular Ligation & Division', description: 'Double-ligate and divide the main renal artery followed by the main renal vein using heavy silk or endoscopic vascular staplers.' },
+          { title: 'En-Bloc Nephrectomy & Gerota Dissection', description: 'Dissect the kidney en-bloc within intact Gerota\'s fascia, including ipsilateral adrenal gland (if involved) and regional retroperitoneal lymph nodes.' },
+          { title: 'IVC Cavity Inspection & Layered Closure', description: 'Inspect renal vein stump and IVC for tumor thrombus or oozing. Place closed-suction retroperitoneal drain and close flank fascia in layers.' }
         ],
         anestheticConsiderations: [
           'Expect significant blood loss, especially for large tumors or those with IVC thrombus.',
@@ -1111,10 +1223,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'kidney-transplant',
         name: 'Kidney Transplantation',
+        estimatedBloodLoss: '200 - 500 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Standard GA (High K+ vigilance)',
+        recommendedBlocks: ['TAP Block', 'Transversalis Fascia Block', 'Ilioinguinal / Iliohypogastric Block'],
+        erasHighlights: ['Maintain MAP > 85-90 mmHg during vascular clamp release', 'Methylprednisolone loading', 'GDFT for graft perfusion'],
         guide: [
-          { title: 'Vascular Anastomosis', description: 'Perform end-to-side anastomoses of the donor renal vein to the external iliac vein and the donor renal artery to the external iliac artery.' },
-          { title: 'Ureteral Anastomosis', description: 'Perform a ureteroneocystostomy (suturing the donor ureter to the recipient bladder) over a stent to prevent stenosis.' },
-          { title: 'Reperfusion', description: 'Release clamps and monitor for "reperfusion syndrome" (hypotension, hyperkalemia, or bradycardia).' }
+          { title: 'Incision & Exposure', description: 'Perform a Gibson or curvi-linear incision in the lower abdominal quadrant (iliac fossa). Dissect extraperitoneally down to the external iliac vessels.' },
+          { title: 'Venous Anastomosis', description: 'Isolate the external iliac vein. Perform an end-to-side vascular anastomosis of the donor renal vein to the external iliac vein using 5-0 or 6-0 Prolene.' },
+          { title: 'Arterial Anastomosis', description: 'Isolate the external or internal iliac artery. Perform an end-to-side (or end-to-end) arterial anastomosis using fine monofilament suture.' },
+          { title: 'Reperfusion & Hemostasis', description: 'Release vascular clamps (venous first, then arterial). Monitor for color change ("pinking up"), turgor, immediate urine production, and any vascular suture line bleeding.' },
+          { title: 'Ureteral Anastomosis & Closure', description: 'Perform an extravesical ureteroneocystostomy (Lich-Gregoir technique) connecting the donor ureter to the bladder mucosa over a double-J stent. Place a wound drain and close in layers.' }
         ],
         anestheticConsiderations: [
           'Patient typically has ESRD: manage high potassium, uremia, and volume status.',
@@ -1141,6 +1260,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'cystoscopy',
         name: 'Cystoscopy and Biopsy/TURBT',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA / ETT / Spinal Anesthesia',
+        recommendedBlocks: ['Obturator Nerve Block (Mandatory for lateral wall TURBT)', 'Spinal Anesthesia (T10)'],
+        erasHighlights: ['Day-case procedure', 'Obturator reflex prevention', 'Early oral fluid intake'],
         guide: [
           { title: 'Access', description: 'Lubricate and insert a flexible or rigid cystoscope through the urethra into the bladder under direct vision. Use continuous irrigation for visibility.' },
           { title: 'Inspection', description: 'Perform a systematic inspection of the entire bladder mucosa, identifying any suspicious areas, stones, or tumors.' },
@@ -1178,6 +1302,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'prostatectomy',
         name: 'Radical Prostatectomy (Robotic/Open)',
+        estimatedBloodLoss: '100 - 300 mL (Robotic) / 300 - 800 mL (Open)',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT (Steep Trendelenburg Position)',
+        recommendedBlocks: ['TAP Block', 'Quadratus Lumborum (QL) Block'],
+        erasHighlights: ['Restrictive fluid protocol (< 1.5L)', 'Deep Trendelenburg facial edema surveillance', 'Early catheter removal protocol'],
         guide: [
           { title: 'Access', description: 'Establish laparoscopic access (5-6 ports) or perform a midline/Pfannenstiel incision. Identify the Retzius space and mobilize the bladder.' },
           { title: 'Dissection', description: 'Carefully dissect the prostate from the bladder neck and the rectum. Identify and preserve the neurovascular bundles (nerve-sparing technique) if indicated.' },
@@ -1215,6 +1344,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'ureteroscopy',
         name: 'Ureteroscopy and Laser Lithotripsy',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Second-Gen LMA / Oral ETT',
+        recommendedBlocks: ['Systemic Analgesia (Spinal optional)'],
+        erasHighlights: ['Day-case procedure', 'Zero muscle twitch during laser pulse', 'Hydration instructions'],
         guide: [
           { title: 'Access', description: 'Lubricate and insert a semi-rigid or flexible ureteroscope retrograde through the urethra and bladder into the ureter under fluoroscopic guidance.' },
           { title: 'Identification', description: 'Systematically inspect the ureter and renal pelvis to locate the stone(s). Use a safety wire to maintain access throughout the procedure.' },
@@ -1252,6 +1386,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'radical-cystectomy',
         name: 'Radical Cystectomy and Urinary Diversion',
+        estimatedBloodLoss: '400 - 1000 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Invasive Arterial Line / CVP',
+        recommendedBlocks: ['Thoracic Epidural (T8-T10)', 'TAP Block (Bilateral)', 'Erector Spinae Plane (ESP) Block'],
+        erasHighlights: ['Goal-Directed Fluid Therapy', 'Avoid routine NGT', 'Early bowel stimulation (Gum chewing & Alvimopan)'],
         guide: [
           { title: 'Cystectomy', description: 'Perform a radical cystectomy, removing the bladder and adjacent organs (prostate/seminal vesicles in men; uterus/ovaries/anterior vaginal wall in women).' },
           { title: 'Lymphadenectomy', description: 'Perform an extended pelvic lymph node dissection (PLND) to ensure adequate oncological staging and clearance.' },
@@ -1290,10 +1429,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'pcnl',
         name: 'Percutaneous Nephrolithotomy (PCNL)',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Prone positioning safety protocols',
+        recommendedBlocks: ['Paravertebral Block', 'Erector Spinae Plane (ESP) Block', 'Intercostal Block'],
+        erasHighlights: ['Prone position airway security', 'Continuous active warming', 'Pleural effusion surveillance'],
         guide: [
-          { title: 'Positioning', description: 'Initial cystoscopy and retrograde catheter placement in lithotomy, then flipped to PRONE position for percutaneous kidney access.' },
-          { title: 'Access', description: 'Under fluoroscopic and ultrasound guidance, a needle tracks into the renal calyx. The tract is dilated to allow a nephroscope.' },
-          { title: 'Lithotripsy', description: 'Stones are fragmented using pneumatic, ultrasonic, or laser lithotripters. High-volume irrigation is used to flush fragments.' }
+          { title: 'Retrograde Access & Positioning', description: 'Perform initial cystoscopy in lithotomy to place an open-ended ureteral catheter into the target renal pelvis. Reposition patient prone, offloading eyes and pressure points.' },
+          { title: 'Fluoroscopic / US Percutaneous Access', description: 'Under fluoroscopic or ultrasound guidance, puncture the target renal calyx with an 18G diamond-tip needle below the 12th rib to avoid pleural transgression.' },
+          { title: 'Tract Dilation', description: 'Pass a safety guidewire into the collecting system. Dilate the tract sequentially (using balloon dilator or metal Amplatz dilators) up to 24-30 Fr sheath size.' },
+          { title: 'Nephroscopy & Lithotripsy', description: 'Insert rigid or flexible nephroscope. Fragment renal calculi using ultrasonic, pneumatic, or laser lithotripter and extract fragments with rigid graspers.' },
+          { title: 'Nephrostomy & Stent Placement', description: 'Verify complete stone clearance via fluoroscopy/nephroscopy. Place a double-J ureteral stent and insert a 18-24 Fr re-entry nephrostomy tube for post-op drainage.' }
         ],
         anestheticConsiderations: [
           'High risk associated with the Prone position (airway loss, eye pressure)',
@@ -1349,46 +1495,54 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
     },
     procedures: [
       {
-        id: 'craniotomy-tumor',
-        name: 'Craniotomy for Tumor Resection',
+        id: 'craniotomy-brain-tumor',
+        name: 'Craniotomy for Brain Tumor Resection',
+        estimatedBloodLoss: '200 - 1000 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + TIVA / Balanced GA',
+        recommendedBlocks: ['Scalp Block (Bupivacaine with Epinephrine)', 'Local Infiltration of Pin Sites'],
+        erasHighlights: ['TIVA (Propofol/Remifentanil)', 'Normocapnia (PaCO2 35-38 mmHg)', 'Mannitol 20% (0.5-1g/kg) for brain relaxation'],
         guide: [
-          { title: 'Positioning', description: 'Head fixed in Mayfield frame, elevated to facilitate venous drainage.' },
-          { title: 'Incision', description: 'Perform a scalp incision (e.g., horseshoe or linear) based on the tumor location. Reflect the scalp flap and secure it with Raney clips or bipolar cautery.' },
-          { title: 'Bone Flap', description: 'Create burr holes and use a craniotome to cut a bone flap. Carefully separate the bone from the underlying dura mater.' },
-          { title: 'Durotomy', description: 'Open the dura mater in a reflected fashion to expose the brain surface. Maintain hemostasis along the dural edges.' },
-          { title: 'Resection', description: 'Use microscopic dissection, ultrasonic aspiration, and bipolar cautery to resect the tumor while preserving eloquent brain areas.' },
-          { title: 'Closure', description: 'Close the dura mater (water-tight) with sutures or a dural substitute. Replace the bone flap and secure it with plates and screws. Perform a layered scalp closure.' }
+          { title: 'Positioning & Head Frame', description: 'Position head in Mayfield 3-pin skull clamp. Elevate head 15-30 degrees.' },
+          { title: 'Craniotomy', description: 'Curved skin incision, raise subgaleal flap. Drill burr holes, cut bone flap using craniotome.' },
+          { title: 'Dural Entry & Resection', description: 'Incise dura, use neuronavigation and cavitron ultrasonic surgical aspirator (CUSA) to resect lesion.' },
+          { title: 'Closure', description: 'Watertight dural closure, replace bone flap with titanium plates, galeal and skin closure.' }
         ],
         anestheticConsiderations: [
-          'Total Intravenous Anesthesia (TIVA) often preferred (Propofol/Remifentanil)',
-          'Maintain "slack brain" (Mannitol, hyperventilation to PaCO2 4.5-5.0 kPa)',
-          'Smooth emergence (avoid coughing/straining)',
-          'Precise blood pressure control'
+          'Tight BP control: avoid hypertension during incision/skull clamping and emergence',
+          'Brain relaxation: Mannitol (0.5-1g/kg IV) or Hypertonic Saline 3%',
+          'Avoid nitrous oxide (pneumocephalus risk)',
+          'Prophylactic anticonvulsants (Levetiracetam 1g IV)'
         ],
         antibioticProphylaxis: {
-          drug: 'Cefuroxime or Vancomycin',
-          dosage: '1.5g or 1g IV',
-          timing: 'At induction',
-          alternatives: 'Clindamycin'
+          drug: 'Cefazolin',
+          dosage: '2g IV',
+          timing: 'At induction (redose q4h)',
+          alternatives: 'Vancomycin 15mg/kg'
         },
         complications: {
-          surgical: ['Intracranial hemorrhage', 'Brain edema', 'Neurological deficit', 'CSF leak'],
-          anesthetic: ['Venous Air Embolism (especially in sitting position)', 'Seizures', 'Diabetes Insipidus']
+          surgical: ['Intracranial hemorrhage', 'Cerebral edema', 'Neurological deficit', 'CSF leak'],
+          anesthetic: ['Elevated ICP', 'Venous air embolism (sitting position)', 'Seizures', 'Delayed emergence']
         },
         management: {
-          preOp: ['Administer Dexamethasone', 'Check electrolytes'],
+          preOp: ['Administer Dexamethasone 10mg IV for vasogenic edema', 'Verify type and crossmatch'],
           intraOp: [
-            'Maintain stable cerebral perfusion pressure (CPP) and minimize intracranial pressure (ICP) throughout the procedure; avoid hypertension during dural opening and closure.',
-            'Monitor for venous air embolism (VAE), particularly if the surgical site is above the level of the heart; maintain adequate venous return and use precordial Doppler.',
-            'Ensure meticulous hemostasis to prevent post-operative intracranial hematoma; monitor for signs of brain swelling or herniation during resection.',
-            'Utilize intra-operative neuromonitoring (e.g., motor or sensory evoked potentials) to protect eloquent brain regions during tumor removal.'
+            'Infiltrate scalp pin sites with local anesthetic before Mayfield application to prevent hypertensive surge.',
+            'Maintain PaCO2 35-38 mmHg; avoid hypercapnia which increases CBV and ICP.',
+            'Administer Mannitol 20% (0.5-1g/kg) prior to dural opening if brain is tight.',
+            'Smooth emergence: use Labetalol or Esmolol to suppress coughing and HTN on extubation.'
           ],
-          postOp: ['ICU/HDU admission', 'Strict BP targets (e.g., SBP < 140)']
+          postOp: ['ICU or Neuro-HD unit monitoring', 'Serial GCS and pupil checks', 'CT head if GCS drops']
         }
       },
       {
         id: 'vp-shunt',
         name: 'Ventriculoperitoneal (VP) Shunt',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Standard GA',
+        recommendedBlocks: ['Scalp Block (Local Infiltration at cranial & abdominal sites)'],
+        erasHighlights: ['Aseptic protocol', 'Smooth emergence to prevent ICP spike', 'Day-case / Short-stay'],
         guide: [
           { title: 'Access', description: 'Perform a small scalp incision (e.g., retroauricular or frontal) and create a burr hole. Make a small abdominal incision (e.g., paramedian or periumbilical) for peritoneal access.' },
           { title: 'Ventricular Lead', description: 'Insert the proximal catheter through the burr hole into the lateral ventricle using a stylet. Confirm CSF flow and measure the opening pressure.' },
@@ -1426,6 +1580,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'microdiscectomy',
         name: 'Lumbar Microdiscectomy',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Prone Position',
+        recommendedBlocks: ['Erector Spinae Plane (ESP) Block', 'Wound Infiltration'],
+        erasHighlights: ['Opioid-sparing recovery', 'Early mobilization at 4 hours', 'Day-case protocol'],
         guide: [
           { title: 'Positioning', description: 'Place the patient in the prone position on a Wilson frame or Jackson table, ensuring the abdomen is free to reduce venous pressure and bleeding.' },
           { title: 'Incision', description: 'Perform a small midline incision (2-3 cm) over the affected lumbar level, confirmed by intra-operative fluoroscopy (C-arm).' },
@@ -1463,6 +1622,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'spinal-fusion',
         name: 'Lumbar Spinal Fusion (PLIF/TLIF)',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + TIVA (if IONM used)',
+        recommendedBlocks: ['Erector Spinae Plane (ESP) Block (Bilateral)', 'Thoracic Epidural'],
+        erasHighlights: ['TXA 1g IV loading + infusion', 'Multimodal opioid-sparing protocol', 'Early mobilization'],
         guide: [
           { title: 'Positioning', description: 'Place the patient in the prone position on a specialized radiolucent table (e.g., Jackson table), ensuring the abdomen is free and all pressure points are protected.' },
           { title: 'Exposure', description: 'Perform a midline incision over the affected levels, confirmed by fluoroscopy. Perform subperiosteal dissection of the paraspinal muscles to expose the lamina and facets.' },
@@ -1501,11 +1665,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'carpal-tunnel',
         name: 'Carpal Tunnel Release',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Monitored Anesthesia Care (MAC) / Local Anesthesia',
+        recommendedBlocks: ['Median / Ulnar Wrist Block', 'Bier Block (IVRA)', 'WALANT (Wide Awake Local)'],
+        erasHighlights: ['Day-case procedure', 'Zero opioid baseline', 'Immediate finger mobilization'],
         guide: [
-          { title: 'Incision', description: 'Perform a small longitudinal or curvilinear incision (2-3 cm) in the palm, centered over the carpal tunnel and aligned with the third web space.' },
-          { title: 'Identification', description: 'Dissect through the palmar fascia to identify the transverse carpal ligament (TCL). Identify and protect the median nerve and its recurrent motor branch.' },
-          { title: 'Release', description: 'Carefully divide the transverse carpal ligament from its proximal to distal extent to completely decompress the median nerve.' },
-          { title: 'Closure', description: 'Irrigate the wound and check for hemostasis. Close the skin with non-absorbable sutures and apply a bulky, non-constrictive dressing.' }
+          { title: 'Incision & Palmar Fascia Dissection', description: 'Perform 2-3 cm longitudinal incision over proximal palm aligned with ring finger ray. Divide subcutaneous fat and palmar aponeurosis.' },
+          { title: 'Flexor Retinaculum / TCL Identification', description: 'Expose proximal edge of Transverse Carpal Ligament (TCL). Identify median nerve proximal to wrist crease to verify anatomical landmarks.' },
+          { title: 'Transverse Carpal Ligament Release', description: 'Pass director under TCL. Divide TCL completely from proximal border to distal palmar fat pad under direct vision.' },
+          { title: 'Median Nerve Decompression & Inspection', description: 'Inspect median nerve and recurrent motor branch for epineural compression, hourglass deformity, or persistent median artery.' },
+          { title: 'Hemostasis & Skin Closure', description: 'Deflate forearm tourniquet. Verify absolute dry hemostasis. Perform interrupted non-absorbable skin closure and apply soft compression dressing.' }
         ],
         anestheticConsiderations: [
           'Local anesthesia with sedation or GA',
@@ -1537,6 +1707,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'aneurysm-clipping',
         name: 'Intracranial Aneurysm Clipping',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + TIVA + Invasive Arterial Line',
+        recommendedBlocks: ['Scalp Block (Bupivacaine with Epinephrine)'],
+        erasHighlights: ['Adenosine / Temporary clipping MAP protocol', 'Maintain SBP < 120 prior to clip placement', 'ICG Angiography check'],
         guide: [
           { title: 'Access', description: 'Perform a craniotomy (e.g., pterional or orbitozygomatic) to access the subarachnoid space and the Circle of Willis.' },
           { title: 'Dissection', description: 'Use microscopic dissection to open the basal cisterns and identify the parent artery and the aneurysm. Carefully separate the aneurysm from adjacent structures.' },
@@ -1574,10 +1749,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'awake-craniotomy',
         name: 'Awake Craniotomy',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units',
+        airwayStrategy: 'Asleep-Awake-Asleep (AAA) with LMA rescue / Conscious Sedation',
+        recommendedBlocks: ['Scalp Block (Bilateral 6-nerve block with Bupivacaine/Ropivacaine + Epinephrine)'],
+        erasHighlights: ['Dexmedetomidine infusion baseline', 'Zero-seizure protocol during mapping', 'No long-acting opioids'],
         guide: [
-          { title: 'Indication', description: 'Tumors or epileptic foci located in or near eloquent cortex (motor or speech areas).' },
-          { title: 'Scalp Block', description: 'Crucial step. Bilateral blockade of scalp nerves (supraorbital, supratrochlear, auriculotemporal, greater/lesser occipital) to eliminate somatic pain.' },
-          { title: 'Phases', description: 'Asleep-Awake-Asleep (AAA) or Conscious Sedation throughout. Patient must be awake and cooperative during cortical mapping.' }
+          { title: 'Pre-incision Scalp Block', description: 'Perform comprehensive bilateral scalp block (supraorbital, supratrochlear, auriculotemporal, greater & lesser occipital nerves) with long-acting local anesthetic + Epinephrine.' },
+          { title: 'Craniotomy Under Sedation', description: 'Position head in Mayfield frame with padded points. Induce conscious sedation or Asleep-Awake-Asleep (AAA) protocol. Perform skin incision, burr holes, and bone flap removal.' },
+          { title: 'Dural Opening & Patient Awakening', description: 'Infiltrate dura along middle meningeal artery. Discontinue primary sedative (Propofol/Dexmedetomidine) to allow full patient awakening and orientation.' },
+          { title: 'Cortical & Subcortical Mapping', description: 'Use bipolar Ojemann stimulator for direct cortical/subcortical electrical mapping while neuropsychologist assesses speech, counting, motor function, and visual fields.' },
+          { title: 'Tumor Resection & Resedation', description: 'Resect tumor within functional boundaries mapped. Once resection complete, re-induce sedation/airway for dural closure, bone flap replacement, and scalp closure.' }
         ],
         anestheticConsiderations: [
           'Requires meticulous balance of sedation: deep enough for craniotomy, light enough to awaken smoothly without agitation.',
@@ -1605,11 +1787,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'spinal-cord-tumor',
         name: 'Spinal Cord Tumor Resection',
+        estimatedBloodLoss: '200 - 600 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + TIVA for IONM',
+        recommendedBlocks: ['Erector Spinae Plane (ESP) Block', 'Wound Infiltration'],
+        erasHighlights: ['Maintain MAP > 80-85 mmHg for spinal cord perfusion', 'TIVA protocol without neuromuscular blockade'],
         guide: [
-          { title: 'Access', description: 'Perform a multi-level laminectomy or laminoplasty to expose the dura over the tumor site.' },
-          { title: 'Durectomy', description: 'Incise the dura mater and use microscopic dissection to identify the tumor-spinal cord interface.' },
-          { title: 'Resection', description: 'Use ultrasonic aspiration (CUSA) or microsurgical tools to debulk and remove the tumor while preserving cord tracts.' },
-          { title: 'Closure', description: 'Perform a water-tight dural closure (often with a patch) and layered muscle/skin closure.' }
+          { title: 'Prone Positioning & Midline Exposure', description: 'Position patient prone with Wilson frame. Perform posterior midline incision over affected spinal level and elevate paraspinal muscles subperiosteally.' },
+          { title: 'Laminectomy & Epidural Hemostasis', description: 'Perform multi-level laminectomy using Kerrison rongeurs. Achieve meticulous epidural hemostasis with bipolar cautery and Surgicel.' },
+          { title: 'Durotomy & Arachnoid Opening', description: 'Incise dura mater in midline and tack back to muscle. Open arachnoid membrane to expose spinal cord and extramedullary/intramedullary tumor.' },
+          { title: 'Microsurgical Tumor Resection (CUSA)', description: 'Establish tumor-cord plane under operating microscope. Debulk intramedullary mass using CUSA while preserving dorsal column pathways.' },
+          { title: 'Water-tight Dural Closure & Layered Muscle Closure', description: 'Perform primary water-tight dural closure with 4-0 Neurolon/Prolene (or dural patch graft). Reapproximate paraspinal muscles and fascia in layers.' }
         ],
         anestheticConsiderations: [
           'Prone position - meticulous padding and eye protection.',
@@ -1636,11 +1824,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'dbs-insertion',
         name: 'Deep Brain Stimulator (DBS) Insertion',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Local + Dexmedetomidine Conscious Sedation / ETT for IPG phase',
+        recommendedBlocks: ['Scalp Block (Bupivacaine with Epinephrine)'],
+        erasHighlights: ['Dexmedetomidine infusion (no GABA interference)', 'Strict SBP < 140 mmHg to prevent micro-hemorrhage'],
         guide: [
-          { title: 'Frame Placement', description: 'Secure a stereotactic frame to the patient\'s skull under local anesthesia.' },
-          { title: 'Targeting', description: 'Perform a CT/MRI to calculate the precise coordinates of the target (e.g., STN or GPi).' },
-          { title: 'Lead Placement', description: 'Perform a burr hole and insert the microelectrode. Conduct microelectrode recording (MER) and clinical testing while the patient is awake.' },
-          { title: 'IPG Placement', description: 'Under GA, tunnel the wires to a pulse generator (IPG) placed in the subclavicular region.' }
+          { title: 'Stereotactic Frame Placement & CT/MRI Fusion', description: 'Affix CRW/Leksell stereotactic frame under local anesthesia. Perform high-resolution CT and fuse with pre-op MRI for target (STN/GPi) coordinate calculation.' },
+          { title: 'Pre-coronal Burr Hole & Dural Opening', description: 'Make linear scalp incision anterior to coronal suture. Drill 14 mm precoronal burr hole, coagulate and incise dura mater, and seal pia with fibrin glue.' },
+          { title: 'Microelectrode Recording (MER) & Testing', description: 'Advance microelectrodes via stereotactic drive. Perform electrophysiological recording (MER) and macrostimulation in awake patient to evaluate tremor control and side effects.' },
+          { title: 'Permanent DBS Lead Implantation', description: 'Pass permanent quadripolar DBS lead to optimal target depth. Fix lead securely to skull using Stimloc cap/burr hole cover.' },
+          { title: 'Subclavicular IPG Tunneling & Connection', description: 'Induce general anesthesia. Create infraclavicular subcutaneous pocket for Implantable Pulse Generator (IPG) and tunnel extension wires from scalp to chest.' }
         ],
         anestheticConsiderations: [
           'Awake phase: requires patient cooperation for clinical testing (tremor suppression/side effects).',
@@ -1667,11 +1861,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'pituitary-resection',
         name: 'Transsphenoidal Pituitary Resection',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT (Protected Shared Airway + Throat Pack)',
+        recommendedBlocks: ['Sphenopalatine Ganglion Block', 'Local Infiltration'],
+        erasHighlights: ['Avoid Nitrous Oxide', 'Smooth non-coughing emergence', 'Diabetes Insipidus hourly urine surveillance'],
         guide: [
-          { title: 'Access', description: 'Use an endonasal endoscopic approach to reach the sphenoid sinus and then the sella turcica.' },
-          { title: 'The Sella', description: 'Remove the floor of the sella and incise the dura to expose the pituitary gland.' },
-          { title: 'Resection', description: 'Identify and remove the adenoma, often using curettes and suction. Preserve the normal pituitary gland if possible.' },
-          { title: 'Packing', description: 'Check for CSF leak (Valsalva). Pack the sella/sphenoid sinus with fat/fascia or a mucosal flap if leak present.' }
+          { title: 'Nasal Preparation & Endoscopic Entry', description: 'Pack nasal cavities with cocaine/epinephrine soaked gauze. Insert rigid 0-degree endoscope into right nostril to identify sphenoid ostium and choana.' },
+          { title: 'Posterior Septetomy & Sphenoidotomy', description: 'Remove posterior nasal septum and anterior sphenoid wall to expose sphenoid sinus floor, sella turcica, carotid eminences, and optic recesses.' },
+          { title: 'Sella Opening & Dural Incision', description: 'Remove sellar bone using micro-drill and Kerrison rongeurs. Incise sellar dura in cruciate fashion to expose pituitary adenoma.' },
+          { title: 'Adenoma Resection & Gland Preservation', description: 'Resect adenoma systematically (inferior, lateral, then superior) using ring curettes and suction while preserving normal pituitary gland tissue.' },
+          { title: 'Sellar Reconstruction & Nasal Packing', description: 'Inspect suprasellar diaphragm for CSF leak (perform intraoperative Valsalva). Reconstruct sellar floor with abdominal fat/fascia graft or nasoseptal flap.' }
         ],
         anestheticConsiderations: [
           'Shared airway (nose/mouth). Ensure ETT is secure and out of the surgical field.',
@@ -1698,10 +1898,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'posterior-fossa-resection',
         name: 'Posterior Fossa Tumor Resection',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT (Armored) + TIVA + CVP/A-line',
+        recommendedBlocks: ['Scalp Block', 'Greater Occipital Nerve Block'],
+        erasHighlights: ['Precordial Doppler VAE monitoring', 'Brainstem trigeminal/vagal reflex monitoring', 'ICU extubation'],
         guide: [
-          { title: 'Positioning', description: 'Prone, Lateral, or Sitting position. Sitting position gives best access but highest risk of VAE.' },
-          { title: 'Access', description: 'Perform a suboccipital craniectomy. C1 laminectomy may be needed for lower tumors.' },
-          { title: 'Resection', description: 'Microsurgical debulking. Close monitoring of CN nuclei (V, VII, X, XII).' }
+          { title: 'Prone/Sitting Positioning & Fixation', description: 'Fix head in Mayfield skull clamp in prone or sitting position. Mark midline suboccipital skin incision from inion to C2.' },
+          { title: 'Suboccipital Craniectomy', description: 'Perform posterior midline incision, dissect nuchal muscles off occipital bone, and create suboccipital craniectomy +/- C1 laminectomy.' },
+          { title: 'Y-Shaped Durotomy', description: 'Incise dura mater in Y-shape over cerebellar hemispheres, ligate occipital sinus, and tack dura back to muscle.' },
+          { title: 'Microsurgical Tumor Resection', description: 'Perform microsurgical tumor debulking under continuous cranial nerve (V, VII, IX, X, XII) and brainstem monitoring using CUSA and bipolar cautery.' },
+          { title: 'Water-tight Dural Patch Closure', description: 'Perform water-tight dural closure using pericranium or fascia lata autograft to prevent CSF fistula. Reconstruct suboccipital musculature in layers.' }
         ],
         anestheticConsiderations: [
           'Highest risk of Venous Air Embolism (VAE); monitor with Precordial Doppler and TEE.',
@@ -1728,11 +1935,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'burr-hole-sdh',
         name: 'Burr Hole Evacuation of Chronic SDH',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Local Anesthesia + Monitored Anesthesia Care (MAC) / ETT if uncooperative',
+        recommendedBlocks: ['Scalp Infiltration / Scalp Block'],
+        erasHighlights: ['Flat head positioning post-op for brain re-expansion', 'Correction of anticoagulation (INR < 1.3)'],
         guide: [
-          { title: 'Access', description: 'Perform 1-2 small scalp incisions over the site of the hematoma. Create burr holes using a hand-held or electric drill.' },
-          { title: 'Evacuation', description: 'Incise the dura mater and the outer membrane of the hematoma. Irrigate the subdural space with warm saline until the effluent is clear.' },
-          { title: 'Drainage', description: 'Insert a soft subdural drain (e.g., Jackson-Pratt or closed-system drain) to facilitate post-operative drainage and brain re-expansion.' },
-          { title: 'Closure', description: 'Irrigate the wounds and check for hemostasis. Close the scalp incisions in layers with absorbable sutures or staples.' }
+          { title: 'Local Scalp Infiltration & Incision', description: 'Infiltrate scalp over frontal/parietal eminences with Bupivacaine + Epinephrine. Perform 3 cm linear scalp incisions.' },
+          { title: 'Burr Hole Drilling & Bone Waxing', description: 'Drill two 14 mm burr holes (frontal and parietal) using a perforator bit down to inner table. Apply bone wax to cut bone edges.' },
+          { title: 'Dural Incision & Hematoma Evacuation', description: 'Coagulate and incise dura mater and outer subdural membrane in cruciate fashion. Evacuate dark liquefied hematoma under low pressure.' },
+          { title: 'Subdural Saline Irrigation', description: 'Pass soft red rubber catheter into subdural space in all directions. Irrigate with copious warm saline until effluent is crystal clear.' },
+          { title: 'Subdural Closed-System Drain Placement', description: 'Place a soft Jackson-Pratt subdural drain submerged under water seal. Perform 2-layer scalp closure with absorbable sutures and skin staples.' }
         ],
         anestheticConsiderations: [
           'Often performed on elderly patients with multiple comorbidities',
@@ -1791,6 +2004,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'cabg',
         name: 'Coronary Artery Bypass Graft (CABG)',
+        estimatedBloodLoss: '500 - 1200 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Platelets + FFP + Cell Saver',
+        airwayStrategy: 'Oral ETT + Full Invasive Monitoring (A-line, CVC, PA Catheter, TEE)',
+        recommendedBlocks: ['High Thoracic Epidural', 'Erector Spinae Plane (ESP) Block', 'Parasternal Block'],
+        erasHighlights: ['Heparinization (ACT > 400s)', 'TXA loading + infusion', 'Fast-track extubation within 6 hours'],
         guide: [
           { title: 'Access', description: 'Perform a median sternotomy to expose the heart and the great vessels. Harvest the conduit vessels (e.g., internal mammary artery, saphenous vein, or radial artery).' },
           { title: 'Cannulation', description: 'Establish cardiopulmonary bypass (CPB) by cannulating the ascending aorta and the right atrium (or venae cavae). Initiate bypass and cool the patient.' },
@@ -1829,6 +2047,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'avr',
         name: 'Aortic Valve Replacement (AVR)',
+        estimatedBloodLoss: '400 - 1000 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Cell Saver',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC + TEE',
+        recommendedBlocks: ['Parasternal Block', 'Erector Spinae Plane (ESP) Block'],
+        erasHighlights: ['TEE assessment of prosthetic valve area & leak', 'Protamine reversal monitoring', 'Fast-track weaning'],
         guide: [
           { title: 'Access', description: 'Perform a median sternotomy or a minimally invasive approach (e.g., right mini-thoracotomy) to expose the ascending aorta and the heart.' },
           { title: 'Cannulation', description: 'Establish cardiopulmonary bypass (CPB) and initiate systemic cooling. Cross-clamp the aorta and deliver cardioplegia to achieve cardiac arrest.' },
@@ -1859,14 +2082,19 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'Monitor for myocardial ischemia and arrhythmias, particularly during induction and weaning from bypass.',
             'Utilize transesophageal echocardiography (TEE) to assess the prosthetic valve function, check for paravalvular leaks, and ensure adequate de-airing of the left heart.',
             'Manage systemic anticoagulation and its reversal meticulously; ensure the activated clotting time (ACT) is adequate before initiating CPB.',
-            'Maintain stable hemodynamics and optimize cardiac output during the weaning process, using inotropic support or vasopressors as indicated.'
+            'Maintain stable hemodynamics, taking care to avoid sudden drops in systemic vascular resistance (SVR) or extreme heart rates in patients with severe aortic stenosis or regurgitation.'
           ],
-          postOp: ['ICU management', 'Monitor for heart block (pacing wires)']
+          postOp: ['ICU management', 'Monitor for conduction blocks']
         }
       },
       {
         id: 'mitral-valve',
         name: 'Mitral Valve Repair/Replacement',
+        estimatedBloodLoss: '400 - 1000 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Cell Saver',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC + TEE',
+        recommendedBlocks: ['Parasternal Block', 'Erector Spinae Plane (ESP) Block'],
+        erasHighlights: ['TEE assessment of repair/SAM', 'Protamine reversal monitoring', 'Fast-track weaning'],
         guide: [
           { title: 'Access', description: 'Perform a median sternotomy or a right mini-thoracotomy. Open the left atrium (usually via Sondergaard\'s groove) to expose the mitral valve.' },
           { title: 'Cannulation', description: 'Establish CPB with bicaval cannulation (superior and inferior venae cavae) to allow for a bloodless field in the left atrium.' },
@@ -1904,6 +2132,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'thoracic-aneurysm',
         name: 'Thoracic Aortic Aneurysm Repair (Open)',
+        estimatedBloodLoss: '1000 - 3000 mL',
+        bloodProductPrep: 'Massive Transfusion Protocol (MTP): 10 PRBCs, 10 FFP, 2 Platelets + Cell Saver',
+        airwayStrategy: 'Left Double-Lumen Tube (DLT) + Full Invasive Lines + CSF Drain',
+        recommendedBlocks: ['Thoracic Epidural (T5-T7)', 'Erector Spinae Plane (ESP) Block'],
+        erasHighlights: ['Lumbar CSF drain monitoring (target CSF pressure < 10 cmH2O)', 'Distal aortic perfusion (Left Heart Bypass)', 'Hypothermic neuroprotection'],
         guide: [
           { title: 'Access', description: 'Left thoracotomy or thoracoabdominal incision.' },
           { title: 'Bypass', description: 'Establishment of Left Heart Bypass (LHB) or CPB.' },
@@ -1936,11 +2169,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'ascending-aortic-replacement',
         name: 'Ascending Aortic Replacement / Hemiarch',
+        estimatedBloodLoss: '800 - 2000 mL',
+        bloodProductPrep: 'Crossmatch 6 Units PRBCs + Platelets + FFP + Cell Saver',
+        airwayStrategy: 'Oral ETT + Bilateral Radial A-lines + NIRS + TEE',
+        recommendedBlocks: ['Parasternal Block', 'ESP Block'],
+        erasHighlights: ['Deep Hypothermic Circulatory Arrest (DHCA 18-24°C)', 'Antegrade Cerebral Perfusion (ACP)', 'NIRS monitoring'],
         guide: [
-          { title: 'Access', description: 'Median sternotomy. Cannulation for CPB (often axillary or femoral for arch work).' },
-          { title: 'Circulatory Arrest', description: 'Cool the patient to Deep Hypothermic Circulatory Arrest (DHCA) temperatures (18-24°C) if the arch is involved.' },
-          { title: 'Resection', description: 'Excise the aneurysmal or dissected aorta. Perform a distal anastomosis to the arch under circulatory arrest (with antegrade cerebral perfusion).' },
-          { title: 'Grafting', description: 'Perform the proximal anastomosis to the sinotubular junction or aortic root. Rewarm the patient slowly.' }
+          { title: 'Median Sternotomy & Axillary Cannulation', description: 'Perform full median sternotomy. Cannulate right subclavian/axillary artery via 8mm Dacron side-graft and right atrium for arterial/venous CPB inflow.' },
+          { title: 'Systemic Cooling to DHCA (18-24°C)', description: 'Initiate cardiopulmonary bypass and active core systemic cooling down to Deep Hypothermic Circulatory Arrest (DHCA) target temperature (18-24°C).' },
+          { title: 'Antegrade Cerebral Perfusion (ACP)', description: 'Cross-clamp aorta, arrest heart with cold blood cardioplegia, drain blood volume into reservoir, and deliver selective ACP via right axillary cannula.' },
+          { title: 'Distal & Proximal Dacron Graft Anastomoses', description: 'Transect diseased ascending aorta. Suture woven Dacron graft to distal hemiarch and proximal sinotubular junction using continuous 3-0 Prolene sutures.' },
+          { title: 'Controlled Rewarming & CPB Weaning', description: 'De-air graft under TEE, remove aortic clamp, slowly rewarm patient (< 0.5°C/min), administer Protamine, and reverse coagulopathy before sternal closure.' }
         ],
         anestheticConsiderations: [
           'Manage DHCA: neuroprotection (head ice, steroids, thiopental), monitoring (EEG, SSEP, NIRS).',
@@ -1967,10 +2206,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'pericardiectomy',
         name: 'Pericardiectomy (Radical)',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Cell Saver',
+        airwayStrategy: 'Oral ETT + Invasive Lines + TEE',
+        recommendedBlocks: ['Parasternal Block'],
+        erasHighlights: ['Constrictive pericarditis hemodynamics (preload dependent)', 'TEE monitoring of ventricle expansion'],
         guide: [
-          { title: 'Access', description: 'Median sternotomy or bilateral thoracotomy (clamshell).' },
-          { title: 'The Shell', description: 'Carefully dissect the thickened, calcified pericardium away from the heart ("eggshell" removal).' },
-          { title: 'Extent', description: 'Free the ventricles first, then the atria and great vessels, to avoid sudden congestion.' }
+          { title: 'Sternotomy & Exposure', description: 'Perform median sternotomy or posterolateral thoracotomy. Carefully expose the severely calcified, thickened constrictive pericardium.' },
+          { title: 'Phrenic Nerve Identification', description: 'Identify, mobilize, and protect both left and right phrenic nerves with wet vessel loops to prevent postoperative diaphragmatic paralysis.' },
+          { title: 'Ventricular Decortication', description: 'Systematically dissect and peel the rigid pericardial shell off the left ventricle first, then the right ventricle, releasing epicardial constriction.' },
+          { title: 'Atrial & Great Vessel Release', description: 'Extend pericardial resection phrenic-to-phrenic, freeing the right atrium, left atrium, superior vena cava, and inferior vena cava.' },
+          { title: 'Hemostasis & Drain Placement', description: 'Ensure complete epicardial hemostasis. Place pleural and mediastinal suction drains and perform rigid sternal wire closure.' }
         ],
         anestheticConsiderations: [
           'High risk of sudden cardiac rupture or major vessel injury during dissection.',
@@ -1997,10 +2243,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'bentall-procedure',
         name: 'Bentall Procedure (Aortic Root Replacement)',
+        estimatedBloodLoss: '500 - 1500 mL',
+        bloodProductPrep: 'Crossmatch 4-6 Units PRBCs + Platelets + Cell Saver',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC + TEE',
+        recommendedBlocks: ['Parasternal Block'],
+        erasHighlights: ['TEE assessment of coronary ostial re-implantation', 'Protamine reversal surveillance'],
         guide: [
-          { title: 'Access', description: 'Median sternotomy. Establish CPB and cardiac arrest with cardioplegia.' },
-          { title: 'Resection', description: 'Excise the aortic root, the aortic valve, and a portion of the ascending aorta.' },
-          { title: 'Implantation', description: 'Suture a valved conduit (composite graft) into the aortic annulus. Re-implant the coronary ostia into the conduit.' }
+          { title: 'Sternotomy & CPB Initiation', description: 'Perform median sternotomy. Cannulate ascending aorta/arch and right atrium to establish CPB. Cross-clamp aorta and infuse cardioplegia into coronary ostia.' },
+          { title: 'Root & Valve Resection', description: 'Excise diseased ascending aorta, aortic valve leaflets, and calcified annulus. Mobilize coronary ostia as circular "buttons" with surrounding aortic wall.' },
+          { title: 'Valved Conduit Implantation', description: 'Implant a mechanical or bioprosthetic valved composite graft into the aortic annulus using interrupted pledgeted sutures.' },
+          { title: 'Coronary Button Re-implantation', description: 'Re-implant the left and right coronary buttons into pre-cut openings in the composite graft using continuous 5-0 or 6-0 Prolene sutures.' },
+          { title: 'Distal Anastomosis & De-airing', description: 'Perform end-to-end anastomosis of graft to distal ascending aorta. De-air heart, remove cross-clamp, reverse heparin with protamine, and close.' }
         ],
         anestheticConsiderations: [
           'Technically demanding with long bypass/cross-clamp times.',
@@ -2027,10 +2280,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'heart-transplant',
         name: 'Orthotopic Heart Transplantation',
+        estimatedBloodLoss: '800 - 2000 mL',
+        bloodProductPrep: 'Crossmatch 6-8 Units PRBCs + MTP Protocol + Cell Saver',
+        airwayStrategy: 'Oral ETT + Pulmonary Artery Catheter + TEE',
+        recommendedBlocks: ['Sterile Intraoperative Local Infiltration'],
+        erasHighlights: ['Denervated heart pharmacology (Use Isoproterenol / Epinephrine, NOT Atropine)', 'Inhaled Nitric Oxide for RV failure'],
         guide: [
-          { title: 'Excision', description: 'Remove the recipient\'s heart while maintaining CPB, leaving the posterior atria (Biatrial) or just the cavae/pulmonary veins (Bicaval).' },
-          { title: 'Anastomoses', description: 'Suture the donor heart: Left atrium first, then RA/IVC/SVC, followed by Pulmonary Artery and Aorta.' },
-          { title: 'Reperfusion', description: 'De-air carefully and remove the aortic cross-clamp. Monitor the "new" heart for function and rejection.' }
+          { title: 'Recipient Cardiectomy', description: 'Perform median sternotomy. Cannulate ascending aorta and bicaval CPB. Cross-clamp aorta, excise native heart leaving posterior atrial cuff (biatrial) or vena cava stumps (bicaval).' },
+          { title: 'Left Atrial Anastomosis', description: 'Trim donor left atrium and perform continuous 3-0 monofilament anastomosis to recipient left atrial cuff/pulmonary vein confluence.' },
+          { title: 'Venous Anastomoses', description: 'Perform inferior vena cava (IVC) and superior vena cava (SVC) end-to-end anastomoses (or right atrial cuff anastomosis).' },
+          { title: 'Arterial Anastomoses', description: 'Perform end-to-end anastomoses of donor pulmonary artery to recipient pulmonary artery, followed by donor aorta to recipient aorta.' },
+          { title: 'Reperfusion & De-airing', description: 'De-air left heart under TEE monitoring. Remove aortic cross-clamp, initiate epicardial pacing, administer inotropic/chronotropic support (Isoproterenol), and wean from CPB.' }
         ],
         anestheticConsiderations: [
           'Denervated donor heart: will not respond to Atropine or EPH; requires direct-acting agents (Isoproterenol, Adrenaline).',
@@ -2057,10 +2317,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'pulmonary-embolectomy',
         name: 'Pulmonary Embolectomy (Acute)',
+        estimatedBloodLoss: '500 - 1500 mL',
+        bloodProductPrep: 'Crossmatch 4-6 Units PRBCs + MTP Protocol',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC + TEE',
+        recommendedBlocks: ['Parasternal Block'],
+        erasHighlights: ['High risk of cardiac arrest at induction', 'Inhaled Nitric Oxide / Epoprostenol for acute RV failure'],
         guide: [
-          { title: 'Access', description: 'Median sternotomy. Rapid initiation of CPB (often femoral cannulation first if patient unstable).' },
-          { title: 'Embolectomy', description: 'Incision into the main pulmonary artery. Use forceps and suction to remove "saddle" or branch emboli.' },
-          { title: 'Closure', description: 'Close the arteriotomy. Wean from bypass. Place an IVC filter if indicated.' }
+          { title: 'Sternotomy & Emergency CPB', description: 'Perform rapid median sternotomy. Cannulate ascending aorta and right atrium/bicaval to initiate emergency CPB without cardiac arrest.' },
+          { title: 'Pulmonary Trunk Arteriotomy', description: 'Cross-clamp aorta if needed and perform a longitudinal arteriotomy along main pulmonary artery trunk extending into main left/right branches.' },
+          { title: 'Thrombus Extraction & Flushing', description: 'Use Randall forceps, polyp forceps, and suction to extract massive saddle emboli. Perform manual ventilation / saline lung flushing to mobilize distal arterial clots.' },
+          { title: 'Arteriotomy Closure', description: 'Irrigate pulmonary vascular tree. Close main pulmonary arteriotomy with continuous 4-0 or 5-0 monofilament suture.' },
+          { title: 'Weaning & RV Support', description: 'Wean from CPB under TEE monitoring of RV function. Administer pulmonary vasodilators (Nitric Oxide / Epoprostenol) and protamine reversal.' }
         ],
         anestheticConsiderations: [
           'CRITICAL risk of circulatory collapse at induction. Maintain preload and avoid vasodilation.',
@@ -2087,11 +2354,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'lvad-insertion',
         name: 'Left Ventricular Assist Device (LVAD) Insertion',
+        estimatedBloodLoss: '500 - 1200 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Platelets + FFP',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC + TEE',
+        recommendedBlocks: ['Parasternal Block', 'ESP Block'],
+        erasHighlights: ['TEE assessment of RV function & PFO exclusion', 'Continuous non-pulsatile MAP target (70-80 mmHg)'],
         guide: [
-          { title: 'Access', description: 'Median sternotomy. Establish CPB.' },
-          { title: 'The Pump', description: 'Core the apex of the left ventricle and insert the inflow cannula. Secure the pump.' },
-          { title: 'Outflow', description: 'Anastomose the outflow graft to the ascending aorta.' },
-          { title: 'Tunneling', description: 'Pass the driveline through a subcutaneous tunnel in the abdomen.' }
+          { title: 'Sternotomy & CPB Access', description: 'Perform median sternotomy. Cannulate ascending aorta and right atrium to establish normothermic CPB on beating heart.' },
+          { title: 'Apical Crotch & Inflow Ring Placement', description: 'Expose left ventricular apex. Secure sewing ring to LV apex with heavy felt-pledgeted mattress sutures and core apical myocardium using circular punch cutter.' },
+          { title: 'Inflow Cannula & Pump Securing', description: 'Insert LVAD inflow cannula into left ventricle parallel to interventricular septum towards mitral valve. Secure pump housing to apical sewing ring.' },
+          { title: 'Outflow Anastomosis & Driveline Tunnel', description: 'Anastomose Dacron outflow graft end-to-side to ascending aorta. Pass percutaneous driveline through subcutaneous tunnel to exit right upper abdominal quadrant.' },
+          { title: 'De-airing & Pump Activation', description: 'De-air pump housing and outflow graft under TEE guidance. Slowly ramp up LVAD RPMs while weaning CPB, maintaining RV contractility and MAP 70-80 mmHg.' }
         ],
         anestheticConsiderations: [
           'Crucial to optimize RV function; the LVAD will only work if the RV can provide enough blood.',
@@ -2118,6 +2391,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'tavi',
         name: 'Transcatheter Aortic Valve Implantation (TAVI/TAVR)',
+        estimatedBloodLoss: '< 100 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units standby',
+        airwayStrategy: 'Monitored Anesthesia Care (MAC) with Local / Oral ETT if complex',
+        recommendedBlocks: ['Femoral Nerve Block / Inguinal Local Infiltration'],
+        erasHighlights: ['Rapid Ventricular Pacing (RVP 180-220 bpm)', 'Vascular closure site surveillance', 'Day 1 ambulation'],
         guide: [
           { title: 'Access', description: 'Establish femoral arterial access (usually) using a percutaneous approach or a small cutdown. Insert a temporary pacing wire.' },
           { title: 'Crossing the Valve', description: 'Pass a guidewire across the stenotic aortic valve into the left ventricle under fluoroscopic guidance.' },
@@ -2181,11 +2459,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'tonsillectomy',
         name: 'Tonsillectomy',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral RAE ETT + Shared Airway Protocol',
+        recommendedBlocks: ['Glossopharyngeal Nerve Block', 'Peritonsillar Local Infiltration'],
+        erasHighlights: ['Dexamethasone 0.15 mg/kg IV for airway edema', 'Dual antiemetic PONV prophylaxis', 'Awake extubation in lateral position'],
         guide: [
-          { title: 'Exposure', description: 'Mouth gag (Boyle-Davis) inserted to expose the oropharynx.' },
-          { title: 'Dissection', description: 'Tonsils dissected from the tonsillar bed.' },
-          { title: 'Hemostasis', description: 'Diathermy or ties used to control bleeding.' },
-          { title: 'Inspection', description: 'Check for bleeding and remove mouth gag.' }
+          { title: 'Exposure & Mouth Gag Placement', description: 'Place patient supine with head extended (Rose position). Insert Boyle-Davis mouth gag with appropriate tongue blade to expose the oropharynx, securing it to the Draffin rods.' },
+          { title: 'Incision & Plane Identification', description: 'Grasp the upper pole of the tonsil with tonsil holding forceps and pull medially. Make an incision through the mucosal fold along the anterior tonsillar pillar.' },
+          { title: 'Extracapsular Dissection', description: 'Using a Hurd dissector, coblator, or monopolar diathermy, dissect the tonsil out of the tonsillar fossa within the avascular peritonsillar space down to the lower pole.' },
+          { title: 'Snaring & Lower Pole Resection', description: 'Pass an Eve tonsil snare around the lower pole pedicle or cut with diathermy to completely remove the tonsil en-bloc.' },
+          { title: 'Fossa Hemostasis & Inspection', description: 'Pack fossae with gauze sponges. Apply targeted bipolar diathermy or ties to bleeding mucosal vessels. Remove mouth gag and check for active bleeding.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with RAE tube or LMA (if appropriate)',
@@ -2212,11 +2496,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'septoplasty',
         name: 'Septoplasty',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Throat Pack',
+        recommendedBlocks: ['Infraorbital Nerve Block', 'Sphenopalatine Block', 'Topical Cocaine / Phenylephrine'],
+        erasHighlights: ['Throat pack removal verification', 'Controlled normotensive anesthesia', 'Day-case protocol'],
         guide: [
-          { title: 'Incision', description: 'Intranasal incision (hemitransfixion).' },
-          { title: 'Elevation', description: 'Elevation of the mucoperichondrial flap.' },
-          { title: 'Resection', description: 'Straightening or resection of the deviated cartilage/bone.' },
-          { title: 'Closure', description: 'Suturing of the flap and possible nasal packing/splints.' }
+          { title: 'Topical Decongestant & Infiltration', description: 'Apply topical Cocaine or Epinephrine-soaked neuro-patties to nasal mucosa. Infiltrate nasal septum with 1% Lidocaine + 1:100,000 Epinephrine.' },
+          { title: 'Freer Incision & Mucoperichondrial Flap', description: 'Perform a mucocutaneous junction incision (Freer hemitransfixion incision) in the caudal septum on the obstructed side.' },
+          { title: 'Subperichondrial Dissection', description: 'Elevate the mucoperichondrial and mucoperiosteal flaps bilaterally off the quadrangular cartilage, vomer, and perpendicular plate of ethmoid.' },
+          { title: 'Cartilage & Bone Resection / Correction', description: 'Excise or score the deviated quadrangular cartilage and spur bone using a chisel, gouge, or Jansen-Middleton forceps, preserving L-strut dorsal support.' },
+          { title: 'Flap Re-approximation & Splinting', description: 'Re-approximate septal flaps using mattress quilting sutures. Insert bilateral silicone septal splints or anterior nasal packing.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT (throat pack used)',
@@ -2243,11 +2533,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'myringotomy',
         name: 'Myringotomy and Grommet Insertion',
+        estimatedBloodLoss: '< 20 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'LMA or Mask Ventilation',
+        recommendedBlocks: ['None'],
+        erasHighlights: ['Avoid Nitrous Oxide (N2O)', 'Rapid recovery/discharge'],
         guide: [
-          { title: 'Access', description: 'Visualization of the tympanic membrane via an otoscope.' },
-          { title: 'Incision', description: 'Small incision in the tympanic membrane (myringotomy).' },
-          { title: 'Aspiration', description: 'Suctioning of fluid from the middle ear.' },
-          { title: 'Insertion', description: 'Placement of a small ventilation tube (grommet).' }
+          { title: 'Otoscopy & Canal Clearance', description: 'Inspect external auditory canal under operating microscope. Clear earwax or debris using micro-forceps or suction.' },
+          { title: 'Myringotomy Incision', description: 'Perform a radial radial incision in the anteroinferior quadrant of the tympanic membrane using a micro-myringotomy knife, avoiding ossicles and chorda tympani.' },
+          { title: 'Middle Ear Aspiration', description: 'Insert fine microscopic suction tip (Baron #3/5) through the radial incision to thoroughly evacuate middle ear fluid ("glue").' },
+          { title: 'Grommet Insertion', description: 'Grasp a fluoroplastic or silicone Shepard/Bobbin grommet (ventilation tube) with micro-forceps and seat its inner flange into the myringotomy incision.' },
+          { title: 'Otoptic Drops & Inspection', description: 'Instill antibiotic/steroid ear drops into the canal. Confirm grommet position and patency under the microscope.' }
         ],
         anestheticConsiderations: [
           'General anesthesia (usually via mask or LMA)',
@@ -2275,10 +2571,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'fess',
         name: 'Functional Endoscopic Sinus Surgery (FESS)',
         guide: [
-          { title: 'Access', description: 'Endoscopic visualization of the nasal passages.' },
-          { title: 'Debridement', description: 'Removal of polyps or diseased mucosa.' },
-          { title: 'Ostium Enlargement', description: 'Opening and enlarging the natural sinus ostia.' },
-          { title: 'Hemostasis', description: 'Packing or cautery to control bleeding.' }
+          { title: 'Decongestant Packing & Rigid Endoscopy', description: 'Pack nasal cavities with 1:1,000 Epinephrine patties. Insert 0-degree rigid endoscope into nasal passage to visualize middle meatus.' },
+          { title: 'Uncinate Resection & Maxillary Antrostomy', description: 'Perform uncinate process resection (uncinectomy) with sickle knife or microdebrider. Identify and enlarge natural maxillary sinus ostium.' },
+          { title: 'Ethmoidectomy & Frontal Recess Entry', description: 'Perform anterior and posterior ethmoidectomy by opening ethmoid bulla and clearing inter-ethmoid septa to expose the frontal recess.' },
+          { title: 'Sphenoidotomy & Polyp Debridement', description: 'Identify sphenoid sinus ostium medial to superior turbinate and widen it. Debride polyps and hypertrophic mucosa with microdebrider.' },
+          { title: 'Hemostasis & Dissolvable Packing', description: 'Irrigate sinuses with saline. Place dissolvable hemostatic matrix (e.g., Nasopore or FloSeal) in middle meatus. Remove throat pack.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT (throat pack used)',
@@ -2305,6 +2602,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'mastoidectomy',
         name: 'Mastoidectomy',
+        estimatedBloodLoss: '50 - 150 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT (No muscle relaxants for facial nerve monitoring)',
+        recommendedBlocks: ['Great Auricular Nerve Block', 'Local Infiltration'],
+        erasHighlights: ['Avoid Nitrous Oxide (N2O)', 'Dual PONV prophylaxis', 'Facial nerve monitoring protocol'],
         guide: [
           { title: 'Incision', description: 'Post-auricular incision.' },
           { title: 'Exposure', description: 'Elevation of the periosteum to expose the mastoid bone.' },
@@ -2337,6 +2639,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'myringoplasty',
         name: 'Myringoplasty (Tympanoplasty)',
+        estimatedBloodLoss: '< 30 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'Oral ETT or Second-Gen LMA',
+        recommendedBlocks: ['Great Auricular Nerve Block', 'Local Infiltration'],
+        erasHighlights: ['Avoid Nitrous Oxide (N2O)', 'Smooth emergence to avoid graft displacement', 'Day-case protocol'],
         guide: [
           { title: 'Access', description: 'Transcanal or post-auricular approach.' },
           { title: 'Preparation', description: 'Freshening the edges of the tympanic membrane perforation.' },
@@ -2369,11 +2676,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'laryngoscopy',
         name: 'Microlaryngoscopy and Biopsy',
+        estimatedBloodLoss: '< 20 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Microlaryngeal ETT (MLT 5.0-6.0) / Jet Ventilation / Shared Airway',
+        recommendedBlocks: ['Topical Lidocaine Spray (Laryngeal / Vocal Cords)'],
+        erasHighlights: ['Laser-safe tube protocol', 'Deep muscle relaxation to prevent vocal cord motion', 'Dexamethasone 8mg IV for airway edema'],
         guide: [
-          { title: 'Access', description: 'Suspension laryngoscope inserted to visualize the larynx.' },
-          { title: 'Visualization', description: 'Use of the operating microscope for detailed inspection.' },
-          { title: 'Biopsy', description: 'Removal of tissue samples from vocal cords or larynx.' },
-          { title: 'Intervention', description: 'Laser ablation or injection (if indicated).' }
+          { title: 'Tooth Protection & Suspension Laryngoscopy', description: 'Insert plastic tooth guard over upper teeth. Introduce rigid suspension laryngoscope (e.g., Kleinsasser or Benjamin) to expose glottis and lock onto chest gallows.' },
+          { title: 'Microscopic Inspection & Staging', description: 'Bring operating microscope equipped with 400mm lens into surgical field. Perform binocular inspection of anterior commissure, vocal folds, and subglottis.' },
+          { title: 'Palpation & Micro-dissection', description: 'Palpate vocal cords with micro-probe to assess depth of submucosal lesion. Incise vocal fold mucosa along Reinke\'s space using micro-scissors.' },
+          { title: 'Cold-Steel Biopsy / CO2 Laser Ablation', description: 'Obtain representative cold-steel cup biopsy of suspicious vocal cord mass, or perform CO2 laser ablation/excision with laser-safe airway protection.' },
+          { title: 'Hemostasis & Suspension Removal', description: 'Apply topical Lidocaine/Epinephrine neuro-patty for mucosal hemostasis. Remove suspension laryngoscope and check upper teeth/oral mucosa for trauma.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with specialized tube (Microlaryngeal tube) or Jet Ventilation',
@@ -2400,10 +2713,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'commando-procedure',
         name: 'Commando Procedure (Glossectomy + Neck Dissection + Mandibulectomy)',
+        estimatedBloodLoss: '500 - 1500 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs',
+        airwayStrategy: 'Awake Fiberoptic Intubation / Elective Tracheostomy',
+        recommendedBlocks: ['Cervical Plexus Block', 'Local Infiltration'],
+        erasHighlights: ['Free flap perfusion management (avoid vasopressors)', 'Elective tracheostomy protocol', 'Strict temperature control'],
         guide: [
-          { title: 'Access', description: 'Lip-splitting incision and mandibulotomy for exposure of the oral cavity and oropharynx.' },
-          { title: 'Excision', description: 'En-bloc resection of the primary tumor (tongue/floor of mouth), segments of the mandible, and bilateral/unilateral neck nodes.' },
-          { title: 'Reconstruction', description: 'Repair the defect using a free flap (e.g., Fibula or RFFF) or pedicled flap (Pectoralis major).' }
+          { title: 'Airway Access & Tracheostomy', description: 'Perform elective surgical tracheostomy under local anesthesia / awake fiberoptic intubation. Secure tracheostomy tube to neck skin.' },
+          { title: 'Neck Dissection Phase', description: 'Perform radical or modified radical neck dissection (Levels I-V). Isolate and preserve internal jugular vein, carotid artery, vagus nerve, and spinal accessory nerve.' },
+          { title: 'Lip Split & Mandibulectomy', description: 'Perform midline lip-splitting incision extending into submandibular crease. Perform step-cut mandibulotomy or segmental mandibulectomy to expose oral cavity/oropharynx tumor.' },
+          { title: 'En-Bloc Tumor Excision', description: 'Perform wide 1.5-2.0 cm margin en-bloc resection of primary oral mass (glossectomy / floor of mouth), specimen removed with bone and neck node packet.' },
+          { title: 'Free Flap Reconstruction & Microvascular Anastomosis', description: 'Reconstruct oral defect using microvascular free flap (Radial Forearm or Anterolateral Thigh). Perform microvascular anastomoses to facial/superior thyroid vessels under microscope.' }
         ],
         anestheticConsiderations: [
           'Extremely difficult airway (often requires fiberoptic intubation or elective tracheostomy).',
@@ -2458,6 +2778,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'tlh',
         name: 'Total Laparoscopic Hysterectomy (TLH)',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT (Steep Trendelenburg Position)',
+        recommendedBlocks: ['TAP Block (Transversalis Plane)', 'Quadratus Lumborum (QL) Block'],
+        erasHighlights: ['Low-pressure pneumoperitoneum', 'Dual PONV prophylaxis', 'Same-day / 24h discharge protocol'],
         guide: [
           { title: 'Access', description: 'Establish pneumoperitoneum and insert a 10 mm umbilical port for the camera. Place three additional 5 mm accessory ports in the lower abdomen. Insert a uterine manipulator to facilitate mobilization.' },
           { title: 'Ligation', description: 'Systematically identify and ligate the round ligaments, then the infundibulopelvic (or ovarian) ligaments, depending on whether the ovaries are to be removed.' },
@@ -2495,11 +2820,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'diagnostic-laparoscopy',
         name: 'Diagnostic Laparoscopy (Ectopic/Pelvic Pain)',
+        estimatedBloodLoss: '50 - 500 mL (High if ruptured ectopic)',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2-4 Units if suspected ectopic rupture',
+        airwayStrategy: 'Oral ETT + Trendelenburg',
+        recommendedBlocks: ['TAP Block', 'Port-site Local Infiltration'],
+        erasHighlights: ['Complete CO2 evacuation to prevent shoulder pain', 'Dual PONV prophylaxis', 'Day-case protocol'],
         guide: [
-          { title: 'Access', description: 'Insert a 5 mm or 10 mm umbilical port for the laparoscope. Place 1-2 additional 5 mm accessory ports in the lower quadrants as needed for manipulation.' },
-          { title: 'Inspection', description: 'Systematic inspection of the pelvic and abdominal organs, including the uterus, fallopian tubes, ovaries, and peritoneal surfaces, for pathology (e.g., ectopic pregnancy, endometriosis).' },
-          { title: 'Intervention', description: 'Perform necessary interventions such as salpingectomy for an ectopic pregnancy, biopsy of suspicious lesions, or ablation of endometriotic implants.' },
-          { title: 'Closure', description: 'Ensure meticulous hemostasis. Deflate the pneumoperitoneum completely to minimize post-operative shoulder pain. Close the port sites with absorbable sutures.' }
+          { title: 'Umbilical Access & Insufflation', description: 'Perform 10 mm subumbilical Veress needle entry or open Hasson access. Establish pneumoperitoneum (12-14 mmHg) and insert primary 10 mm laparoscope.' },
+          { title: 'Accessory Port Placement & Trendelenburg', description: 'Place patient in 20-degree Trendelenburg position. Insert two 5 mm accessory ports in right and left lower quadrants under direct visualization.' },
+          { title: 'Systematic Pelvic Survey', description: 'Systematically inspect uterus, bilateral fallopian tubes, ovaries, pouch of Douglas, and paracolic gutters for ectopic pregnancy, endometriosis, or adhesions.' },
+          { title: 'Targeted Surgical Intervention', description: 'Perform indicated therapeutic intervention (e.g., laparoscopic salpingectomy for ectopic pregnancy, diathermy of endometriotic implants, or adhesiolysis).' },
+          { title: 'Pneumoperitoneum Evacuation & Closure', description: 'Perform copious pelvic irrigation. Evacuate all CO2 gas while in reverse Trendelenburg to prevent phrenic nerve shoulder pain. Infiltrate local anesthetic and close fascia/skin.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT',
@@ -2531,10 +2862,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'radical-vulvectomy',
         name: 'Radical Vulvectomy and Bilateral Inguinal Lymphnode Dissection',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Invasive A-line',
+        recommendedBlocks: ['Epidural (L3-L4)', 'Pudendal Nerve Block', 'Quadratus Lumborum (QL) Block'],
+        erasHighlights: ['Epidural analgesia for 48h', 'VTE thromboprophylaxis', 'Active normothermia management'],
         guide: [
-          { title: 'Access', description: 'Perform a wide, radical excision of the vulva, including the primary tumor and a margin of normal tissue.' },
-          { title: 'Lymphectomies', description: 'Perform bilateral inguinal and femoral lymph node dissections through separate or confluent incisions.' },
-          { title: 'Closure', description: 'Achieve a tension-free closure using rotational or transpositional flaps (e.g., V-Y plasty) if necessary. Meticulous hemostasis and drainage.' }
+          { title: 'Incision & Radical Vulvectomy', description: 'Perform a wide butterfly incision around the vulva down to the deep fascia of the urogenital diaphragm, incising to resect the primary vulvar neoplasm en-bloc.' },
+          { title: 'Inguinal Node Access', description: 'Make separate bilateral groin incisions parallel to the inguinal ligament to access the superficial and deep inguinal lymph node basins.' },
+          { title: 'Femoral & Inguinal Lymphadenectomy', description: 'Skeletonize the femoral sheath, remove the cloquet node, and dissect out the deep and superficial inguinal lymph node packets bilaterally.' },
+          { title: 'Reconstruction & Flap Transposition', description: 'Reconstruct the perineal defect using V-Y advancement flaps or tensor fascia lata cutaneous transposition flaps to achieve tension-free closure.' },
+          { title: 'Drainage & Layered Closure', description: 'Place closed-suction drains bilaterally in the groin and perineal pockets. Perform meticulous layered subcutaneous and skin closure over a Foley catheter.' }
         ],
         anestheticConsiderations: [
           'Major procedure with significant blood loss and fluid shifts.',
@@ -2561,6 +2899,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'ovarian-cystectomy',
         name: 'Laparoscopic Ovarian Cystectomy',
+        estimatedBloodLoss: '< 100 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Trendelenburg',
+        recommendedBlocks: ['TAP Block', 'Port-site Local Infiltration'],
+        erasHighlights: ['Low-pressure pneumoperitoneum', 'Anti-emetic multimodal bundle', 'Day-case discharge'],
         guide: [
           { title: 'Access', description: 'Establish pneumoperitoneum and insert a 10 mm umbilical port for the camera. Place 2-3 additional 5 mm accessory ports in the lower abdomen.' },
           { title: 'Cystotomy', description: 'Identify the affected ovary and make a small incision into the ovarian cortex using a needle electrode or scissors to expose the underlying cyst wall.' },
@@ -2598,6 +2941,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'myomectomy',
         name: 'Myomectomy (Laparoscopic/Open)',
+        estimatedBloodLoss: '200 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs + Cell Saver option',
+        airwayStrategy: 'Oral ETT',
+        recommendedBlocks: ['TAP Block', 'Quadratus Lumborum (QL) Block'],
+        erasHighlights: ['Intramyometrial Vasopressin surveillance (watch for HTN/bradycardia)', 'Tranexamic Acid 1g IV', 'Multimodal analgesia'],
         guide: [
           { title: 'Access', description: 'For laparoscopic approach, use 4 ports; for open approach, perform a Pfannenstiel or midline laparotomy incision to expose the uterus.' },
           { title: 'Incision', description: 'Inject a dilute vasopressin solution into the myometrium to minimize bleeding. Make a linear incision over the most prominent part of the fibroid.' },
@@ -2635,6 +2983,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'hysterectomy-open',
         name: 'Total Abdominal Hysterectomy (Open)',
+        estimatedBloodLoss: '200 - 500 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT',
+        recommendedBlocks: ['TAP Block', 'Spinal Anesthesia / Thoracic Epidural (T10-L1)'],
+        erasHighlights: ['Multimodal opioid-sparing analgesia', 'Early mobilization at 6 hours', 'Regular antiemetics'],
         guide: [
           { title: 'Incision', description: 'Perform a Pfannenstiel (transverse) or midline laparotomy incision to gain access to the pelvic cavity.' },
           { title: 'Mobilization', description: 'Systematically divide the round ligaments, the infundibulopelvic (or ovarian) ligaments, and the broad ligaments to mobilize the uterus.' },
@@ -2672,10 +3025,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'ruptured-ectopic-laparotomy',
         name: 'Ruptured Ectopic Pregnancy (Laparotomy)',
+        estimatedBloodLoss: '1000 - 2500 mL',
+        bloodProductPrep: 'Massive Transfusion Protocol (MTP): 4-6 Units PRBCs + FFP',
+        airwayStrategy: 'Rapid Sequence Induction (RSI) with Oral ETT',
+        recommendedBlocks: ['TAP Block post-hemostasis'],
+        erasHighlights: ['Emergency fluid resuscitation with warm fluids', 'Rapid surgical access & clamping', 'Correction of coagulopathy'],
         guide: [
-          { title: 'Access', description: 'Emergency midline or Pfannenstiel laparotomy. Rapid evacuation of hemoperitoneum.' },
-          { title: 'Control', description: 'Identify the bleeding tube and clamp the mesosalpinx.' },
-          { title: 'Resection', description: 'Perform a salpingectomy or salpingotomy. Thorough peritoneal lavage.' }
+          { title: 'Emergency Access & Evisceration', description: 'Perform rapid infraumbilical midline or Pfannenstiel laparotomy. Rapidly suction hemoperitoneum and eviscerate clot-filled pelvis to identify bleeding site.' },
+          { title: 'Mesosalpinx Clamping & Hemostasis', description: 'Grasp the affected fallopian tube with Babcock forceps. Apply vascular clamps (Heaney or Mayo) across the mesosalpinx and cornual vascular supply for immediate hemostasis.' },
+          { title: 'Salpingectomy / Resection', description: 'Excise the ruptured fallopian tube and ectopic pregnancy mass, ligating the mesosalpinx with continuous 2-0 absorbable suture.' },
+          { title: 'Peritoneal Lavage & Contralateral Inspection', description: 'Perform copious warm saline irrigation to clear pelvic blood clots. Inspect the contralateral tube, ovary, and upper abdominal quadrants.' },
+          { title: 'Hemostasis Verification & Layered Closure', description: 'Verify absolute dry hemostasis at the cornual stump and broad ligament. Perform rapid layered closure of the abdominal wall.' }
         ],
         anestheticConsiderations: [
           'LIFE-THREATENING emergency: assumption of hypovolemic shock.',
@@ -2728,6 +3088,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'cataract',
         name: 'Phacoemulsification (Cataract Surgery)',
+        estimatedBloodLoss: '< 5 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'Topical / Local Anesthesia without intubation',
+        recommendedBlocks: ['Sub-Tenon Block', 'Peribulbar Block', 'Topical Tetracaine/Lidocaine Gel'],
+        erasHighlights: ['Zero systemic opioids', 'Day-case 30-minute discharge', 'Avoid coughing/straining'],
         guide: [
           { title: 'Incision', description: 'Create a small (2.2-2.75 mm) clear corneal or limbal incision using a diamond or steel blade.' },
           { title: 'Capsulorhexis', description: 'Perform a continuous curvilinear capsulorhexis (CCC) to create a circular opening in the anterior lens capsule.' },
@@ -2765,6 +3130,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'vitrectomy',
         name: 'Pars Plana Vitrectomy',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'LMA or Oral ETT / Sub-Tenon Block with Sedation',
+        recommendedBlocks: ['Sub-Tenon Block', 'Retrobulbar Block'],
+        erasHighlights: ['Discontinue Nitrous Oxide if intraocular gas (SF6/C3F8) used', 'Strict post-operative positioning', 'IOP spike monitoring'],
         guide: [
           { title: 'Access', description: 'Create three small (23, 25, or 27 gauge) sclerotomies in the pars plana for the infusion line, light pipe, and vitrector.' },
           { title: 'Vitrectomy', description: 'Use a high-speed vitreous cutter to remove the vitreous gel, replacing it with balanced salt solution (BSS) to maintain eye pressure.' },
@@ -2802,6 +3172,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'scleral-buckle',
         name: 'Scleral Buckle for Retinal Detachment',
+        estimatedBloodLoss: '< 20 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'Oral ETT or LMA / Deep Anesthesia',
+        recommendedBlocks: ['Peribulbar Block', 'Retrobulbar Block', 'Sub-Tenon Block'],
+        erasHighlights: ['Oculocardiac reflex monitoring (bradycardia on rectus traction)', 'Aggressive PONV prevention', 'Postoperative pain multimodal bundle'],
         guide: [
           { title: 'Exposure', description: 'Perform a 360-degree conjunctival peritomy and isolate the four rectus muscles with silk sutures to expose the sclera.' },
           { title: 'Localization', description: 'Use an indirect ophthalmoscope to identify the retinal breaks and mark their location on the external surface of the sclera.' },
@@ -2839,11 +3214,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'corneal-transplant',
         name: 'Corneal Transplant (Keratoplasty)',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'Oral ETT with Smooth Emergence Protocol',
+        recommendedBlocks: ['Sub-Tenon Block', 'Peribulbar Block'],
+        erasHighlights: ['Smooth non-coughing extubation', 'Strict intraocular pressure (IOP) control', 'Day-case discharge'],
         guide: [
-          { title: 'Preparation', description: 'Use a trephine to remove the diseased central portion of the patient\'s cornea (host cornea).' },
-          { title: 'Donor Prep', description: 'Prepare a matching donor corneal button from the donor tissue using a trephine of the same or slightly larger size.' },
-          { title: 'Suturing', description: 'Place the donor graft onto the host eye and secure it with multiple fine sutures (e.g., 10-0 or 11-0 Nylon) in a continuous or interrupted pattern.' },
-          { title: 'Closure', description: 'Ensure the graft is watertight and centered. Reform the anterior chamber with balanced salt solution (BSS) or air. Apply topical antibiotics and steroids.' }
+          { title: 'Trephination of Host Cornea', description: 'Center suction trephine on host cornea. Perform full-thickness or lamellar trephination to excise diseased host corneal button (open-sky phase).' },
+          { title: 'Donor Graft Preparation', description: 'Punch matching donor corneal graft button from donor scleral rim using precision punch trephine of identical or 0.25 mm larger diameter.' },
+          { title: 'Donor Graft Positioning & Anchoring', description: 'Transfer donor graft onto host corneal bed. Place 4 cardinal cardinal interrupted 10-0 Nylon sutures at 12, 6, 3, and 9 o\'clock positions.' },
+          { title: 'Circumferential Suture Fixation', description: 'Complete 16-step interrupted or continuous running 10-0 Nylon suture fixation, burying knot knots into donor stroma to prevent irritation.' },
+          { title: 'Anterior Chamber Reformation & IOP Verification', description: 'Reform anterior chamber with Balanced Salt Solution (BSS) and viscoelastic. Check water-tight seam integrity and verify normotensive IOP before applying eye shield.' }
         ],
         anestheticConsiderations: [
           'General anesthesia or Local (Peribulbar/Sub-Tenon)',
@@ -2875,6 +3256,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'strabismus-surgery',
         name: 'Strabismus Surgery (Squint Repair)',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'LMA or Oral ETT',
+        recommendedBlocks: ['Sub-Tenon Block', 'Topical Tetracaine Drops'],
+        erasHighlights: ['Atropine / Glycopyrrolate pre-treatment for OCR', 'Prophylactic Ondansetron + Dexamethasone bundle'],
         guide: [
           { title: 'Exposure', description: 'Perform a conjunctival incision and use muscle hooks to isolate the target extraocular muscle(s).' },
           { title: 'Recession', description: 'Weakening procedure: Detach the muscle from its original insertion and reattach it further back on the sclera using absorbable sutures.' },
@@ -2912,6 +3298,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'glaucoma-surgery',
         name: 'Trabeculectomy (Glaucoma Surgery)',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'LMA or Sub-Tenon Block with Sedation',
+        recommendedBlocks: ['Sub-Tenon Block', 'Peribulbar Block'],
+        erasHighlights: ['Avoid cough/straining on emergence', 'Maintain baseline normotension', 'Day-case discharge'],
         guide: [
           { title: 'Flap Creation', description: 'Create a partial-thickness scleral flap and apply an antimetabolite (e.g., Mitomycin-C) to the site to prevent scarring.' },
           { title: 'Sclerostomy', description: 'Remove a small piece of the underlying sclera and trabecular meshwork to create a new drainage pathway for aqueous humor.' },
@@ -2976,6 +3367,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'free-flap',
         name: 'Free Flap Reconstruction',
+        estimatedBloodLoss: '200 - 600 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC',
+        recommendedBlocks: ['Regional Block based on donor site (e.g., Femoral/Sciatic for ALT, TAP for DIEP)'],
+        erasHighlights: ['Strict active normothermia (> 36.5°C)', 'Maintain high-normal MAP (avoid vasopressors)', 'Goal-directed fluid resuscitation'],
         guide: [
           { title: 'Harvesting', description: 'Meticulously dissect the donor flap (e.g., radial forearm, anterolateral thigh, or fibula) along with its supplying artery and draining vein(s).' },
           { title: 'Preparation', description: 'Prepare the recipient site by debriding non-viable tissue and identifying suitable recipient vessels (artery and vein) for anastomosis.' },
@@ -3013,6 +3409,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'abdominoplasty',
         name: 'Abdominoplasty (Tummy Tuck)',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT',
+        recommendedBlocks: ['TAP Block', 'Quadratus Lumborum (QL) Block', 'Rectus Sheath Block'],
+        erasHighlights: ['Flexed position (beach chair) post-op to reduce tension', 'Aggressive VTE thromboprophylaxis', 'Multimodal analgesia'],
         guide: [
           { title: 'Incision', description: 'Make a long, low transverse incision just above the pubic hairline, extending toward the iliac crests.' },
           { title: 'Dissection', description: 'Elevate the skin and subcutaneous fat flap off the abdominal wall fascia up to the level of the xiphoid process and costal margins.' },
@@ -3050,6 +3451,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'breast-reduction',
         name: 'Breast Reduction (Reduction Mammoplasty)',
+        estimatedBloodLoss: '100 - 250 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT or LMA',
+        recommendedBlocks: ['Pectoral Nerve (PECS I & II) Blocks', 'Serratus Anterior Plane (SAP) Block'],
+        erasHighlights: ['Maintain strict normotension to prevent hematoma', 'PONV dual prophylaxis bundle', 'Day-case / 24h discharge'],
         guide: [
           { title: 'Marking', description: 'Use precise pre-operative markings to determine the new position of the nipple-areola complex (NAC) and the extent of skin resection.' },
           { title: 'Incision', description: 'Perform a Wise-pattern (anchor) or vertical incision around the areola, down to the inframammary fold, and along the fold.' },
@@ -3087,11 +3493,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'rhinoplasty',
         name: 'Rhinoplasty',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + Throat Pack',
+        recommendedBlocks: ['Infraorbital Nerve Block', 'External Nasal Block', 'Topical Cocaine / Epinephrine'],
+        erasHighlights: ['Documented throat pack removal', 'Controlled mild normotension', 'Emergence smooth non-coughing protocol'],
         guide: [
-          { title: 'Access', description: 'Perform an "open" rhinoplasty with a small columellar incision and internal marginal incisions, or a "closed" approach with only internal incisions.' },
-          { title: 'Reshaping', description: 'Elevate the nasal skin and soft tissue. Use specialized instruments to reshape the nasal bones (osteotomy) and modify the septal and alar cartilages.' },
-          { title: 'Grafting', description: 'If necessary, harvest and place cartilage grafts (from the septum, ear, or rib) to provide structural support or improve nasal contour.' },
-          { title: 'Closure', description: 'Close the columellar and internal incisions with fine sutures. Place internal nasal splints (if needed) and an external thermoplastic splint to maintain the new shape.' }
+          { title: 'Local Infiltration & Airway Protection', description: 'Place radiopaque throat pack. Infiltrate nasal septum, columella, and lateral nasal walls with 1% Lidocaine + 1:100,000 Epinephrine for hemostasis.' },
+          { title: 'Incision & Soft Tissue Elevation', description: 'Perform inverted-V trans-columellar incision connected to bilateral marginal rim incisions. Elevate soft tissue envelope off nasal framework.' },
+          { title: 'Septal Work & Cartilage Harvesting', description: 'Perform septoplasty to correct deviation and harvest quadrangular septal cartilage graft material while preserving a 1 cm L-strut.' },
+          { title: 'Osseocartilaginous Reshaping & Osteotomies', description: 'Hump reduction of dorsal bony cap. Perform bilateral lateral percutaneous osteotomies to narrow nasal vault, placing spreader and rim grafts.' },
+          { title: 'Splinting, Packing Removal & Emergence', description: 'Close columella with 6-0 Fast Absorbing gut. Suction hypopharynx and remove throat pack. Apply external thermoplastic dorsal splint and internal Doyle splints.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT (throat pack essential)',
@@ -3150,6 +3562,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'thyroidectomy',
         name: 'Total Thyroidectomy',
+        estimatedBloodLoss: '50 - 150 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral NIM ETT (Nerve Integrity Monitor for Recurrent Laryngeal Nerve)',
+        recommendedBlocks: ['Superficial Cervical Plexus Block (Bilateral)', 'Local Infiltration'],
+        erasHighlights: ['Avoid long-acting neuromuscular blockers (NIM monitoring)', 'Stitch-cutter at bedside for hematoma emergency', 'Dexamethasone 8mg IV for airway edema'],
         guide: [
           { title: 'Incision', description: 'Make a transverse "collar" incision in a natural skin crease approximately 2 cm above the sternal notch.' },
           { title: 'Exposure', description: 'Divide the platysma muscle and separate the strap muscles (sternohyoid and sternothyroid) in the midline to expose the thyroid gland.' },
@@ -3187,6 +3604,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'parathyroidectomy',
         name: 'Parathyroidectomy',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT or NIM ETT',
+        recommendedBlocks: ['Bilateral Superficial Cervical Plexus Block'],
+        erasHighlights: ['Intraoperative PTH 10-minute drop protocol', 'Smooth non-coughing emergence', 'Serum calcium monitoring'],
         guide: [
           { title: 'Incision', description: 'Perform a small transverse collar incision, similar to a thyroidectomy but often smaller if the adenoma has been localized pre-operatively.' },
           { title: 'Exploration', description: 'Systematically explore the neck to identify all four parathyroid glands. Use pre-operative imaging (e.g., Sestamibi scan, ultrasound) for guidance.' },
@@ -3224,11 +3646,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'adrenalectomy',
         name: 'Adrenalectomy (Laparoscopic/Open)',
+        estimatedBloodLoss: '100 - 400 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT + Invasive A-line (Pheochromocytoma protocol)',
+        recommendedBlocks: ['TAP Block', 'Quadratus Lumborum (QL) Block', 'Thoracic Epidural (if open)'],
+        erasHighlights: ['Alpha-blockade pre-treatment (Phentolamine/Phenoxybenzamine ready)', 'Post-ligation hypotension management (Norepinephrine ready)', 'Steroid stress coverage'],
         guide: [
-          { title: 'Access', description: 'Perform a laparoscopic (transperitoneal or retroperitoneal) approach for smaller tumors, or an open midline/subcostal incision for larger or malignant masses.' },
-          { title: 'Mobilization', description: 'Carefully mobilize the adjacent organs (liver/spleen and kidney) to expose the adrenal gland and its vascular supply.' },
-          { title: 'Vascular Control', description: 'Identify and ligated the adrenal vein early, especially in cases of pheochromocytoma, to prevent massive catecholamine release during manipulation.' },
-          { title: 'Removal', description: 'Dissect the gland off the surrounding retroperitoneal fat and the superior pole of the kidney, ensuring the capsule remains intact.' }
+          { title: 'Positioning & Port Access', description: 'Place patient in lateral decubitus (or prone retroperitoneal). Establish pneumoperitoneum and place 3-4 subcostal laparoscopic ports.' },
+          { title: 'Visceral Mobilization & Exposure', description: 'Mobilize liver and hepatic flexure (right side) or spleen and pancreas (left side) to expose the adrenal gland within Gerota\'s fascia.' },
+          { title: 'Adrenal Main Vein Isolation & Ligation', description: 'Identify and double-clip/ligate main adrenal vein early (right vein to IVC, left vein to renal vein) to arrest systemic catecholamine surges.' },
+          { title: 'Parenchymal & Fatty Dissection', description: 'Dissect adrenal gland off upper renal pole and diaphragm using harmonic scalpel, clipping small arterial branches.' },
+          { title: 'Specimen Bag Extraction & Closure', description: 'Place intact adrenal gland in extraction bag and retrieve via enlarged port site. Verify dry bed hemostasis and close port fascia.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT',
@@ -3260,11 +3688,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'neck-dissection',
         name: 'Neck Dissection',
+        estimatedBloodLoss: '200 - 500 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units',
+        airwayStrategy: 'Oral ETT or Tracheostomy',
+        recommendedBlocks: ['Superficial Cervical Plexus Block'],
+        erasHighlights: ['Carotid sinus reflex bradycardia protocol', 'Venous air embolism precautions', 'Drain volume monitoring'],
         guide: [
-          { title: 'Incision', description: 'Make a large cervical incision (e.g., MacFee, "Y" or "U" shaped) to provide broad exposure of the neck levels.' },
-          { title: 'Dissection', description: 'Systematically remove lymph nodes and fibrofatty tissue from specific neck levels (I-V), depending on the extent of the disease (radical, modified radical, or selective).' },
-          { title: 'Preservation', description: 'Carefully identify and preserve critical structures, such as the spinal accessory nerve (CN XI), internal jugular vein (IJV), and sternocleidomastoid muscle (SCM), if oncologically safe.' },
-          { title: 'Closure', description: 'Ensure meticulous hemostasis. Place one or more large-bore suction drains to prevent hematoma or seroma formation. Close the skin in layers.' }
+          { title: 'Cervical Incision & Flap Elevation', description: 'Perform wide Apron or MacFee skin incision. Elevate subplatysmal flaps superiorly to mandible and inferiorly to clavicle.' },
+          { title: 'Submandibular & Upper Jugular Dissection (Levels I-II)', description: 'Clear submandibular triangle (Level I), preserving marginal mandibular nerve. Dissect fibrofatty tissue along upper IJV and CN XI (Level II).' },
+          { title: 'Mid/Lower Jugular Node Removal (Levels III-IV)', description: 'Skeletonize internal jugular vein and carotid sheath, dissecting lymph nodes en-bloc off IJV from hyoid down to clavicle.' },
+          { title: 'Posterior Triangle Dissection (Level V)', description: 'Dissect posterior triangle lymph nodes along spinal accessory nerve (CN XI), preserving nerve continuity and brachial plexus branches.' },
+          { title: 'Hemostasis & Closed Suction Drainage', description: 'Irrigate neck, check for chyle leak at thoracic duct, place 2 Jackson-Pratt suction drains, and close platysma and skin.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT',
@@ -3296,11 +3730,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'tracheostomy',
         name: 'Tracheostomy (Surgical/Percutaneous)',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT (Shared Airway Transition)',
+        recommendedBlocks: ['Local Infiltration with Epinephrine'],
+        erasHighlights: ['Pre-oxygenation with 100% O2', 'FiO2 < 30% during electrocautery to prevent airway fire', 'Bronchoscopic confirmation'],
         guide: [
-          { title: 'Access', description: 'Perform a transverse skin incision between the cricoid cartilage and the sternal notch, or use a percutaneous needle and dilator technique under bronchoscopic guidance.' },
-          { title: 'Exposure', description: 'Dissect through the subcutaneous tissue and strap muscles. Divide or retract the thyroid isthmus if it obstructs the view of the trachea.' },
-          { title: 'Incision', description: 'Creation of a tracheal window or slit, typically between the second and third or third and fourth tracheal rings.' },
-          { title: 'Insertion', description: 'Insertion of the tracheostomy tube and confirmation of position.' }
+          { title: 'Positioning & Neck Landmark Identification', description: 'Extend neck with shoulder roll. Palpate cricoid cartilage and sternal notch. Perform 2 cm transverse incision over 2nd-3rd tracheal rings.' },
+          { title: 'Strap Muscle Dissection & Thyroid Isthmus Division', description: 'Divide midline linea alba, retract strap muscles laterally, and divide thyroid isthmus using suture ligation or electrocautery.' },
+          { title: 'Tracheal Window Creation & FiO2 Reduction', description: 'Reduce FiO2 < 30% to prevent airway fire. Create horizontal/Bjork flap tracheal window between 2nd and 3rd rings under direct vision.' },
+          { title: 'Controlled ETT Withdrawal & Cannula Insertion', description: 'Withdraw oral ETT under direct vision to just superior to tracheostomy window. Insert cuffed tracheostomy tube directly into trachea.' },
+          { title: 'Capnography Verification & Tube Fixation', description: 'Connect circuit, verify EtCO2 wave and bilateral breath sounds. Secure tracheostomy flange to skin with 2-0 silk sutures and neck tape.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT (shared airway)',
@@ -3332,11 +3772,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'laryngectomy',
         name: 'Total Laryngectomy',
+        estimatedBloodLoss: '300 - 800 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Oral ETT -> End-tracheostome transition',
+        recommendedBlocks: ['Superficial Cervical Plexus Block'],
+        erasHighlights: ['Meticulous end-stoma creation', 'Smooth emergence to prevent pharyngeal suture line strain', 'ICU recovery'],
         guide: [
-          { title: 'Incision', description: 'Make a wide, "U-shaped" or "apron" cervical incision to expose the larynx and the major vessels of the neck.' },
-          { title: 'Dissection', description: 'Mobilization of the larynx and division of attachments. Identify and preserve the carotid arteries and internal jugular veins.' },
-          { title: 'Tracheostomy', description: 'Divide the trachea and create a permanent end-stoma (tracheostome) at the base of the neck.' },
-          { title: 'Removal', description: 'Remove the entire larynx, including the thyroid and cricoid cartilages and the hyoid bone. Close the pharyngeal defect (neopharynx) in multiple layers.' }
+          { title: 'Apron Flap Incision & Exposure', description: 'Perform wide U-shaped apron skin flap from mastoid to mastoid. Elevate platysma flap to hyoid bone level.' },
+          { title: 'Laryngeal & Hyoid Mobilization', description: 'Transect strap muscles, dissect suprahyoid muscles off hyoid bone, and mobilize thyroid gland lobes off anterior larynx.' },
+          { title: 'Tracheal Transection & Stoma Creation', description: 'Transect trachea between 1st and 2nd rings. Bevel distal trachea and suture to lower skin edge to construct permanent end-tracheostome.' },
+          { title: 'En-Bloc Larynx & Pharynx Resection', description: 'Incise pharyngeal mucosa, enter hypopharynx, and resect larynx, cricoid, thyroid cartilage, and hyoid bone en-bloc.' },
+          { title: 'Neopharynx Closure & TEP Placement', description: 'Perform 3-layer watertight closure of pharyngeal defect (neopharynx) over NGT. Insert Tracheoesophageal Puncture (TEP) speech prosthesis.' }
         ],
         anestheticConsiderations: [
           'Major head and neck surgery with shared airway',
@@ -3395,6 +3841,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'pyloromyotomy',
         name: 'Ramstedt Pyloromyotomy',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'Oral ETT + RSI (after 3-position OGT stomach suction)',
+        recommendedBlocks: ['TAP Block', 'Local Infiltration'],
+        erasHighlights: ['Preop correction of hypochloremic hypokalemic metabolic alkalosis', 'Feeding protocol at 6 hours post-op', 'Active warming (Overhead heater)'],
         guide: [
           { title: 'Access', description: 'Perform a small, 2-3 cm transverse skin incision in the right upper quadrant (RUQ) or a supra-umbilical "omega" incision for better cosmesis.' },
           { title: 'Exposure', description: 'Carefully deliver the hypertrophied pylorus into the surgical wound using gentle traction on the stomach and duodenum.' },
@@ -3432,6 +3883,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'orchidopexy',
         name: 'Orchidopexy (Undescended Testis)',
+        estimatedBloodLoss: '< 10 mL',
+        bloodProductPrep: 'N/A',
+        airwayStrategy: 'LMA or Oral ETT',
+        recommendedBlocks: ['Caudal Block', 'Ilioinguinal / Iliohypogastric Nerve Block'],
+        erasHighlights: ['Caudal single-shot analgesia (Bupivacaine 0.25% 1 mL/kg)', 'Day-case surgery', 'Multimodal paracetamol/ibuprofen'],
         guide: [
           { title: 'Incision', description: 'Make a small transverse incision in the inguinal skin crease to access the inguinal canal and the undescended testis.' },
           { title: 'Mobilization', description: 'Carefully mobilize the testis and the spermatic cord (vas deferens and spermatic vessels) to provide sufficient length for tension-free scrotal placement.' },
@@ -3469,6 +3925,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'intussusception-reduction',
         name: 'Intussusception Reduction (Surgical)',
+        estimatedBloodLoss: '< 20 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral ETT + RSI (Bowel obstruction protocol)',
+        recommendedBlocks: ['TAP Block', 'Local Infiltration'],
+        erasHighlights: ['Isotonic fluid loading for third-spacing', 'Active normothermia preservation', 'Multimodal opioid-sparing analgesia'],
         guide: [
           { title: 'Access', description: 'Perform a right upper quadrant (RUQ) transverse incision or a midline laparotomy if the diagnosis is uncertain or if the patient is unstable.' },
           { title: 'Identification', description: 'Locate the intussusceptum (the prolapsed segment) and the intussuscipiens (the receiving segment), typically at the ileocolic junction.' },
@@ -3506,11 +3967,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'tef-repair',
         name: 'Esophageal Atresia / TEF Repair',
+        estimatedBloodLoss: '< 15 mL',
+        bloodProductPrep: 'Crossmatch 1 Unit PRBCs',
+        airwayStrategy: 'Oral ETT (Distal to fistula before PPV)',
+        recommendedBlocks: ['Intercostal Nerve Block', 'Paravertebral Block'],
+        erasHighlights: ['Avoid positive pressure ventilation before fistula ligation', 'NICU temperature preservation', 'Arterial line blood gas surveillance'],
         guide: [
-          { title: 'Access', description: 'Perform a right posterolateral thoracotomy (usually via the 4th intercostal space) or a thoracoscopic approach to access the posterior mediastinum.' },
-          { title: 'Ligation', description: 'Identify the tracheoesophageal fistula (TEF), typically at or just above the carina. Carefully ligated and divide the fistula.' },
-          { title: 'Anastomosis', description: 'Mobilize the upper and lower esophageal pouches. Perform a primary end-to-end anastomosis using fine, absorbable sutures over a feeding tube.' },
-          { title: 'Closure', description: 'Place a small chest drain near the anastomosis (but not touching it). Reapproximate the ribs and close the muscle layers and skin.' }
+          { title: 'Access & Extrapleural Dissection', description: 'Perform right posterolateral thoracotomy via 4th intercostal space. Dissect in extrapleural plane to reach posterior mediastinum without entering pleural space.' },
+          { title: 'Fistula Identification & Isolation', description: 'Identify distal tracheoesophageal fistula (TEF) taking origin from posterior tracheal wall near carina. Encircle fistula with vessel loop.' },
+          { title: 'Fistula Ligation & Transection', description: 'Ligate fistula at tracheal origin using fine silk or titanium clip and transect, eliminating gastric inflation during positive pressure ventilation.' },
+          { title: 'Pouch Mobilization & Trans-anastomotic Tube', description: 'Mobilize upper blind esophageal pouch. Pass 6 Fr trans-anastomotic nasogastric feeding tube into stomach under direct vision.' },
+          { title: 'Primary Esophageal Anastomosis & Drainage', description: 'Perform end-to-end full-thickness esophageal anastomosis with interrupted 5-0 Vicryl. Place extrapleural retro-anastomotic drain and close chest in layers.' }
         ],
         anestheticConsiderations: [
           'Neonatal emergency with complex airway issues',
@@ -3542,10 +4009,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'cdh-repair',
         name: 'Congenital Diaphragmatic Hernia (CDH) Repair',
+        estimatedBloodLoss: '< 20 mL',
+        bloodProductPrep: 'Crossmatch 1 Unit PRBCs',
+        airwayStrategy: 'Oral ETT + Gentle Pressure-Controlled Ventilation',
+        recommendedBlocks: ['TAP Block', 'Local Infiltration'],
+        erasHighlights: ['Permissive hypercapnia', 'Pre/Post ductal SpO2 monitoring', 'Avoid contralateral pneumothorax barotrauma'],
         guide: [
-          { title: 'Access', description: 'Subcostal incision. Reduce abdominal contents (bowel, spleen, stomach) from the thorax.' },
-          { title: 'Repair', description: 'Closure of the diaphragmatic defect (Bochdalek) using primary suture or a mesh patch.' },
-          { title: 'Observation', description: 'Ensure the lung on the affected side has space to expand (though it is often hypoplastic).' }
+          { title: 'Subcostal Access', description: 'Perform a left subcostal or transverse upper abdominal incision to access the peritoneal cavity.' },
+          { title: 'Visceral Reduction', description: 'Gently reduce herniated viscera (small bowel, stomach, spleen, colon) from the hemithorax back into the abdominal cavity.' },
+          { title: 'Defect Exposure', description: 'Identify and inspect the posterolateral diaphragmatic defect (Bochdalek hernia) and rim of normal diaphragmatic muscle.' },
+          { title: 'Diaphragmatic Repair', description: 'Perform primary non-absorbable sutured closure of the defect; use a synthetic mesh patch (e.g., Gore-Tex) if the defect is too large for primary repair.' },
+          { title: 'Abdominal Wall Closure', description: 'Inspect ipsilateral lung space. Perform primary abdominal wall closure over skin flaps if intra-abdominal pressure permits.' }
         ],
         anestheticConsiderations: [
           'Neonate with severe pulmonary hypoplasia and persistent pulmonary hypertension (PPHN).',
@@ -3572,10 +4046,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'gastroschisis-repair',
         name: 'Gastroschisis / Omphalocele Repair',
+        estimatedBloodLoss: '< 30 mL',
+        bloodProductPrep: 'Crossmatch 1 Unit PRBCs',
+        airwayStrategy: 'Oral ETT + Muscle Relaxation',
+        recommendedBlocks: ['Local Infiltration'],
+        erasHighlights: ['Abdominal compartment pressure monitoring post-reduction', 'Overhead radiant warmer', 'Strict fluid balance'],
         guide: [
-          { title: 'Protection', description: 'Ensure the exposed bowel is covered with sterile, warm saline dressings or a silo immediately after birth.' },
-          { title: 'Reduction', description: 'Gradually reduce the bowel into the abdominal cavity. This may be done in stages (Silo) or as a primary closure.' },
-          { title: 'Closure', description: 'Perform an anatomical closure of the abdominal wall defect once the intra-abdominal pressure is safe.' }
+          { title: 'Bowel Inspection & Protection', description: 'Inspect exposed eviscerated bowel for atresia, ischemia, or necrosis. Wrap with warm saline-soaked gauze or place spring-loaded silo.' },
+          { title: 'Silo Placement / Staged Reduction', description: 'If abdominal cavity is non-compliant, secure pre-formed spring-loaded silo over defect and perform daily sequential manual reduction.' },
+          { title: 'Defect Exposure & Stretching', description: 'For primary repair, stretch anterior abdominal wall manually in all four quadrants to accommodate reduced bowel volume.' },
+          { title: 'Intra-abdominal Pressure Monitoring', description: 'Reduce bowel into peritoneal cavity while monitoring airway pressure, peak inspiratory pressure, and distal perfusion to prevent compartment syndrome.' },
+          { title: 'Sutured / Sutureless Closure', description: 'Perform primary fascial closure using continuous absorbable sutures or sutureless closure using the umbilical cord stump as a dressing.' }
         ],
         anestheticConsiderations: [
           'Neonate with significant fluid and heat loss from exposed bowel.',
@@ -3602,10 +4083,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'nec-laparotomy',
         name: 'Necrotizing Enterocolitis (NEC) Laparotomy',
+        estimatedBloodLoss: '20 - 100 mL',
+        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs + Platelets + FFP',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC',
+        recommendedBlocks: ['Local Infiltration'],
+        erasHighlights: ['Septic shock resuscitation protocol', 'Correction of hyperkalemia/acidosis', 'Preserve maximum bowel length'],
         guide: [
-          { title: 'Access', description: 'Transverse supra-umbilical incision. Identify segments of necrotic or perforated bowel.' },
-          { title: 'Resection', description: 'Resect all non-viable bowel while preserving as much length as possible (to avoid Short Bowel Syndrome).' },
-          { title: 'Stoma', description: 'Usually requires the creation of one or more enterostomies.' }
+          { title: 'Incision & Inspection', description: 'Perform a right transverse supra-umbilical incision. Carefully eviscerate abdomen and assess total bowel involvement and perforation sites.' },
+          { title: 'Necrotic Bowel Resection', description: 'Systematically resect all frank gangrenous, non-viable, or perforated bowel segments, taking care to preserve all viable bowel length to prevent short bowel syndrome.' },
+          { title: 'Stoma Creation', description: 'Bring proximal viable bowel end out as an enterostomy (ileostomy or jejunostomy) and distal end as a mucous fistula.' },
+          { title: 'Peritoneal Decontamination', description: 'Copiously irrigate the peritoneal cavity with warm sterile saline to evacuate necrotic debris and purulent fluid.' },
+          { title: 'Abdominal Closure', description: 'Perform loose layered closure of abdominal fascia and skin, leaving drains in place if generalized peritonitis persists.' }
         ],
         anestheticConsiderations: [
           'Extremely sick, septic neonate (often premature).',
@@ -3632,10 +4120,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'cleft-lip-palate',
         name: 'Cleft Lip and Palate Repair',
+        estimatedBloodLoss: '< 30 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Oral RAE ETT / Armored ETT',
+        recommendedBlocks: ['Infraorbital Nerve Block', 'Greater Palatine Block'],
+        erasHighlights: ['Throat pack placement & removal verification', 'Elbow immobilizers post-op', 'Multimodal pain management'],
         guide: [
-          { title: 'Access', description: 'Expose the oral cavity using a specialized mouth gag (e.g., Dingman).' },
-          { title: 'Dissection', description: 'Mobilize the soft tissues and muscles (levator palati) of the lip or palate.' },
-          { title: 'Repair', description: 'Perform a meticulous, layered anatomical reconstruction to restore function and appearance.' }
+          { title: 'Positioning & Mouth Gag Placement', description: 'Place patient supine with neck extended. Insert Dingman mouth gag for palate repair or place head ring for lip repair. Infiltrate local anesthetic + Epinephrine.' },
+          { title: 'Flap Incision & Dissection', description: 'Incise along cleft margins. Elevate mucoperiosteal flaps off the hard palate (Furlow or von Langenbeck technique) or mark Millard rotation-advancement lip flaps.' },
+          { title: 'Muscle Reorientation (Intravelar Veloplasty)', description: 'Dissect the abnormal levator veli palatini muscle insertions off the posterior hard palate shelf and re-orient them transversely to form a functional muscle sling.' },
+          { title: 'Layered Anatomical Closure', description: 'Perform meticulous 3-layer closure of nasal mucosa, levator muscle sling, and oral mucosa for palate; or Orbicularis oris muscle and skin for lip.' },
+          { title: 'Airway Clearance & Inspection', description: 'Irrigate oral cavity, suction stomach contents, remove throat pack under direct vision, and inspect repair for hemostasis.' }
         ],
         anestheticConsiderations: [
           'Shared airway challenges; specialized tubes (RAE or armored) essentially.',
@@ -3662,10 +4157,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'choledochal-cyst',
         name: 'Choledochal Cyst Excision',
+        estimatedBloodLoss: '50 - 150 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 1-2 Units',
+        airwayStrategy: 'Oral ETT',
+        recommendedBlocks: ['TAP Block', 'Epidural Anesthesia'],
+        erasHighlights: ['Vitamin K optimization pre-op', 'Restrictive fluid strategy', 'Roux-en-Y anastomotic leak check'],
         guide: [
-          { title: 'Access', description: 'Perform a right subcostal or midline laparotomy.' },
-          { title: 'Excision', description: 'Systematically dissect and remove the dilated extrahepatic bile duct (choledochal cyst).' },
-          { title: 'Reconstruction', description: 'Perform a Roux-en-Y hepaticojejunostomy to restore biliary drainage.' }
+          { title: 'Incision & Calot Triangle Dissection', description: 'Perform a right subcostal (Kocher) incision. Dissect Calot\'s triangle to identify cystic duct, hepatic artery, and portal vein.' },
+          { title: 'Cyst Dissection & Mobilization', description: 'Mobilize the choledochal cyst off the portal vein and hepatic artery from the duodenal head up to the common hepatic duct bifurcation.' },
+          { title: 'Cyst Resection & Cholecystectomy', description: 'Ligate the distal common bile duct at the pancreatic head interface. Perform cholecystectomy and resect the fusiform/cystic extrahepatic bile duct.' },
+          { title: 'Roux-en-Y Hepaticojejunostomy', description: 'Isolate a 30-40 cm Roux limb of jejunum. Perform an end-to-side mucosa-to-mucosa hepaticojejunostomy using fine 5-0 absorbable sutures.' },
+          { title: 'Jejuno-Jejunostomy & Drain Placement', description: 'Reconstruct bowel continuity with an end-to-side jejuno-jejunostomy. Place a closed-suction drain near the biliary anastomosis and close fascia.' }
         ],
         anestheticConsiderations: [
           'Major pediatric abdominal procedure with significant duration.',
@@ -3719,6 +4221,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'trauma-laparotomy',
         name: 'Exploratory Laparotomy for Trauma',
+        estimatedBloodLoss: '500 - 4000 mL',
+        bloodProductPrep: 'Massive Transfusion Protocol (MTP): 10 PRBCs, 10 FFP, 2 Platelets + Cell Saver',
+        airwayStrategy: 'Rapid Sequence Induction (RSI) with Oral ETT + Full Lines',
+        recommendedBlocks: ['TAP Block post-hemostasis'],
+        erasHighlights: ['Damage Control Resuscitation (Permissive Hypotension MAP 50-60)', 'Lethal Triad prevention (Warmed fluids & air)', '4-quadrant packing protocol'],
         guide: [
           { title: 'Incision', description: 'Perform a rapid, full-length midline laparotomy from the xiphoid process to the pubic symphysis to provide maximum exposure of the abdominal cavity.' },
           { title: 'Packing', description: 'Immediately perform four-quadrant packing with large laparotomy sponges to temporarily control diffuse hemorrhage and allow for initial assessment.' },
@@ -3756,11 +4263,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'splenectomy',
         name: 'Splenectomy (Trauma/Elective)',
+        estimatedBloodLoss: '300 - 2000 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + MTP standby',
+        airwayStrategy: 'Oral ETT + RSI (if trauma)',
+        recommendedBlocks: ['TAP Block', 'Left Serratus Anterior Plane Block'],
+        erasHighlights: ['Post-splenectomy encapsulated bacteria vaccination protocol', 'Platelet monitoring (Thrombocytosis surveillance)', 'Tranexamic Acid 1g IV'],
         guide: [
-          { title: 'Access', description: 'Perform a midline laparotomy (in trauma) or a left subcostal (Kocher) incision for elective cases to provide optimal access to the left upper quadrant.' },
-          { title: 'Mobilization', description: 'Systematically divide the splenocolic, splenorenal, splenophrenic, and gastrosplenic ligaments to fully mobilize the spleen from its attachments.' },
-          { title: 'Vascular Control', description: 'Carefully identify and ligated the splenic artery and vein at the splenic hilum, taking care to avoid injury to the tail of the pancreas.' },
-          { title: 'Removal', description: 'Remove the spleen and perform a thorough inspection of the splenic bed for any remaining bleeding points. Ensure the pancreatic tail is intact and dry.' }
+          { title: 'Left Upper Quadrant Access', description: 'Perform rapid upper midline laparotomy (trauma) or left subcostal Kocher incision (elective) to access the left upper quadrant.' },
+          { title: 'Splenophrenic & Splenorenal Ligament Division', description: 'Tract spleen medially and incise lateral avascular peritoneal attachments (splenophrenic and splenorenal ligaments) to deliver spleen into wound.' },
+          { title: 'Short Gastric Vessel Ligation', description: 'Dissect gastrosplenic ligament and double-ligate short gastric arteries using silk ties or Harmonic scalpel along greater stomach curvature.' },
+          { title: 'Splenic Hilar Vascular Ligation', description: 'Isolate main splenic artery and vein at splenic hilum. Ligate artery first to allow splenic autotransfusion, then vein, preserving pancreatic tail.' },
+          { title: 'Splenic Bed Inspection & Drainage', description: 'Inspect left upper quadrant and pancreatic tail for bleeding or injury. Place closed-suction drain in splenic fossa and close abdominal wall.' }
         ],
         anestheticConsiderations: [
           'General anesthesia with ETT',
@@ -3792,6 +4305,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'pelvic-orif',
         name: 'Pelvic Fracture ORIF',
+        estimatedBloodLoss: '500 - 2500 mL',
+        bloodProductPrep: 'Crossmatch 4-6 Units PRBCs + Cell Saver',
+        airwayStrategy: 'Oral ETT + Invasive A-line + CVC',
+        recommendedBlocks: ['Quadratus Lumborum (QL) Block', 'Lumbar Plexus Block'],
+        erasHighlights: ['Pre-op pelvic binder until surgical fixation', 'Cell saver blood salvage', 'Aggressive VTE prophylaxis'],
         guide: [
           { title: 'Access', description: 'Use an anterior approach (e.g., ilioinguinal, Stoppa, or Smith-Petersen) or a posterior approach (e.g., Kocher-Langenbeck) depending on the fracture pattern.' },
           { title: 'Reduction', description: 'Achieve anatomical or near-anatomical realignment of the pelvic ring or acetabulum using specialized reduction clamps, traction, and bone hooks.' },
@@ -3829,10 +4347,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'damage-control-lap',
         name: 'Damage Control Laparotomy (Trauma)',
+        estimatedBloodLoss: '1000 - 5000 mL',
+        bloodProductPrep: 'Massive Transfusion Protocol (MTP): 1:1:1 Ratio PRBC/FFP/Platelets',
+        airwayStrategy: 'Oral ETT + RSI + Rapid Infuser',
+        recommendedBlocks: ['N/A (Damage Control)'],
+        erasHighlights: ['Bogota bag / Abthera open abdominal closure', 'Zero-crystalloid resuscitation protocol', 'ICU take-back in 24-48h'],
         guide: [
-          { title: 'Abbreviated Laparotomy', description: 'Perform a rapid midline incision. Stop massive hemorrhage (packing/clamping) and control contamination (ligation).' },
-          { title: 'Temporary Closure', description: 'Perform "Bogota bag" or vacuum-assisted closure. Do NOT attempt definitive repair.' },
-          { title: 'Resuscitation', description: 'Transfer patient to ICU for correction of the "Lethal Triad" (Acidosis, Coagulopathy, Hypothermia).' }
+          { title: 'Rapid Exposure & Evisceration', description: 'Perform rapid full-length midline laparotomy. Eviscerate bowel and suction hemoperitoneum.' },
+          { title: 'Four-Quadrant Packing', description: 'Pack all four abdominal quadrants immediately with laparotomy pads to control diffuse venous and parenchymal bleeding.' },
+          { title: 'Surgical Source Control', description: 'Unpack quadrants systematically. Control arterial bleeding with vascular clamps/shunts and staple bowel perforations without anastomosis.' },
+          { title: 'Repacking & Hemostasis Check', description: 'Re-pack solid organs (liver/spleen) tightly. Verify rapid hemostasis and absence of surgical arterial spurting.' },
+          { title: 'Temporary Abdominal Closure (TAC)', description: 'Apply negative-pressure temporary abdominal closure (e.g., ABThera or Bogota bag). Transfer immediately to ICU for resuscitation.' }
         ],
         anestheticConsiderations: [
           'Ultrafast induction (often simple Ketamine/Succinylcholine) once surgeon is ready.',
@@ -3859,10 +4384,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'er-thoracotomy',
         name: 'Emergency Department / ER Thoracotomy',
+        estimatedBloodLoss: '> 2000 mL',
+        bloodProductPrep: 'MTP Protocol (Uncrossmatched O-Negative PRBCs & AB FFP)',
+        airwayStrategy: 'Immediate ETT without induction drugs (Agonal state)',
+        recommendedBlocks: ['N/A'],
+        erasHighlights: ['Left 5th ICS anterolateral incision', 'Aortic cross-clamping for brain/heart perfusion', 'Open cardiac massage'],
         guide: [
-          { title: 'Incison', description: 'Left anterolateral thoracotomy in the 4th/5th intercostal space.' },
-          { title: 'Access', description: 'Identify the heart. Pericardiotomy if tamponade suspected.' },
-          { title: 'Intervention', description: 'Internal cardiac massage, cross-clamping of the descending aorta, or Repair of cardiac injury.' }
+          { title: 'Anterolateral Thoracotomy Incision', description: 'Perform a rapid left 4th or 5th intercostal space anterolateral thoracotomy incision from sternum to mid-axillary line.' },
+          { title: 'Intercostal Entry & Rib Spreading', description: 'Divide intercostal muscles with scalpel/trauma shears. Insert Finochietto rib retractor with handle directed towards axilla and open widely.' },
+          { title: 'Pericardiotomy & Evacuation', description: 'Identify phrenic nerve. Incise pericardium longitudinally anterior and parallel to phrenic nerve to evacuate cardiac tamponade hemopericardium.' },
+          { title: 'Internal Cardiac Massage & Defibrillation', description: 'Perform bimanual internal cardiac massage. Apply internal defibrillation paddles directly to ventricles (10-20 Joules) if ventricular fibrillation occurs.' },
+          { title: 'Cross-Clamping & Cardiorrhaphy', description: 'Cross-clamp descending thoracic aorta above diaphragm with DeBakey clamp. Control cardiac wound with digital occlusion and 3-0 Prolene pledgeted sutures.' }
         ],
         anestheticConsiderations: [
           'Performed on patients in profound shock or traumatic arrest.',
@@ -3916,6 +4448,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'burn-debridement',
         name: 'Debridement and Skin Grafting',
+        estimatedBloodLoss: '500 - 2000 mL (1 mL per cm2 excised)',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + Platelets',
+        airwayStrategy: 'Oral ETT (Subglottic edema surveillance)',
+        recommendedBlocks: ['Donor site local infiltration / Regional Nerve Blocks'],
+        erasHighlights: ['OR ambient temperature > 28-30°C', 'Succinylcholine CONTRAINDICATED (> 24-48h post-burn)', 'Parkland fluid resuscitation formula'],
         guide: [
           { title: 'Excision', description: 'Perform tangential excision (removing thin layers of burnt tissue until viable tissue is reached) or fascial excision (removing all tissue down to the muscle fascia).' },
           { title: 'Hemostasis', description: 'Achieve rapid control of bleeding from the large raw surfaces using adrenaline-soaked swabs, topical thrombin, electrocautery, or limb tourniquets.' },
@@ -3980,11 +4517,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'c-section',
         name: 'Caesarean Section',
+        estimatedBloodLoss: '500 - 1000 mL',
+        bloodProductPrep: 'Group & Save (G&S) / Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Spinal Anesthesia Primary; ETT + RSI if emergency/failed block',
+        recommendedBlocks: ['Spinal Anesthesia (Bupivacaine + Fentanyl + Morphine)', 'TAP Block (post-op)'],
+        erasHighlights: ['Left lateral tilt 15°', 'Active warming', 'Prophylactic Phenylephrine infusion', 'Intrathecal Morphine 100mcg for 24h analgesia'],
         guide: [
-          { title: 'Incision', description: 'Perform a Pfannenstiel (horizontal) or Joel-Cohen incision to access the abdominal cavity. Systematically divide the subcutaneous tissue, fascia, and rectus muscles.' },
-          { title: 'Uterotomy', description: 'Create a low transverse incision in the lower uterine segment. Carefully extend the incision laterally, taking care to avoid injury to the uterine vessels.' },
-          { title: 'Delivery', description: 'Gently deliver the fetal head and body through the hysterotomy. Suction the neonate\'s airway if needed and perform delayed cord clamping if appropriate.' },
-          { title: 'Closure', description: 'Perform a two-layer closure of the hysterotomy using absorbable sutures. Systematically close the peritoneum, fascia, and skin in a layered fashion.' }
+          { title: 'Positioning & Abdominal Incision', description: 'Position patient with 15-degree left tilt. Perform Pfannenstiel or Joel-Cohen transverse skin incision, divide fascia, and retract rectus muscles.' },
+          { title: 'Parietal Peritoneum & Bladder Flap', description: 'Incise parietal peritoneum. Create a gentle bladder flap by incising vesicouterine peritoneum and mobilizing bladder inferiorly.' },
+          { title: 'Lower Segment Uterotomy', description: 'Perform a low transverse incision into the lower uterine segment with scalpel, extending laterally using blunt digital traction.' },
+          { title: 'Neonatal Delivery & Cord Clamping', description: 'Gently disimpact and elevate fetal head, deliver body, perform delayed cord clamping (60s), and hand neonate to pediatric team.' },
+          { title: 'Uterine Reconstruction & Hemostasis', description: 'Deliver placenta via controlled cord traction. Perform 2-layer continuous hysterotomy closure with absorbable suture, administer Oxytocin 5 IU IV, and close fascia.' }
         ],
         anestheticConsiderations: [
           'Regional anesthesia (Spinal/Epidural) is the gold standard',
@@ -4016,11 +4559,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'cervical-cerclage',
         name: 'Cervical Cerclage',
+        estimatedBloodLoss: '< 50 mL',
+        bloodProductPrep: 'Group & Save (G&S)',
+        airwayStrategy: 'Spinal Anesthesia / LMA if GA required',
+        recommendedBlocks: ['Spinal Anesthesia (Low dose Bupivacaine)'],
+        erasHighlights: ['Avoid uterine stimulants', 'Left lateral tilt', 'Same-day discharge'],
         guide: [
-          { title: 'Positioning', description: 'Place the patient in the lithotomy position and ensure adequate exposure of the cervix using a weighted speculum or retractors.' },
-          { title: 'Exposure', description: 'Systematically visualize the cervix and identify the cervicovaginal junction. Carefully dissect the bladder away from the anterior cervix if needed.' },
-          { title: 'Suturing', description: 'Place a non-absorbable suture (e.g., Mersilene tape) around the cervix at the level of the internal os using the McDonald or Shirodkar technique.' },
-          { title: 'Closure', description: 'Securely tie the suture and ensure the cervix is sufficiently closed. Perform a final inspection for any bleeding or injury before removing the speculum.' }
+          { title: 'Lithotomy Positioning & Speculum Exposure', description: 'Place patient in dorsal lithotomy position with left tilt. Insert weighted vaginal speculum and anterior vaginal retractor to expose cervix.' },
+          { title: 'Cervical Grasping & Bladder Reflection', description: 'Grasp anterior and posterior lips of cervix with ring forceps. Refect bladder mucosa superiorly off anterior cervicovaginal junction if performing Shirodkar technique.' },
+          { title: 'Mersilene Tape Purse-String Placement', description: 'Pass 5 mm Mersilene purse-string tape subepithelially around cervix at level of internal os (McDonald/Shirodkar technique) taking care to avoid membranes.' },
+          { title: 'Tying Knot & Os Compression Verification', description: 'Tie Mersilene tape firmly posterior (or anteriorly), placing 4-5 knots. Verify internal os closure without membrane herniation or mucosal ischemia.' },
+          { title: 'Fetal Heart Monitoring & Speculum Removal', description: 'Inspect vaginal mucosa for bleeding. Remove speculum and perform bedside ultrasound to confirm fetal heart rate and intact amniotic sac.' }
         ],
         anestheticConsiderations: [
           'Regional anesthesia (Spinal) is preferred',
@@ -4052,11 +4601,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'peripartum-hysterectomy',
         name: 'Emergency Peripartum Hysterectomy',
+        estimatedBloodLoss: '1500 - 5000 mL',
+        bloodProductPrep: 'Massive Transfusion Protocol (MTP): 6-10 Units PRBCs + Platelets + FFP + Cell Saver',
+        airwayStrategy: 'Oral ETT + RSI + Invasive Arterial/CVC Lines',
+        recommendedBlocks: ['TAP Block post-op'],
+        erasHighlights: ['Conversion from neuraxial to GA early upon instability', 'Cell saver autotransfusion', 'Uterine artery ligation'],
         guide: [
-          { title: 'Decision', description: 'Typically performed for intractable hemorrhage (e.g., Atony, Placenta Accreta Spectrum, Uterine Rupture).' },
-          { title: 'Access', description: 'Extension of existing C-section incision or midline laparotomy.' },
-          { title: 'Ligation', description: 'Rapid clamping and ligation of the broad ligament, uterine, and ovarian vessels.' },
-          { title: 'Removal', description: 'Total or subtotal hysterectomy while managing massive blood loss.' }
+          { title: 'Emergency Exposure & Uterine Evisceration', description: 'Extend abdominal incision upwards into midline laparotomy. Exteriorize bleeding uterus to gain circumferential access to uterine pedicles.' },
+          { title: 'Round & Infundibulopelvic Ligament Clamping', description: 'Apply heavy Kocher clamps across round ligaments and infundibulopelvic (or utero-ovarian) ligaments, ligate and cut with 0-Vicryl.' },
+          { title: 'Uterine Artery Ligation', description: 'Skeletonize and double-clamp uterine vessels at internal os level bilaterally. Ligate with 0-chromic or Vicryl sutures.' },
+          { title: 'Cervical Dissection / Subtotal Hysterectomy', description: 'Perform subtotal supracervical or total hysterectomy, resecting uterus off vaginal vault while protecting ureters.' },
+          { title: 'Vault Closure & Pelvic Packing', description: 'Close vaginal cuff with continuous 0-Vicryl. Inspect retroperitoneum for active oozing. Place pelvic drains or pack if coagulopathic.' }
         ],
         anestheticConsiderations: [
           'High maternal mortality. Massive Transfusion Protocol is the priority.',
@@ -4083,10 +4638,17 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'placenta-previa-csection',
         name: 'Total Placenta Previa C-Section',
+        estimatedBloodLoss: '1000 - 3000 mL',
+        bloodProductPrep: 'Crossmatch 4 Units PRBCs + MTP Protocol standby',
+        airwayStrategy: 'Spinal/CSE or Oral ETT + RSI (if massive bleeding)',
+        recommendedBlocks: ['Spinal Anesthesia', 'TAP Block (post-op)'],
+        erasHighlights: ['Pre-operative arterial line placement', 'Invasive hemodynamic monitoring', 'Uterotonic bundle ready'],
         guide: [
-          { title: 'Incision', description: 'Usually a Pfannenstiel or midline if high bleeding risk. Surgeon avoids the placenta during uterine incision.' },
-          { title: 'Delivery', description: 'Rapid delivery of the neonate while managing placental hemorrhage.' },
-          { title: 'Hemostasis', description: 'Meticulous control of the placental bed. High risk of placenta accreta spectrum.' }
+          { title: 'Pre-incision Vascular Prep', description: 'Perform Pfannenstiel or high midline incision. Verify blood products in room and ensure cell saver line is primed.' },
+          { title: 'High / Fundal Hysterotomy', description: 'Perform hysterotomy superior to upper margin of anterior placenta (or cut directly through placenta if transmural extension).' },
+          { title: 'Rapid Fetal Delivery', description: 'Deliver fetus rapidly to minimize fetal blood loss from transected placental sinuses. Clamp cord immediately.' },
+          { title: 'Placental Manual Extraction', description: 'Manually extract placenta; if firm accreta adherence is identified, abort detachment and proceed to peripartum hysterectomy.' },
+          { title: 'Placental Bed Hemostasis', description: 'Apply figure-of-eight hemostatic sutures to lower segment bleeding bed, place intrauterine Bakri balloon, and close hysterotomy.' }
         ],
         anestheticConsiderations: [
           'High risk of massive hemorrhage. General anesthesia is often preferred if active bleeding or hemodynamic instability.',
@@ -4140,6 +4702,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
       {
         id: 'lobectomy',
         name: 'VATS Lobectomy',
+        estimatedBloodLoss: '100 - 300 mL',
+        bloodProductPrep: 'Crossmatch 2 Units PRBCs',
+        airwayStrategy: 'Left Double-Lumen Tube (DLT) or Bronchial Blocker + Bronchoscopy',
+        recommendedBlocks: ['Thoracic Epidural (T5-T8)', 'Thoracic Paravertebral Block', 'Serratus Anterior Plane Block'],
+        erasHighlights: ['One-Lung Ventilation (OLV) low VT (4-6 mL/kg) + PEEP', 'Fluid restriction (< 2 mL/kg/h)', 'Early mobilization day 1'],
         guide: [
           { title: 'Positioning', description: 'Place patient in the lateral decubitus position. Pad all pressure points carefully (axillary roll, peroneal nerve).' },
           { title: 'Access', description: 'Create 1 to 3 small incisions (ports) in the intercostal spaces. Establish One-Lung Ventilation (OLV) and collapse the operative lung.' },
@@ -4215,10 +4782,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'pleurodesis',
         name: 'Pleurodesis (VATS/Chemical)',
         guide: [
-          { title: 'Access', description: 'Perform a VATS approach or insert a chest drain (for chemical pleurodesis) into the pleural space.' },
-          { title: 'Drainage', description: 'Ensure complete drainage of any pleural effusion or pneumothorax to allow the visceral and parietal pleura to come into contact.' },
-          { title: 'Sclerosant', description: 'Instill a sclerosant (e.g., sterile talc, doxycycline, or bleomycin) or perform mechanical abrasion (pleural scrubbing) to induce inflammation.' },
-          { title: 'Drainage', description: 'Re-insert or maintain the chest drain to ensure continuous drainage and maintain lung expansion while the pleurae adhere.' }
+          { title: 'VATS Port Access & Effusion Evacuation', description: 'Perform single/multi-port VATS under one-lung ventilation. Completely aspirate all pleural effusion fluid and break up loculations.' },
+          { title: 'Pleural Inspection & Biopsy', description: 'Systematically inspect visceral and parietal pleura. Obtain representative parietal pleural punch biopsies of nodules or thickened pleura.' },
+          { title: 'Mechanical Abrasion (Pleural Scrubbing)', description: 'Scrub parietal pleura aggressively with a Marlex mesh or gauze pucker attached to ring forceps to induce uniform inflammatory exudate.' },
+          { title: 'Talc Poudrage / Chemical Sclerosant Application', description: 'Insufflate 4-5g of sterile asbestos-free talc powder (talc poudrage) under direct thoracoscopic vision into all pleural recesses.' },
+          { title: 'Lung Re-expansion & Chest Tube Drainage', description: 'Re-expand lung under direct vision to ensure complete apposition of visceral and parietal pleura. Insert 24-28 Fr chest tube connected to negative suction.' }
         ],
         anestheticConsiderations: [
           'GA with OLV (for VATS) or sedation (for chemical)',
@@ -4251,9 +4819,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'tracheal-resection',
         name: 'Tracheal Resection and Reconstruction',
         guide: [
-          { title: 'Exposure', description: 'Cervical incision +/- sternotomy to expose the stenotic or tumor-involved trachea.' },
-          { title: 'Division', description: 'Divide the trachea below the lesion. Distal trachea is intubated "on the field" by the surgeon.' },
-          { title: 'Anastomosis', description: 'The two ends of the trachea are sutured together. Chin-to-chest stitch (Grillo stitch) used to limit extension.' }
+          { title: 'Cervical Exposure & Mobilization', description: 'Perform collar incision +/- upper sternotomy. Mobilize anterior tracheal wall carefully, avoiding lateral pedicle devascularization.' },
+          { title: 'Tracheal Division & Cross-Field Ventilation', description: 'Transect trachea distal to stenosis/tumor. Pass sterile armored ETT into distal open trachea on surgical field and connect to secondary circuit.' },
+          { title: 'Stenotic Segment Resection', description: 'Resect diseased tracheal rings en-bloc with clear cartilage margins, preserving recurrent laryngeal nerves bilaterally.' },
+          { title: 'End-to-End Anastomosis', description: 'Perform interrupted 4-0 Vicryl/PDS circumferential anastomosis, transitioning ventilation back to oral ETT before anterior wall completion.' },
+          { title: 'Guardian / Grillo Stitch & Flexed Closure', description: 'Perform leak test under saline. Place heavy submental-to-manubrium chin-to-chest stitch (Grillo stitch) to prevent neck extension.' }
         ],
         anestheticConsiderations: [
           'THE ultimate airway challenge. Cooperation between anesthetist and surgeon is vital.',
@@ -4337,9 +4907,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'evar',
         name: 'Endovascular Aneurysm Repair (EVAR)',
         guide: [
-          { title: 'Access', description: 'Percutaneous or minor cutdown of femoral arteries. Can be done under local/regional or general anesthesia.' },
-          { title: 'Deployment', description: 'Stent-graft is advanced via fluoroscopy. Brief breath hold or transient induced hypotension may be required for precise deployment.' },
-          { title: 'Completion', description: 'Confirm graft position and absence of endoleaks with contrast angiography.' }
+          { title: 'Femoral Access & Sheath Placement', description: 'Perform percutaneous ultrasound-guided access or cutdown of bilateral common femoral arteries. Insert large-bore arterial sheaths (12-20 Fr).' },
+          { title: 'Angiography & Guideline Placement', description: 'Advance stiff guidewires (e.g., Supra Core) into abdominal aorta under fluoroscopy. Perform diagnostic abdominal aortogram to identify renal artery origins.' },
+          { title: 'Main Body Stent Deployment', description: 'Advance and deploy main bifurcated aortic stent-graft just inferior to lowest renal artery, ensuring complete seal without coverage of renal ostia.' },
+          { title: 'Contralateral Limb Cannulation & Extension', description: 'Cannulate contralateral gate from opposite femoral artery. Advance and deploy contralateral and ipsilateral iliac limb extension grafts.' },
+          { title: 'Balloon Dilatation & Completion Angiography', description: 'Perform balloon modeling of graft overlap zones and attachment sites. Perform completion angiography to exclude Type I or III endoleaks.' }
         ],
         anestheticConsiderations: [
           'Significantly less physiologic stress than open repair, but can quickly convert to an open rupture if the aneurysm bursts during wire manipulation.',
@@ -4385,9 +4957,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'fem-pop-bypass',
         name: 'Femoropopliteal Bypass (Fem-Pop)',
         guide: [
-          { title: 'Incision', description: 'Groin and lower leg incisions. High risk of blood loss if redo procedure or complex dissection.' },
-          { title: 'Grafting', description: 'Saphenous vein harvest or synthetic graft. Heparinize prior to clamping.' },
-          { title: 'Tunneling & Anastomosis', description: 'Tunneling is stimulating. Clamping in the leg causes less systemic change than aorta, but still risks reperfusion toxins upon unclamping.' }
+          { title: 'Groin & Popliteal Incisions', description: 'Make longitudinal groin incision over femoral triangle and distal leg incision over above-knee or below-knee popliteal fossa.' },
+          { title: 'Conduit Harvesting & Preparation', description: 'Harvest ipsilateral great saphenous vein (GSV) or prepare synthetic PTFE / Dacron graft. Systematically distend and valvulotome GSV.' },
+          { title: 'Heparinization & Vascular Clamping', description: 'Administer systemic Heparin (100 U/kg, target ACT > 200s). Clamp common femoral, deep femoral, and popliteal arteries.' },
+          { title: 'Proximal & Distal Anastomoses', description: 'Perform end-to-side proximal anastomosis to common femoral artery and distal anastomosis to popliteal artery using continuous 5-0 or 6-0 Prolene.' },
+          { title: 'De-airing & Flow Verification', description: 'Flush and de-air graft prior to final knot tying. Remove clamps, assess distal pedal pulses with Doppler ultrasound, and close incisions.' }
         ],
         anestheticConsiderations: [
           'Regional anesthesia (Spinal/Epidural) is excellent; it causes sympathectomy-induced vasodilation improving graft flow and decreases hypercoagulability post-op.',
@@ -4407,10 +4981,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'tevar',
         name: 'Thoracic Endovascular Aortic Repair (TEVAR)',
         guide: [
-          { title: 'Access & Wires', description: 'Femoral access, possible brachial access. Guide wires placed.' },
-          { title: 'Spinal Drain placement', description: 'A lumbar CSF drain is often placed pre-op to prevent spinal cord ischemia (keep CSF pressure < 10-15 mmHg).' },
-          { title: 'Deployment', description: 'Rapid Ventricular Pacing (RVP) or Adenosine may be used to temporarily stop cardiac output (induce transient asystole) for precise graft deployment in the moving aortic arch.' },
-          { title: 'Completion', description: 'Reverse pacing, resuscitate if needed, confirm seal.' }
+          { title: 'CSF Lumbar Drain & Arterial Line Placement', description: 'Insert lumbar spinal catheter to maintain CSF pressure < 10 mmHg. Place right radial arterial line to monitor cerebral perfusion during subclavian deployment.' },
+          { title: 'Femoral Vascular Access & Angiography', description: 'Expose or percutaneously access common femoral artery. Advance pigtail catheter via brachial/femoral access into ascending aorta for baseline angiogram.' },
+          { title: 'Rapid Ventricular Pacing (RVP) / Hypotension', description: 'Initiate RVP at 160-180 bpm (or Adenosine bolus) to achieve transient cardiac arrest / MAP < 50 mmHg during graft deployment to prevent wind-sail effect.' },
+          { title: 'Endograft Deployment & Proximal Landing Zone', description: 'Deploy thoracic endograft precisely in descending aorta, ensuring proximal landing zone distal to left subclavian artery (Zone 2/3).' },
+          { title: 'Completion Angiography & Re-perfusion', description: 'Discontinue pacing. Perform balloon molding and completion angiography to verify graft exclusion of aneurysm/dissection and lack of Type I/III endoleak.' }
         ],
         anestheticConsiderations: [
           'High risk procedure often done for descending aortic aneurysms or dissections.',
@@ -4437,8 +5012,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'av-fistula',
         name: 'AV Fistula Creation',
         guide: [
-          { title: 'Vessel Mapping', description: 'Ultrasound mapping of arm veins and arteries.' },
-          { title: 'Anastomosis', description: 'Connecting the artery and vein. Usually done in the forearm or upper arm.' }
+          { title: 'Pre-procedure Vessel Mapping', description: 'Perform high-resolution ultrasound mapping to measure radial/brachial artery and cephalic/basilic vein lumen diameters (> 2.0 mm).' },
+          { title: 'Surgical Exposure', description: 'Make a longitudinal incision over the non-dominant wrist (radiocephalic Cimino-Brescia) or antecubital fossa (brachiocephalic).' },
+          { title: 'Mobilization & Heparinization', description: 'Dissect out the artery and vein, mobilising vein length. Administer 3,000-5,000 units IV Heparin.' },
+          { title: 'End-to-Side Anastomosis', description: 'Perform side-to-side or end-to-side arterialized anastomosis using continuous 6-0 or 7-0 Prolene sutures under optical loupe magnification.' },
+          { title: 'Flow Check & Thrill Verification', description: 'Release vascular clamps. Verify palpable continuous thrill and soft venous augmentation without twist or kinking before skin closure.' }
         ],
         anestheticConsiderations: [
           'Patients have End Stage Renal Disease (ESRD) - high potassium, uremia, poor platelet function, no IV access in the targeted arm.',
@@ -4458,10 +5036,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'ruptured-aaa',
         name: 'Ruptured AAA Repair',
         guide: [
-          { title: 'Arrival', description: 'Patient presents in hemorrhagic shock. Do NOT induce anesthesia until the surgeon is scrubbed and holding a knife; loss of sympathetic tone upon induction will cause cardiovascular collapse.' },
-          { title: 'Aortic Control', description: 'Immediate laparotomy and supra-celiac aortic cross-clamping to stop the bleeding, or REBOA (Resuscitative Endovascular Balloon Occlusion of the Aorta) deployment.' },
-          { title: 'Resuscitation', description: 'Massive transfusion protocol (MTP). Treat coagulopathy, hypothermia, and acidosis (Lethal Triad).' },
-          { title: 'Repair', description: 'Graft placement once bleeding is controlled.' }
+          { title: 'Emergency Exposure & Supraceliac Clamping', description: 'Perform rapid full-length midline laparotomy. Manual compression of subdiaphragmatic aorta at aortic hiatus followed by supraceliac vascular cross-clamp.' },
+          { title: 'Hematoma Evacuation & Neck Dissection', description: 'Open retroperitoneal hematoma, expose infrarenal aortic neck, and isolate bilateral common iliac arteries.' },
+          { title: 'Infraceliac Cross-Clamping Transition', description: 'Move cross-clamp down to infrarenal neck once distal iliac vascular clamps are positioned to minimize visceral ischemia.' },
+          { title: 'Graft Interposition & Anastomoses', description: 'Suture Dacron/PTFE tube or bifurcated graft to proximal neck and distal iliac arteries with continuous 3-0/4-0 Prolene.' },
+          { title: 'Declamping & Damage Control Closure', description: 'Slowly remove clamps while volume loading. Verify hemostasis. Perform temporary abdominal closure (Bogota bag/Abthera) if coagulopathic or tight.' }
         ],
         anestheticConsiderations: [
           'True anesthetic emergency. High mortality.',
@@ -4482,9 +5061,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'fem-distal-bypass',
         name: 'Femoral-Distal Bypass (Fem-TIB/Fem-Pedal)',
         guide: [
-          { title: 'Incision', description: 'Groin and distal leg incisions (often small for vein harvest).' },
-          { title: 'Grafting', description: 'Creation of a bypass graft using the saphenous vein (in-situ or reversed) or a synthetic graft.' },
-          { title: 'Anastomosis', description: 'Microvascular or fine suturing of the graft to a distal crural artery.' }
+          { title: 'Incision & Target Vessel Exposure', description: 'Make longitudinal groin incision for common femoral artery access and distal ankle/foot incision over target tibial or pedal artery (anterior/posterior tibial or dorsalis pedis).' },
+          { title: 'Saphenous Vein Harvest & Preparation', description: 'Harvest non-reversed or reversed great saphenous vein (GSV) / arm vein using longitudinal incisions or endoscopic vein harvesting.' },
+          { title: 'Systemic Heparinization & Clamping', description: 'Administer systemic Heparin (100 U/kg, target ACT > 200s). Clamp inflow common femoral artery and outflow distal crural target vessel.' },
+          { title: 'Micro-Anastomoses (Proximal & Distal)', description: 'Perform microvascular end-to-side anastomoses using fine 6-0 or 7-0 Prolene continuous sutures under optical loupes.' },
+          { title: 'Re-perfusion & Doppler Pulsatility Check', description: 'De-air graft, release clamps, and evaluate distal pedal flow using continuous-wave Doppler ultrasound. Verify absence of compartment syndrome.' }
         ],
         anestheticConsiderations: [
           'Typically elderly with severe vascular disease and CAD.',
@@ -4538,10 +5119,11 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
         id: 'mandibular-orif',
         name: 'Mandibular Fracture ORIF',
         guide: [
-          { title: 'Access', description: 'Perform an intraoral (sulcus) or extraoral incision depending on the fracture site (symphysis, body, or angle).' },
-          { title: 'Reduction', description: 'Align the fracture fragments. Often involves placing the patient in Maxillomandibular Fixation (MMF) temporarily using arch bars or screws.' },
-          { title: 'Fixation', description: 'Apply titanium mini-plates and screws across the fracture site to ensure stable internal fixation.' },
-          { title: 'Closure', description: 'Remove the throat pack. Check the occlusion. Irrigate and close the incisions with absorbable sutures.' }
+          { title: 'Nasal Intubation & Throat Pack', description: 'Perform RAE nasal intubation. Place radiopaque throat pack in the hypopharynx to prevent aspiration of blood/bone fragments.' },
+          { title: 'Incision & Fracture Exposure', description: 'Perform intraoral gingivobuccal sulcus incision (or extraoral submandibular incision) and elevate mucoperiosteum to expose fracture lines.' },
+          { title: 'Maxillomandibular Fixation (MMF)', description: 'Apply Erich arch bars or IMF speed screws to upper and lower dentition. Wire teeth into temporary occlusion to establish proper dental alignment.' },
+          { title: 'Rigid Internal Fixation (Plating)', description: 'Contour 2.0 mm titanium mini-plates along Champy\'s ideal lines of osteosynthesis across mandibular fracture and secure with monocortical/bicortical screws.' },
+          { title: 'MMF Release & Throat Pack Removal', description: 'Cut MMF wires to release jaws (unless elastic traction indicated). Confirm dental occlusion, suction pharynx, and remove throat pack before extubation.' }
         ],
         anestheticConsiderations: [
           'Shared airway; nasal intubation is frequently required',
@@ -4638,72 +5220,6 @@ export const SURGERY_DATA: SurgerySpecialty[] = [
             'If PPH occurs, escalate to second-line uterotonics (Ergometrine 500mcg IM, Carboprost 250mcg IM, Misoprostol 800mcg PR) and TXA 1g IV.'
           ],
           postOp: ['Monitor vital signs and lochia q15m for 1 hour', 'Assess spinal block regression', 'Early skin-to-skin and breastfeeding']
-        }
-      }
-    ]
-  },
-  {
-    id: 'neurosurgery',
-    name: 'Neurosurgery',
-    generalConsiderations: {
-      preOp: [
-        'Perform baseline neurological assessment (GCS, pupillary light reflex, motor deficits).',
-        'Assess for signs of elevated intracranial pressure (ICP): headache, nausea, papilledema, Cushing\'s triad.',
-        'Review neuroimaging (MRI/CT) for midline shift, mass effect, and cerebral edema.',
-        'Avoid pre-op sedatives in patients with elevated ICP or impaired consciousness.'
-      ],
-      intraOp: [
-        'Maintain cerebral perfusion pressure (CPP = MAP - ICP); target MAP 80-90 mmHg.',
-        'Avoid tight neck positioning or excessive rotation to prevent venous outflow obstruction.',
-        'Smooth induction and emergence to avoid spikes in ICP and arterial hypertension.',
-        'Use Total Intravenous Anesthesia (TIVA) with Propofol and Remifentanil for intraoperative neuromonitoring (IONM).'
-      ],
-      postOp: [
-        'Immediate neurological assessment upon awakening.',
-        'Strict BP control (avoid hypertension leading to intracranial hematoma).',
-        'Head of bed elevated 30 degrees to facilitate venous drainage.'
-      ]
-    },
-    procedures: [
-      {
-        id: 'craniotomy-brain-tumor',
-        name: 'Craniotomy for Brain Tumor Resection',
-        estimatedBloodLoss: '200 - 1000 mL',
-        bloodProductPrep: 'Crossmatch 2-4 Units PRBCs',
-        airwayStrategy: 'Oral ETT + TIVA / Balanced GA (Awake Craniotomy option for motor/speech areas)',
-        recommendedBlocks: ['Scalp Block (Bupivacaine with Epinephrine)', 'Local Infiltration of Pin Sites'],
-        erasHighlights: ['TIVA (Propofol/Remifentanil)', 'Normocapnia (PaCO2 35-38 mmHg)', 'Mannitol 20% (0.5-1g/kg) for brain relaxation'],
-        guide: [
-          { title: 'Positioning & Head Frame', description: 'Position head in Mayfield 3-pin skull clamp. Elevate head 15-30 degrees.' },
-          { title: 'Craniotomy', description: 'Curved skin incision, raise subgaleal flap. Drill burr holes, cut bone flap using craniotome.' },
-          { title: 'Dural Entry & Resection', description: 'Incise dura, use neuronavigation and cavitron ultrasonic surgical aspirator (CUSA) to resect lesion.' },
-          { title: 'Closure', description: 'Watertight dural closure, replace bone flap with titanium plates, galeal and skin closure.' }
-        ],
-        anestheticConsiderations: [
-          'Tight BP control: avoid hypertension during incision/skull clamping and emergence',
-          'Brain relaxation: Mannitol (0.5-1g/kg IV) or Hypertonic Saline 3%',
-          'Avoid nitrous oxide (pneumocephalus risk)',
-          'Prophylactic anticonvulsants (Levetiracetam 1g IV)'
-        ],
-        antibioticProphylaxis: {
-          drug: 'Cefazolin',
-          dosage: '2g IV',
-          timing: 'At induction (redose q4h)',
-          alternatives: 'Vancomycin 15mg/kg'
-        },
-        complications: {
-          surgical: ['Intracranial hemorrhage', 'Cerebral edema', 'Neurological deficit', 'CSF leak'],
-          anesthetic: ['Elevated ICP', 'Venous air embolism (sitting position)', 'Seizures', 'Delayed emergence']
-        },
-        management: {
-          preOp: ['Administer Dexamethasone 10mg IV for vasogenic edema', 'Verify type and crossmatch'],
-          intraOp: [
-            'Infiltrate scalp pin sites with local anesthetic before Mayfield application to prevent hypertensive surge.',
-            'Maintain PaCO2 35-38 mmHg; avoid hypercapnia which increases CBV and ICP.',
-            'Administer Mannitol 20% (0.5-1g/kg) prior to dural opening if brain is tight.',
-            'Smooth emergence: use Labetalol or Esmolol to suppress coughing and HTN on extubation.'
-          ],
-          postOp: ['ICU or Neuro-HD unit monitoring', 'Serial GCS and pupil checks', 'CT head if GCS drops']
         }
       }
     ]
