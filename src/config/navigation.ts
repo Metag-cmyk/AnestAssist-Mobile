@@ -4,6 +4,7 @@ import {
   Calculator,
   UserCircle,
   ClipboardList,
+  ClipboardCheck,
   Scissors,
   Activity,
   Wind,
@@ -24,16 +25,13 @@ export interface NavigationItem {
 export const navigationItems: NavigationItem[] = [
   { id: 'guidelines', path: '/guidelines', labelKey: 'nav.guidelines', icon: BookOpen, descKey: 'guidelines.desc' },
   { id: 'patient', path: '/patient', labelKey: 'nav.patient', icon: UserCircle, descKey: 'patient.desc' },
+  { id: 'preop', path: '/preop', labelKey: 'nav.preop', icon: ClipboardCheck, descKey: 'preop.desc' },
   { id: 'scores', path: '/scores', labelKey: 'nav.scores', icon: ClipboardList, descKey: 'common.selectScoreDesc' },
   { id: 'surgery', path: '/surgery', labelKey: 'nav.surgery', icon: Scissors, descKey: 'surgery.desc' },
   { id: 'conditions', path: '/conditions', labelKey: 'nav.conditions', icon: Stethoscope, descKey: 'conditions.desc' },
-  { id: 'therapies', path: '/therapies', labelKey: 'Therapies', icon: Syringe, descKey: 'Prismaflex CVVHDF, infusion protocols, and rate converter.' },
-  { id: 'ventilator', path: '/ventilator', labelKey: 'Ventilator', icon: Wind, descKey: 'Condition-based mechanical ventilation strategies & targets.' },
-  { id: 'regional', path: '/regional', labelKey: 'Regional', icon: Syringe, descKey: 'Ultrasound-guided regional anesthesia library & safety calculator.' },
+  { id: 'therapies', path: '/therapies', labelKey: 'nav.therapies', icon: Syringe, descKey: 'therapies.desc' },
+  { id: 'ventilator', path: '/ventilator', labelKey: 'nav.ventilator', icon: Wind, descKey: 'ventilator.desc' },
+  { id: 'regional', path: '/regional', labelKey: 'nav.regional', icon: Syringe, descKey: 'regional.desc' },
+  { id: 'airway', path: '/airway', labelKey: 'nav.airway', icon: Activity, descKey: 'airway.desc' },
+  { id: 'fluids', path: '/fluids', labelKey: 'nav.fluids', icon: Droplets, descKey: 'fluids.desc' },
 ];
-
-// Helper to determine if a string is a translation key or raw text.
-// If it starts with a lowercase letter and contains a dot or is a single word, it's likely a key.
-export const isTranslationKey = (str: string) => {
-    return /^[a-z]+(\.[a-zA-Z]+)?$/.test(str) || ['nav.guidelines', 'nav.patient', 'nav.scores', 'nav.surgery', 'nav.conditions', 'nav.converter', 'guidelines.desc', 'patient.desc', 'conditions.desc', 'surgery.desc', 'common.selectScoreDesc', 'converter.desc'].includes(str);
-};

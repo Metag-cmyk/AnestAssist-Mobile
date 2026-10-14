@@ -5,6 +5,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { usePatient } from '../../contexts/PatientContext';
 import { calculateIBW, calculateBMI, calculateEstimatedCrCl, PatientType } from '../../lib/medicalDosing';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
+import { STORAGE_KEYS } from '../../config/storageKeys';
 
 interface Drug {
   name: string;
@@ -25,13 +26,13 @@ export default function PatientCalculator() {
   
   // Local module-specific state
   const [type, setType] = useState<PatientType>(() => {
-    return (localStorage.getItem('anestassist_patient_calc_type') as PatientType) || 'adult';
+    return (localStorage.getItem(STORAGE_KEYS.PATIENT_CALC_TYPE) as PatientType) || 'adult';
   });
   const [useIBW, setUseIBW] = useState(() => {
-    return localStorage.getItem('anestassist_patient_use_ibw') === 'true';
+    return localStorage.getItem(STORAGE_KEYS.PATIENT_USE_IBW) === 'true';
   });
   const [manualCrcl, setManualCrcl] = useState(() => {
-    return localStorage.getItem('anestassist_patient_manual_crcl') || '';
+    return localStorage.getItem(STORAGE_KEYS.PATIENT_MANUAL_CRCL) || '';
   });
 
   const [showDrugs, setShowDrugs] = useState(true);
@@ -40,9 +41,9 @@ export default function PatientCalculator() {
   const [showCardio, setShowCardio] = useState(false);
 
   // Persistence Effects
-  useEffect(() => { localStorage.setItem('anestassist_patient_calc_type', type); }, [type]);
-  useEffect(() => { localStorage.setItem('anestassist_patient_use_ibw', useIBW.toString()); }, [useIBW]);
-  useEffect(() => { localStorage.setItem('anestassist_patient_manual_crcl', manualCrcl); }, [manualCrcl]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.PATIENT_CALC_TYPE, type); }, [type]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.PATIENT_USE_IBW, useIBW.toString()); }, [useIBW]);
+  useEffect(() => { localStorage.setItem(STORAGE_KEYS.PATIENT_MANUAL_CRCL, manualCrcl); }, [manualCrcl]);
 
   const showToast = (msg: string) => {
     setToast(msg);

@@ -161,4 +161,4 @@ export interface ClinicalAlgorithm {
   startingStepId: string;
 }
 
-export type TabType = 'guidelines' | 'conditions' | 'patient' | 'scores' | 'surgery' | 'ventilator' | 'regional' | 'therapies';
+export type TabType = 'guidelines' | 'conditions' | 'patient' | 'preop' | 'scores' | 'surgery' | 'ventilator' | 'regional' | 'therapies' | 'airway' | 'fluids';

@@ -1,19 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import {
   Menu,
   X,
   Activity,
+  Search,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { NavLink } from 'react-router-dom';
-import { navigationItems, isTranslationKey } from '../../config/navigation';
+import { navigationItems } from '../../config/navigation';
+
+// Lazily loaded: its search index imports every dataset, so it must stay out of
+// the initial bundle until the user actually opens the palette.
+const GlobalSearch = lazy(() => import('../../features/search/GlobalSearch'));
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { t } = useLanguage();
 
-  const getLabel = (labelKey: string) => isTranslationKey(labelKey) ? t(labelKey) : labelKey;
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(open => !open);
+      } else if (e.key === 'Escape') {
+        setIsSearchOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   return (
     <header className="bg-medical-primary text-white sticky top-0 z-50 shadow-lg">
@@ -43,17 +60,26 @@ export default function Header() {
                   }`}
                 >
                   <tab.icon className="w-3.5 h-3.5" />
-                  {getLabel(tab.labelKey)}
+                  {t(tab.labelKey)}
                 </NavLink>
               ))}
             </nav>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="lg:hidden flex items-center gap-4">
+          {/* Search (all sizes) + Mobile Menu Toggle */}
+          <div className="flex items-center gap-1 sm:gap-2">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-md text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              aria-label="Search everything (Ctrl+K)"
+              title="Search everything (Ctrl+K)"
+            >
+              <Search className="w-5 h-5" />
+            </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-slate-400 hover:text-white hover:bg-white/5"
+              className="lg:hidden p-2 rounded-md text-slate-400 hover:text-white hover:bg-white/5"
+              aria-label="Toggle navigation"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -84,13 +110,19 @@ export default function Header() {
                   }`}
                 >
                   <tab.icon className="w-5 h-5" />
-                  {getLabel(tab.labelKey)}
+                  {t(tab.labelKey)}
                 </NavLink>
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <GlobalSearch open={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+        </Suspense>
+      )}
     </header>
   );
 }

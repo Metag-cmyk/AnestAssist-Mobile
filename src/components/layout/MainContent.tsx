@@ -4,16 +4,18 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import { navigationItems, isTranslationKey } from '../../config/navigation';
+import { navigationItems } from '../../config/navigation';
 
 const GuidelinesDiagrams = React.lazy(() => import('../../features/guidelines/GuidelinesDiagrams'));
 const Conditions = React.lazy(() => import('../../features/conditions/Conditions'));
-const Converter = React.lazy(() => import('../../features/converter/Converter'));
 const PatientCalculator = React.lazy(() => import('../../features/patient/PatientCalculator'));
+const PreopAssessment = React.lazy(() => import('../../features/preop/PreopAssessment'));
 const ClinicalScores = React.lazy(() => import('../../features/scores/ClinicalScores'));
 const Surgery = React.lazy(() => import('../../features/surgery/Surgery'));
 const VentilatorModule = React.lazy(() => import('../../features/ventilator/VentilatorModule'));
 const RegionalLibrary = React.lazy(() => import('../../features/regional/RegionalLibrary'));
+const AirwayModule = React.lazy(() => import('../../features/airway/AirwayModule'));
+const FluidsModule = React.lazy(() => import('../../features/fluids/FluidsModule'));
 
 const TherapiesModule = React.lazy(() => import('../../features/therapies/TherapiesModule'));
 
@@ -44,7 +46,6 @@ export default function MainContent() {
   const location = useLocation();
 
   const currentTab = navigationItems.find(item => item.path === location.pathname) || navigationItems[0];
-  const getLabel = (labelKey: string) => isTranslationKey(labelKey) ? t(labelKey) : labelKey;
 
   return (
     <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -54,10 +55,10 @@ export default function MainContent() {
           {t('header.evidence')}
         </div>
         <h2 className="text-3xl font-bold text-medical-primary">
-          {getLabel(currentTab.labelKey)}
+          {t(currentTab.labelKey)}
         </h2>
         <p className="text-slate-500 mt-1">
-          {getLabel(currentTab.descKey)}
+          {t(currentTab.descKey)}
         </p>
       </div>
 
@@ -74,11 +75,14 @@ export default function MainContent() {
               <Routes location={location}>
                 <Route path="/guidelines" element={<GuidelinesDiagrams />} />
                 <Route path="/patient" element={<PatientCalculator />} />
+                <Route path="/preop" element={<PreopAssessment />} />
                 <Route path="/scores" element={<ClinicalScores />} />
                 <Route path="/conditions" element={<Conditions />} />
                 <Route path="/surgery" element={<Surgery />} />
                 <Route path="/ventilator" element={<VentilatorModule />} />
                 <Route path="/regional" element={<RegionalLibrary />} />
+                <Route path="/airway" element={<AirwayModule />} />
+                <Route path="/fluids" element={<FluidsModule />} />
                 <Route path="/therapies" element={<TherapiesModule />} />
                 <Route path="*" element={<Navigate to="/guidelines" replace />} />
 

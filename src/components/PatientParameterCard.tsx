@@ -4,16 +4,18 @@ import { usePatient } from '../contexts/PatientContext';
 
 interface PatientParameterCardProps {
   className?: string;
+  showWeight?: boolean;
   showAge?: boolean;
   showHeight?: boolean;
 }
 
 export const PatientParameterCard: React.FC<PatientParameterCardProps> = ({ 
   className = '', 
+  showWeight = true,
   showAge = true, 
   showHeight = true 
 }) => {
-  const { weight, setWeight, height, setHeight, age, setAge, gender, setGender } = usePatient();
+  const { weight, setWeight, height, setHeight, age, setAge, gender, setGender, weightNum, heightNum, bsa } = usePatient();
 
   return (
     <div className={`bg-white border border-slate-200 rounded-2xl p-5 shadow-sm ${className}`}>
@@ -29,18 +31,20 @@ export const PatientParameterCard: React.FC<PatientParameterCardProps> = ({
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Weight */}
-        <div className="space-y-1">
-          <label className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500 uppercase tracking-tight">
-            <Weight className="w-3.5 h-3.5 text-emerald-600" />
-            Weight (kg)
-          </label>
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-base font-bold text-slate-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition-all text-center"
-          />
-        </div>
+        {showWeight && (
+          <div className="space-y-1">
+            <label className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500 uppercase tracking-tight">
+              <Weight className="w-3.5 h-3.5 text-emerald-600" />
+              Weight (kg)
+            </label>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-base font-bold text-slate-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition-all text-center"
+            />
+          </div>
+        )}
 
         {/* Height */}
         {showHeight && (
@@ -106,6 +110,16 @@ export const PatientParameterCard: React.FC<PatientParameterCardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Derived values shared with the calculators */}
+      {showHeight && heightNum > 0 && weightNum > 0 && (
+        <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap gap-2 text-[10px] font-bold text-slate-500">
+          <span className="px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg">BSA {bsa.toFixed(2)} m²</span>
+          <span className="px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg">
+            BMI {(weightNum / Math.pow(heightNum / 100, 2)).toFixed(1)}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

@@ -15,6 +15,8 @@ interface PatientContextType {
   weightNum: number;
   heightNum: number;
   ageNum: number;
+  /** Body Surface Area (m²), Mosteller formula. 0 when height or weight is missing. */
+  bsa: number;
 }
 
 const PatientContext = createContext<PatientContextType | undefined>(undefined);
@@ -33,6 +35,11 @@ export const PatientProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => localStorage.setItem(STORAGE_KEYS.PATIENT_AGE, age), [age]);
   useEffect(() => localStorage.setItem(STORAGE_KEYS.PATIENT_GENDER, gender), [gender]);
 
+  const weightNum = parseFloat(weight) || 0;
+  const heightNum = parseFloat(height) || 0;
+  const ageNum = parseFloat(age) || 0;
+  const bsa = weightNum > 0 && heightNum > 0 ? Math.sqrt((heightNum * weightNum) / 3600) : 0;
+
   const value: PatientContextType = {
     weight,
     height,
@@ -42,9 +49,10 @@ export const PatientProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setHeight,
     setAge,
     setGender,
-    weightNum: parseFloat(weight) || 0,
-    heightNum: parseFloat(height) || 0,
-    ageNum: parseFloat(age) || 0,
+    weightNum,
+    heightNum,
+    ageNum,
+    bsa,
   };
 
   return <PatientContext.Provider value={value}>{children}</PatientContext.Provider>;
