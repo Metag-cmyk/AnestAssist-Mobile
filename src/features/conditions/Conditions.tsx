@@ -3,56 +3,16 @@ import { Stethoscope, Search, ChevronRight, AlertCircle, Activity, ShieldAlert, 
 import { motion, AnimatePresence } from 'motion/react';
 import { usePatient } from '../../contexts/PatientContext';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
-import { ConditionProtocol, TreatmentStep, DifferentialItem } from '../../types';
+import { ConditionProtocol, TreatmentStep } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
+import { searchItemsDeep } from '../../lib/search';
+import { Highlight } from '../../components/Highlight';
+import { CONDITIONS_DATA } from './data';
+import { resolveDifferential } from './differential';
+import { STORAGE_KEYS } from '../../config/storageKeys';
 
 function DifferentialMatrixView({ condition }: { condition: ConditionProtocol }) {
-  const triggers = condition.diagnosticTriggers || condition.diagnosis.slice(0, 3);
-  
-  const matrixItems: DifferentialItem[] = condition.differentialMatrix || (
-    condition.differentialDiagnosis ? condition.differentialDiagnosis.map((item) => {
-      let feature = 'Evaluate clinical onset, drug exposures, baseline risk factors, and systemic signs.';
-      let pocus = 'POCUS / Bedside ABG / Focused Ultrasound';
-      
-      const lower = item.toLowerCase();
-      if (lower.includes('pneumothorax')) {
-        feature = 'Unilateral absent breath sounds, tracheal shift, acute high peak airway pressure & hypotension.';
-        pocus = 'Lung POCUS: Absent lung sliding, absence of B-lines, presence of Lung Point.';
-      } else if (lower.includes('tamponade')) {
-        feature = 'Beck\'s triad (Hypotension, JVD, muffled heart sounds), low QRS voltage, pulsus paradoxus.';
-        pocus = 'FOCUS: Pericardial effusion with diastolic RV collapse & dilated non-collapsible IVC.';
-      } else if (lower.includes('anaphylaxis')) {
-        feature = 'Sudden severe bronchospasm, mucosal edema, profound vasodilation, cutaneous flushing/hives.';
-        pocus = 'Serum Tryptase at 1-2h & 24h; POCUS: Normal lung sliding with hyperdynamic empty LV.';
-      } else if (lower.includes('hyperthermia') || lower.includes('mh')) {
-        feature = 'Unexplained steep EtCO2 rise, masseter muscle rigidity, hyperkalemia, dark myoglobinuria.';
-        pocus = 'ABG: Severe combined respiratory & metabolic acidosis + hyperkalemia + elevated CK.';
-      } else if (lower.includes('embolism') || lower.includes('pe')) {
-        feature = 'Sudden EtCO2 drop, acute RV strain, hypoxemia, right-sided heart failure.';
-        pocus = 'FOCUS / TEE: McConnell sign (RV apical sparing), RV/LV ratio > 1.0, D-shaped LV.';
-      } else if (lower.includes('bronchospasm') || lower.includes('asthma')) {
-        feature = 'High peak airway pressure with normal plateau pressure, wheezing, prolonged expiration.';
-        pocus = 'Lung POCUS: Bilateral lung sliding, absent pneumothorax, lung hyperinflation.';
-      } else if (lower.includes('last') || lower.includes('toxicity')) {
-        feature = 'Perioral numbness, metallic taste, seizures progressing to QRS widening & refractory arrest.';
-        pocus = 'ECG: QRS prolongation, AV block; FOCUS: Global LV hypokinesis.';
-      } else if (lower.includes('sepsis')) {
-        feature = 'Fever/hypothermia, refractory distributive vasodilation, elevated lactate, infectious focus.';
-        pocus = 'POCUS: Hyperdynamic LV, collapsible IVC (<50%); Blood cultures + ABG.';
-      } else if (lower.includes('stroke') || lower.includes('ischemia')) {
-        feature = 'Focal neurological deficit, facial droop, arm drift, asymmetric gaze.';
-        pocus = 'Stat non-contrast CT Head to rule out intracranial hemorrhage.';
-      }
-      
-      return {
-        condition: item,
-        distinguishingFeatures: feature,
-        pocusOrKeyTest: pocus
-      };
-    }) : []
-  );
+  const { triggers, items: matrixItems } = resolveDifferential(condition);
 
   return (
     <section className="p-6 bg-slate-50/80 rounded-2xl border border-slate-200 space-y-5 my-6">
@@ -159,32 +119,29 @@ function TreatmentDiagram({ steps }: { steps: TreatmentStep[] }) {
 }
 
 export default function Conditions() {
-  const { conditions: rawConditions } = useData();
-  const CONDITIONS_DATA = rawConditions as ConditionProtocol[];
-  
   const [selectedId, setSelectedId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_conditions_selected_id');
+    return localStorage.getItem(STORAGE_KEYS.CONDITIONS_SELECTED_ID);
   });
   const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_conditions_search_term') || '';
+    return localStorage.getItem(STORAGE_KEYS.CONDITIONS_SEARCH) || '';
   });
   const [activeCategory, setActiveCategory] = useState<string>(() => {
-    return localStorage.getItem('anestassist_conditions_active_category') || 'All';
+    return localStorage.getItem(STORAGE_KEYS.CONDITIONS_ACTIVE_CATEGORY) || 'All';
   });
   
   const { t } = useLanguage();
 
   useEffect(() => {
-    if (selectedId) localStorage.setItem('anestassist_conditions_selected_id', selectedId);
-    else localStorage.removeItem('anestassist_conditions_selected_id');
+    if (selectedId) localStorage.setItem(STORAGE_KEYS.CONDITIONS_SELECTED_ID, selectedId);
+    else localStorage.removeItem(STORAGE_KEYS.CONDITIONS_SELECTED_ID);
   }, [selectedId]);
 
   useEffect(() => {
-    localStorage.setItem('anestassist_conditions_search_term', searchTerm);
+    localStorage.setItem(STORAGE_KEYS.CONDITIONS_SEARCH, searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
-    localStorage.setItem('anestassist_conditions_active_category', activeCategory);
+    localStorage.setItem(STORAGE_KEYS.CONDITIONS_ACTIVE_CATEGORY, activeCategory);
   }, [activeCategory]);
 
   const formatCategory = (cat: string) => {
@@ -196,10 +153,9 @@ export default function Conditions() {
   
   const categories = ['All', ...new Set(CONDITIONS_DATA.map(c => c.category.split(' > ')[0]))];
 
-  const filteredConditions: ConditionProtocol[] = searchItems<ConditionProtocol>(
+  const filteredConditions: ConditionProtocol[] = searchItemsDeep(
     CONDITIONS_DATA.filter(c => activeCategory === 'All' || c.category.startsWith(activeCategory)),
-    searchTerm,
-    ['name', 'category']
+    searchTerm
   );
 
   const getSeverityStyles = (severity: string, isSelected: boolean) => {
@@ -229,7 +185,7 @@ export default function Conditions() {
           <div className="relative mb-6">
             <input
               type="text"
-              placeholder={t('common.search')}
+              placeholder={t('common.search')} aria-label={t('common.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
@@ -269,7 +225,7 @@ export default function Conditions() {
                     {getSeverityIcon(condition.severity)}
                   </div>
                   <div>
-                    <p className="font-bold leading-tight">{condition.name}</p>
+                    <p className="font-bold leading-tight"><Highlight text={condition.name} query={searchTerm} /></p>
                     <p className={`text-[10px] uppercase tracking-widest mt-0.5 ${selectedId === condition.id ? 'text-white/60' : 'text-slate-400'}`}>
                       {formatCategory(condition.category)}
                     </p>

@@ -1,5 +1,6 @@
-import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
+import { searchItemsDeep } from '../../lib/search';
+import { REGIONAL_BLOCKS } from './data';
+import { Highlight } from '../../components/Highlight';
 import { LA_AGENTS, calculateMaxLADose, doseToVolume } from '../../lib/BlockCalculators';
 import { Search, ChevronRight, Ruler, AlertCircle, Droplets, Info, ShieldAlert, Thermometer, Syringe, CheckCircle2, Layers } from 'lucide-react';
 
@@ -10,7 +11,6 @@ import { STORAGE_KEYS } from '../../config/storageKeys';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
 
 export default function RegionalLibrary() {
-  const { regional: REGIONAL_BLOCKS } = useData();
   const { weightNum } = usePatient();
   
   const [searchTerm, setSearchTerm] = useState(() => {
@@ -46,7 +46,7 @@ export default function RegionalLibrary() {
   const maxMg = calculateMaxLADose(weightNum, selectedAgent, hasEpi);
   const maxVol = doseToVolume(maxMg, parseFloat(targetConc) || 0.2);
 
-  const filteredBlocks = searchItems(REGIONAL_BLOCKS, searchTerm, ['name', 'category']);
+  const filteredBlocks = searchItemsDeep(REGIONAL_BLOCKS, searchTerm);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full bg-slate-50/50 p-6 rounded-3xl">
@@ -60,7 +60,7 @@ export default function RegionalLibrary() {
           <div className="relative mb-6">
             <input
               type="text"
-              placeholder="Search blocks..."
+              placeholder="Search blocks..." aria-label="Search blocks"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-100 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
@@ -90,7 +90,7 @@ export default function RegionalLibrary() {
                         }`}
                       >
                         <div className="flex flex-col gap-1">
-                          <p className="font-bold">{block.name}</p>
+                          <p className="font-bold"><Highlight text={block.name} query={searchTerm} /></p>
                         </div>
                         <ChevronRight className={`w-4 h-4 transition-transform ${selectedId === block.id ? 'translate-x-1 opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
                       </button>
@@ -362,7 +362,7 @@ export default function RegionalLibrary() {
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <div className="bg-slate-900 text-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center text-center relative">
+                    <div aria-live="polite" className="bg-slate-900 text-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center text-center relative">
                       <div className="absolute top-2 right-4 text-[9px] font-bold opacity-30 tracking-[0.3em] uppercase">Safety Limit</div>
                       <p className="text-[10px] font-bold text-indigo-300 uppercase tracking-widest mb-2">Maximum Safe Dose</p>
                       <p className="text-5xl font-black mb-1">{Math.floor(maxMg)}<span className="text-xl ml-1 opacity-50">mg</span></p>

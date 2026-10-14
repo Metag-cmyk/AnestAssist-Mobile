@@ -12,29 +12,32 @@ import {
   Search
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
-import { Step } from './data';
+import { searchItemsDeep } from '../../lib/search';
+import { DIAGRAM_GUIDELINES, Step } from './data';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import { Highlight } from '../../components/Highlight';
+import { conditionIdForGuideline } from '../../lib/crossLinks';
+import { useNavigate } from 'react-router-dom';
 
 export default function GuidelinesDiagrams() {
-  const { diagramGuidelines: guidelines } = useData();
+  const guidelines = DIAGRAM_GUIDELINES;
   const { t } = useLanguage();
   
   const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_guidelines_search_term') || '';
+    return localStorage.getItem(STORAGE_KEYS.GUIDELINES_SEARCH) || '';
   });
   
   const [selectedId, setSelectedId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_guidelines_selected_id');
+    return localStorage.getItem(STORAGE_KEYS.GUIDELINES_SELECTED_ID);
   });
 
   useEffect(() => {
-    localStorage.setItem('anestassist_guidelines_search_term', searchTerm);
+    localStorage.setItem(STORAGE_KEYS.GUIDELINES_SEARCH, searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
-    if (selectedId) localStorage.setItem('anestassist_guidelines_selected_id', selectedId);
-    else localStorage.removeItem('anestassist_guidelines_selected_id');
+    if (selectedId) localStorage.setItem(STORAGE_KEYS.GUIDELINES_SELECTED_ID, selectedId);
+    else localStorage.removeItem(STORAGE_KEYS.GUIDELINES_SELECTED_ID);
   }, [selectedId]);
 
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'crisis' | 'algorithms'>('all');
@@ -45,7 +48,7 @@ export default function GuidelinesDiagrams() {
     return true;
   });
 
-  const filteredGuidelines = searchItems(categoryFiltered, searchTerm, ['title', 'source']);
+  const filteredGuidelines = searchItemsDeep(categoryFiltered, searchTerm);
   const sortedGuidelines = [...filteredGuidelines].sort((a, b) => {
     if (a.isCrisis && !b.isCrisis) return -1;
     if (!a.isCrisis && b.isCrisis) return 1;
@@ -71,6 +74,8 @@ export default function GuidelinesDiagrams() {
   };
 
   const selectedGuideline = guidelines.find(g => g.id === selectedId);
+  const linkedConditionId = selectedGuideline ? conditionIdForGuideline(selectedGuideline.id) : undefined;
+  const navigate = useNavigate();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -107,7 +112,7 @@ export default function GuidelinesDiagrams() {
         <div className="relative">
           <input
             type="text"
-            placeholder={t('common.search')}
+            placeholder={t('common.search')} aria-label={t('common.search')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-medical-border text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
@@ -147,7 +152,7 @@ export default function GuidelinesDiagrams() {
                   </div>
                   <span className="text-[10px] opacity-60 font-medium">{g.year}</span>
                 </div>
-                <h3 className="font-bold text-sm leading-tight">{g.title}</h3>
+                <h3 className="font-bold text-sm leading-tight"><Highlight text={g.title} query={searchTerm} /></h3>
               </button>
             );
           })}
@@ -192,15 +197,28 @@ export default function GuidelinesDiagrams() {
                     {selectedGuideline.title}
                   </h2>
                 </div>
-                <a 
-                  href={selectedGuideline.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-slate-400 hover:text-medical-accent transition-colors"
-                  title={t('common.viewFull')}
-                >
-                  <ExternalLink className="w-5 h-5" />
-                </a>
+                <div className="flex items-center gap-2 shrink-0">
+                  {linkedConditionId && (
+                    <button
+                      onClick={() => {
+                        localStorage.setItem(STORAGE_KEYS.CONDITIONS_SELECTED_ID, linkedConditionId);
+                        navigate('/conditions');
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-bold uppercase tracking-wider transition-colors"
+                    >
+                      Condition protocol
+                    </button>
+                  )}
+                  <a 
+                    href={selectedGuideline.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-slate-400 hover:text-medical-accent transition-colors"
+                    title={t('common.viewFull')}
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
 
               <div className="p-8">

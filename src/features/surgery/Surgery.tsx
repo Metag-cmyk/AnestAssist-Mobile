@@ -21,7 +21,6 @@ import {
 import { SURGERY_DATA } from './data';
 import { SurgeryProcedure, SurgeryStep } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { isTranslationKey } from '../../config/navigation';
 
 
 function SurgicalGuide({ steps }: { steps: SurgeryStep[] }) {
@@ -149,34 +148,44 @@ function ThoracicSpirometryAnalyser({ procedureId }: { procedureId: string }) {
   );
 }
 
-import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
+import { searchItemsDeep } from '../../lib/search';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import { Highlight } from '../../components/Highlight';
+import { resolveBlockId } from '../../lib/crossLinks';
+import { useNavigate } from 'react-router-dom';
 
 const Surgery: React.FC = () => {
-  const { surgery: SURGERY_DATA } = useData();
   const [selectedId, setSelectedId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_surgery_selected_id');
+    return localStorage.getItem(STORAGE_KEYS.SURGERY_SELECTED_ID);
   });
   const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_surgery_search_term') || '';
+    return localStorage.getItem(STORAGE_KEYS.SURGERY_SEARCH) || '';
   });
   const [activeSpecialty, setActiveSpecialty] = useState<string>(() => {
-    return localStorage.getItem('anestassist_surgery_specialty') || 'All';
+    return localStorage.getItem(STORAGE_KEYS.SURGERY_SPECIALTY) || 'All';
   });
   
   const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const openRegionalBlock = (label: string) => {
+    const id = resolveBlockId(label);
+    if (!id) return;
+    localStorage.setItem(STORAGE_KEYS.REGIONAL_SELECTED_ID, id);
+    navigate('/regional');
+  };
 
   useEffect(() => {
-    if (selectedId) localStorage.setItem('anestassist_surgery_selected_id', selectedId);
-    else localStorage.removeItem('anestassist_surgery_selected_id');
+    if (selectedId) localStorage.setItem(STORAGE_KEYS.SURGERY_SELECTED_ID, selectedId);
+    else localStorage.removeItem(STORAGE_KEYS.SURGERY_SELECTED_ID);
   }, [selectedId]);
 
   useEffect(() => {
-    localStorage.setItem('anestassist_surgery_search_term', searchTerm);
+    localStorage.setItem(STORAGE_KEYS.SURGERY_SEARCH, searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
-    localStorage.setItem('anestassist_surgery_specialty', activeSpecialty);
+    localStorage.setItem(STORAGE_KEYS.SURGERY_SPECIALTY, activeSpecialty);
   }, [activeSpecialty]);
 
   const specialties = ['All', ...SURGERY_DATA.map(s => s.name)];
@@ -192,10 +201,9 @@ const Surgery: React.FC = () => {
 
   const selectedProcedure = allProcedures.find(p => p.id === selectedId);
 
-  const filteredProcedures = searchItems(
+  const filteredProcedures = searchItemsDeep(
     allProcedures.filter(p => activeSpecialty === 'All' || p.specialtyName === activeSpecialty),
-    searchTerm,
-    ['name', 'specialtyName']
+    searchTerm
   );
 
   return (
@@ -206,7 +214,7 @@ const Surgery: React.FC = () => {
           <div className="relative mb-6">
             <input
               type="text"
-              placeholder={t('common.search')}
+              placeholder={t('common.search')} aria-label={t('common.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
@@ -227,7 +235,7 @@ const Surgery: React.FC = () => {
               >
                 {spec === 'All' 
                   ? t('common.all') 
-                  : (isTranslationKey(`surgery.${spec}`) ? t(`surgery.${spec}`) : spec)}
+                  : spec}
               </button>
 
             ))}
@@ -251,9 +259,9 @@ const Surgery: React.FC = () => {
                     <Scissors className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="font-bold leading-tight">{procedure.name}</p>
+                    <p className="font-bold leading-tight"><Highlight text={procedure.name} query={searchTerm} /></p>
                     <p className={`text-[10px] uppercase tracking-widest mt-0.5 ${selectedId === procedure.id ? 'text-white/60' : 'text-slate-400'}`}>
-                      {t(`surgery.${procedure.specialtyName}`)}
+                      {procedure.specialtyName}
                     </p>
                   </div>
                 </div>
@@ -284,9 +292,7 @@ const Surgery: React.FC = () => {
                       {t('surgery.guide')}
                     </div>
                     <div className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-[9px] font-bold uppercase tracking-wider">
-                      {isTranslationKey(`surgery.${selectedProcedure.specialtyName}`) 
-                        ? t(`surgery.${selectedProcedure.specialtyName}`) 
-                        : selectedProcedure.specialtyName}
+                      {selectedProcedure.specialtyName}
                     </div>
 
                   </div>
@@ -329,11 +335,23 @@ const Surgery: React.FC = () => {
                         Recommended Regional Blocks
                       </h4>
                       <div className="flex flex-wrap gap-1.5">
-                        {selectedProcedure.recommendedBlocks.map((block, idx) => (
-                          <span key={idx} className="bg-white px-2.5 py-1 rounded-lg text-xs font-bold text-indigo-700 border border-indigo-200 shadow-2xs">
-                            {block}
-                          </span>
-                        ))}
+                        {selectedProcedure.recommendedBlocks.map((block, idx) => {
+                          const blockId = resolveBlockId(block);
+                          return blockId ? (
+                            <button
+                              key={idx}
+                              onClick={() => openRegionalBlock(block)}
+                              title="Open in the Regional library"
+                              className="bg-white px-2.5 py-1 rounded-lg text-xs font-bold text-indigo-700 border border-indigo-200 shadow-2xs hover:border-indigo-400 hover:bg-indigo-50 transition-colors"
+                            >
+                              {block} <span aria-hidden="true">↗</span>
+                            </button>
+                          ) : (
+                            <span key={idx} className="bg-white px-2.5 py-1 rounded-lg text-xs font-bold text-indigo-700 border border-indigo-200 shadow-2xs">
+                              {block}
+                            </span>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -474,7 +492,7 @@ const Surgery: React.FC = () => {
               {/* Specialty General Considerations */}
               <div className="mt-12 p-6 bg-slate-50 rounded-2xl border border-medical-border">
                 <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
-                  {t(`surgery.${selectedProcedure.specialtyName}`)} - {t('surgery.generalConsiderations')}
+                  {selectedProcedure.specialtyName} - {t('surgery.generalConsiderations')}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>

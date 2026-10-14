@@ -2,50 +2,50 @@ import { useState, useEffect, useMemo } from 'react';
 import { Calculator, ChevronRight, Info, AlertCircle, CheckCircle2, RefreshCw, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { useData } from '../../hooks/useData';
-import { searchItems } from '../../lib/search';
+import { CLINICAL_SCORES } from './data';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import { searchItemsDeep } from '../../lib/search';
 import { ClinicalScore } from '../../types';
 import ThoracicFitCalculator from './ThoracicFitCalculator';
 import SpirometryCalculator from './SpirometryCalculator';
 import AcidBaseInterpreter from './AcidBaseInterpreter';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
+import { Highlight } from '../../components/Highlight';
+import { conditionIdsForScore } from '../../lib/crossLinks';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function ClinicalScores() {
-  const { scores: CLINICAL_SCORES } = useData();
   const { t } = useLanguage();
+  const navigate = useNavigate();
   
   const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('anestassist_scores_search_term') || '';
+    return localStorage.getItem(STORAGE_KEYS.SCORES_SEARCH) || '';
   });
 
   const [selectedScoreId, setSelectedScoreId] = useState<string | null>(() => {
-    return localStorage.getItem('anestassist_scores_selected_id');
+    return localStorage.getItem(STORAGE_KEYS.SCORES_SELECTED_ID);
   });
   
   const [selections, setSelections] = useState<Record<string, string>>(() => {
-    const saved = localStorage.getItem('anestassist_scores_selections');
+    const saved = localStorage.getItem(STORAGE_KEYS.SCORES_SELECTIONS);
     return saved ? JSON.parse(saved) : {};
   });
 
   useEffect(() => {
-    localStorage.setItem('anestassist_scores_search_term', searchTerm);
+    localStorage.setItem(STORAGE_KEYS.SCORES_SEARCH, searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
-    if (selectedScoreId) localStorage.setItem('anestassist_scores_selected_id', selectedScoreId);
-    else localStorage.removeItem('anestassist_scores_selected_id');
+    if (selectedScoreId) localStorage.setItem(STORAGE_KEYS.SCORES_SELECTED_ID, selectedScoreId);
+    else localStorage.removeItem(STORAGE_KEYS.SCORES_SELECTED_ID);
   }, [selectedScoreId]);
 
   useEffect(() => {
-    localStorage.setItem('anestassist_scores_selections', JSON.stringify(selections));
+    localStorage.setItem(STORAGE_KEYS.SCORES_SELECTIONS, JSON.stringify(selections));
   }, [selections]);
 
-  const filteredScores: ClinicalScore[] = searchItems<ClinicalScore>(
-    CLINICAL_SCORES,
-    searchTerm,
-    ['name', 'category', 'description']
-  );
+  const filteredScores: ClinicalScore[] = searchItemsDeep(CLINICAL_SCORES, searchTerm);
 
   const selectedScore = useMemo(() => 
     CLINICAL_SCORES.find(s => s.id === selectedScoreId) || null,
@@ -86,7 +86,7 @@ export default function ClinicalScores() {
           <div className="relative mb-6">
             <input
               type="text"
-              placeholder={t('common.search')}
+              placeholder={t('common.search')} aria-label={t('common.search')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-none text-sm outline-none focus:ring-2 focus:ring-medical-accent transition-all"
@@ -121,7 +121,7 @@ export default function ClinicalScores() {
                     <Calculator className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="font-bold leading-tight">{score.name}</p>
+                    <p className="font-bold leading-tight"><Highlight text={score.name} query={searchTerm} /></p>
                     <p className={`text-[10px] uppercase tracking-widest mt-0.5 font-medium ${
                       selectedScoreId === score.id ? 'text-white/60' : 'text-slate-400'
                     }`}>
@@ -155,14 +155,28 @@ export default function ClinicalScores() {
                   <h2 className="text-3xl font-bold text-medical-primary tracking-tight">{selectedScore.name}</h2>
                   <p className="text-sm text-slate-500 mt-2 max-w-2xl">{selectedScore.description}</p>
                 </div>
-                <button 
-                  onClick={resetScore}
-                  className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all text-slate-500 hover:text-medical-accent group border border-slate-100"
-                  title="Reset Score"
-                >
-                  <RefreshCw className="w-4 h-4 transition-transform duration-500 group-hover:rotate-180" />
-                  <span className="text-xs font-bold uppercase tracking-wider">Reset Score</span>
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  {selectedScore && conditionIdsForScore(selectedScore.id).map(conditionId => (
+                    <button
+                      key={conditionId}
+                      onClick={() => {
+                        localStorage.setItem(STORAGE_KEYS.CONDITIONS_SELECTED_ID, conditionId);
+                        navigate('/conditions');
+                      }}
+                      className="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-bold uppercase tracking-wider transition-colors"
+                    >
+                      View condition
+                    </button>
+                  ))}
+                  <button 
+                    onClick={resetScore}
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-xl hover:bg-slate-100 transition-all text-slate-500 hover:text-medical-accent group border border-slate-100"
+                    title="Reset Score"
+                  >
+                    <RefreshCw className="w-4 h-4 transition-transform duration-500 group-hover:rotate-180" />
+                    <span className="text-xs font-bold uppercase tracking-wider">Reset Score</span>
+                  </button>
+                </div>
               </div>
 
               {selectedScore.id === 'thoracic-fit' ? (
@@ -222,7 +236,7 @@ export default function ClinicalScores() {
 
                 {/* Score Result Card */}
                 <div className="sticky bottom-0 pt-8 pb-4 bg-white/80 backdrop-blur-sm">
-                  <div className={`p-6 rounded-3xl border-2 transition-all shadow-xl ${
+                  <div aria-live="polite" className={`p-6 rounded-3xl border-2 transition-all shadow-xl ${
                     riskLevel ? riskLevel.color : 'bg-slate-50 border-slate-200'
                   }`}>
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
