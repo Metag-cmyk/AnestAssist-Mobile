@@ -6,7 +6,7 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-white border-t border-medical-border py-8">
+    <footer className="bg-white border-t border-medical-border py-8 print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         <p className="text-sm text-slate-500">
           {t('footer.copy')}

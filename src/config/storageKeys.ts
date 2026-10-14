@@ -22,6 +22,9 @@ export const STORAGE_KEYS = {
   CONDITIONS_SEARCH: 'anestassist_conditions_search_term',
   CONDITIONS_SELECTED_ID: 'anestassist_conditions_selected_id',
   CONDITIONS_ACTIVE_CATEGORY: 'anestassist_conditions_active_category',
+  CONDITIONS_SEVERITY: 'anestassist_conditions_severity',
+  CONDITIONS_FAVOURITES: 'anestassist_conditions_favourites',
+  CONDITIONS_RECENT: 'anestassist_conditions_recent',
 
   // Surgery
   SURGERY_SEARCH: 'anestassist_surgery_search_term',

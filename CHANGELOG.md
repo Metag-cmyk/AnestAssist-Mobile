@@ -6,6 +6,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 ## [Unreleased]
 
 ### Added
+- Conditions now link out to related content: the matching crisis/guideline card,
+  screening scores (e.g. Sepsis → SOFA/qSOFA) and infusion protocols, via reverse
+  cross-links in `lib/crossLinks.ts`.
 - **Guidelines library**: surfaced the 58 written guideline summaries (merged with their
   diagrams where a guideline has both), added filter-by-society and filter-by-category,
   and linked each summary to its source society.
@@ -35,6 +38,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 - Airway (LEMON) and Fluids (MABL / 4-2-1 / MTP) modules are now routed and reachable.
 
 ### Changed
+- Redesigned the Conditions tab: immediate actions shown first, a severity filter with
+  live counts, a category select, a list grouped into sticky category sections with
+  per-item action counts, recently-viewed quick chips and favourites, a master–detail
+  flow on mobile, and print-friendly output (`print:hidden` chrome + a print button).
 - Redesigned the Guidelines layout for clarity: search first, faceted type tabs with
   live counts, society/category filters, a results count with a Clear action, a list
   grouped into sticky category sections with summary previews, and a master–detail

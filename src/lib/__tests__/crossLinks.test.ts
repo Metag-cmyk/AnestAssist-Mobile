@@ -3,12 +3,19 @@ import {
   resolveBlockId,
   conditionIdForGuideline,
   conditionIdsForScore,
+  guidelineIdsForCondition,
+  scoreIdsForCondition,
+  infusionIdsForCondition,
+  CONDITION_INFUSION_LINKS,
   CRISIS_CONDITION_LINKS,
   SCORE_CONDITION_LINKS,
 } from '../crossLinks';
 import { REGIONAL_BLOCKS } from '../../features/regional/data';
 import { CONDITIONS_DATA } from '../../features/conditions/data';
 import { SURGERY_DATA } from '../../features/surgery/data';
+import { DIAGRAM_GUIDELINES } from '../../features/guidelines/data';
+import { CLINICAL_SCORES } from '../../features/scores/data';
+import { INFUSION_PROTOCOLS } from '../../features/therapies/infusionProtocols';
 
 const BLOCK_IDS = new Set(REGIONAL_BLOCKS.map(b => b.id));
 const CONDITION_IDS = new Set(CONDITIONS_DATA.map(c => c.id));
@@ -111,5 +118,39 @@ describe('score -> condition links', () => {
     expect(conditionIdsForScore('qsofa')).toEqual(['sepsis-shock']);
     expect(conditionIdsForScore('glasgow-blatchford')).toEqual(['upper-gi-bleeding']);
     expect(conditionIdsForScore('unknown-score')).toEqual([]);
+  });
+});
+
+describe('reverse maps', () => {
+  const GUIDELINE_IDS = new Set(DIAGRAM_GUIDELINES.map(g => g.id));
+  const SCORE_IDS = new Set(CLINICAL_SCORES.map(s => s.id));
+  const INFUSION_IDS = new Set(INFUSION_PROTOCOLS.map(p => p.id));
+
+  it('resolves a condition back to its crisis/guideline card', () => {
+    expect(guidelineIdsForCondition('last')).toContain('crisis-last-rescue');
+    expect(guidelineIdsForCondition('anaphylaxis')).toContain('crisis-anaphylaxis-ga');
+    expect(guidelineIdsForCondition('not-a-condition')).toEqual([]);
+  });
+
+  it('resolves a condition back to its screening scores', () => {
+    expect(scoreIdsForCondition('sepsis-shock').sort()).toEqual(['qsofa', 'sofa']);
+    expect(scoreIdsForCondition('difficult-airway')).toEqual(['composite-difficult-airway']);
+    expect(scoreIdsForCondition('not-a-condition')).toEqual([]);
+  });
+
+  it('only references existing guideline, score and infusion ids', () => {
+    Object.entries(CRISIS_CONDITION_LINKS).forEach(([, c]) => expect(CONDITION_IDS.has(c), c).toBe(true));
+    guidelineIdsForCondition('last').forEach(id => expect(GUIDELINE_IDS.has(id), id).toBe(true));
+    scoreIdsForCondition('sepsis-shock').forEach(id => expect(SCORE_IDS.has(id), id).toBe(true));
+    Object.values(CONDITION_INFUSION_LINKS).flat().forEach(id => {
+      expect(INFUSION_IDS.has(id), id).toBe(true);
+    });
+    Object.keys(CONDITION_INFUSION_LINKS).forEach(c => expect(CONDITION_IDS.has(c), c).toBe(true));
+  });
+
+  it('maps a few conditions to infusions', () => {
+    expect(infusionIdsForCondition('sepsis-shock')).toContain('norepinephrine');
+    expect(infusionIdsForCondition('anaphylaxis')).toContain('epinephrine');
+    expect(infusionIdsForCondition('not-a-condition')).toEqual([]);
   });
 });

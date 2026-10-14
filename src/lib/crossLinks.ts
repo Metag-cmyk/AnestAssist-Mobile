@@ -98,3 +98,30 @@ export const SCORE_CONDITION_LINKS: Record<string, string[]> = {
 export function conditionIdsForScore(scoreId: string): string[] {
   return SCORE_CONDITION_LINKS[scoreId] ?? [];
 }
+
+/** Reverse of {@link CRISIS_CONDITION_LINKS}: a condition's crisis/guideline card(s). */
+export function guidelineIdsForCondition(conditionId: string): string[] {
+  return Object.entries(CRISIS_CONDITION_LINKS)
+    .filter(([, c]) => c === conditionId)
+    .map(([id]) => id);
+}
+
+/** Reverse of {@link SCORE_CONDITION_LINKS}: screening scores that point at a condition. */
+export function scoreIdsForCondition(conditionId: string): string[] {
+  return Object.entries(SCORE_CONDITION_LINKS)
+    .filter(([, ids]) => ids.includes(conditionId))
+    .map(([id]) => id);
+}
+
+/** Conditions that map onto a specific infusion protocol (for a "go to infusion" link). */
+export const CONDITION_INFUSION_LINKS: Record<string, string[]> = {
+  'sepsis-shock': ['norepinephrine', 'vasopressin'],
+  anaphylaxis: ['epinephrine'],
+  'anaphylaxis-periop': ['epinephrine'],
+  'neurogenic-shock': ['norepinephrine', 'phenylephrine'],
+  'acute-asthma': ['epinephrine'],
+};
+
+export function infusionIdsForCondition(conditionId: string): string[] {
+  return CONDITION_INFUSION_LINKS[conditionId] ?? [];
+}
