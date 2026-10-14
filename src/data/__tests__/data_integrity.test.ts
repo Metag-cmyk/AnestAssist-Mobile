@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { SURGERY_DATA } from '../../features/surgery/data';
-import { DIAGRAM_GUIDELINES, STATIC_GUIDELINES } from '../../features/guidelines/data';
+import { DIAGRAM_GUIDELINES, STATIC_GUIDELINES, SOCIETY_LINKS } from '../../features/guidelines/data';
 import { REGIONAL_BLOCKS } from '../../features/regional/data';
 import { CONDITIONS_DATA } from '../../features/conditions/data';
 import { CLINICAL_SCORES } from '../../features/scores/data';
@@ -105,6 +105,13 @@ describe('Data Integrity Validation', () => {
         expect(g.summary.trim().length).toBeGreaterThan(0);
         expect(g.year).toBeGreaterThanOrEqual(1990);
         expect(g.year).toBeLessThanOrEqual(CURRENT_YEAR + 1);
+      });
+    });
+
+    it('should resolve a source link for every summary', () => {
+      STATIC_GUIDELINES.forEach(g => {
+        const link = g.link ?? SOCIETY_LINKS[g.source];
+        expect(link, `${g.id} (${g.source})`).toMatch(/^https?:\/\//);
       });
     });
   });

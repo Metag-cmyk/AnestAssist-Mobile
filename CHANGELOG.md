@@ -6,6 +6,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 ## [Unreleased]
 
 ### Added
+- **Guidelines library**: surfaced the 58 written guideline summaries (merged with their
+  diagrams where a guideline has both), added filter-by-society and filter-by-category,
+  and linked each summary to its source society.
 - **Trust layer**: per-module content provenance with source links and a review date,
   rendered as a "Sources & review" footer on every page, a "report an error" action,
   and an About & Sources page (app/content version, per-module sources, data & privacy).

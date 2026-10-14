@@ -5,7 +5,24 @@ export interface StaticGuideline {
   year: number;
   category: string;
   summary: string;
+  /** Optional direct link; falls back to the society's guideline landing page. */
+  link?: string;
 }
+
+/** Society guideline landing pages, used to link summary cards to their source. */
+export const SOCIETY_LINKS: Record<string, string> = {
+  ASA: 'https://www.asahq.org/standards-and-practice-parameters',
+  ESAIC: 'https://www.esaic.org/guidelines/',
+  ESICM: 'https://www.esicm.org/resources/guidelines/',
+  OAA: 'https://www.oaa-anaes.ac.uk/',
+  RCOG: 'https://www.rcog.org.uk/guidance/browse-all-guidance/',
+  SOAP: 'https://soap.org/education/',
+  AHA: 'https://www.heart.org/en/professional/quality-improvement/guidelines-and-statements',
+  ACC: 'https://www.acc.org/guidelines',
+  ASRA: 'https://www.asra.com/guidelines-articles',
+  ERC: 'https://www.erc.edu/guidelines',
+  DAS: 'https://das.uk.com/guidelines/',
+};
 
 export const STATIC_GUIDELINES: StaticGuideline[] = [
   {
