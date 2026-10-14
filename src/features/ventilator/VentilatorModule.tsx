@@ -1,28 +1,78 @@
 import { useState, useEffect } from 'react';
-import { Wind, Ruler, ActivitySquare, Waves } from 'lucide-react';
+import { Wind, Ruler, ActivitySquare, Waves, Info, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { usePatient } from '../../contexts/PatientContext';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
-import { calculateIBW } from '../../lib/medicalDosing';
+import { STORAGE_KEYS } from '../../config/storageKeys';
+import {
+  predictedBodyWeight, drivingPressure, staticCompliance, pfRatio, ardsSeverity,
+  ARDS_SEVERITY_LABEL, rapidShallowBreathingIndex, ARDSNET_LOW_PEEP, ARDSNET_HIGH_PEEP,
+} from '../../lib/ventilator';
 
 type ClinicalCondition = 'standard' | 'ards' | 'obstructive' | 'neuro' | 'restrictive' | 'cardiogenic' | 'neuromuscular' | 'pregnancy' | 'laparoscopy' | 'olv' | 'trauma';
+
+const SBT_CRITERIA = [
+  'Awake, responsive and following commands',
+  'Haemodynamically stable (no or minimal vasopressors)',
+  'Adequate oxygenation (PEEP ≤ 8, FiO₂ ≤ 0.40, SpO₂ ≥ 90%)',
+  'Not requiring deep sedation',
+  'RR < 35 and no signs of respiratory distress',
+  'Adequate cough and secretion clearance',
+  'No planned procedures in the next 24 hours',
+  'Stable metabolic / electrolyte status',
+];
+
+function NumField({ label, value, onChange, step = 1, suffix }: {
+  label: string; value: number; onChange: (v: number) => void; step?: number; suffix?: string;
+}) {
+  return (
+    <div>
+      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{label}</label>
+      <div className="relative">
+        <input type="number" step={step} value={value} onChange={e => onChange(Number(e.target.value))}
+          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-800 outline-none focus:border-sky-500" />
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold">{suffix}</span>}
+      </div>
+    </div>
+  );
+}
+
+function MetricCard({ label, value, unit, tone, note }: {
+  label: string; value: string; unit: string;
+  tone: 'emerald' | 'amber' | 'rose'; note: string;
+}) {
+  const toneStyle = {
+    emerald: 'border-emerald-200 bg-emerald-50/50',
+    amber: 'border-amber-200 bg-amber-50/50',
+    rose: 'border-rose-200 bg-rose-50/60',
+  }[tone];
+  const dot = { emerald: 'bg-emerald-500', amber: 'bg-amber-500', rose: 'bg-rose-500' }[tone];
+  return (
+    <div className={`p-4 rounded-2xl border ${toneStyle}`}>
+      <div className="flex items-center gap-1.5">
+        <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />
+        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</span>
+      </div>
+      <div className="mt-1 flex items-baseline gap-1">
+        <span className="text-2xl font-black text-slate-900">{value}</span>
+        <span className="text-[10px] font-semibold text-slate-500">{unit}</span>
+      </div>
+      <p className="text-[10px] text-slate-500 leading-snug mt-1">{note}</p>
+    </div>
+  );
+}
 
 export default function VentilatorModule() {
   const { weightNum, heightNum, gender, ageNum } = usePatient();
   const [condition, setCondition] = useState<ClinicalCondition>(() => {
-    return (localStorage.getItem('anestassist_ventilator_condition') as ClinicalCondition) || 'standard';
+    return (localStorage.getItem(STORAGE_KEYS.VENTILATOR_CONDITION) as ClinicalCondition) || 'standard';
   });
 
   useEffect(() => {
-    localStorage.setItem('anestassist_ventilator_condition', condition);
+    localStorage.setItem(STORAGE_KEYS.VENTILATOR_CONDITION, condition);
   }, [condition]);
 
-  const ibw = calculateIBW({
-    type: 'adult', // Ventilator module primarily uses adult IBW for tidal volumes
-    heightCm: heightNum,
-    gender,
-    ageYears: ageNum
-  });
+  const pbw = predictedBodyWeight(heightNum, gender === 'male');
 
   const getTargetVolumes = (conditionType: ClinicalCondition, ibw: number) => {
     if (ibw <= 0) return { min: 0, max: 0, label: '' };
@@ -45,7 +95,26 @@ export default function VentilatorModule() {
     }
   };
 
-  const targets = getTargetVolumes(condition, ibw);
+  const targets = getTargetVolumes(condition, pbw);
+
+  // ---- Respiratory mechanics, oxygenation indices & weaning ----
+  const [pplat, setPplat] = useState(25);
+  const [ppeak, setPpeak] = useState(30);
+  const [peepCfg, setPeepCfg] = useState(8);
+  const [fio2, setFio2] = useState(40);
+  const [pao2, setPao2] = useState(90);
+  const [actRr, setActRr] = useState(16);
+  const [actVt, setActVt] = useState(420);
+  const [peepLadder, setPeepLadder] = useState<'low' | 'high'>('low');
+  const [sbtChecks, setSbtChecks] = useState<Record<string, boolean>>({});
+
+  const deltaP = drivingPressure(pplat, peepCfg);
+  const compliance = staticCompliance(actVt, pplat, peepCfg);
+  const pf = pfRatio(pao2, fio2);
+  const severity = ardsSeverity(pf, peepCfg);
+  const rsbi = rapidShallowBreathingIndex(actRr, actVt);
+  const peepTable = peepLadder === 'low' ? ARDSNET_LOW_PEEP : ARDSNET_HIGH_PEEP;
+  const sbtCount = SBT_CRITERIA.filter((_, i) => sbtChecks[i]).length;
 
   const getStrategyDetails = (cond: ClinicalCondition) => {
     switch (cond) {
@@ -280,8 +349,8 @@ export default function VentilatorModule() {
             
             <div className="space-y-4">
               <div className="bg-sky-50/50 p-4 rounded-xl flex justify-between items-center border border-sky-100 shadow-inner">
-                <span className="text-sm font-bold text-sky-900">Ideal Body Wt (IBW):</span>
-                <span className="text-2xl font-black text-sky-600">{ibw > 0 ? ibw.toFixed(1) : '--'} <span className="text-base font-bold">kg</span></span>
+                <span className="text-sm font-bold text-sky-900">Predicted Body Wt (PBW):</span>
+                <span className="text-2xl font-black text-sky-600">{pbw > 0 ? pbw.toFixed(1) : '--'} <span className="text-base font-bold">kg</span></span>
               </div>
               <p className="text-[10px] text-slate-400 leading-relaxed italic px-1">
                 Tidal volumes are calculated based on Ideal Body Weight (IBW) to prevent Ventilator-Induced Lung Injury (VILI), regardless of actual body weight.
@@ -331,11 +400,11 @@ export default function VentilatorModule() {
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Tidal Volume ($V_t$) Target</h4>
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="bg-sky-50 border border-sky-100 p-4 rounded-xl flex-1 flex items-center justify-between">
+                    <div aria-live="polite" className="bg-sky-50 border border-sky-100 p-4 rounded-xl flex-1 flex items-center justify-between">
                       <div>
                         <div className="text-sm font-semibold text-sky-800 mb-1">Strict Output ({targets?.label})</div>
                         <div className="text-3xl font-black text-sky-600">
-                          {ibw > 0 ? `${targets.min} - ${targets.max}` : '---'} <span className="text-lg font-bold">mL</span>
+                          {pbw > 0 ? `${targets.min} - ${targets.max}` : '---'} <span className="text-lg font-bold">mL</span>
                         </div>
                       </div>
                     </div>
@@ -374,6 +443,152 @@ export default function VentilatorModule() {
           </AnimatePresence>
         </div>
       </div>
+
+      {/* ===== Lung-protective tidal volumes ===== */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+          <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
+            <Ruler className="w-4 h-4 text-sky-600" /> PBW Tidal Volumes
+          </h3>
+          {pbw > 0 ? (
+            <div className="space-y-2">
+              {[4, 6, 8, 10].map(k => (
+                <div key={k} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-100">
+                  <span className="text-xs font-bold text-slate-500">{k} mL/kg</span>
+                  <span className="text-sm font-black text-sky-700">{Math.round(pbw * k)} mL</span>
+                </div>
+              ))}
+              <p className="text-[10px] text-slate-400 italic pt-1">4–6 mL/kg for ARDS/OLV; 6–8 mL/kg routine lung-protective ventilation.</p>
+            </div>
+          ) : (
+            <p className="text-xs text-slate-400">Enter height and gender above to calculate PBW.</p>
+          )}
+        </div>
+
+        {/* ===== ARDSNet PEEP / FiO2 ladder ===== */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 lg:col-span-2">
+          <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+            <h3 className="font-bold text-slate-800 flex items-center gap-2">
+              <Waves className="w-4 h-4 text-sky-600" /> ARDSNet PEEP / FiO₂ Ladder
+            </h3>
+            <div className="flex bg-slate-100 p-1 rounded-lg">
+              {(['low', 'high'] as const).map(l => (
+                <button key={l} onClick={() => setPeepLadder(l)}
+                  className={`px-3 py-1 rounded-md text-[10px] font-bold uppercase transition-all ${
+                    peepLadder === l ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                  }`}>
+                  {l === 'low' ? 'Lower PEEP' : 'Higher PEEP'}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
+            {peepTable.map(row => (
+              <div key={row.fio2} className="text-center p-2 rounded-lg border border-slate-100 bg-slate-50">
+                <div className="text-[10px] font-bold text-slate-400">FiO₂ {row.fio2.toFixed(2).replace(/0$/, '')}</div>
+                <div className="text-sm font-black text-sky-700 mt-0.5">{row.peep}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-[10px] text-slate-400 italic pt-3">
+            Minimum PEEP 5 cmH₂O. Use an incremental pair to reach the oxygenation goal; the higher-PEEP ladder is for moderate–severe ARDS.
+          </p>
+        </div>
+      </div>
+
+      {/* ===== Mechanics & oxygenation indices ===== */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-5 bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+          <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4 pb-2 border-b border-slate-100">
+            <ActivitySquare className="w-4 h-4 text-sky-600" /> Measured Parameters
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <NumField label="Plateau (Pplat)" value={pplat} onChange={setPplat} suffix="cmH₂O" />
+            <NumField label="Peak (Ppeak)" value={ppeak} onChange={setPpeak} suffix="cmH₂O" />
+            <NumField label="PEEP" value={peepCfg} onChange={setPeepCfg} suffix="cmH₂O" />
+            <NumField label="FiO₂" value={fio2} onChange={setFio2} suffix="%" />
+            <NumField label="PaO₂" value={pao2} onChange={setPao2} suffix="mmHg" />
+            <NumField label="Actual VT" value={actVt} onChange={setActVt} step={10} suffix="mL" />
+          </div>
+        </div>
+
+        <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-3" aria-live="polite">
+          <MetricCard
+            label="Driving Pressure"
+            value={`${deltaP}`}
+            unit="cmH₂O"
+            tone={deltaP >= 15 ? 'rose' : 'emerald'}
+            note={deltaP >= 15 ? 'Above 15 — associated with VILI; consider reducing VT.' : 'Within target (< 15).'}
+          />
+          <MetricCard
+            label="Static Compliance"
+            value={compliance > 0 ? compliance.toFixed(0) : '--'}
+            unit="mL/cmH₂O"
+            tone={compliance > 0 && compliance < 20 ? 'amber' : 'emerald'}
+            note={compliance > 0 && compliance < 20 ? 'Low — stiff lungs / restrictive picture.' : 'Preserved.'}
+          />
+          <MetricCard
+            label="P/F Ratio"
+            value={pf > 0 ? pf.toFixed(0) : '--'}
+            unit="mmHg"
+            tone={severity === 'severe' ? 'rose' : severity === 'moderate' ? 'amber' : 'emerald'}
+            note={ARDS_SEVERITY_LABEL[severity]}
+          />
+          <MetricCard
+            label="Peak–Plateau Gradient"
+            value={`${Math.max(0, ppeak - pplat)}`}
+            unit="cmH₂O"
+            tone={ppeak - pplat > 15 ? 'amber' : 'emerald'}
+            note="High gradient suggests airway resistance (e.g. bronchospasm, secretions, tube)."
+          />
+          <MetricCard
+            label="RSBI (weaning)"
+            value={rsbi > 0 ? rsbi.toFixed(0) : '--'}
+            unit="breaths/min/L"
+            tone={rsbi > 0 && rsbi < 105 ? 'emerald' : 'amber'}
+            note={rsbi > 0 && rsbi < 105 ? 'Favourable (< 105) for a spontaneous breathing trial.' : 'Unfavourable (≥ 105); reassess readiness.'}
+          />
+          <MetricCard
+            label="VT vs 6 mL/kg PBW"
+            value={pbw > 0 ? `${((actVt / (pbw * 6)) * 100).toFixed(0)}` : '--'}
+            unit="% of target"
+            tone={pbw > 0 && actVt / (pbw * 6) > 1.15 ? 'amber' : 'emerald'}
+            note="Actual VT relative to the 6 mL/kg PBW lung-protective reference."
+          />
+        </div>
+      </div>
+
+      {/* ===== Weaning / SBT readiness ===== */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+          <h3 className="font-bold text-slate-800 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-sky-600" /> Weaning / Spontaneous Breathing Trial Readiness
+          </h3>
+          <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${
+            sbtCount === SBT_CRITERIA.length ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-500 border-slate-200'
+          }`}>
+            {sbtCount} / {SBT_CRITERIA.length} criteria
+          </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {SBT_CRITERIA.map((c, i) => (
+            <label key={i} className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-white hover:border-sky-300 transition-colors cursor-pointer">
+              <input type="checkbox" checked={!!sbtChecks[i]} onChange={e => setSbtChecks(p => ({ ...p, [i]: e.target.checked }))}
+                className="mt-0.5 w-4 h-4 accent-sky-600" />
+              <span className="text-xs font-medium text-slate-700 leading-snug">{c}</span>
+            </label>
+          ))}
+        </div>
+        <div className="mt-4 flex items-start gap-3 p-3 rounded-xl bg-sky-50 border border-sky-100">
+          <Info className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+          <p className="text-[11px] text-sky-900 leading-relaxed">
+            {sbtCount === SBT_CRITERIA.length && (rsbi === 0 || rsbi < 105)
+              ? 'All readiness criteria met — proceed to a spontaneous breathing trial (SBT) and assess tolerance.'
+              : 'Not all criteria met. Correct reversible factors (sedation, secretions, fluid balance) before an SBT.'}
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 }
