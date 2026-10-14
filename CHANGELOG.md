@@ -56,6 +56,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 - Type-check (`npm run lint`) is now enforced in CI.
 
 ### Removed
+- Unused `diagnosticTriggers` / `differentialMatrix` fields from `ConditionProtocol`
+  (never populated); the differential panel derives entirely from the keyword resolver.
 - Dead code: `hooks/useData`, `features/converter`, `features/renal`, `DrugDosageCalculator`,
   `ConfirmationModal`, `lib/RenalCalculators` duplication, the unused Gemini service and its
   dependencies (`@google/genai`, `dotenv`).

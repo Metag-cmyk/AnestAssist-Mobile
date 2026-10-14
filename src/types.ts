@@ -31,8 +31,6 @@ export interface ConditionProtocol {
   diagnosticCriteria?: string[];
   expectedLabDeviations?: { [key: string]: string };
   differentialDiagnosis?: string[];
-  diagnosticTriggers?: string[];
-  differentialMatrix?: DifferentialItem[];
 }
 
 export interface Guideline {

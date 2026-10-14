@@ -4,15 +4,12 @@ import { ConditionProtocol, DifferentialItem } from '../../types';
  * Differential-diagnosis knowledge base for the Conditions module.
  *
  * `DifferentialMatrixView` renders, per condition:
- *   - "diagnostic triggers" (a short list of red-flag features), and
+ *   - "diagnostic triggers" (the first few diagnosis items), and
  *   - a differential matrix (each alternative + its distinguishing features + a POCUS/key test).
  *
- * Precedence:
- *   1. An explicit `condition.differentialMatrix` (authored, condition-specific data) wins.
- *   2. Otherwise each `differentialDiagnosis` entry is matched against ORDERED keyword rules.
- *   3. Unmatched entries fall back to a generic prompt.
- *
- * The first matching rule wins, so rules are listed most-specific first.
+ * Each `differentialDiagnosis` entry is matched against ORDERED keyword rules;
+ * unmatched entries fall back to a generic prompt. The first matching rule wins,
+ * so rules are listed most-specific first.
  */
 
 export interface DifferentialRule {
@@ -80,11 +77,11 @@ export interface ResolvedDifferential {
   items: DifferentialItem[];
 }
 
-/** Resolves the differential matrix for a condition using the precedence documented above. */
+/** Resolves the differential matrix for a condition using the keyword rules above. */
 export function resolveDifferential(condition: ConditionProtocol): ResolvedDifferential {
   const diagnoses = condition.differentialDiagnosis ?? [];
 
-  const items: DifferentialItem[] = condition.differentialMatrix ?? diagnoses.map((label) => {
+  const items: DifferentialItem[] = diagnoses.map((label) => {
     const lower = label.toLowerCase();
     const rule = DIFFERENTIAL_RULES.find((r) => r.keywords.some((k) => lower.includes(k)));
     return {
@@ -94,7 +91,7 @@ export function resolveDifferential(condition: ConditionProtocol): ResolvedDiffe
     };
   });
 
-  const triggers = condition.diagnosticTriggers ?? condition.diagnosis.slice(0, 3);
+  const triggers = condition.diagnosis.slice(0, 3);
 
   return { triggers, items };
 }
