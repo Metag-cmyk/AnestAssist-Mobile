@@ -1,7 +1,8 @@
 {
-  "name": "react-example",
+  "name": "anestassist",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "AnestAssist — an offline-first anesthesia & ICU trainee companion (PWA + Android).",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
@@ -15,11 +16,11 @@
   "dependencies": {
     "@capacitor/android": "^8.3.0",
     "@capacitor/core": "^8.3.0",
-    "@google/genai": "^1.29.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "clsx": "^2.1.1",
-    "dotenv": "^17.2.3",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.0",
