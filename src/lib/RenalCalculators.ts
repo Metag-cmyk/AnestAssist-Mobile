@@ -151,7 +151,7 @@ export function calculateIHD(inputs: IHDInputs) {
   // For standard estimator, we'll use a simplified version assuming UF/W is small
   // R = postUrea / preUrea
   let ktv = 0;
-  if (preUrea > 0 && postUrea > 0) {
+  if (preUrea > 0 && postUrea > 0 && preUrea > postUrea) {
     const R = postUrea / preUrea;
     // Simplified Daugirdas without UF estimation: Kt/V = -ln(R)
     // Or full if duration is known. We'll use natural log of ratio.

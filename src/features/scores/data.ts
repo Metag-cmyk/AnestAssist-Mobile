@@ -674,7 +674,7 @@ export const CLINICAL_SCORES: ClinicalScore[] = [
     ],
     riskLevels: [
       { min: 0, max: 0, label: 'low', description: 'Low risk. May be suitable for outpatient management.', color: 'bg-green-100 text-green-700' },
-      { min: 1, max: 20, label: 'high', description: 'High risk. Requires hospital admission and urgent endoscopy.', color: 'bg-rose-100 text-rose-700' }
+      { min: 1, max: 23, label: 'high', description: 'High risk. Requires hospital admission and urgent endoscopy.', color: 'bg-rose-100 text-rose-700' }
     ]
   },
   {
