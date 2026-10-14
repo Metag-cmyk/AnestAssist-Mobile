@@ -75,6 +75,16 @@ export function calculateBMI(weightKg: number, heightCm: number, type: PatientTy
 
 
 /**
+ * Adjusted Body Weight (ABW) for dosing in obesity.
+ * ABW = IBW + 0.4 x (TBW - IBW). Falls back to TBW when IBW is unknown or TBW <= IBW.
+ */
+export function adjustedBodyWeight(ibwKg: number, tbwKg: number): number {
+  if (!(ibwKg > 0)) return tbwKg;
+  if (tbwKg <= ibwKg) return tbwKg;
+  return ibwKg + 0.4 * (tbwKg - ibwKg);
+}
+
+/**
  * Calculates Estimated CrCl (Cockcroft-Gault for adults, Schwartz for peds).
  */
 export function calculateEstimatedCrCl(params: {

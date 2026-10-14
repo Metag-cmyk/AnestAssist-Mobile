@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   Activity, 
   Syringe, 
@@ -18,29 +18,41 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { usePatient } from '../../contexts/PatientContext';
 import { PatientParameterCard } from '../../components/PatientParameterCard';
-import { calculateIBW } from '../../lib/medicalDosing';
+import { calculateIBW, adjustedBodyWeight } from '../../lib/medicalDosing';
+import { calculateCRRT } from '../../lib/RenalCalculators';
+import {
+  prepConcentrationPerMl,
+  rateMlPerHour,
+  doseFromRate,
+  doseReadout,
+  formatDoseUnit,
+  roundToIncrement,
+} from '../../lib/infusionRates';
+import { INFUSION_PROTOCOLS, RangeTone } from './infusionProtocols';
+import { STORAGE_KEYS } from '../../config/storageKeys';
 
 type ActiveModuleTab = 'cvvhdf' | 'infusions' | 'hemodynamics';
 
-interface InfusionProtocol {
-  id: string;
-  name: string;
-  category: 'Vasoactive / Inotropes' | 'Sedation & Analgesia' | 'Antiarrhythmics & Emergency';
-  indication: string;
-  preparation: string;
-  defaultConc: number; // mg/mL
-  standardDoseRange: string;
-  minDose: number;
-  maxDose: number;
-  step: number;
-  unit: 'mcg/kg/min' | 'mcg/kg/h' | 'mg/h';
-  titrationTips: string[];
-  safetyWarnings: string[];
+/** Reads a finite number from localStorage, falling back when absent/invalid. */
+function readStoredNumber(key: string, fallback: number): number {
+  const raw = localStorage.getItem(key);
+  if (raw == null) return fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : fallback;
 }
+
+const RANGE_TONE: Record<RangeTone, { band: string; badge: string; text: string }> = {
+  emerald: { band: 'bg-emerald-50 border-emerald-200', badge: 'bg-emerald-500', text: 'text-emerald-700' },
+  sky: { band: 'bg-sky-50 border-sky-200', badge: 'bg-sky-500', text: 'text-sky-700' },
+  amber: { band: 'bg-amber-50 border-amber-200', badge: 'bg-amber-500', text: 'text-amber-700' },
+  rose: { band: 'bg-rose-50 border-rose-200', badge: 'bg-rose-500', text: 'text-rose-700' },
+};
 
 export default function TherapiesModule() {
   const patient = usePatient();
-  const [activeTab, setActiveTab] = useState<ActiveModuleTab>('cvvhdf');
+  const [activeTab, setActiveTab] = useState<ActiveModuleTab>(
+    () => (localStorage.getItem(STORAGE_KEYS.THERAPIES_ACTIVE_TAB) as ActiveModuleTab) || 'cvvhdf'
+  );
 
   // ================= PRISMAFLEX CVVHDF CALCULATOR STATE =================
   const [hct, setHct] = useState<number>(30);
@@ -51,20 +63,36 @@ export default function TherapiesModule() {
   const [prePostRatio, setPrePostRatio] = useState<number>(60);
   const [filterType, setFilterType] = useState<'M100' | 'M150' | 'HF20'>('M100');
 
-  // ================= UNIFIED INFUSION & CONVERTER STATE =================
-  const [selectedInfusionId, setSelectedInfusionId] = useState<string>('norepinephrine');
-  const [dosingWeightType, setDosingWeightType] = useState<'tbw' | 'ibw'>('tbw');
-  const [customDose, setCustomDose] = useState<number>(0.05);
-  const [customConc, setCustomConc] = useState<number>(0.1); // mg/mL (4mg in 40ml)
+  // ================= UNIFIED INFUSION & RATE CONVERTER STATE =================
+  const [selectedInfusionId, setSelectedInfusionId] = useState<string>(
+    () => localStorage.getItem(STORAGE_KEYS.INFUSION_DRUG) || INFUSION_PROTOCOLS[0].id
+  );
+  const [dosingWeightType, setDosingWeightType] = useState<'tbw' | 'ibw' | 'abw'>(
+    () => (localStorage.getItem(STORAGE_KEYS.INFUSION_WEIGHT_BASIS) as 'tbw' | 'ibw' | 'abw') || INFUSION_PROTOCOLS[0].defaultWeightBasis
+  );
+  const [mode, setMode] = useState<'dose' | 'rate'>(
+    () => (localStorage.getItem(STORAGE_KEYS.INFUSION_MODE) as 'dose' | 'rate') || 'dose'
+  );
+  const [doseInput, setDoseInput] = useState<number>(
+    () => readStoredNumber(STORAGE_KEYS.INFUSION_DOSE, INFUSION_PROTOCOLS[0].minDose)
+  );
+  const [rateInput, setRateInput] = useState<number>(() => readStoredNumber(STORAGE_KEYS.INFUSION_RATE, 0));
+  const [prepIndex, setPrepIndex] = useState<number>(() => readStoredNumber(STORAGE_KEYS.INFUSION_PREP_INDEX, 0));
+  const [concPerMl, setConcPerMl] = useState<number>(0); // in the dose's amount unit per mL
+  const [pumpIncrement, setPumpIncrement] = useState<number>(() => readStoredNumber(STORAGE_KEYS.INFUSION_PUMP_STEP, 0.1));
+  const [acknowledgedKey, setAcknowledgedKey] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   // ================= INVASIVE HEMODYNAMICS CALCULATOR STATE =================
-  const [hemoMap, setHemoMap] = useState<number>(85);
-  const [hemoCvp, setHemoCvp] = useState<number>(8);
-  const [hemoMpap, setHemoMpap] = useState<number>(20);
-  const [hemoPaop, setHemoPaop] = useState<number>(10);
-  const [hemoCo, setHemoCo] = useState<number>(5.0);
-  const [hemoHr, setHemoHr] = useState<number>(75);
-  const [dampingState, setDampingState] = useState<'normal' | 'overdamped' | 'underdamped'>('normal');
+  const [hemoMap, setHemoMap] = useState<number>(() => readStoredNumber(STORAGE_KEYS.HEMO_MAP, 85));
+  const [hemoCvp, setHemoCvp] = useState<number>(() => readStoredNumber(STORAGE_KEYS.HEMO_CVP, 8));
+  const [hemoMpap, setHemoMpap] = useState<number>(() => readStoredNumber(STORAGE_KEYS.HEMO_MPAP, 20));
+  const [hemoPaop, setHemoPaop] = useState<number>(() => readStoredNumber(STORAGE_KEYS.HEMO_PAOP, 10));
+  const [hemoCo, setHemoCo] = useState<number>(() => readStoredNumber(STORAGE_KEYS.HEMO_CO, 5.0));
+  const [hemoHr, setHemoHr] = useState<number>(() => readStoredNumber(STORAGE_KEYS.HEMO_HR, 75));
+  const [dampingState, setDampingState] = useState<'normal' | 'overdamped' | 'underdamped'>(
+    () => (localStorage.getItem(STORAGE_KEYS.HEMO_DAMPING) as 'normal' | 'overdamped' | 'underdamped') || 'normal'
+  );
 
 
   const ibw = useMemo(() => calculateIBW({
@@ -74,200 +102,173 @@ export default function TherapiesModule() {
     ageYears: patient.ageNum
   }), [patient.heightNum, patient.gender, patient.ageNum]);
 
-  const activeWeight = dosingWeightType === 'tbw' ? patient.weightNum : (ibw > 0 ? ibw : patient.weightNum);
-
-  // Infusion Protocols Repository
-  const INFUSION_PROTOCOLS: InfusionProtocol[] = useMemo(() => [
-    {
-      id: 'norepinephrine',
-      name: 'Norepinephrine (Levophed)',
-      category: 'Vasoactive / Inotropes',
-      indication: 'First-line vasopressor for Septic, Cardiogenic, and Vasoplegic Shock.',
-      preparation: '4 mg in 40 mL D5W',
-      defaultConc: 0.1, // 4mg in 40ml = 0.1 mg/ml (100 mcg/ml)
-      standardDoseRange: '0.01 - 0.5 mcg/kg/min (titrate to MAP ≥ 65 mmHg)',
-      minDose: 0.01,
-      maxDose: 0.5,
-      step: 0.01,
-      unit: 'mcg/kg/min',
-      titrationTips: [
-        'Central venous catheter strongly preferred to prevent extravasation necrosis.',
-        'Target MAP ≥ 65 mmHg (or baseline in chronic hypertensives).',
-        'Add Vasopressin early if Norepinephrine requirements exceed 0.25 mcg/kg/min.'
-      ],
-      safetyWarnings: [
-        'Potent alpha-1 vasoconstriction can cause peripheral ischemic limb digits.',
-        'Extravasation rescue: Phentolamine 5-10 mg diluted in 10 mL saline injected locally.'
-      ]
-    },
-    {
-      id: 'epinephrine',
-      name: 'Epinephrine (Adrenaline)',
-      category: 'Vasoactive / Inotropes',
-      indication: 'Anaphylaxis, Severe Bradycardia, Cardiogenic Shock, Cardiac Arrest.',
-      preparation: '4 mg in 50 mL D5W',
-      defaultConc: 0.08,
-      standardDoseRange: '0.01 - 0.25 mcg/kg/min',
-      minDose: 0.01,
-      maxDose: 0.25,
-      step: 0.01,
-      unit: 'mcg/kg/min',
-      titrationTips: [
-        'Low dose (<0.05 mcg/kg/min): Predominant Beta-1/Beta-2 (inotropy & bronchodilation).',
-        'High dose (>0.1 mcg/kg/min): Predominant Alpha-1 (vasoconstriction).'
-      ],
-      safetyWarnings: [
-        'Causes transient hyperlactatemia due to accelerated aerobic glycolysis.',
-        'Tachyarrhythmias & myocardial ischemia risk.'
-      ]
-    },
-    {
-      id: 'dobutamine',
-      name: 'Dobutamine',
-      category: 'Vasoactive / Inotropes',
-      indication: 'Decompensated Heart Failure & Low Cardiac Output States.',
-      preparation: '250 mg in 50 mL D5W',
-      defaultConc: 5.0, // 250mg in 50ml = 5 mg/ml
-      standardDoseRange: '2.5 - 20 mcg/kg/min',
-      minDose: 2.5,
-      maxDose: 20,
-      step: 0.5,
-      unit: 'mcg/kg/min',
-      titrationTips: [
-        'Strong Beta-1 inotropic agent with mild Beta-2 vasodilation.',
-        'Improves cardiac index and lowers SVR/PVR.'
-      ],
-      safetyWarnings: [
-        'Tachycardia and ventricular dysrhythmias at higher doses.',
-        'May worsen hypotension if hypovolemic.'
-      ]
-    },
-    {
-      id: 'dopamine',
-      name: 'Dopamine',
-      category: 'Vasoactive / Inotropes',
-      indication: 'Symptomatic Bradycardia & Hypotension.',
-      preparation: '200 mg in 50 mL D5W',
-      defaultConc: 4.0,
-      standardDoseRange: '2 - 20 mcg/kg/min',
-      minDose: 2,
-      maxDose: 20,
-      step: 0.5,
-      unit: 'mcg/kg/min',
-      titrationTips: [
-        'Low dose (1-3 mcg/kg/min): Dopaminergic receptors.',
-        'Medium dose (3-10 mcg/kg/min): Beta-1 inotropy.',
-        'High dose (>10 mcg/kg/min): Alpha-1 vasoconstriction.'
-      ],
-      safetyWarnings: [
-        'High incidence of tachyarrhythmias compared to Norepinephrine.'
-      ]
-    },
-    {
-      id: 'propofol',
-      name: 'Propofol (Diprivan 1%)',
-      category: 'Sedation & Analgesia',
-      indication: 'ICU Sedation in mechanically ventilated patients.',
-      preparation: '500 mg in 50 mL (10 mg/mL)',
-      defaultConc: 10.0,
-      standardDoseRange: '0.5 - 4.0 mg/kg/h',
-      minDose: 0.5,
-      maxDose: 4.0,
-      step: 0.1,
-      unit: 'mg/h',
-      titrationTips: [
-        'Rapid onset and offset allows daily awakening sedation breaks.',
-        'Provides 1.1 kcal/mL of lipid nutrition.'
-      ],
-      safetyWarnings: [
-        'PRIS risk: Avoid doses >4 mg/kg/h for >48 hours.'
-      ]
-    },
-    {
-      id: 'dexmedetomidine',
-      name: 'Dexmedetomidine (Precedex)',
-      category: 'Sedation & Analgesia',
-      indication: 'Light ICU Sedation & Ventilator weaning.',
-      preparation: '200 mcg in 50 mL NS',
-      defaultConc: 0.004, // 200mcg in 50ml = 0.004 mg/ml (4 mcg/ml)
-      standardDoseRange: '0.2 - 1.4 mcg/kg/h',
-      minDose: 0.2,
-      maxDose: 1.4,
-      step: 0.1,
-      unit: 'mcg/kg/h',
-      titrationTips: [
-        'Preserves respiratory drive without causing significant respiratory depression.'
-      ],
-      safetyWarnings: [
-        'High incidence of dose-dependent bradycardia and hypotension.'
-      ]
-    }
-  ], []);
-
-  const selectedInfusion = useMemo(() => 
-    INFUSION_PROTOCOLS.find(p => p.id === selectedInfusionId) || INFUSION_PROTOCOLS[0],
-    [selectedInfusionId, INFUSION_PROTOCOLS]
+  const abw = useMemo(
+    () => adjustedBodyWeight(ibw, patient.weightNum),
+    [ibw, patient.weightNum]
   );
 
-  // Sync custom inputs when selected infusion changes
+  const activeWeight = useMemo(() => {
+    if (dosingWeightType === 'ibw') return ibw > 0 ? ibw : patient.weightNum;
+    if (dosingWeightType === 'abw') return abw;
+    return patient.weightNum;
+  }, [dosingWeightType, ibw, abw, patient.weightNum]);
+
+  // Infusion protocol definitions live in ./infusionProtocols.ts so the rate
+  // mathematics in ../../lib/infusionRates.ts can be unit-tested independently.
+
+  const selectedInfusion = useMemo(
+    () => INFUSION_PROTOCOLS.find(p => p.id === selectedInfusionId) || INFUSION_PROTOCOLS[0],
+    [selectedInfusionId]
+  );
+
+  const selectedPrep = selectedInfusion.preps[prepIndex] || selectedInfusion.preps[0];
+  const prepConc = prepConcentrationPerMl(selectedPrep, selectedInfusion.doseUnit.amount);
+
+  // Reset inputs to the drug's defaults only when the *user* changes drug.
+  // Comparing to the previous id (rather than a "first run" ref) keeps this
+  // correct under React StrictMode's double-invoked effects, so persisted
+  // selections survive a remount/navigation.
+  const prevDrugRef = useRef(selectedInfusionId);
   useEffect(() => {
-    if (selectedInfusion) {
-      setCustomDose(selectedInfusion.minDose);
-      setCustomConc(selectedInfusion.defaultConc);
-    }
-  }, [selectedInfusion]);
+    if (prevDrugRef.current === selectedInfusionId) return;
+    prevDrugRef.current = selectedInfusionId;
+    const firstPrep = selectedInfusion.preps[0];
+    setDosingWeightType(selectedInfusion.defaultWeightBasis);
+    setPrepIndex(0);
+    setConcPerMl(prepConcentrationPerMl(firstPrep, selectedInfusion.doseUnit.amount));
+    setDoseInput(selectedInfusion.minDose);
+    setMode('dose');
+    setAcknowledgedKey(null);
+    // selectedInfusion is derived from selectedInfusionId.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedInfusionId]);
 
-  // Live Conversion Rate Calculation
-  const calculatedPumpRate = useMemo(() => {
-    if (customConc <= 0 || activeWeight <= 0) return '0.00';
-    let rateMlH = 0;
-    if (selectedInfusion.unit === 'mcg/kg/min') {
-      rateMlH = (customDose * activeWeight * 60) / (1000 * customConc);
-    } else if (selectedInfusion.unit === 'mcg/kg/h') {
-      rateMlH = (customDose * activeWeight) / (1000 * customConc);
-    } else if (selectedInfusion.unit === 'mg/h') {
-      rateMlH = customDose / customConc;
-    }
-    return rateMlH.toFixed(2);
-  }, [customDose, customConc, activeWeight, selectedInfusion]);
+  // Persist the active tab, infusion selections and haemodynamic inputs.
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.THERAPIES_ACTIVE_TAB, activeTab);
+    localStorage.setItem(STORAGE_KEYS.INFUSION_DRUG, selectedInfusionId);
+    localStorage.setItem(STORAGE_KEYS.INFUSION_WEIGHT_BASIS, dosingWeightType);
+    localStorage.setItem(STORAGE_KEYS.INFUSION_MODE, mode);
+    localStorage.setItem(STORAGE_KEYS.INFUSION_DOSE, String(doseInput));
+    localStorage.setItem(STORAGE_KEYS.INFUSION_RATE, String(rateInput));
+    localStorage.setItem(STORAGE_KEYS.INFUSION_PREP_INDEX, String(prepIndex));
+    localStorage.setItem(STORAGE_KEYS.INFUSION_PUMP_STEP, String(pumpIncrement));
+    localStorage.setItem(STORAGE_KEYS.HEMO_MAP, String(hemoMap));
+    localStorage.setItem(STORAGE_KEYS.HEMO_CVP, String(hemoCvp));
+    localStorage.setItem(STORAGE_KEYS.HEMO_MPAP, String(hemoMpap));
+    localStorage.setItem(STORAGE_KEYS.HEMO_PAOP, String(hemoPaop));
+    localStorage.setItem(STORAGE_KEYS.HEMO_CO, String(hemoCo));
+    localStorage.setItem(STORAGE_KEYS.HEMO_HR, String(hemoHr));
+    localStorage.setItem(STORAGE_KEYS.HEMO_DAMPING, dampingState);
+  }, [
+    activeTab, selectedInfusionId, dosingWeightType, mode, doseInput, rateInput, prepIndex,
+    pumpIncrement, hemoMap, hemoCvp, hemoMpap, hemoPaop, hemoCo, hemoHr, dampingState,
+  ]);
 
-  // Prismaflex CVVHDF Precise Calculation Logic
+  // Derive the concentration from the chosen preparation (still manually overridable)
+  useEffect(() => {
+    const prep = selectedInfusion.preps[prepIndex];
+    if (prep) setConcPerMl(prepConcentrationPerMl(prep, selectedInfusion.doseUnit.amount));
+  }, [prepIndex, selectedInfusion]);
+
+  const weightRequired = selectedInfusion.doseUnit.perKg;
+  const weightOk = !weightRequired || activeWeight > 0;
+  const isCustomConcentration = Math.abs(concPerMl - prepConc) > 1e-9;
+
+  const computedRate = useMemo(() => rateMlPerHour({
+    doseAmount: doseInput,
+    unit: selectedInfusion.doseUnit,
+    weightKg: activeWeight,
+    concPerMl,
+  }), [doseInput, selectedInfusion, activeWeight, concPerMl]);
+
+  const computedDose = useMemo(() => doseFromRate({
+    rateMlPerHour: rateInput,
+    unit: selectedInfusion.doseUnit,
+    weightKg: activeWeight,
+    concPerMl,
+  }), [rateInput, selectedInfusion, activeWeight, concPerMl]);
+
+  const effectiveDose = mode === 'dose' ? doseInput : computedDose;
+  const effectiveRate = mode === 'dose' ? computedRate : rateInput;
+  const outOfRange = effectiveDose < selectedInfusion.minDose || effectiveDose > selectedInfusion.maxDose;
+
+  const readout = useMemo(
+    () => doseReadout(effectiveDose, selectedInfusion.doseUnit, activeWeight),
+    [effectiveDose, selectedInfusion, activeWeight]
+  );
+
+  const equivalentUnits = useMemo(() => {
+    const current = formatDoseUnit(selectedInfusion.doseUnit);
+    const chips: string[] = [];
+    const add = (label: string, value: number | undefined, digits: number) => {
+      if (value == null || label === current) return;
+      chips.push(`${value.toFixed(digits)} ${label}`);
+    };
+    add('units/min', readout.unitsPerMin, 3);
+    add('units/h', readout.unitsPerHr, 2);
+    add('mcg/kg/min', readout.mcgPerKgMin, 3);
+    add('mcg/kg/h', readout.mcgPerKgHr, 2);
+    add('mg/h', readout.mgPerHr, 2);
+    return chips;
+  }, [readout, selectedInfusion]);
+
+  // Clinical dose banding — the first band whose window contains the dose
+  const doseRanges = selectedInfusion.doseRanges;
+  const currentRange = doseRanges && doseRanges.length > 0
+    ? (doseRanges.find(r => effectiveDose >= r.min && effectiveDose < r.max)
+        ?? (effectiveDose >= doseRanges[doseRanges.length - 1].max ? doseRanges[doseRanges.length - 1] : doseRanges[0]))
+    : null;
+
+  // High-alert gate: hide the pump rate until acknowledged when the dose is out of the usual window
+  const ackKey = `${selectedInfusionId}|${mode}|${effectiveDose}`;
+  const acknowledged = acknowledgedKey === ackKey;
+  const revealRate = weightOk && (!outOfRange || acknowledged);
+  const pumpSetting = roundToIncrement(effectiveRate, pumpIncrement);
+
+  const copySummary = () => {
+    const unitLabel = formatDoseUnit(selectedInfusion.doseUnit);
+    const lines = [
+      'AnestAssist infusion summary',
+      `Drug: ${selectedInfusion.name} (${selectedInfusion.category})`,
+      `Patient: ${activeWeight.toFixed(1)} kg — ${dosingWeightType.toUpperCase()}`,
+      `Preparation: ${selectedPrep.label} → ${concPerMl} ${selectedInfusion.doseUnit.amount}/mL`,
+      `Dose: ${effectiveDose.toFixed(3)} ${unitLabel}`,
+      `Pump rate: ${effectiveRate.toFixed(2)} mL/h (set pump to ${pumpSetting.toFixed(2)} mL/h)`,
+    ];
+    if (outOfRange) lines.push(`WARNING: outside the usual range (${selectedInfusion.minDose}-${selectedInfusion.maxDose} ${unitLabel}). Verify.`);
+    if (selectedInfusion.centralLineRequired) lines.push('High-alert drug: central line required.');
+    navigator.clipboard?.writeText(lines.join('\n')).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Prismaflex CVVHDF Precise Calculation Logic (shared with the tested lib/RenalCalculators)
   const cvvhdfResults = useMemo(() => {
     const w = patient.weightNum;
     if (w <= 0 || qb <= 0) return null;
 
-    const totalEffluent = w * targetDose;
-    const remainingEffluent = Math.max(0, totalEffluent - pbpRate - netUfr);
-
-    const dialysateRate = Math.round(remainingEffluent * 0.5);
-    const totalReplacementRate = Math.round(remainingEffluent * 0.5);
-
-    const preFilterRate = Math.round(totalReplacementRate * (prePostRatio / 100));
-    const postFilterRate = Math.round(totalReplacementRate * ((100 - prePostRatio) / 100));
-
-    const plasmaFlowMin = qb * (1 - hct / 100);
-    const plasmaFlowHr = plasmaFlowMin * 60;
-
-    const totalUF = preFilterRate + postFilterRate + netUfr;
-
-    const filtrationFraction = plasmaFlowHr > 0 
-      ? (totalUF / (plasmaFlowHr + preFilterRate + pbpRate)) * 100 
-      : 0;
-
-    const isHighClottingRisk = filtrationFraction > 25;
-    const deliveredDose = totalEffluent / w;
+    const r = calculateCRRT({
+      weightKg: w,
+      hctPercent: hct,
+      bloodFlowMlMin: qb,
+      preFilterPercent: prePostRatio,
+      targetDoseMlKgHr: targetDose,
+      netUfrMlHr: netUfr,
+      pbpMlHr: pbpRate,
+    });
 
     return {
-      totalEffluent,
-      dialysateRate,
-      preFilterRate,
-      postFilterRate,
-      pbpRate,
-      netUfr,
-      plasmaFlowMin,
-      filtrationFraction,
-      isHighClottingRisk,
-      deliveredDose
+      totalEffluent: Math.round(r.totalEffluentHr),
+      dialysateRate: Math.round(r.dialysateRateHr),
+      preFilterRate: Math.round(r.preFilterRateHr),
+      postFilterRate: Math.round(r.postFilterRateHr),
+      pbpRate: Math.round(r.pbpRateHr),
+      netUfr: Math.round(r.netUfrHr),
+      plasmaFlowMin: r.plasmaFlowMlMin,
+      filtrationFraction: r.filtrationFraction,
+      isHighClottingRisk: r.isHighClottingRisk,
+      deliveredDose: r.deliveredUfrDose,
     };
   }, [patient.weightNum, hct, qb, targetDose, pbpRate, netUfr, prePostRatio]);
 
@@ -477,7 +478,7 @@ export default function TherapiesModule() {
                   </h3>
 
                   {cvvhdfResults && (
-                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                    <div aria-live="polite" className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
                       {/* Total Effluent */}
                       <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                         <div>
@@ -577,15 +578,22 @@ export default function TherapiesModule() {
                 <div className="lg:col-span-8 space-y-6">
                   <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-6 shadow-sm">
                     {/* Header Details */}
-                    <div className="flex justify-between items-start border-b border-slate-200 pb-4">
+                    <div className="flex justify-between items-start border-b border-slate-200 pb-4 gap-4">
                       <div>
-                        <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest">{selectedInfusion.category}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest">{selectedInfusion.category}</span>
+                          {selectedInfusion.centralLineRequired && (
+                            <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                              Central line
+                            </span>
+                          )}
+                        </div>
                         <h3 className="text-2xl font-bold text-slate-900 mt-1">{selectedInfusion.name}</h3>
                         <p className="text-slate-500 text-xs mt-0.5">{selectedInfusion.indication}</p>
                       </div>
 
                       {/* Weight Basis Switch */}
-                      <div className="flex bg-slate-200 p-1 rounded-xl">
+                      <div className="flex bg-slate-200 p-1 rounded-xl shrink-0">
                         <button
                           onClick={() => setDosingWeightType('tbw')}
                           className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
@@ -602,39 +610,112 @@ export default function TherapiesModule() {
                         >
                           IBW ({ibw > 0 ? ibw.toFixed(1) : '--'}kg)
                         </button>
+                        <button
+                          onClick={() => setDosingWeightType('abw')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                            dosingWeightType === 'abw' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          ABW ({abw.toFixed(1)}kg)
+                        </button>
                       </div>
                     </div>
 
                     {/* Integrated Interactive Dose & Rate Converter Panel */}
                     <div className="bg-white p-5 rounded-xl border border-indigo-100 shadow-sm space-y-4">
-                      <div className="flex items-center gap-2 text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                        <Sliders className="w-4 h-4 text-indigo-600" />
-                        Live Interactive Rate Converter
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
+                        <div className="flex items-center gap-2 text-xs font-bold text-indigo-700 uppercase tracking-wider">
+                          <Sliders className="w-4 h-4 text-indigo-600" />
+                          Live Interactive Rate Converter
+                        </div>
+                        {/* Direction toggle */}
+                        <div className="flex bg-slate-200 p-1 rounded-xl">
+                          <button
+                            onClick={() => setMode('dose')}
+                            className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase transition-all ${
+                              mode === 'dose' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                            }`}
+                          >
+                            Dose → Rate
+                          </button>
+                          <button
+                            onClick={() => setMode('rate')}
+                            className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase transition-all ${
+                              mode === 'rate' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                            }`}
+                          >
+                            Rate → Dose
+                          </button>
+                        </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Preparation selector */}
+                        <div>
+                          <label className="block text-xs font-semibold text-slate-500 mb-1">Preparation</label>
+                          <div className="flex flex-wrap gap-1.5">
+                            {selectedInfusion.preps.map((prep, idx) => (
+                              <button
+                                key={prep.label}
+                                onClick={() => setPrepIndex(idx)}
+                                className={`px-2.5 py-1.5 rounded-lg text-[10px] font-bold border transition-all ${
+                                  prepIndex === idx
+                                    ? 'bg-indigo-600 text-white border-indigo-600'
+                                    : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'
+                                }`}
+                              >
+                                {prep.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Concentration (in the dose's amount unit) */}
                         <div>
                           <div className="flex justify-between items-center mb-1">
                             <label className="block text-xs font-semibold text-slate-500">
-                              Target Dose Rate ({selectedInfusion.unit})
+                              Concentration ({selectedInfusion.doseUnit.amount}/mL)
                             </label>
-                            <span className="text-xs font-bold text-indigo-600">{customDose} {selectedInfusion.unit}</span>
+                            <span className={`text-[9px] font-bold uppercase ${isCustomConcentration ? 'text-amber-600' : 'text-emerald-600'}`}>
+                              {isCustomConcentration ? 'Custom' : 'Matches prep'}
+                            </span>
                           </div>
-                          <input 
+                          <input
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            value={concPerMl}
+                            onChange={e => setConcPerMl(Number(e.target.value) || 0)}
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-900 text-lg font-bold outline-none focus:border-indigo-500 transition-all text-center"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Dose input (Dose → Rate) or rate input (Rate → Dose) */}
+                      {mode === 'dose' ? (
+                        <div>
+                          <div className="flex justify-between items-center mb-1">
+                            <label className="block text-xs font-semibold text-slate-500">
+                              Target Dose ({formatDoseUnit(selectedInfusion.doseUnit)})
+                            </label>
+                            <span className="text-xs font-bold text-indigo-600">
+                              {doseInput} {formatDoseUnit(selectedInfusion.doseUnit)}
+                            </span>
+                          </div>
+                          <input
                             type="number"
                             step={selectedInfusion.step}
-                            value={customDose}
-                            onChange={e => setCustomDose(Number(e.target.value) || 0)}
+                            value={doseInput}
+                            onChange={e => setDoseInput(Number(e.target.value) || 0)}
                             className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-slate-900 text-base font-bold outline-none focus:border-indigo-500 transition-all text-center mb-2"
                           />
-                          {/* Range Slider for Target Dose */}
-                          <input 
+                          <input
                             type="range"
                             min={selectedInfusion.minDose}
                             max={selectedInfusion.maxDose}
                             step={selectedInfusion.step}
-                            value={customDose}
-                            onChange={e => setCustomDose(Number(e.target.value))}
+                            value={doseInput}
+                            onChange={e => setDoseInput(Number(e.target.value))}
                             className="w-full accent-indigo-600 cursor-pointer"
                           />
                           <div className="flex justify-between text-[9px] font-bold text-slate-400 mt-0.5">
@@ -642,33 +723,126 @@ export default function TherapiesModule() {
                             <span>Max: {selectedInfusion.maxDose}</span>
                           </div>
                         </div>
-
-
+                      ) : (
                         <div>
                           <label className="block text-xs font-semibold text-slate-500 mb-1">
-                            Concentration (mg/mL)
+                            Running Pump Rate (mL/h)
                           </label>
-                          <input 
+                          <input
                             type="number"
-                            step="0.01"
-                            value={customConc}
-                            onChange={e => setCustomConc(Number(e.target.value) || 0)}
+                            step="0.1"
+                            min="0"
+                            value={rateInput}
+                            onChange={e => setRateInput(Number(e.target.value) || 0)}
                             className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-900 text-lg font-bold outline-none focus:border-indigo-500 transition-all text-center"
                           />
                         </div>
-                      </div>
+                      )}
 
-                      {/* Resulting Pump Speed Box */}
-                      <div className="p-4 bg-indigo-50/70 rounded-xl border border-indigo-100 flex items-center justify-between">
-                        <div>
-                          <span className="text-xs font-bold text-indigo-900 uppercase tracking-wider block">Calculated Smart Pump Speed</span>
-                          <span className="text-[10px] text-indigo-700 font-medium">Standard Prep: {selectedInfusion.preparation}</span>
+                      {/* Dose-range clinical feedback */}
+                      {weightOk && currentRange && (
+                        <div className={`p-3 rounded-xl border flex items-start gap-3 ${RANGE_TONE[currentRange.tone].band}`}>
+                          <span className={`mt-0.5 w-2 h-2 rounded-full shrink-0 ${RANGE_TONE[currentRange.tone].badge}`} />
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className={`text-[11px] font-black uppercase tracking-wider ${RANGE_TONE[currentRange.tone].text}`}>
+                                {currentRange.label}
+                              </span>
+                              <span className="text-[10px] font-bold text-slate-400">
+                                {currentRange.min}–{currentRange.max} {formatDoseUnit(selectedInfusion.doseUnit)}
+                              </span>
+                              {currentRange.receptors?.map(r => (
+                                <span key={r} className="text-[9px] font-bold bg-white border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded">
+                                  {r}
+                                </span>
+                              ))}
+                            </div>
+                            <p className="text-[11px] text-slate-600 mt-0.5">{currentRange.description}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Safety feedback */}
+                      {!weightOk && (
+                        <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-[11px] font-semibold">
+                          Enter a patient weight (kg) to calculate weight-based dosing.
+                        </div>
+                      )}
+                      {weightOk && outOfRange && (
+                        <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-[11px] font-semibold flex items-center gap-2">
+                          <AlertTriangle className="w-4 h-4 shrink-0" />
+                          Dose {effectiveDose.toFixed(2)} {formatDoseUnit(selectedInfusion.doseUnit)} is outside the usual range ({selectedInfusion.minDose}–{selectedInfusion.maxDose}). Confirm before acting.
+                        </div>
+                      )}
+
+                      {/* Result box: pump speed + delivered dose + equivalents */}
+                      <div className="p-4 bg-indigo-50/70 rounded-xl border border-indigo-100 space-y-3" aria-live="polite">
+                        <div className="flex items-center justify-between gap-3">
+                          <div>
+                            <span className="text-xs font-bold text-indigo-900 uppercase tracking-wider block">Calculated Smart Pump Speed</span>
+                            <span className="text-[10px] text-indigo-700 font-medium">Prep: {selectedPrep.label}</span>
+                          </div>
+                          {revealRate ? (
+                            <div className="text-right">
+                              <span className="text-3xl font-black text-indigo-600">{effectiveRate.toFixed(2)}</span>
+                              <span className="text-sm font-bold text-indigo-800 ml-1.5">mL/h</span>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => setAcknowledgedKey(ackKey)}
+                              className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm transition-colors"
+                            >
+                              Acknowledge &amp; reveal
+                            </button>
+                          )}
                         </div>
 
-                        <div className="text-right">
-                          <span className="text-3xl font-black text-indigo-600">{calculatedPumpRate}</span>
-                          <span className="text-sm font-bold text-indigo-800 ml-1.5">mL/h</span>
+                        {/* Pump increment + set pump */}
+                        <div className="flex items-center justify-between border-t border-indigo-100 pt-3 gap-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-indigo-900 uppercase tracking-wider">Pump step</span>
+                            <select
+                              value={pumpIncrement}
+                              onChange={e => setPumpIncrement(Number(e.target.value))}
+                              className="text-[11px] font-bold bg-white border border-slate-200 rounded-lg px-2 py-1 text-slate-700 outline-none focus:border-indigo-500"
+                            >
+                              <option value={0.01}>0.01</option>
+                              <option value={0.1}>0.1</option>
+                              <option value={1}>1</option>
+                            </select>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[10px] font-bold text-indigo-900 uppercase tracking-wider block">Set pump to</span>
+                            <span className="text-lg font-black text-indigo-700">
+                              {revealRate ? pumpSetting.toFixed(2) : '--'} <span className="text-xs font-bold">mL/h</span>
+                            </span>
+                          </div>
                         </div>
+
+                        <div className="flex items-center justify-between border-t border-indigo-100 pt-3">
+                          <span className="text-[10px] font-bold text-indigo-900 uppercase tracking-wider">Delivered Dose</span>
+                          <span className="text-lg font-black text-indigo-700">
+                            {weightOk ? effectiveDose.toFixed(3) : '--'}{' '}
+                            <span className="text-xs font-bold">{formatDoseUnit(selectedInfusion.doseUnit)}</span>
+                          </span>
+                        </div>
+
+                        {weightOk && equivalentUnits.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 border-t border-indigo-100 pt-3">
+                            {equivalentUnits.map(chip => (
+                              <span key={chip} className="px-2 py-0.5 bg-white border border-indigo-100 rounded-md text-[10px] font-bold text-indigo-700">
+                                {chip}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        <button
+                          onClick={copySummary}
+                          className="w-full mt-1 py-2 rounded-xl bg-white border border-indigo-200 hover:border-indigo-400 text-indigo-700 text-[11px] font-bold transition-colors"
+                        >
+                          {copied ? 'Copied to clipboard ✓' : 'Copy double-check summary'}
+                        </button>
                       </div>
                     </div>
 
@@ -676,7 +850,9 @@ export default function TherapiesModule() {
                     <div className="space-y-4 text-xs">
                       <div>
                         <h4 className="font-bold text-slate-700 uppercase tracking-wider mb-1">Standard Dose Range Reference</h4>
-                        <p className="text-slate-600 bg-white p-3 rounded-lg border border-slate-200 font-mono">{selectedInfusion.standardDoseRange}</p>
+                        <p className="text-slate-600 bg-white p-3 rounded-lg border border-slate-200 font-mono">
+                          {selectedInfusion.minDose} – {selectedInfusion.maxDose} {formatDoseUnit(selectedInfusion.doseUnit)}
+                        </p>
                       </div>
 
                       <div>
@@ -786,7 +962,7 @@ export default function TherapiesModule() {
                     </div>
 
                     <div className="p-3 bg-indigo-50/60 rounded-xl border border-indigo-100 text-[11px] text-indigo-900">
-                      <span className="font-bold block">Patient BSA:</span> {patient.bsa ? `${patient.bsa} m²` : '1.73 m² (Standard Default)'}
+                      <span className="font-bold block">Patient BSA:</span> {patient.bsa > 0 ? `${patient.bsa.toFixed(2)} m² (Mosteller)` : '1.73 m² (Standard Default)'}
                     </div>
                   </div>
 
