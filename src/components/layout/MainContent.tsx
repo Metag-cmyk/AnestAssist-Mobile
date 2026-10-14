@@ -5,6 +5,8 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { navigationItems } from '../../config/navigation';
+import { SourceFooter } from '../../components/SourceFooter';
+import { TabType } from '../../types';
 
 const GuidelinesDiagrams = React.lazy(() => import('../../features/guidelines/GuidelinesDiagrams'));
 const Conditions = React.lazy(() => import('../../features/conditions/Conditions'));
@@ -16,6 +18,12 @@ const VentilatorModule = React.lazy(() => import('../../features/ventilator/Vent
 const RegionalLibrary = React.lazy(() => import('../../features/regional/RegionalLibrary'));
 const AirwayModule = React.lazy(() => import('../../features/airway/AirwayModule'));
 const FluidsModule = React.lazy(() => import('../../features/fluids/FluidsModule'));
+const AboutPage = React.lazy(() => import('../../features/about/AboutPage'));
+
+/** Pages that are not primary navigation tabs. */
+const EXTRA_PAGES: Record<string, { label: string; desc: string }> = {
+  '/about': { label: 'About & Sources', desc: 'Content provenance, version and updating information.' },
+};
 
 const TherapiesModule = React.lazy(() => import('../../features/therapies/TherapiesModule'));
 
@@ -45,7 +53,10 @@ export default function MainContent() {
   const { t } = useLanguage();
   const location = useLocation();
 
-  const currentTab = navigationItems.find(item => item.path === location.pathname) || navigationItems[0];
+  const activeItem = navigationItems.find(item => item.path === location.pathname);
+  const extra = EXTRA_PAGES[location.pathname];
+  const headingLabel = activeItem ? t(activeItem.labelKey) : (extra?.label ?? t(navigationItems[0].labelKey));
+  const headingDesc = activeItem ? t(activeItem.descKey) : (extra?.desc ?? '');
 
   return (
     <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -55,10 +66,10 @@ export default function MainContent() {
           {t('header.evidence')}
         </div>
         <h2 className="text-3xl font-bold text-medical-primary">
-          {t(currentTab.labelKey)}
+          {headingLabel}
         </h2>
         <p className="text-slate-500 mt-1">
-          {t(currentTab.descKey)}
+          {headingDesc}
         </p>
       </div>
 
@@ -84,6 +95,7 @@ export default function MainContent() {
                 <Route path="/airway" element={<AirwayModule />} />
                 <Route path="/fluids" element={<FluidsModule />} />
                 <Route path="/therapies" element={<TherapiesModule />} />
+                <Route path="/about" element={<AboutPage />} />
                 <Route path="*" element={<Navigate to="/guidelines" replace />} />
 
               </Routes>
@@ -91,6 +103,10 @@ export default function MainContent() {
           </ErrorBoundary>
         </motion.div>
       </AnimatePresence>
+
+      {activeItem && (
+        <SourceFooter moduleId={activeItem.id as TabType} moduleLabel={headingLabel} />
+      )}
     </main>
   );
 }

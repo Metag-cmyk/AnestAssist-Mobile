@@ -23,6 +23,7 @@ const ROUTES: Array<{ path: string; marker: string }> = [
   { path: '/airway', marker: 'LEMON Assessment' },
   { path: '/fluids', marker: 'Blood Management' },
   { path: '/preop', marker: 'Pre-operative Risk Summary' },
+  { path: '/about', marker: 'content sources' },
 ];
 
 let container: HTMLDivElement | null = null;

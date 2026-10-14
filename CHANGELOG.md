@@ -6,6 +6,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 ## [Unreleased]
 
 ### Added
+- **Trust layer**: per-module content provenance with source links and a review date,
+  rendered as a "Sources & review" footer on every page, a "report an error" action,
+  and an About & Sources page (app/content version, per-module sources, data & privacy).
 - **Airway depth**: DAS-style Plan A–D difficult-airway algorithm, a rapid-sequence
   induction checklist and extubation criteria / high-risk strategy, with cross-links
   to the SARI score and the Pre-op assessment.
