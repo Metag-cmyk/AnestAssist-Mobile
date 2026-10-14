@@ -35,6 +35,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 - Airway (LEMON) and Fluids (MABL / 4-2-1 / MTP) modules are now routed and reachable.
 
 ### Changed
+- Redesigned the Guidelines layout for clarity: search first, faceted type tabs with
+  live counts, society/category filters, a results count with a Clear action, a list
+  grouped into sticky category sections with summary previews, and a master–detail
+  flow (list → detail with a back button) on mobile.
 - Split clinical data so each lazy route loads only its own dataset (removed the 581 KB shared chunk).
 - Centralised every `localStorage` key in `src/config/storageKeys.ts`; the infusion and
   haemodynamics tools now persist across navigation.
