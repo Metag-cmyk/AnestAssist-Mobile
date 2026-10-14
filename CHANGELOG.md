@@ -6,6 +6,14 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 ## [Unreleased]
 
 ### Added
+- **24 new Conditions protocols** (76 → 99): perioperative (adult cardiac arrest, perioperative
+  arrhythmias, post-extubation stridor, airway angioedema, suxamethonium apnoea, residual
+  neuromuscular blockade, operating-room fire, post-dural puncture headache, awareness under
+  anaesthesia); a new **Hematology** category (HIT, anticoagulation reversal/major bleeding,
+  sickle-cell acute chest syndrome); obstetric emergencies (maternal cardiac arrest, placental
+  abruption, cord prolapse, shoulder dystocia, magnesium toxicity, uterine rupture); and
+  toxicology (TCA overdose, salicylate poisoning, toxic alcohols, organophosphate poisoning,
+  digoxin toxicity, cocaine/sympathomimetic toxicity).
 - Conditions now link out to related content: the matching crisis/guideline card,
   screening scores (e.g. Sepsis → SOFA/qSOFA) and infusion protocols, via reverse
   cross-links in `lib/crossLinks.ts`.
@@ -56,6 +64,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/); versioning: Semantic Ve
 - Type-check (`npm run lint`) is now enforced in CI.
 
 ### Removed
+- Duplicate `pheochromocytoma-crisis` Conditions entry (identical to `pheochromocytoma`).
 - Unused `diagnosticTriggers` / `differentialMatrix` fields from `ConditionProtocol`
   (never populated); the differential panel derives entirely from the keyword resolver.
 - Dead code: `hooks/useData`, `features/converter`, `features/renal`, `DrugDosageCalculator`,

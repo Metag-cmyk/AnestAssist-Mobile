@@ -2558,55 +2558,6 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     notes: 'Thyroid hormone replacement should only be started after glucocorticoids have been administered to avoid precipitating an adrenal crisis.'
   },
   {
-    id: 'pheochromocytoma-crisis',
-    name: 'Pheochromocytoma Crisis',
-    category: 'Endocrine > Emergency',
-    severity: 'critical',
-    diagnosis: [
-      'Classic Triad: Headache, Sweating, Palpitations',
-      'Severe Hypertension (often paroxysmal), Tachycardia',
-      'Elevated plasma/urine metanephrines'
-    ],
-    immediateActions: [
-      'Alpha-blockade FIRST: Phentolamine (IV) or Phenoxybenzamine (PO)',
-      'Beta-blockade SECOND: Only AFTER adequate alpha-blockade (to avoid unopposed alpha)',
-      'Vasodilators: Sodium Nitroprusside or Nicardipine for hypertensive crisis',
-      'Volume expansion: Patients are often severely volume depleted'
-    ],
-    secondaryManagement: [
-      'Surgical resection (once stable and alpha-blocked for 10-14 days)',
-      'Localization (CT/MRI/MIBG scan)',
-      'Long-term BP management'
-    ],
-    ivFluidManagement: {
-      choices: ['Normal Saline', 'Aggressive volume expansion'],
-      targets: ['Restore intravascular volume', 'Counteract vasoconstriction', 'Maintain MAP'],
-      monitoring: ['Invasive arterial BP', 'CVP/Stroke Volume Variation', 'Urine output']
-    },
-    diagram: [
-      { title: 'Alpha Before Beta', description: 'NEVER give beta-blockers first. Unopposed alpha-stimulation can cause catastrophic hypertension.', type: 'warning' },
-      { title: 'Acute Control', description: 'Phentolamine 1-5mg IV boluses or Nitroprusside infusion. Aim for rapid but controlled reduction.', type: 'action' },
-      { title: 'Volume Loading', description: 'Start NS early. Alpha-blockade causes vasodilation in a volume-depleted system, leading to shock.', type: 'warning' },
-      { title: 'Pre-op Prep', description: 'Phenoxybenzamine 10mg BID, titrated. Goal: BP < 130/80 and orthostatic hypotension.', type: 'info' },
-      { title: 'Intra-op Risk', description: 'Extreme BP swings during tumor manipulation. Requires rapid-acting vasodilators and vasopressors.', type: 'info' }
-    ],
-    normalLabRanges: {
-      'Plasma Metanephrines': '< 0.5 nmol/L',
-      'Plasma Normetanephrines': '< 0.9 nmol/L',
-      'Systolic BP': '< 140 mmHg'
-    },
-    diagnosticCriteria: [
-      'Severe or paroxysmal hypertension + Triad: Headache, Palpitations, and Sweating + Biochemical evidence of catecholamine excess'
-    ],
-    expectedLabDeviations: {
-      'Metanephrines': 'Markedly Elevated (> 3x ULN in plasma or urine)',
-      'WBC': 'Leukocytosis',
-      'Blood Glucose': 'Hyperglycemia'
-    },
-    differentialDiagnosis: ['Essential Hypertension (Crisis)', 'Thyroid Storm', 'Panic Attack / Anxiety', 'Carcinoid Syndrome'],
-    notes: 'Alpha-blockade MUST always precede beta-blockade to prevent hypertensive crisis from unopposed alpha-adrenergic stimulation.'
-  },
-  {
     id: 'acute-liver-failure',
     name: 'Acute Liver Failure (ALF)',
     category: 'Gastrointestinal > Emergency',
@@ -3667,5 +3618,841 @@ export const CONDITIONS_DATA: ConditionProtocol[] = [
     },
     differentialDiagnosis: ['Chronic Heart Failure (Left-sided)', 'Chronic Thromboembolic Pulmonary Hypertension (CTEPH)', 'COPD / Interstitial Lung Disease'],
     notes: 'The right ventricle in PAH is highly afterload-sensitive. Induction of anesthesia is the period of highest risk for RV collapse.'
+  },
+  {
+    id: 'adult-cardiac-arrest',
+    name: 'Adult Cardiac Arrest (Perioperative / ACLS)',
+    category: 'Resuscitation > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Unresponsive, no normal breathing, no palpable pulse',
+      'Rhythm on monitor: shockable (VF/pVT) or non-shockable (asystole/PEA)',
+      'In the operating theatre consider a reversible cause: hypoxia, hypovolaemia, LAST, anaphylaxis, MH, high spinal, embolism, tension pneumothorax, drug error'
+    ],
+    diagnosticCriteria: [
+      'Absence of a palpable central pulse with loss of consciousness and apnoea',
+      'Confirm with the rhythm trace and capnography (a sudden EtCO2 fall suggests low output/arrest)'
+    ],
+    immediateActions: [
+      'Call for help and start chest compressions: 30:2, rate 100-120/min, depth 5-6 cm, full recoil',
+      'Attach the defibrillator; shock VF/pVT immediately and minimise interruptions to compressions',
+      'Adrenaline 1 mg IV every 3-5 min (all rhythms); Amiodarone 300 mg IV after the 3rd shock in refractory VF/pVT',
+      'Work through reversible causes (4 Hs and 4 Ts) while continuing high-quality CPR',
+      'In theatre: stop the anaesthetic, increase FiO2 to 100%, and actively exclude anaphylaxis/LAST/MH',
+      'A sudden EtCO2 rise with a waveform suggests return of spontaneous circulation (ROSC)'
+    ],
+    diagram: [
+      { title: 'Confirm arrest & call help', description: 'Unresponsive + no normal breathing + no pulse. Activate the arrest team and start CPR immediately.', type: 'action' },
+      { title: 'Rhythm check', description: 'Shockable (VF/pVT) → defibrillate immediately. Non-shockable (asystole/PEA) → continue CPR.', type: 'decision' },
+      { title: 'CPR quality', description: '30:2 (or continuous with an advanced airway), 100-120/min, depth 5-6 cm, minimise interruptions, rotate the compressor every 2 min.', type: 'action' },
+      { title: 'Drugs', description: 'Adrenaline 1 mg IV every 3-5 min. Amiodarone 300 mg after the 3rd shock in shockable rhythms.', type: 'action' },
+      { title: 'Reversible causes', description: '4 Hs: hypoxia, hypovolaemia, hypo/hyperkalaemia & metabolic, hypothermia. 4 Ts: thrombosis, tension pneumothorax, tamponade, toxins.', type: 'warning' },
+      { title: 'Perioperative causes', description: 'Consider LAST (give lipid emulsion), anaphylaxis, malignant hyperthermia, high spinal, gas/venous air embolism, and drug error.', type: 'info' }
+    ],
+    secondaryManagement: [
+      'Continue CPR until ROSC or a decision to stop; use waveform capnography and EtCO2 to guide',
+      'After ROSC: targeted temperature management, controlled oxygenation (SpO2 94-98%), and avoid hyperventilation',
+      'Post-arrest workup: 12-lead ECG, ABG, electrolytes, glucose, chest X-ray and blood cultures as indicated',
+      'Transfer to an appropriate critical care area with continued monitoring'
+    ],
+    normalLabRanges: {
+      'Arterial pH': '7.35 - 7.45',
+      'Potassium': '3.5 - 5.0 mmol/L',
+      'EtCO2 during effective CPR': '> 1.3 kPa / 10 mmHg'
+    },
+    expectedLabDeviations: {
+      'pH': 'Severe mixed acidosis is common',
+      'K+': 'Derangement may be the cause (hypo/hyperkalaemia)',
+      'Lactate': 'Markedly elevated'
+    },
+    differentialDiagnosis: ['Anaphylaxis', 'Local anaesthetic systemic toxicity (LAST)', 'Massive pulmonary embolism', 'Malignant hyperthermia'],
+    notes: 'In the operating theatre the cause is often identifiable and reversible — treat it while running high-quality ACLS. Minimise pauses and do not delay defibrillation.'
+  },
+  {
+    id: 'perioperative-arrhythmias',
+    name: 'Perioperative Arrhythmias (Brady & Tachy)',
+    category: 'Cardiovascular',
+    severity: 'critical',
+    diagnosis: [
+      'Bradyarrhythmia: HR < 60 with instability, or high-grade AV block / complete heart block',
+      'Tachyarrhythmia: SVT, AF with rapid ventricular response, or VT',
+      'Assess for haemodynamic compromise: hypotension, ischaemia, altered mental state, low output'
+    ],
+    immediateActions: [
+      'Obtain a 12-lead ECG and check: pulse, BP, SpO2, EtCO2, electrolytes and depth of anaesthesia',
+      'Bradycardia with adverse signs: Atropine 0.5-1 mg IV (repeat to 3 mg); consider adrenaline/isoprenaline or pacing',
+      'Unstable SVT: synchronised DC cardioversion; if stable, try a vagal manoeuvre then Adenosine 6 mg IV',
+      'Unstable AF: synchronised cardioversion; if stable, rate control (e.g. metoprolol)',
+      'Pulseless VT / VF: treat as cardiac arrest — defibrillate immediately',
+      'Correct precipitants: hypoxia, hypercapnia, hypovolaemia, electrolyte disturbance, light anaesthesia, drug effects'
+    ],
+    diagram: [
+      { title: 'Confirm & assess', description: '12-lead ECG; look for adverse features (shock, ischaemia, heart failure, low output).', type: 'action' },
+      { title: 'Bradycardia?', description: 'Adverse signs → Atropine 0.5-1 mg IV (max 3 mg); escalate to adrenaline/isoprenaline or transcutaneous pacing.', type: 'decision' },
+      { title: 'Narrow-complex tachycardia', description: 'Unstable → synchronised cardioversion. Stable → vagal manoeuvres, then Adenosine 6 mg IV.', type: 'decision' },
+      { title: 'Wide-complex tachycardia', description: 'Treat as VT if uncertain. Unstable → synchronised cardioversion. Pulseless → defibrillate (arrest).', type: 'warning' },
+      { title: 'Atrial fibrillation', description: 'If fast and unstable, synchronise. If stable, rate control (beta-blocker/digoxin) and correct precipitants.', type: 'action' },
+      { title: 'Correct precipitants', description: 'Oxygenation, CO2, K+/Mg2+, volume, analgesia, and review the effects of anaesthetic agents.', type: 'info' }
+    ],
+    secondaryManagement: [
+      'Post-event ECG, troponin and electrolytes; involve cardiology for ongoing arrhythmia or high-grade block',
+      'Review pro-arrhythmic drugs (e.g. adrenaline, ketamine, anticholinergics) and anaesthetic depth',
+      'Consider temporary pacing for symptomatic bradyarrhythmia or high-grade AV block'
+    ],
+    differentialDiagnosis: ['ECG artefact', 'Hypoxia/hypercapnia', 'Electrolyte disturbance', 'Drug-induced (anaesthetics/sympathomimetics)'],
+    notes: 'Look for and correct the precipitant before reaching for antiarrhythmics — most perioperative arrhythmias are secondary to an avoidable cause.'
+  },
+  {
+    id: 'post-extubation-stridor',
+    name: 'Post-Extubation Stridor / Laryngeal Oedema',
+    category: 'Airway > Post-op',
+    severity: 'urgent',
+    diagnosis: [
+      'Inspiratory stridor after extubation (often within 30-60 min)',
+      'Rapid onset of respiratory distress, tracheal tug and accessory muscle use',
+      'Risk factors: prolonged or traumatic intubation, large ETT, repeated attempts, angioedema, tube-site infection'
+    ],
+    immediateActions: [
+      'Call for help; keep the patient sitting up and give high-flow humidified oxygen',
+      'Nebulised adrenaline 5 mg (1:1000) with continuous cardiac monitoring',
+      'Consider IV corticosteroids (e.g. dexamethasone 8 mg) — the effect is delayed (> 1 h)',
+      'Assess severity: do NOT delay airway rescue if stridor is severe or the patient is tiring',
+      'Prepare for reintubation with a smaller ETT, videolaryngoscopy and difficult-airway equipment; consider a surgical airway',
+      'Perform a cuff-leak test before extubation in at-risk patients'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Inspiratory stridor + distress after extubation. Sit up, humidified O2, call for help.', type: 'action' },
+      { title: 'Medical therapy', description: 'Nebulised adrenaline 5 mg ± IV dexamethasone. Reassess continuously.', type: 'action' },
+      { title: 'Assess severity', description: 'Mild and improving → observe in a monitored area. Severe, worsening or exhausting → secure the airway.', type: 'decision' },
+      { title: 'Rescue airway', description: 'Videolaryngoscopy with a smaller ETT; have bougie, SGA and front-of-neck access ready.', type: 'warning' }
+    ],
+    diagnosticCriteria: ['Stridor and increased work of breathing after extubation with a favourable response to nebulised adrenaline'],
+    differentialDiagnosis: ['Laryngospasm', 'Vocal cord dysfunction', 'Residual neuromuscular blockade', 'Airway foreign body', 'ACE-inhibitor/hereditary angioedema'],
+    secondaryManagement: ['Monitor in a high-dependency area for 2-4 h', 'Cuff-leak assessment before future extubations', 'ENT review if recurrent or unexplained'],
+    notes: 'Nebulised adrenaline is temporising — its effect wanes after ~2 h, so provide a period of observation and a clear reintubation plan.'
+  },
+  {
+    id: 'airway-angioedema',
+    name: 'Airway Angioedema (ACE-inhibitor / Hereditary)',
+    category: 'Airway > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Rapid, painless swelling of the lips, tongue, face and/or oropharynx',
+      'ACE-inhibitor use (bradykinin-mediated) or hereditary angioedema (C1-inhibitor deficiency)',
+      'Progressive hoarseness, drooling, inability to handle secretions, or stridor = impending obstruction'
+    ],
+    immediateActions: [
+      'Call for help early; keep the patient upright and give high-flow oxygen',
+      'Secure the airway EARLY if there is any tongue or pharyngeal involvement — delay risks a lost airway',
+      'Bradykinin-mediated angioedema does not usually respond to adrenaline/antihistamine/steroid as the primary treatment',
+      'ACE-inhibitor angioedema: stop the drug; consider C1-inhibitor concentrate, icatibant, or FFP',
+      'Hereditary angioedema: C1-inhibitor concentrate or icatibant; FFP if unavailable',
+      'Prepare for a difficult airway: videolaryngoscopy, smaller ETT, and ENT/surgical airway backup'
+    ],
+    diagram: [
+      { title: 'Recognise & call help', description: 'Facial/tongue/oropharyngeal swelling; assess voice, secretions and stridor. Sit up, oxygen.', type: 'action' },
+      { title: 'Tongue or pharyngeal involvement?', description: 'Yes → plan early intubation; do not wait for deterioration.', type: 'decision' },
+      { title: 'Secure the airway', description: 'Awake fibreoptic or videolaryngoscopy with a smaller ETT; ENT and front-of-neck access ready.', type: 'warning' },
+      { title: 'Targeted therapy', description: 'Bradykinin-mediated: stop ACE-i, give C1-inhibitor/icatibant ± FFP. Histaminergic: adrenaline/antihistamine/steroid.', type: 'action' },
+      { title: 'Observe', description: 'Swelling may recur over 24-72 h; monitor in a high-dependency area.', type: 'info' }
+    ],
+    differentialDiagnosis: ['Anaphylaxis (histaminergic)', 'Acute epiglottitis', 'Dental/retropharyngeal abscess', 'Lingual haematoma', 'Tonsillar enlargement'],
+    secondaryManagement: ['Refer to immunology/allergy for the cause; avoid ACE-inhibitors lifelong in ACE-i angioedema', 'Provide C1-inhibitor/icatibant availability for hereditary angioedema', 'Airway follow-up and documentation of difficulty'],
+    notes: 'The commonest fatal error is delayed airway intervention. If the tongue is involved, intubate early while you still can.'
+  },
+  {
+    id: 'suxamethonium-apnoea',
+    name: 'Suxamethonium Apnoea (Pseudocholinesterase Deficiency)',
+    category: 'Anesthesia > Emergency',
+    severity: 'urgent',
+    diagnosis: [
+      'Prolonged apnoea and paralysis after suxamethonium (or mivacurium) despite recovery of consciousness',
+      'Absent or reduced response to peripheral nerve stimulation (train-of-four)',
+      'Family history may be present; previous exposure may have been uneventful'
+    ],
+    immediateActions: [
+      'Continue manual/ventilator ventilation and sedation while the paralysis persists — do not allow awareness',
+      'Confirm neuromuscular blockade with a peripheral nerve stimulator; exclude other causes',
+      'Monitor the train-of-four; block from suxamethonium typically resolves within 20-60 min (up to hours with homozygous atypical/absent enzyme)',
+      'Maintain anaesthesia/sedation and normothermia; monitor EtCO2, SpO2 and temperature',
+      'Consider FFP as a source of cholinesterase in severe or prolonged cases',
+      'Avoid further suxamethonium; investigate the patient (dibucaine number) and counsel relatives'
+    ],
+    diagram: [
+      { title: 'Ventilate & sedate', description: 'Maintain oxygen and anaesthesia. Never leave an awake paralysed patient.', type: 'warning' },
+      { title: 'Confirm block', description: 'Peripheral nerve stimulator (train-of-four); exclude opioid, residual agent and CNS causes.', type: 'decision' },
+      { title: 'Wait & monitor', description: 'Suxamethonium block usually recovers in 20-60 min (longer with atypical/absent enzyme).', type: 'info' },
+      { title: 'Support', description: 'Normothermia, monitoring; FFP may be given in prolonged block.', type: 'action' },
+      { title: 'Investigate & counsel', description: 'Dibucaine number, anaesthetic referral, warning card and family screening.', type: 'info' }
+    ],
+    diagnosticCriteria: ['Prolonged neuromuscular blockade following a standard dose of suxamethonium with recovery of consciousness'],
+    differentialDiagnosis: ['Residual non-depolarising block', 'Central cause of apnoea', 'Opioid-induced respiratory depression', 'Brainstem event'],
+    secondaryManagement: ['Document after confirmatory testing; provide written information and screen relatives if familial', 'Anaesthetic follow-up'],
+    notes: 'The priority is oxygenation and avoiding awareness. A prolonged block is prolonged, not permanent — keep ventilating and sedated.'
+  },
+  {
+    id: 'residual-neuromuscular-blockade',
+    name: 'Residual Neuromuscular Blockade (TOF < 0.9)',
+    category: 'Anesthesia > Post-op',
+    severity: 'urgent',
+    diagnosis: [
+      'Weakness, poor inspiratory effort, and inability to sustain a head lift or hand grip after extubation',
+      'Train-of-four ratio < 0.9 on quantitative monitoring',
+      'Risk factors: high-dose or long-acting NMBAs, renal failure, hypothermia, acidosis, aminoglycosides/magnesium'
+    ],
+    immediateActions: [
+      'Assess airway, ventilation and oxygenation; give oxygen and support ventilation if inadequate',
+      'If not yet extubated, do not extubate with a TOF ratio < 0.9',
+      'Reverse: Neostigmine 50-70 mcg/kg + glycopyrrolate (only if any TOF count is present); Sugammadex 2-4 mg/kg for rocuronium/vecuronium',
+      'Re-check with quantitative neuromuscular monitoring after reversal',
+      'Exclude and treat contributors: hypothermia, hypo/hyperkalaemia, hypermagnesaemia, opioids and CNS events',
+      'Be prepared to re-ventilate and reintubate if the patient remains weak'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Clinical weakness after extubation or TOF < 0.9. Assess ventilation and oxygenate.', type: 'action' },
+      { title: 'Do not extubate if blocked', description: 'If still intubated, wait for TOF ratio ≥ 0.9 before extubation.', type: 'warning' },
+      { title: 'Reverse', description: 'Neostigmine + glycopyrrolate (if any twitches) or Sugammadex for aminosteroid NMBAs.', type: 'action' },
+      { title: 'Reassess', description: 'Quantitative TOF after reversal; treat hypothermia, electrolytes and other contributors.', type: 'decision' },
+      { title: 'Escalate', description: 'Persistent weakness → support/reintubate and investigate for a non-anaesthetic cause.', type: 'info' }
+    ],
+    diagnosticCriteria: ['Train-of-four ratio < 0.9 with clinical weakness, improved by reversal'],
+    differentialDiagnosis: ['Central respiratory depression', 'Hypoglycaemia', 'Electrolyte disturbance (Mg2+/K+)', 'Myasthenic crisis', 'Stroke'],
+    secondaryManagement: ['Use quantitative neuromuscular monitoring routinely and reverse before extubation', 'Review NMBA dosing and renal function', 'Anaesthetic review and documentation'],
+    notes: 'Residual blockade is a common and preventable cause of postoperative respiratory failure. Objective monitoring (TOF ≥ 0.9) is the standard of care.'
+  },
+  {
+    id: 'operating-room-fire',
+    name: 'Operating Room Fire',
+    category: 'Anesthesia > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Airway fire: burning/smoke, heat or flames in the oropharynx during airway surgery with an ignition source near high-FiO2 gas',
+      'Surgical field fire: ignition of drapes/prep with a heat source in high-oxygen or N2O-enriched conditions',
+      'The triad: oxidiser (O2/N2O), ignition source (electrocautery/laser), fuel (ETT, drapes, alcohol prep)'
+    ],
+    immediateActions: [
+      'AIRWAY FIRE: stop the gas flow, remove the ETT, pour saline into the airway, ventilate with air (not O2), and inspect the airway',
+      'Remove burning materials and extinguish with saline or a CO2 extinguisher',
+      'Turn OFF all airway gases and stop the ignition source',
+      'Call for help; assess and treat airway burns, inhalation injury and hypoxia',
+      'FIELD FIRE: smother with a drape/saline, remove burning material away from oxygen, and use the extinguisher',
+      'After any fire: ENT/airway evaluation, consider bronchoscopy, and reassess for smoke inhalation'
+    ],
+    diagram: [
+      { title: 'Stop the gas', description: 'Turn off O2/N2O and the ignition source immediately. Remove the burning ETT.', type: 'action' },
+      { title: 'Extinguish', description: 'Pour saline into the airway; smother field fires. Never use O2 to blow out a fire.', type: 'warning' },
+      { title: 'Airway reassessment', description: 'Ventilate with air; inspect for burns, soot and oedema. Expect progressive swelling.', type: 'decision' },
+      { title: 'Call for help', description: 'ENT, airway team and fire response. Prepare for a difficult airway or tracheostomy.', type: 'action' },
+      { title: 'Prevent recurrence', description: 'Allow alcohol prep to dry; keep FiO2 low during head/neck surgery; avoid an open oxygen source near cautery.', type: 'info' }
+    ],
+    secondaryManagement: ['Bronchoscopy and ENT review for airway thermal injury', 'Monitor for airway oedema and delayed obstruction', 'Morbidity review and team debrief'],
+    notes: 'Prevention: minimise FiO2 (and avoid N2O) during head/neck surgery, allow prep to dry, and keep the cautery away from an open oxygen source.'
+  },
+  {
+    id: 'post-dural-puncture-headache',
+    name: 'Post-Dural Puncture Headache (PDPH)',
+    category: 'Anesthesia > Post-op',
+    severity: 'standard',
+    diagnosis: [
+      'Severe, postural headache (worse upright, relieved lying flat) within 5 days of dural puncture',
+      'Often fronto-occipital with neck stiffness, photophobia, nausea, tinnitus or visual change',
+      'The strongly positional nature distinguishes it from other post-procedure headaches'
+    ],
+    immediateActions: [
+      'Reassure, encourage oral fluids, and give simple analgesia (paracetamol, NSAID) plus an antiemetic',
+      'Caffeine (oral or IV) can provide temporary relief; encourage lying flat',
+      'Assess for red flags (fever, focal signs, seizures, non-postural or worsening headache) and exclude meningitis/subdural haematoma',
+      'If symptoms persist > 24-48 h or are severe, arrange an epidural blood patch',
+      'Epidural blood patch: 15-20 mL autologous blood at the same or adjacent level (usually after conservative measures fail)'
+    ],
+    diagram: [
+      { title: 'Diagnose', description: 'Postural headache after dural puncture. Exclude red flags and other causes.', type: 'decision' },
+      { title: 'Conservative', description: 'Hydration, analgesia, antiemetic, caffeine; lie flat.', type: 'action' },
+      { title: 'Epidural blood patch', description: 'If severe or persistent (> 24-48 h): 15-20 mL autologous blood at the level of puncture.', type: 'action' },
+      { title: 'Investigations', description: 'CT/MRI if atypical, with focal neurology, seizures or suspected subdural haematoma.', type: 'warning' }
+    ],
+    diagnosticCriteria: ['Postural headache within 5 days of dural puncture, relieved by recumbency'],
+    differentialDiagnosis: ['Migraine', 'Meningitis', 'Subdural haematoma', 'Cerebral venous sinus thrombosis', 'Tension headache'],
+    secondaryManagement: ['Avoid straining and Valsalva; encourage fluids', 'Neurology review for persistent or atypical symptoms', 'Document the dural puncture and the response to the blood patch'],
+    notes: 'Most PDPH resolves conservatively within a week; an epidural blood patch is highly effective when it does not, but always exclude the dangerous mimics first.'
+  },
+  {
+    id: 'awareness-under-anesthesia',
+    name: 'Awareness Under Anaesthesia',
+    category: 'Anesthesia > Post-op',
+    severity: 'urgent',
+    diagnosis: [
+      'Patient recalls intraoperative events (sounds, conversations, paralysis, pain) after general anaesthesia',
+      'May present immediately or days later; higher risk with paralysis + light anaesthesia (trauma, obstetric, cardiac, emergency)',
+      'The anaesthetic record may show low MAC, an empty syringe, or an unexplained tachycardia/hypertension'
+    ],
+    immediateActions: [
+      'If awareness is suspected DURING the case: deepen anaesthesia, ensure adequate analgesia and paralysis, and treat light depth',
+      'Do NOT manage suspected intraoperative awareness by giving a paralysed patient more relaxant alone',
+      'Postoperatively: listen, believe the patient, and take a detailed structured account',
+      'Explain, apologise for the experience, and involve a consultant anaesthetist and the patient team',
+      'Offer follow-up and psychological support; some patients develop PTSD symptoms',
+      'Reassure the patient that it is rare and that steps will be taken'
+    ],
+    diagram: [
+      { title: 'Intraoperative suspicion', description: 'Deepen anaesthesia (agent/BIS guided), ensure adequate analgesia and paralysis; avoid awake-paralysed states.', type: 'warning' },
+      { title: 'Structured debrief', description: 'Take a careful history: timing, content, paralysis, pain, conversation.', type: 'action' },
+      { title: 'Refer & support', description: 'Consultant review, incident report, offer follow-up and psychological support.', type: 'action' },
+      { title: 'Prevent', description: 'End-tidal agent monitoring, BIS/MAC where available, and a paralysing agent only with adequate hypnotic depth.', type: 'info' }
+    ],
+    diagnosticCriteria: ['Patient-reported explicit recall of events during general anaesthesia, corroborated where possible by the anaesthetic record'],
+    differentialDiagnosis: ['Dreams', 'Sedation awareness (conscious sedation)', 'Emergence delirium', 'ICU memory / psychiatric illness'],
+    secondaryManagement: ['Formal incident reporting and departmental review', 'Psychological support and follow-up as needed', 'Anaesthetic follow-up and documentation'],
+    notes: 'Prevention is the priority: monitor end-tidal anaesthetic concentration (and processed EEG if available) and never paralyse a patient without adequate hypnotic depth.'
+  },
+  {
+    id: 'heparin-induced-thrombocytopenia',
+    name: 'Heparin-Induced Thrombocytopenia (HIT)',
+    category: 'Hematology',
+    severity: 'urgent',
+    diagnosis: [
+      'Platelet count fall > 30-50% occurring 5-10 days after starting heparin (earlier with recent exposure)',
+      'New or progressive thrombosis despite heparin (venous more common; arterial/limb/skin necrosis)',
+      'A "4Ts" score assessing Thrombocytopenia, Timing (5-10 days), Thrombosis, and other causes'
+    ],
+    immediateActions: [
+      'STOP all heparin immediately (including flushes and LMWH)',
+      'Assess probability with the 4Ts score and send an anti-PF4 antibody assay (± confirmatory functional assay)',
+      'Start a non-heparin anticoagulant if HIT is intermediate/high probability — do NOT wait for confirmatory tests',
+      'Non-heparin options: argatroban, bivalirudin (or fondaparinux in selected patients)',
+      'Do NOT give platelet transfusions unless bleeding or a very low count before a procedure',
+      'Screen for and treat thrombosis: bilateral lower-limb ultrasound, consider CT imaging for PE'
+    ],
+    diagram: [
+      { title: 'Suspect from the 4Ts', description: 'Thrombocytopenia with timing 5-10 days + thrombosis ± other causes absent.', type: 'decision' },
+      { title: 'Stop heparin', description: 'Cease all heparin/LMWH including flushes.', type: 'action' },
+      { title: 'Anticoagulate', description: 'Start a non-heparin anticoagulant (argatroban/bivalirudin/fondaparinux) without waiting for the assay.', type: 'action' },
+      { title: 'Investigate', description: 'Anti-PF4 antibody (± confirmatory functional assay); screen for thrombosis.', type: 'action' },
+      { title: 'Do not transfuse platelets', description: 'Platelet transfusion may precipitate thrombosis unless the patient is bleeding.', type: 'warning' }
+    ],
+    diagnosticCriteria: ['Relative/threshold platelet drop with heparin exposure and a positive anti-PF4 antibody (with or without thrombosis)'],
+    normalLabRanges: {
+      'Platelet count': '150 - 400 x10^9/L',
+      '4Ts score': '0 - 8 (≥ 4 = intermediate/high)'
+    },
+    expectedLabDeviations: {
+      'Platelets': 'Fall of > 30-50%',
+      'PF4 antibody': 'Positive (ELISA); confirm with a functional assay'
+    },
+    differentialDiagnosis: ['Sepsis', 'Disseminated intravascular coagulation', 'Thrombotic microangiopathy', 'Drug-induced thrombocytopenia', 'Post-transfusion purpura'],
+    secondaryManagement: ['Transition to a non-heparin anticoagulant until platelets recover, then consider warfarin once platelets > 150', 'Document heparin allergy and avoid all heparins including flushes and heparin-coated lines', 'Haematology input for complex or confirmed cases'],
+    notes: 'HIT is a prothrombotic disorder — the danger is thrombosis, not bleeding. Warfarin must not be started until platelets have recovered and must be overlapped with a non-heparin anticoagulant.'
+  },
+  {
+    id: 'anticoagulation-reversal',
+    name: 'Anticoagulation Reversal / Major Bleeding',
+    category: 'Hematology',
+    severity: 'critical',
+    diagnosis: [
+      'Major bleeding, or the need for urgent surgery, in a patient on warfarin, a DOAC, or an antiplatelet',
+      'Assess: time and dose of the last dose, renal function, bleeding severity and haemodynamics',
+      'Check INR (± anti-Xa for DOACs) and full bloods; consider anticoagulant-specific reversal'
+    ],
+    immediateActions: [
+      'Hold the anticoagulant; resuscitate: oxygen, access, fluids and blood products (activate the massive haemorrhage protocol if needed)',
+      'Warfarin: Vitamin K 5 mg IV + four-factor prothrombin complex concentrate (PCC), weight-based per INR',
+      'Dabigatran: Idarucizumab 5 g IV',
+      'Anti-Xa DOACs (apixaban/rivaroxaban/edoxaban): Andexanet alfa where available, otherwise PCC (± tranexamic acid)',
+      'Antiplatelet-related bleeding: platelet transfusion is controversial; consider it in life-threatening bleeding or neurosurgery',
+      'Reverse BEFORE, or concurrently with, emergency surgery — do not wait for lab confirmation in life-threatening bleeding'
+    ],
+    diagram: [
+      { title: 'Resuscitate', description: 'Airway/breathing/circulation, large-bore access, blood products. Activate MHP if needed.', type: 'action' },
+      { title: 'Identify the agent', description: 'Warfarin, dabigatran, anti-Xa DOAC, or antiplatelet.', type: 'decision' },
+      { title: 'Reverse', description: 'Warfarin: vit K + PCC. Dabigatran: idarucizumab. Anti-Xa: andexanet/PCC. Antiplatelet: consider platelets.', type: 'action' },
+      { title: 'Escalate', description: 'Life-threatening bleeding → secure the source (surgery/radiology) alongside reversal.', type: 'warning' },
+      { title: 'Reassess', description: 'Repeat coagulation tests; correct calcium, fibrinogen and temperature.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'INR': '0.8 - 1.2',
+      'Fibrinogen': '1.5 - 4.0 g/L',
+      'Platelets': '150 - 400 x10^9/L'
+    },
+    expectedLabDeviations: {
+      'INR': 'Prolonged with warfarin',
+      'APTT/PT': 'Prolonged (agent dependent)',
+      'Haemoglobin': 'Falling with bleeding'
+    },
+    differentialDiagnosis: ['Consumptive coagulopathy (DIC)', 'Liver disease', 'Platelet dysfunction (uraemia/drugs)', 'Surgical bleeding source'],
+    secondaryManagement: ['Restart anticoagulation once haemostasis is achieved, with timing per indication and procedure', 'Haematology involvement', 'Document reversal for future procedures'],
+    notes: 'Balance reversal against thrombotic risk (e.g. mechanical valves, recent VTE) — involve haematology for the restart plan.'
+  },
+  {
+    id: 'sickle-cell-acute-chest',
+    name: 'Sickle-Cell Acute Chest Syndrome',
+    category: 'Hematology',
+    severity: 'critical',
+    diagnosis: [
+      'New pulmonary infiltrate on chest X-ray + fever and/or respiratory symptoms in a patient with sickle-cell disease',
+      'Chest pain, dyspnoea, hypoxaemia and tachypnoea; can progress to respiratory failure',
+      'Often triggered by infection, hypoxia, dehydration, cold, or hypoventilation (particularly postoperatively)'
+    ],
+    immediateActions: [
+      'Give high-flow oxygen and maintain SpO2 ≥ 94-96%; support ventilation if failing',
+      'Generous analgesia (opioid with monitoring) — pain causes splinting and worsens atelectasis',
+      'Incentive spirometry and chest physiotherapy; encourage mobilisation and hydration',
+      'Broad-spectrum antibiotics (e.g. cephalosporin ± macrolide) as infection is common',
+      'Simple transfusion for moderate anaemia/hypoxia; URGENT EXCHANGE transfusion if severe or deteriorating',
+      'Consider hydroxycarbamide and involve haematology early'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Fever + respiratory symptoms + new infiltrate in sickle-cell disease. Suspect early.', type: 'action' },
+      { title: 'Oxygen & analgesia', description: 'Target SpO2 ≥ 94-96%; opioid analgesia to prevent splinting; hydrate.', type: 'action' },
+      { title: 'Antibiotics & physio', description: 'Broad-spectrum antibiotics + incentive spirometry/chest physiotherapy.', type: 'action' },
+      { title: 'Transfusion decision', description: 'Simple transfusion if moderate; URGENT exchange transfusion if severe/hypoxic/deteriorating.', type: 'decision' },
+      { title: 'Escalate', description: 'Haematology + critical care; consider ventilation for respiratory failure.', type: 'warning' }
+    ],
+    diagnosticCriteria: ['New pulmonary infiltrate with fever and/or respiratory symptoms in sickle-cell disease'],
+    normalLabRanges: {
+      'Haemoglobin': 'Baseline is often 60-100 g/L (individual)',
+      'SpO2': '≥ 94%'
+    },
+    expectedLabDeviations: {
+      'Haemoglobin': 'May fall',
+      'WCC': 'Leukocytosis',
+      'Reticulocytes': 'Increased',
+      'Lactate dehydrogenase': 'Elevated (haemolysis)'
+    },
+    differentialDiagnosis: ['Community-acquired pneumonia', 'Pulmonary embolism', 'Pulmonary infarction (vaso-occlusive)', 'Fat embolism'],
+    secondaryManagement: ['Continue hydroxycarbamide where prescribed; avoid dehydration and hypothermia', 'Preoperative optimisation and avoidance of triggers', 'Haematology follow-up and vaccination/penicillin prophylaxis'],
+    notes: 'Postoperative patients with sickle-cell disease are at high risk; avoid hypoxaemia, dehydration, hypothermia and hypoventilation, and use incentive spirometry aggressively as prophylaxis.'
+  },
+  {
+    id: 'maternal-cardiac-arrest',
+    name: 'Maternal Cardiac Arrest',
+    category: 'Obstetrics > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Cardiac arrest in a pregnant woman; standard ACLS principles apply with maternal modifications',
+      'Consider reversible causes: haemorrhage, sepsis, embolism (amniotic/pulmonary), pre-eclampsia/eclampsia, anaesthetic complications, magnesium toxicity, local anaesthetic toxicity'
+    ],
+    immediateActions: [
+      'Call the maternal arrest team: obstetrics, anaesthesia, neonatology and resuscitation',
+      'Start chest compressions immediately — with a gravid uterus, use manual left uterine displacement (or tilt) to relieve aortocaval compression',
+      'Airway: intubate early (a difficult airway is likely); give 100% oxygen',
+      'Defibrillate and give ACLS drugs using standard doses; do not withhold on account of pregnancy',
+      'PERIMORTEM CAESAREAN: if there is no ROSC after 4 minutes, deliver the fetus (aim within 5 minutes) — even in the emergency department or operating theatre',
+      'Treat the cause: haemorrhage (blood products), amniotic fluid embolism (supportive), magnesium toxicity (calcium gluconate), LAST (lipid emulsion)'
+    ],
+    diagram: [
+      { title: 'Maternal cardiac arrest', description: 'Call the maternal arrest team. Start compressions with left uterine displacement.', type: 'action' },
+      { title: 'Airway', description: 'Intubate early with 100% O2; anticipate a difficult airway.', type: 'action' },
+      { title: 'Defibrillate & drugs', description: 'Standard ACLS: shock VF/pVT; adrenaline 1 mg every 3-5 min. Do not modify for pregnancy.', type: 'action' },
+      { title: '4-minute rule', description: 'No ROSC after 4 min → perimortem caesarean section (aim within 5 min) to improve maternal and fetal outcome.', type: 'decision' },
+      { title: 'Treat the cause', description: 'Haemorrhage, AFE, eclampsia, magnesium toxicity, LAST — treat while resuscitating.', type: 'warning' }
+    ],
+    diagnosticCriteria: ['Cardiac arrest in a pregnant patient (or up to 6 weeks postpartum)'],
+    differentialDiagnosis: ['Aortocaval compression', 'Amniotic fluid embolism', 'Eclampsia-related arrest', 'Magnesium toxicity', 'Local anaesthetic toxicity'],
+    secondaryManagement: ['After ROSC: targeted temperature management, maternal-fetal monitoring and ICU care', 'Multidisciplinary debrief and incident review', 'Neonatal resuscitation and team support'],
+    notes: 'Aortocaval compression reduces the effectiveness of compressions and the chance of ROSC — relieving it (uterine displacement or left tilt) and early perimortem caesarean section are the key maternal differences.'
+  },
+  {
+    id: 'placental-abruption',
+    name: 'Placental Abruption',
+    category: 'Obstetrics > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Painful vaginal bleeding in the 2nd/3rd trimester with a tender, "woody" uterus',
+      'May be concealed (little or no visible bleeding) with fetal compromise',
+      'Signs of maternal compromise and coagulopathy (abruption-associated DIC)'
+    ],
+    immediateActions: [
+      'Call obstetrics/neonatology; if the patient is in a facility without immediate transfusion and surgical capability, transfer after resuscitation has begun — do not delay resuscitation for transfer if she is actively bleeding',
+      'Resuscitate: two large-bore cannulae, crystalloid, cross-match and activate the massive haemorrhage protocol if bleeding is severe',
+      'Left lateral tilt; high-flow oxygen',
+      'Monitor: continuous fetal monitoring if viable, blood pressure, urine output, and repeat coagulation screen',
+      'Correct coagulopathy actively with FFP/cryoprecipitate/platelets as indicated (target fibrinogen > 2 g/L in obstetric haemorrhage)',
+      'Consider urgent delivery by caesarean if the mother or fetus is compromised and delivery is not imminent'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Painful bleeding + tender/woody uterus ± fetal compromise. Suspect even with little visible bleeding.', type: 'action' },
+      { title: 'Resuscitate', description: 'Large-bore access, fluids, cross-match, activate MHP if severe. Left tilt, oxygen.', type: 'action' },
+      { title: 'Assess severity', description: 'Maternal instability or fetal compromise → prepare for urgent delivery.', type: 'decision' },
+      { title: 'Correct coagulopathy', description: 'Abruption commonly causes DIC: replace fibrinogen, platelets and FFP.', type: 'warning' },
+      { title: 'Deliver', description: 'Mode and timing by maternal/fetal status; caesarean if compromised and delivery not imminent.', type: 'action' }
+    ],
+    normalLabRanges: {
+      'Fibrinogen': '> 2.0 g/L in obstetric haemorrhage',
+      'Platelets': '150 - 400 x10^9/L',
+      'INR': '0.8 - 1.2'
+    },
+    expectedLabDeviations: {
+      'Fibrinogen': 'Reduced',
+      'Platelets': 'Reduced',
+      'PT/APTT': 'Prolonged (DIC)'
+    },
+    differentialDiagnosis: ['Placenta praevia', 'Uterine rupture', 'Vasa praevia', 'Normal labour with a "show"'],
+    secondaryManagement: ['Postpartum: oxytocin, monitor for ongoing haemorrhage and coagulopathy', 'Blood product and critical care support', 'Debrief and review of risk factors (smoking, hypertension, trauma, cocaine)'],
+    notes: 'Abruption is a leading cause of DIC in obstetrics — check coagulation early and repeat it, and remember the bleeding may be concealed.'
+  },
+  {
+    id: 'cord-prolapse',
+    name: 'Umbilical Cord Prolapse',
+    category: 'Obstetrics > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Cord felt in the vagina or visible at the introitus after membrane rupture (or during examination)',
+      'Fetal bradycardia/variable decelerations or sudden severe fetal heart rate abnormality',
+      'The cord is compressed between the presenting part and the pelvis, causing acute fetal hypoxia'
+    ],
+    immediateActions: [
+      'Call obstetrics/neonatology for an immediate caesarean section — delivery of the baby is the definitive treatment',
+      'Elevate the presenting part (manually in theatre, or by filling the bladder) to relieve cord compression — do not attempt to replace the cord into the uterus',
+      'Position the mother in knee-chest, left lateral (with pelvic tilt) or exaggerated Sims to reduce compression',
+      'Give high-flow oxygen; minimise handling of the cord and keep it warm and moist if outside the introitus',
+      'Do not attempt vaginal delivery unless it is imminent and safe; plan immediate transfer to theatre',
+      'Consider tocolysis only if delivery will be delayed (terbutaline)'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Cord seen/felt after membrane rupture + abnormal fetal heart pattern. Call for immediate caesarean.', type: 'action' },
+      { title: 'Relieve compression', description: 'Elevate the presenting part (hand or bladder fill). Do not replace the cord.', type: 'action' },
+      { title: 'Position', description: 'Knee-chest, exaggerated Sims, or left lateral with pelvic tilt; high-flow oxygen.', type: 'action' },
+      { title: 'Deliver', description: 'Immediate caesarean section is definitive. Vaginal delivery only if imminent and safe.', type: 'decision' },
+      { title: 'Neonatal team', description: 'Alert neonatology; anticipate a compromised baby and prepare for resuscitation.', type: 'info' }
+    ],
+    diagnosticCriteria: ['Cord visualised or palpated beyond the cervix with ruptured membranes, typically with fetal heart rate abnormality'],
+    differentialDiagnosis: ['Vasa praevia', 'Prolonged fetal bradycardia of another cause', 'Presentation of another structure'],
+    secondaryManagement: ['Neonatal resuscitation and cord gas analysis', 'Maternal postoperative care', 'Debrief and review of the diagnosis and decision timing'],
+    notes: 'Time-critical: the fetus can be lost within minutes. The two life-saving actions are elevating the presenting part and immediate delivery by caesarean section.'
+  },
+  {
+    id: 'shoulder-dystocia',
+    name: 'Shoulder Dystocia',
+    category: 'Obstetrics > Emergency',
+    severity: 'urgent',
+    diagnosis: [
+      'Failure of the shoulders to deliver with routine gentle traction after the head is out ("turtle neck" sign, head retraction)',
+      'Recognised by difficulty delivering the anterior shoulder, not by a specific measurement',
+      'Anticipate with risk factors: diabetes, obesity, macrosomia, previous shoulder dystocia, prolonged second stage'
+    ],
+    immediateActions: [
+      'Call for help: obstetric, anaesthetic and neonatal teams',
+      'McRoberts position (hyperflexed hips) — the single most effective first manoeuvre — plus suprapubic pressure',
+      'Attempt internal rotational manoeuvres (Rubin II, Woods screw) if needed, then posterior arm delivery and others',
+      'Avoid fundal pressure (it increases impaction and injury) and avoid persistent traction',
+      'Anticipate a prolonged head-to-body interval → have the neonatal resuscitation team present',
+      'Document the manoeuvres, the order, the times and the personnel carefully'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Head delivered but shoulders do not follow with gentle traction. Call the obstetric emergency team.', type: 'action' },
+      { title: 'McRoberts + suprapubic pressure', description: 'Hyperflex the hips; apply suprapubic (not fundal) pressure. Most cases resolve here.', type: 'action' },
+      { title: 'Internal manoeuvres', description: 'Rubin II / Woods screw rotation; then posterior arm delivery if needed.', type: 'decision' },
+      { title: 'Avoid harm', description: 'Do NOT use fundal pressure or excessive traction. Watch the clock and call for help early.', type: 'warning' },
+      { title: 'Neonatal care', description: 'Anticipate a depressed baby; document brachial plexus assessment.', type: 'info' }
+    ],
+    diagnosticCriteria: ['Difficulty delivering the shoulders after the head, requiring additional manoeuvres (or a head-to-body interval > 60 s)'],
+    differentialDiagnosis: ['Normal slow delivery', 'Fetal anomaly', 'Cord entanglement'],
+    secondaryManagement: ['Careful neonatal examination for brachial plexus injury and fracture; document', 'Maternal examination for perineal/anal sphincter injury and haemorrhage', 'Formal documentation and, where appropriate, a structured review'],
+    notes: 'The priorities are: call for help, do not use fundal pressure, and methodically work through manoeuvres. Careful documentation is essential given the medico-legal significance.'
+  },
+  {
+    id: 'magnesium-toxicity',
+    name: 'Magnesium Toxicity',
+    category: 'Obstetrics > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Patient receiving magnesium (e.g. for pre-eclampsia/eclampsia) with loss of deep tendon reflexes, respiratory depression and weakness',
+      'Progressive: nausea, flushing, slurred speech; then hyporeflexia, respiratory depression and eventually cardiac arrest',
+      'Risk factors: renal impairment, high total dose/infusion rate, concurrent CNS depressants'
+    ],
+    immediateActions: [
+      'STOP the magnesium infusion',
+      'Give calcium gluconate 10% 10 mL IV (the specific antidote) over 5-10 min with cardiac monitoring',
+      'Assess and support airway, breathing and circulation; give oxygen and ventilate if there is respiratory depression',
+      'Monitor: deep tendon reflexes, respiratory rate, urine output and the magnesium level',
+      'If arrest (pulseless electrical activity), give calcium and resuscitate per ACLS',
+      'Consider renal function — magnesium is renally cleared; adjust or avoid in oliguria'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Loss of reflexes, drowsiness or respiratory depression on magnesium therapy. Stop the infusion.', type: 'action' },
+      { title: 'Calcium gluconate', description: '10 mL of 10% calcium gluconate IV — the specific antidote. Monitor the ECG.', type: 'action' },
+      { title: 'Support', description: 'Oxygen; ventilate if apnoeic/hypoventilating. Monitor reflexes, RR and urine output.', type: 'decision' },
+      { title: 'Resuscitate if needed', description: 'PEA/asystole → ACLS with calcium; early airway support.', type: 'warning' },
+      { title: 'Prevent', description: 'Use weight-based regimens, adjust in renal impairment, and monitor reflexes and RR in all patients on magnesium.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'Serum magnesium (therapeutic)': '2.0 - 3.5 mmol/L',
+      'Serum magnesium (toxicity)': '> 3.5 mmol/L',
+      'Respiratory rate': '> 12 /min'
+    },
+    expectedLabDeviations: {
+      'Magnesium': 'Elevated (level correlates loosely with clinical signs)',
+      'Creatinine': 'May be elevated (reduced clearance)'
+    },
+    differentialDiagnosis: ['Other causes of reduced consciousness (eclampsia, stroke)', 'Opioid/anaesthetic overdose', 'Hypocalcaemia'],
+    secondaryManagement: ['Withhold magnesium until reflexes and ventilation recover; restart cautiously if still indicated', 'Renal function review and dose adjustment', 'Continuous monitoring during subsequent magnesium therapy'],
+    notes: 'Loss of the deep tendon reflex and a falling respiratory rate are the practical bedside warning signs; calcium gluconate reverses the neuromuscular and cardiac effects.'
+  },
+  {
+    id: 'uterine-rupture',
+    name: 'Uterine Rupture',
+    category: 'Obstetrics > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Sudden severe abdominal pain, loss of fetal station/engagement, and fetal heart rate abnormality (often bradycardia/late decelerations)',
+      'Maternal signs of hypovolaemia/shock may be delayed or mild because the fetus and placenta are in the peritoneal cavity',
+      'Risk factors: previous caesarean/uterine surgery, induction with prostaglandins, excessive oxytocin, trauma'
+    ],
+    immediateActions: [
+      'Call for help; declare an obstetric emergency — surgery and anaesthesia immediately',
+      'Resuscitate for haemorrhage: large-bore access, crystalloid, cross-match, activate the massive haemorrhage protocol',
+      'Left lateral tilt, high-flow oxygen; consider perimortem caesarean if there is arrest',
+      'Urgent laparotomy and delivery; repair the uterus if feasible, otherwise hysterectomy',
+      'Expect major haemorrhage and coagulopathy — replace blood products actively (fibrinogen if low)',
+      'Neonatal resuscitation team for a severely compromised baby'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Sudden pain + loss of station + fetal compromise in a woman with a uterine scar. Call for immediate surgery.', type: 'action' },
+      { title: 'Resuscitate', description: 'Treat as major obstetric haemorrhage: access, fluids, blood products, MHP.', type: 'action' },
+      { title: 'Laparotomy', description: 'Deliver the baby; repair the uterus or proceed to hysterectomy depending on the damage.', type: 'action' },
+      { title: 'Coagulopathy', description: 'Major haemorrhage → replace fibrinogen/platelets/FFP; monitor closely.', type: 'warning' },
+      { title: 'Neonatal team', description: 'Anticipate a severely compromised neonate; resuscitate as required.', type: 'info' }
+    ],
+    diagnosticCriteria: ['Clinical diagnosis of uterine rupture with fetal compromise ± maternal haemorrhage, confirmed at laparotomy'],
+    differentialDiagnosis: ['Placental abruption', 'Uterine dehiscence (incomplete)', 'Uterine hyperstimulation', 'Splenic/hepatic rupture'],
+    secondaryManagement: ['Intensive care monitoring for haemorrhage and coagulopathy', 'Debrief and review of the mode of delivery/induction', 'Counsel regarding future pregnancy and delivery'],
+    notes: 'Both the maternal and fetal clinical signs can be deceptively mild at first — the diagnosis is made on the pattern (loss of station + fetal compromise) and acted on, not waited for.'
+  },
+  {
+    id: 'tca-overdose',
+    name: 'Tricyclic Antidepressant (TCA) Overdose',
+    category: 'Toxicology > Cardiovascular',
+    severity: 'critical',
+    diagnosis: [
+      'Anticholinergic features, reduced consciousness and seizures',
+      'Cardiotoxicity: wide QRS, QT prolongation, ventricular arrhythmia and hypotension',
+      'A QRS > 100 ms predicts serious toxicity (seizures and arrhythmia)'
+    ],
+    immediateActions: [
+      'Airway/breathing: intubate early with 100% oxygen if consciousness is reduced or the patient is apnoeic',
+      'Do NOT give flumazenil; give activated charcoal only if very early and the airway is protected',
+      'Sodium bicarbonate 1-2 mmol/kg IV for QRS widening (> 100 ms) or ventricular arrhythmia; repeat to target a QRS < 100 ms',
+      'Manage seizures with benzodiazepines; avoid physostigmine',
+      'Treat arrhythmias with sodium bicarbonate (avoid Class Ia/Ic antiarrhythmics); consider magnesium for torsades',
+      'Support blood pressure with fluids and, if needed, a vasoconstrictor; consider invasive monitoring in severe cases'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'TCA ingestion with anticholinergic features and ECG changes. Obtain a 12-lead ECG and monitor.', type: 'action' },
+      { title: 'QRS > 100 ms?', description: 'Yes → sodium bicarbonate bolus (1-2 mmol/kg) and repeat to narrow the QRS.', type: 'decision' },
+      { title: 'Seizures', description: 'Treat with benzodiazepines; sodium bicarbonate for associated arrhythmia.', type: 'action' },
+      { title: 'Cardiac support', description: 'Bicarbonate for arrhythmia/hypotension; fluids ± vasopressor; avoid Class Ia/Ic agents.', type: 'warning' },
+      { title: 'Escalate', description: 'Severe cases: ICU; consider lipid emulsion and ECMO referral for refractory shock.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'QRS duration': '< 100 ms',
+      'pH': '7.35 - 7.45',
+      'Potassium': '3.5 - 5.0 mmol/L'
+    },
+    expectedLabDeviations: {
+      'QRS': 'Widened (> 100 ms = serious toxicity)',
+      'pH': 'Acidosis worsens toxicity',
+      'K+': 'May be elevated in severe toxicity'
+    },
+    differentialDiagnosis: ['Other sodium-channel blocker toxicity (flecainide, carbamazepine)', 'Serotonin syndrome', 'Anticholinergic poisoning'],
+    secondaryManagement: ['Admission and cardiac monitoring for at least 24 h in significant ingestion', 'Psychiatric assessment before discharge', 'Toxicology/poisons centre advice'],
+    notes: 'Sodium bicarbonate is both diagnostic and therapeutic and is the key treatment — the goal is to narrow a widened QRS. Avoid flumazenil and Class Ia/Ic antiarrhythmics.'
+  },
+  {
+    id: 'salicylate-poisoning',
+    name: 'Salicylate (Aspirin) Poisoning',
+    category: 'Toxicology > Metabolic',
+    severity: 'urgent',
+    diagnosis: [
+      'Tinnitus, nausea/vomiting, hyperventilation, sweating and altered consciousness',
+      'Mixed acid–base disturbance: respiratory alkalosis (early) with a raised-anion-gap metabolic acidosis',
+      'Severity correlates with the clinical picture and the plasma salicylate level (though the level can be misleadingly low early)'
+    ],
+    immediateActions: [
+      'Resuscitate: oxygen and airway protection if consciousness is reduced; activated charcoal 50 g if within 1-2 h (airway protected, no caustic co-ingestion)',
+      'Correct dehydration with IV crystalloid plus glucose (patients are often volume-depleted)',
+      'Alkalinise the urine and plasma: sodium bicarbonate infusion to keep the urine pH 7.5-8.0 and the serum pH around 7.4 (enhances elimination)',
+      'Add potassium as required to allow alkalinisation',
+      'Haemodialysis for severe poisoning: high level, refractory acidosis, renal failure, pulmonary oedema or CNS signs',
+      'Do not rely on a single early level — the clinical picture drives management'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Tinnitus + hyperventilation + mixed acid–base picture. Obtain a salicylate level and ABG.', type: 'action' },
+      { title: 'Decontaminate', description: 'Activated charcoal if early and the airway is protected.', type: 'action' },
+      { title: 'Fluids & alkalinise', description: 'Crystalloid + glucose; sodium bicarbonate to urine pH 7.5-8.0; add potassium.', type: 'action' },
+      { title: 'Assess for dialysis', description: 'Severe features (acidosis, CNS, renal failure, pulmonary oedema) → urgent haemodialysis.', type: 'decision' },
+      { title: 'Monitor', description: 'Serial ABGs, glucose, potassium and level; watch for pulmonary oedema.', type: 'warning' }
+    ],
+    normalLabRanges: {
+      'Salicylate level': 'Therapeutic < 2.2 mmol/L (300 mg/L)',
+      'pH': '7.35 - 7.45',
+      'Anion gap': '8 - 12 mmol/L'
+    },
+    expectedLabDeviations: {
+      'pH': 'Respiratory alkalosis ± metabolic acidosis',
+      'Anion gap': 'Elevated',
+      'Glucose': 'May be low/normal (give glucose)'
+    },
+    differentialDiagnosis: ['Other causes of a raised-anion-gap metabolic acidosis', 'Diabetic ketoacidosis', 'Sepsis'],
+    secondaryManagement: ['Admit for monitoring and repeat levels; psychiatric assessment', 'Avoid fluid overload (pulmonary oedema risk)', 'Toxicology advice — dialysis thresholds vary'],
+    notes: 'Alkalinisation (urine pH 7.5-8.0) is the mainstay; haemodialysis is definitive in severe cases. Do not be reassured by a low early level — the clinical picture drives management.'
+  },
+  {
+    id: 'toxic-alcohols',
+    name: 'Methanol / Ethylene Glycol Poisoning',
+    category: 'Toxicology > Metabolic',
+    severity: 'critical',
+    diagnosis: [
+      'Features of intoxication with a high-anion-gap metabolic acidosis (the osmolar gap is often normal)',
+      'Methanol: visual disturbance (blurred vision, "snowfield", blindness) and abdominal pain',
+      'Ethylene glycol: renal failure, hypocalcaemia, calcium oxalate crystals and cardiopulmonary features'
+    ],
+    immediateActions: [
+      'Resuscitate; airway protection as required; correct electrolyte and acid–base disturbance',
+      'Fomepizole (preferred) or ethanol as an alcohol dehydrogenase blocker — give early, do not wait for the level',
+      'Sodium bicarbonate for severe acidosis (pH < 7.2)',
+      'Give cofactors: folic acid/folinic acid (methanol) or thiamine plus pyridoxine (ethylene glycol)',
+      'Urgent haemodialysis for severe poisoning (pH < 7.2, visual/renal/organ failure, or toxic levels)',
+      'Do not withhold antidote/dialysis pending confirmation if the clinical picture is consistent'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Intoxication + high-anion-gap acidosis; visual (methanol) or renal (ethylene glycol) features. Suspect and treat empirically.', type: 'action' },
+      { title: 'Block metabolism', description: 'Fomepizole (or ethanol) given early — before the level returns if suspicion is high.', type: 'action' },
+      { title: 'Acidosis', description: 'Sodium bicarbonate for pH < 7.2; cofactors (folate or thiamine + pyridoxine).', type: 'action' },
+      { title: 'Dialysis', description: 'Urgent haemodialysis for severe toxicity or organ failure.', type: 'decision' },
+      { title: 'Supportive care', description: 'ICU monitoring, correct electrolytes (including calcium) and glucose.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'pH': '7.35 - 7.45',
+      'Osmolar gap': '< 10 mOsm/kg',
+      'Anion gap': '8 - 12 mmol/L',
+      'Calcium': '2.2 - 2.6 mmol/L'
+    },
+    expectedLabDeviations: {
+      'pH': 'Metabolic acidosis',
+      'Anion gap': 'Elevated',
+      'Calcium': 'Low (especially ethylene glycol)',
+      'Creatinine': 'Rising'
+    },
+    differentialDiagnosis: ['Diabetic ketoacidosis / alcoholic ketoacidosis', 'Lactic acidosis', 'Paracetamol/salicylate co-ingestion'],
+    secondaryManagement: ['ICU and nephrology involvement; repeat dialysis may be needed', 'Monitor for complications (pancreatitis, rhabdomyolysis, renal failure)', 'Toxicology/poisons centre guidance'],
+    notes: 'Treat on clinical suspicion — the classic osmolar gap is often absent once metabolites have formed. Early alcohol dehydrogenase blockade and dialysis are the key interventions.'
+  },
+  {
+    id: 'organophosphate-poisoning',
+    name: 'Organophosphate / Carbamate Poisoning',
+    category: 'Toxicology > Emergency',
+    severity: 'critical',
+    diagnosis: [
+      'Cholinergic toxidrome: salivation, lacrimation, urination, diarrhoea, vomiting, bronchorrhoea and miosis',
+      'Bradycardia, wheeze/bronchorrhoea, muscle fasciculations, weakness and CNS depression',
+      'History of exposure (agricultural/insecticide) is often available; a cholinergic patient with bronchorrhoea is the classic picture'
+    ],
+    immediateActions: [
+      'Do not expose yourself — wear PPE and decontaminate the patient (remove clothes, wash skin) before or during resuscitation',
+      'Airway/breathing: suction secretions, give oxygen; intubate if apnoeic or unable to manage secretions',
+      'Atropine: escalating doses (e.g. 0.6-1.2 mg IV, doubled every 5 min) until the chest is clear — titrate to dry secretions',
+      'Pralidoxime (2-PAM) early — reactivates the enzyme; especially important for organophosphates',
+      'Benzodiazepines for seizures and agitation',
+      'Supportive care: fluids, monitoring, and continued atropine (often large total doses) for as long as bronchial secretions persist'
+    ],
+    diagram: [
+      { title: 'Protect & decontaminate', description: 'PPE; remove clothing and wash the skin. Do not become a secondary casualty.', type: 'warning' },
+      { title: 'Airway & secretions', description: 'Suction bronchorrhoea, oxygen, intubate if required.', type: 'action' },
+      { title: 'Atropine', description: 'Escalating doses to dry the chest; titrate to secretions. Avoid relying on the heart rate alone.', type: 'action' },
+      { title: 'Pralidoxime', description: 'Give early to reactivate acetylcholinesterase (particularly organophosphates).', type: 'action' },
+      { title: 'Seizures & support', description: 'Benzodiazepines for seizures; continue atropine until the chest is clear; ICU support for respiratory failure.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'Heart rate': '60 - 100 /min',
+      'Respiratory rate': '12 - 20 /min',
+      'Cholinesterase': 'Low (diagnostic but not required to treat)'
+    },
+    expectedLabDeviations: {
+      'RBC/plasma cholinesterase': 'Reduced',
+      'ABG': 'Hypoxia ± hypercapnia',
+      'ECG': 'Bradycardia, prolonged QT'
+    },
+    differentialDiagnosis: ['Nerve-agent exposure', 'Salicylate/other poisoning with acidosis', 'Gastroenteritis/sepsis'],
+    secondaryManagement: ['Prolonged monitoring for an intermediate syndrome (weakness 24-96 h after exposure)', 'Repeat atropine/oxime as needed; ICU support', 'Toxicology and occupational-health review; decontaminate the environment'],
+    notes: 'Atropine is titrated to dry the chest, not to a heart-rate target, and large total doses may be required. Never enter a contaminated scene without protective equipment.'
+  },
+  {
+    id: 'digoxin-toxicity',
+    name: 'Digoxin Toxicity',
+    category: 'Toxicology > Cardiovascular',
+    severity: 'critical',
+    diagnosis: [
+      'Nausea/vomiting, confusion, visual disturbance (yellow halos/xanthopsia), and brady- or tachyarrhythmias',
+      'Risk factors: renal impairment, hypokalaemia, hypomagnesaemia, hypercalcaemia and drug interactions (amiodarone, verapamil)',
+      'ECG: bradyarrhythmia, AV block, or "reverse tick" ST changes; almost any arrhythmia can occur'
+    ],
+    immediateActions: [
+      'Resuscitate and monitor; correct hypoxia and manage severe bradyarrhythmia/arrest',
+      'Correct electrolytes: treat hypokalaemia (cautiously) and hypomagnesaemia; avoid calcium (it can worsen toxicity)',
+      'Consider activated charcoal if early; do not give calcium-based treatment without advice',
+      'Digoxin-specific antibody fragments for life-threatening arrhythmia, haemodynamic compromise, high level, or severe hyperkalaemia',
+      'Treat arrhythmias: atropine for bradycardia; phenytoin/lidocaine for ventricular arrhythmia; avoid DC cardioversion unless essential',
+      'Review renal function — digoxin is renally cleared; dialysis is not a substitute for antibody fragments'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Brady/tachyarrhythmia + GI/visual symptoms + risk factors. Check the level, K+ and renal function.', type: 'action' },
+      { title: 'Electrolytes', description: 'Correct K+/Mg2+ carefully; avoid calcium-containing treatments.', type: 'action' },
+      { title: 'Severe features?', description: 'Life-threatening arrhythmia, shock, high level or hyperkalaemia → give digoxin-specific antibody fragments.', type: 'decision' },
+      { title: 'Arrhythmia', description: 'Atropine for bradycardia; lidocaine/phenytoin for ventricular arrhythmia; avoid unnecessary cardioversion.', type: 'warning' },
+      { title: 'Renal support', description: 'Review renal function and drug clearance; involve cardiology/toxicology.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'Digoxin (therapeutic)': '0.6 - 1.2 nmol/L (trough)',
+      'Potassium': '3.5 - 5.0 mmol/L',
+      'Magnesium': '0.7 - 1.0 mmol/L'
+    },
+    expectedLabDeviations: {
+      'Digoxin': 'Elevated',
+      'Potassium': 'Often high in acute toxicity (low in chronic)',
+      'Creatinine': 'Rising/impairment'
+    },
+    differentialDiagnosis: ['Other causes of bradyarrhythmia', 'Hyperkalaemia of another cause', 'TCA/other cardiotoxic poisoning'],
+    secondaryManagement: ['Monitor and repeat levels/electrolytes; withhold digoxin until resolved', 'Cardiology review and adjustment of therapy', 'Toxicology advice for antibody-fragment dosing'],
+    notes: 'Digoxin-specific antibody fragments are the definitive treatment for serious toxicity and should be given early in haemodynamically significant poisoning.'
+  },
+  {
+    id: 'cocaine-toxicity',
+    name: 'Cocaine / Sympathomimetic Toxicity',
+    category: 'Toxicology > Cardiovascular',
+    severity: 'critical',
+    diagnosis: [
+      'Sympathomimetic toxidrome: tachycardia, hypertension, hyperthermia, mydriasis, agitation and diaphoresis',
+      'Severe complications: acute coronary syndrome, aortic dissection, seizure/intracranial haemorrhage, hyperthermia and rhabdomyolysis',
+      'Body-packers may present with bowel obstruction or delayed absorption'
+    ],
+    immediateActions: [
+      'Set limits: a calm environment; benzodiazepines (first-line) for agitation, hypertension and hyperthermia',
+      'Cardiovascular: titrate benzodiazepines; add nitrates and/or a calcium-channel blocker for refractory hypertension (avoid pure beta-blockers alone)',
+      'Acute coronary syndrome: manage as per ACS (aspirin, nitrates) with a calcium-channel blocker and/or benzodiazepine',
+      'Hyperthermia: active cooling and benzodiazepines; consider ongoing serotonergic/dopaminergic features',
+      'Seizures: benzodiazepines; exclude intracranial haemorrhage if focal signs or head injury',
+      'Suspected aortic dissection: rapid heart-rate/blood-pressure control and urgent CT aorta with vascular surgery'
+    ],
+    diagram: [
+      { title: 'Recognise', description: 'Sympathomimetic features; look for ACS, dissection, hyperthermia and seizure. Monitor and obtain a 12-lead ECG.', type: 'action' },
+      { title: 'Sedate & cool', description: 'Benzodiazepines first-line for agitation/HTN/hyperthermia; active cooling if hot.', type: 'action' },
+      { title: 'Chest pain?', description: 'Treat as ACS (aspirin, nitrates, CCB/benzodiazepine). Avoid pure beta-blockade.', type: 'decision' },
+      { title: 'Severe hypertension', description: 'Nitrate and/or calcium-channel blocker; avoid unopposed alpha/beta effects.', type: 'warning' },
+      { title: 'Prevent & investigate', description: 'Rhabdomyolysis/renal protection; CT/aortic imaging if dissection suspected; toxicology/psychiatric referral.', type: 'info' }
+    ],
+    normalLabRanges: {
+      'Creatine kinase': '< 200 U/L',
+      'Core temperature': '< 38°C',
+      'Potassium': '3.5 - 5.0 mmol/L'
+    },
+    expectedLabDeviations: {
+      'CK': 'Elevated (rhabdomyolysis)',
+      'Creatinine': 'Rising',
+      'pH': 'Acidosis',
+      'Troponin': 'May be elevated'
+    },
+    differentialDiagnosis: ['Serotonin syndrome', 'Neuroleptic malignant syndrome', 'Sepsis/heat stroke', 'Thyroid storm'],
+    secondaryManagement: ['ICU monitoring for hyperthermia, rhabdomyolysis and arrhythmia', 'Renal protection and rhabdomyolysis management', 'Substance-misuse and psychiatric services; safeguarding'],
+    notes: 'Benzodiazepines are the cornerstone of treatment for the agitated, hypertensive, hyperthermic patient. Avoid beta-blockade alone and actively look for the "big four": ACS, dissection, seizure and hyperthermia.'
   }
 ];
